@@ -59,19 +59,70 @@ export default function Projects() {
           </h2>
         </motion.div>
 
-        {/* Oidoo — full showcase */}
+        {/* Oidoo showcase */}
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
           className="rounded-2xl border border-border bg-card overflow-hidden mb-5"
         >
-          {/* Top accent line */}
           <div className="h-px bg-gradient-to-r from-accent/50 via-gold/30 to-transparent" />
 
+          {/* Browser frame */}
+          <div className="border-b border-border">
+            {/* Chrome bar */}
+            <div className="flex items-center gap-3 px-4 py-3 bg-card">
+              <div className="flex gap-1.5 shrink-0">
+                <div className="w-2.5 h-2.5 rounded-full bg-border" />
+                <div className="w-2.5 h-2.5 rounded-full bg-border" />
+                <div className="w-2.5 h-2.5 rounded-full bg-border" />
+              </div>
+              <div className="flex-1 flex items-center justify-center">
+                <div className="bg-bg border border-border rounded-md px-4 py-1 flex items-center gap-2">
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="text-muted/40">
+                    <rect x="1" y="4" width="8" height="6" rx="1" stroke="currentColor" strokeWidth="1.2" />
+                    <path d="M3 4V3a2 2 0 0 1 4 0v1" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+                  </svg>
+                  <span className="text-xs text-muted/50 font-mono">oidoo.app</span>
+                </div>
+              </div>
+              <a
+                href="https://www.oidoo.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 text-muted/40 hover:text-muted transition-colors"
+                aria-label="Open oidoo.app"
+              >
+                <ArrowUpRight />
+              </a>
+            </div>
+
+            {/* Iframe viewport */}
+            <div className="relative overflow-hidden bg-white" style={{ height: "400px" }}>
+              <iframe
+                src="https://www.oidoo.app"
+                title="Oidoo App Preview"
+                style={{
+                  width: "133.33%",
+                  height: "534px",
+                  transform: "scale(0.75)",
+                  transformOrigin: "top left",
+                  pointerEvents: "none",
+                  border: "none",
+                }}
+              />
+              {/* Bottom fade */}
+              <div
+                className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none"
+                style={{ background: "linear-gradient(to bottom, transparent, #131110)" }}
+              />
+            </div>
+          </div>
+
+          {/* Content */}
           <div className="p-8 md:p-12">
             {/* Header row */}
-            <div className="flex items-center justify-between mb-10">
+            <div className="flex items-center justify-between mb-8">
               <span className="text-xs font-medium text-accent/80 bg-accent/8 border border-accent/15 px-3 py-1.5 rounded-md">
                 {t.projects.oidoo_tag}
               </span>
@@ -81,24 +132,6 @@ export default function Projects() {
                 <span className="text-accent/80">{t.projects.oidoo_status}</span>
               </div>
             </div>
-
-            {/* Browser chrome mockup */}
-            <a
-              href="https://www.oidoo.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-bg border border-border rounded-lg px-4 py-2.5 mb-10 hover:border-border-light transition-colors duration-200 group"
-            >
-              <div className="flex gap-1.5 shrink-0">
-                <div className="w-2.5 h-2.5 rounded-full bg-border" />
-                <div className="w-2.5 h-2.5 rounded-full bg-border" />
-                <div className="w-2.5 h-2.5 rounded-full bg-border" />
-              </div>
-              <span className="text-xs text-muted/50 font-mono group-hover:text-muted/80 transition-colors">
-                oidoo.app
-              </span>
-              <ArrowUpRight />
-            </a>
 
             {/* Product name + tagline */}
             <h3 className="text-4xl md:text-5xl font-bold text-text tracking-tight mb-3">
@@ -131,7 +164,7 @@ export default function Projects() {
               ))}
             </div>
 
-            {/* Bottom: stack + CTA */}
+            {/* Stack + CTA */}
             <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
               <div className="flex flex-wrap gap-2">
                 {oidooStack.map((tech) => (
