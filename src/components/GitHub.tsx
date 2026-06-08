@@ -5,7 +5,7 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
-const GITHUB_USERNAME = "chrzuszcz";
+const GITHUB_USERNAME = "mch-codes";
 
 function GitHubIcon() {
   return (
