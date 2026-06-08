@@ -62,14 +62,6 @@ const stack = [
   },
 ];
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="text-xs font-semibold tracking-widest uppercase text-accent mb-4">
-      {children}
-    </p>
-  );
-}
-
 export default function About() {
   const { t } = useLanguage();
   const ref = useRef(null);
@@ -77,6 +69,7 @@ export default function About() {
 
   return (
     <section id="about" className="py-28 md:py-36 relative">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           ref={ref}
@@ -87,7 +80,7 @@ export default function About() {
         >
           {/* Left: text */}
           <div>
-            <SectionLabel>{t.about.title}</SectionLabel>
+            <span className="text-[11px] font-mono tracking-widest text-muted/50 uppercase block mb-5">01</span>
             <h2 className="text-3xl md:text-4xl font-bold text-text tracking-tight mb-8 leading-[1.15]">
               De las cocinas
               <br />
@@ -101,7 +94,7 @@ export default function About() {
 
           {/* Right: stack */}
           <div>
-            <p className="text-xs font-semibold tracking-widest uppercase text-muted mb-6">
+            <p className="text-[11px] font-mono tracking-widest text-muted/50 uppercase mb-6">
               {t.about.stack}
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -125,14 +118,6 @@ export default function About() {
                   </span>
                 </motion.div>
               ))}
-            </div>
-
-            {/* Decorative quote */}
-            <div className="mt-10 p-5 rounded-xl border border-border bg-card/50">
-              <p className="text-sm text-muted leading-relaxed italic">
-                {`"La mise en place no es sólo una técnica de cocina. Es una forma de pensar."`}
-              </p>
-              <p className="text-xs text-accent mt-3 font-medium">— Marcin</p>
             </div>
           </div>
         </motion.div>

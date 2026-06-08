@@ -75,15 +75,6 @@ export default function Contact() {
     <section id="contact" className="py-28 md:py-36 relative">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
-      {/* Warm glow */}
-      <div
-        className="absolute bottom-0 right-0 w-[50%] h-[50%] pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(200,169,110,0.05) 0%, transparent 70%)",
-        }}
-      />
-
       <div className="max-w-6xl mx-auto px-6" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -91,9 +82,7 @@ export default function Contact() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
           className="mb-14"
         >
-          <p className="text-xs font-semibold tracking-widest uppercase text-accent mb-4">
-            {t.contact.title}
-          </p>
+          <span className="text-[11px] font-mono tracking-widest text-muted/50 uppercase block mb-5">04</span>
           <h2 className="text-3xl md:text-4xl font-bold text-text tracking-tight leading-[1.15]">
             {t.contact.subtitle}
           </h2>
@@ -197,18 +186,9 @@ export default function Contact() {
               </p>
               <a
                 href={`mailto:${EMAIL}`}
-                className="text-text text-sm font-medium hover:text-accent transition-colors flex items-center gap-2"
+                className="text-text text-sm font-medium hover:text-accent transition-colors"
               >
                 {EMAIL}
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-muted">
-                  <path
-                    d="M1.5 10.5l9-9M10.5 1.5H4.5M10.5 1.5v6"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
               </a>
             </div>
 
@@ -217,21 +197,7 @@ export default function Contact() {
               <p className="text-xs font-semibold tracking-widest uppercase text-muted mb-3">
                 Location
               </p>
-              <div className="flex items-center gap-2 text-text text-sm font-medium">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-accent">
-                  <path
-                    d="M7 7.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                  />
-                  <path
-                    d="M7 1.5C4.515 1.5 2.5 3.515 2.5 6c0 3.5 4.5 7 4.5 7s4.5-3.5 4.5-7c0-2.485-2.015-4.5-4.5-4.5z"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                  />
-                </svg>
-                {t.contact.location}
-              </div>
+              <p className="text-text text-sm font-medium">{t.contact.location}</p>
             </div>
 
             {/* LinkedIn */}

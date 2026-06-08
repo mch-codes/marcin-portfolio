@@ -28,20 +28,16 @@ export default function Projects() {
 
   return (
     <section id="projects" className="py-28 md:py-36 relative">
-      {/* Subtle section separator */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
       <div className="max-w-6xl mx-auto px-6" ref={ref}>
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
           className="mb-14"
         >
-          <p className="text-xs font-semibold tracking-widest uppercase text-accent mb-4">
-            {t.projects.title}
-          </p>
+          <span className="text-[11px] font-mono tracking-widest text-muted/50 uppercase block mb-5">02</span>
           <h2 className="text-3xl md:text-4xl font-bold text-text tracking-tight leading-[1.15]">
             Productos reales,
             <br />
@@ -49,7 +45,6 @@ export default function Projects() {
           </h2>
         </motion.div>
 
-        {/* Cards grid */}
         <div className="grid md:grid-cols-3 gap-5">
           {/* Oidoo — Hero card (spans 2 columns) */}
           <motion.div
@@ -58,25 +53,13 @@ export default function Projects() {
             transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
             className="md:col-span-2 group relative flex flex-col justify-between rounded-2xl border border-border bg-card overflow-hidden p-8 hover:border-border-light transition-all duration-300"
           >
-            {/* Glow effect */}
-            <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-              style={{
-                background:
-                  "radial-gradient(circle at 30% 30%, rgba(232,149,109,0.05) 0%, transparent 60%)",
-              }}
-            />
-
-            {/* Tag */}
             <div className="flex items-start justify-between mb-8">
-              <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-wide uppercase text-accent bg-accent/10 border border-accent/20 px-3 py-1.5 rounded-full">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+              <span className="inline-flex items-center text-xs font-medium text-accent bg-accent/8 border border-accent/15 px-3 py-1.5 rounded-md">
                 {t.projects.oidoo_tag}
               </span>
               <span className="text-xs text-muted">2024</span>
             </div>
 
-            {/* Content */}
             <div className="flex-1">
               <h3 className="text-2xl font-bold text-text mb-3 tracking-tight">
                 {t.projects.oidoo_name}
@@ -85,7 +68,6 @@ export default function Projects() {
                 {t.projects.oidoo_desc}
               </p>
 
-              {/* Stack pills */}
               <div className="flex flex-wrap gap-2 mb-10">
                 {oidooStack.map((tech) => (
                   <span
@@ -98,7 +80,6 @@ export default function Projects() {
               </div>
             </div>
 
-            {/* CTA */}
             <a
               href="https://www.oidoo.app"
               target="_blank"
@@ -128,13 +109,8 @@ export default function Projects() {
                 }}
                 className="flex-1 rounded-2xl border border-dashed border-border bg-card/40 p-6 flex flex-col justify-between"
               >
-                {/* Status badge */}
-                <div className="flex items-center justify-between mb-auto">
-                  <span className="inline-flex items-center gap-2 text-xs font-medium text-gold bg-gold/10 border border-gold/20 px-3 py-1.5 rounded-full">
-                    <span
-                      className="w-1.5 h-1.5 rounded-full bg-gold"
-                      style={{ animation: "pulse 2s ease-in-out infinite" }}
-                    />
+                <div>
+                  <span className="inline-flex items-center text-xs font-medium text-gold/80 bg-gold/8 border border-gold/15 px-3 py-1.5 rounded-md">
                     {t.projects.wip_badge}
                   </span>
                 </div>
@@ -144,17 +120,6 @@ export default function Projects() {
                     {t.projects.wip_name}
                   </h3>
                   <p className="text-sm text-muted/60">{t.projects.wip_desc}</p>
-                </div>
-
-                {/* Decorative dots */}
-                <div className="mt-6 flex gap-1.5">
-                  {[...Array(8)].map((_, j) => (
-                    <div
-                      key={j}
-                      className="w-1.5 h-1.5 rounded-full bg-border"
-                      style={{ opacity: 0.4 + j * 0.07 }}
-                    />
-                  ))}
                 </div>
               </motion.div>
             ))}

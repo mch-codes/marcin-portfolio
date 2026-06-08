@@ -31,9 +31,7 @@ export default function GitHub() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
           className="mb-14"
         >
-          <p className="text-xs font-semibold tracking-widest uppercase text-accent mb-4">
-            {t.github.title}
-          </p>
+          <span className="text-[11px] font-mono tracking-widest text-muted/50 uppercase block mb-5">03</span>
           <h2 className="text-3xl md:text-4xl font-bold text-text tracking-tight leading-[1.15]">
             {t.github.subtitle}
           </h2>
