@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
@@ -80,6 +81,21 @@ export default function About() {
         >
           {/* Left: text */}
           <div>
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-14 h-14 rounded-xl overflow-hidden border border-border shrink-0">
+                <Image
+                  src="https://avatars.githubusercontent.com/u/141457529?v=4"
+                  alt="Marcin Chrzuszcz"
+                  width={56}
+                  height={56}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-text">Marcin Chrzuszcz</p>
+                <p className="text-xs text-muted mt-0.5">Fullstack Developer · ex-Chef</p>
+              </div>
+            </div>
             <span className="text-[11px] font-mono tracking-widest text-muted/50 uppercase block mb-5">01</span>
             <h2 className="text-3xl md:text-4xl font-bold text-text tracking-tight mb-8 leading-[1.15]">
               De las cocinas

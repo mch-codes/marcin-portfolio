@@ -193,32 +193,28 @@ export default function Projects() {
           </div>
         </motion.div>
 
-        {/* WIP cards */}
-        <div className="grid md:grid-cols-2 gap-5">
-          {[1, 2].map((i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 32 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{
-                duration: 0.7,
-                delay: 0.2 + i * 0.08,
-                ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-              }}
-              className="rounded-2xl border border-dashed border-border bg-card/40 p-6 flex flex-col justify-between min-h-[140px]"
-            >
-              <span className="inline-flex items-center text-xs font-medium text-gold/70 bg-gold/8 border border-gold/15 px-3 py-1.5 rounded-md self-start">
-                {t.projects.wip_badge}
-              </span>
-              <div className="mt-6">
-                <h3 className="text-base font-semibold text-text/50 mb-1 tracking-tight">
-                  {t.projects.wip_name}
-                </h3>
-                <p className="text-sm text-muted/50">{t.projects.wip_desc}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        {/* WIP card */}
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+          className="rounded-2xl border border-dashed border-border bg-card/40 p-7 flex items-center justify-between gap-6"
+        >
+          <div className="flex items-center gap-4">
+            <span className="inline-flex items-center text-xs font-medium text-gold/70 bg-gold/8 border border-gold/15 px-3 py-1.5 rounded-md shrink-0">
+              {t.projects.wip_badge}
+            </span>
+            <div>
+              <h3 className="text-sm font-semibold text-text/60 tracking-tight">{t.projects.wip_name}</h3>
+              <p className="text-xs text-muted/50 mt-0.5">{t.projects.wip_desc}</p>
+            </div>
+          </div>
+          <div className="hidden sm:flex gap-1.5 shrink-0">
+            {[...Array(5)].map((_, j) => (
+              <div key={j} className="w-1 h-1 rounded-full bg-border" style={{ opacity: 0.3 + j * 0.14 }} />
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

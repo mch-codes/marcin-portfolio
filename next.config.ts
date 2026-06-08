@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { hostname: "github-readme-stats.vercel.app" },
       { hostname: "ghchart.rshah.org" },
+      { hostname: "avatars.githubusercontent.com" },
     ],
   },
 };
