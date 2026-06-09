@@ -42,11 +42,14 @@ function NetworkCanvas() {
 
     const N = 75;
     const MAX_DIST = 170;
+    const MOUSE_DIST = 140;
+    const REPEL_STRENGTH = 3.5;
 
     interface Particle { x: number; y: number; vx: number; vy: number; r: number }
 
     let W = canvas.width;
     let H = canvas.height;
+    const mouse = { x: -9999, y: -9999 };
 
     const particles: Particle[] = Array.from({ length: N }, () => ({
       x: Math.random() * W,
@@ -65,12 +68,34 @@ function NetworkCanvas() {
     window.removeEventListener("resize", resize);
     window.addEventListener("resize", onResize);
 
+    const onMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    };
+    const onMouseLeave = () => { mouse.x = -9999; mouse.y = -9999; };
+    window.addEventListener("mousemove", onMouseMove);
+    canvas.addEventListener("mouseleave", onMouseLeave);
+
     const draw = () => {
       W = canvas.width;
       H = canvas.height;
       ctx.clearRect(0, 0, W, H);
 
       for (const p of particles) {
+        // repel from mouse
+        const mdx = p.x - mouse.x;
+        const mdy = p.y - mouse.y;
+        const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+        if (mdist < MOUSE_DIST && mdist > 0) {
+          const force = (1 - mdist / MOUSE_DIST) * REPEL_STRENGTH;
+          p.vx += (mdx / mdist) * force * 0.06;
+          p.vy += (mdy / mdist) * force * 0.06;
+        }
+        // dampen
+        p.vx *= 0.98;
+        p.vy *= 0.98;
+
         p.x += p.vx;
         p.y += p.vy;
         if (p.x < 0) p.x += W;
@@ -79,6 +104,7 @@ function NetworkCanvas() {
         if (p.y > H) p.y -= H;
       }
 
+      // lines between particles
       for (let i = 0; i < N; i++) {
         for (let j = i + 1; j < N; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -91,6 +117,24 @@ function NetworkCanvas() {
             ctx.lineTo(particles[j].x, particles[j].y);
             ctx.strokeStyle = `rgba(0, 210, 255, ${t * 0.38})`;
             ctx.lineWidth = t * 0.9;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // lines from mouse to nearby particles
+      if (mouse.x > 0) {
+        for (const p of particles) {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < MOUSE_DIST) {
+            const t = 1 - dist / MOUSE_DIST;
+            ctx.beginPath();
+            ctx.moveTo(mouse.x, mouse.y);
+            ctx.lineTo(p.x, p.y);
+            ctx.strokeStyle = `rgba(232, 149, 109, ${t * 0.6})`;
+            ctx.lineWidth = t * 1.2;
             ctx.stroke();
           }
         }
@@ -114,6 +158,8 @@ function NetworkCanvas() {
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("mousemove", onMouseMove);
+      canvas.removeEventListener("mouseleave", onMouseLeave);
     };
   }, []);
 
