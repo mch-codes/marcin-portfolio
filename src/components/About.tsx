@@ -96,7 +96,6 @@ export default function About() {
                 <p className="text-xs text-muted mt-0.5">Fullstack Developer · ex-Chef</p>
               </div>
             </div>
-            <span className="text-[11px] font-mono tracking-widest text-muted/50 uppercase block mb-5">01</span>
             <h2 className="text-3xl md:text-4xl font-bold text-text tracking-tight mb-8 leading-[1.15]">
               De las cocinas
               <br />

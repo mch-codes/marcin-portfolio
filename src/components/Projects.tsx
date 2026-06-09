@@ -51,7 +51,6 @@ export default function Projects() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
           className="mb-14"
         >
-          <span className="text-[11px] font-mono tracking-widest text-muted/50 uppercase block mb-5">02</span>
           <h2 className="text-3xl md:text-4xl font-bold text-text tracking-tight leading-[1.15]">
             Productos reales,
             <br />
@@ -97,26 +96,19 @@ export default function Projects() {
               </a>
             </div>
 
-            {/* Iframe viewport */}
-            <div className="relative overflow-hidden bg-white" style={{ height: "400px" }}>
-              <iframe
-                src="https://www.oidoo.app"
-                title="Oidoo App Preview"
-                style={{
-                  width: "133.33%",
-                  height: "534px",
-                  transform: "scale(0.75)",
-                  transformOrigin: "top left",
-                  pointerEvents: "none",
-                  border: "none",
-                }}
+            {/* Screenshot */}
+            <a href="https://www.oidoo.app" target="_blank" rel="noopener noreferrer" className="block relative overflow-hidden">
+              <img
+                src="/oidoo-screenshot.png"
+                alt="Oidoo App"
+                className="w-full object-cover object-top"
+                style={{ maxHeight: "400px" }}
               />
-              {/* Bottom fade */}
               <div
                 className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none"
                 style={{ background: "linear-gradient(to bottom, transparent, #131110)" }}
               />
-            </div>
+            </a>
           </div>
 
           {/* Content */}
