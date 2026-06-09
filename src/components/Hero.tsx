@@ -40,10 +40,10 @@ function NetworkCanvas() {
     resize();
     window.addEventListener("resize", resize);
 
-    const N = 75;
-    const MAX_DIST = 170;
-    const MOUSE_DIST = 140;
-    const REPEL_STRENGTH = 3.5;
+    const N = 130;
+    const MAX_DIST = 200;
+    const MOUSE_DIST = 160;
+    const REPEL_STRENGTH = 4.5;
 
     interface Particle { x: number; y: number; vx: number; vy: number; r: number }
 
@@ -54,8 +54,8 @@ function NetworkCanvas() {
     const particles: Particle[] = Array.from({ length: N }, () => ({
       x: Math.random() * W,
       y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.38,
-      vy: (Math.random() - 0.5) * 0.38,
+      vx: (Math.random() - 0.5) * 0.85,
+      vy: (Math.random() - 0.5) * 0.85,
       r: Math.random() * 1.3 + 0.5,
     }));
 
