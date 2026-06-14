@@ -131,10 +131,16 @@ function NetworkCanvas() {
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < MAX_DIST) {
             const t = 1 - dist / MAX_DIST;
+            const grad = ctx.createLinearGradient(
+              particles[i].x, particles[i].y,
+              particles[j].x, particles[j].y
+            );
+            grad.addColorStop(0, `rgba(0, 210, 255, ${t * 0.42})`);
+            grad.addColorStop(1, `rgba(232, 149, 109, ${t * 0.42})`);
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(0, 210, 255, ${t * 0.38})`;
+            ctx.strokeStyle = grad;
             ctx.lineWidth = t * 0.9;
             ctx.stroke();
           }
@@ -149,10 +155,13 @@ function NetworkCanvas() {
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < MOUSE_DIST) {
             const t = 1 - dist / MOUSE_DIST;
+            const grad = ctx.createLinearGradient(mouse.x, mouse.y, p.x, p.y);
+            grad.addColorStop(0, `rgba(200, 169, 110, ${t * 0.7})`);
+            grad.addColorStop(1, `rgba(232, 149, 109, ${t * 0.4})`);
             ctx.beginPath();
             ctx.moveTo(mouse.x, mouse.y);
             ctx.lineTo(p.x, p.y);
-            ctx.strokeStyle = `rgba(232, 149, 109, ${t * 0.6})`;
+            ctx.strokeStyle = grad;
             ctx.lineWidth = t * 1.2;
             ctx.stroke();
           }
