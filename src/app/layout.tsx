@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -26,7 +27,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es" className={spaceGrotesk.variable}>
       <body>
         <LanguageProvider>
-          {children}
+          <SmoothScroll>
+            {children}
+          </SmoothScroll>
         </LanguageProvider>
       </body>
     </html>

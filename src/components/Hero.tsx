@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRef, useEffect } from "react";
 
@@ -202,11 +202,21 @@ function NetworkCanvas() {
 
 export default function Hero() {
   const { t } = useLanguage();
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section ref={sectionRef} className="relative min-h-screen flex items-center overflow-hidden">
       <NetworkCanvas />
-      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-20 w-full">
+      <motion.div
+        style={{ y, opacity }}
+        className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-20 w-full"
+      >
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -279,7 +289,7 @@ export default function Hero() {
             </a>
           </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }
