@@ -44,8 +44,10 @@ function NetworkCanvas() {
     const MAX_DIST = 200;
     const MOUSE_DIST = 160;
     const REPEL_STRENGTH = 4.5;
+    const MIN_SPEED = 0.3;
+    const MAX_SPEED = 2.2;
 
-    interface Particle { x: number; y: number; vx: number; vy: number; r: number }
+    interface Particle { x: number; y: number; vx: number; vy: number; r: number; angle: number }
 
     let W = canvas.width;
     let H = canvas.height;
@@ -57,6 +59,7 @@ function NetworkCanvas() {
       vx: (Math.random() - 0.5) * 0.85,
       vy: (Math.random() - 0.5) * 0.85,
       r: Math.random() * 1.3 + 0.5,
+      angle: Math.random() * Math.PI * 2,
     }));
 
     const onResize = () => {
@@ -83,6 +86,11 @@ function NetworkCanvas() {
       ctx.clearRect(0, 0, W, H);
 
       for (const p of particles) {
+        // wander: slowly steer each particle in a drifting direction
+        p.angle += (Math.random() - 0.5) * 0.12;
+        p.vx += Math.cos(p.angle) * 0.025;
+        p.vy += Math.sin(p.angle) * 0.025;
+
         // repel from mouse
         const mdx = p.x - mouse.x;
         const mdy = p.y - mouse.y;
@@ -95,6 +103,17 @@ function NetworkCanvas() {
         // dampen
         p.vx *= 0.98;
         p.vy *= 0.98;
+
+        // enforce min speed so particles never stop
+        const spd = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+        if (spd < MIN_SPEED) {
+          const s = spd > 0 ? spd : 1;
+          p.vx = (p.vx / s) * MIN_SPEED;
+          p.vy = (p.vy / s) * MIN_SPEED;
+        } else if (spd > MAX_SPEED) {
+          p.vx = (p.vx / spd) * MAX_SPEED;
+          p.vy = (p.vy / spd) * MAX_SPEED;
+        }
 
         p.x += p.vx;
         p.y += p.vy;
