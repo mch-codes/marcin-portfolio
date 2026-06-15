@@ -62,8 +62,12 @@ export const translations = {
     github: {
       title: "En GitHub",
       subtitle: "Aprendiendo en público. Cada commit cuenta.",
+      philosophy: "No espero tener todo resuelto para compartirlo. Comparto el proceso — los errores, las decisiones, el progreso real.",
+      pinned: "Repositorios recientes",
       cta: "Ver perfil",
       stats: "Contribuciones",
+      no_description: "Sin descripción",
+      repo_error: "No se pudieron cargar los repositorios.",
     },
     contact: {
       title: "Contacto",
@@ -155,8 +159,12 @@ export const translations = {
     github: {
       title: "On GitHub",
       subtitle: "Learning in public. Every commit counts.",
+      philosophy: "I don't wait until everything is figured out to share it. I share the process — the mistakes, the decisions, the real progress.",
+      pinned: "Recent repositories",
       cta: "View profile",
       stats: "Contributions",
+      no_description: "No description",
+      repo_error: "Could not load repositories.",
     },
     contact: {
       title: "Contact",

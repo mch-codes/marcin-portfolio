@@ -1,11 +1,20 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
 const GITHUB_USERNAME = "mch-codes";
+
+interface Repo {
+  id: number;
+  name: string;
+  description: string | null;
+  html_url: string;
+  language: string | null;
+  stargazers_count: number;
+  fork: boolean;
+}
 
 function GitHubIcon() {
   return (
@@ -15,33 +24,193 @@ function GitHubIcon() {
   );
 }
 
+function ArrowUpRightIcon() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" className="shrink-0">
+      <path d="M2.5 10.5L10.5 2.5M10.5 2.5H5M10.5 2.5V8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function StarIcon() {
+  return (
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" className="text-gold/60">
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+    </svg>
+  );
+}
+
+function RepoSkeleton() {
+  return (
+    <div className="rounded-xl border border-border bg-card p-5 animate-pulse flex flex-col gap-3">
+      <div className="h-4 bg-border/60 rounded w-2/3" />
+      <div className="h-3 bg-border/40 rounded w-full" />
+      <div className="h-3 bg-border/40 rounded w-4/5" />
+      <div className="flex gap-2 mt-1">
+        <div className="h-5 bg-border/40 rounded-md w-16" />
+      </div>
+    </div>
+  );
+}
+
+function RepoCard({ repo, noDesc, delay }: { repo: Repo; noDesc: string; delay: number }) {
+  return (
+    <motion.a
+      href={repo.html_url}
+      target="_blank"
+      rel="noopener noreferrer"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
+      className="group rounded-xl border border-border bg-card p-5 flex flex-col gap-3 hover:border-border-light transition-colors duration-200"
+    >
+      <div className="flex items-start justify-between gap-2">
+        <span className="font-semibold text-text text-sm leading-snug break-all">{repo.name}</span>
+        <span className="text-muted/40 group-hover:text-accent transition-colors mt-0.5">
+          <ArrowUpRightIcon />
+        </span>
+      </div>
+
+      <p className="text-xs text-muted leading-relaxed flex-1">
+        {repo.description ?? noDesc}
+      </p>
+
+      <div className="flex items-center gap-2 flex-wrap">
+        {repo.language && (
+          <span className="text-[11px] font-medium text-muted border border-border px-2.5 py-1 rounded-md bg-bg">
+            {repo.language}
+          </span>
+        )}
+        {repo.stargazers_count > 0 && (
+          <span className="inline-flex items-center gap-1 text-[11px] text-muted/60">
+            <StarIcon />
+            {repo.stargazers_count}
+          </span>
+        )}
+      </div>
+    </motion.a>
+  );
+}
+
+function StatImage({ src, alt, className, style }: { src: string; alt: string; className?: string; style?: React.CSSProperties }) {
+  const [failed, setFailed] = useState(false);
+
+  if (failed) {
+    return (
+      <div className={`flex items-center justify-center text-xs text-muted/40 bg-bg/40 rounded-lg ${className ?? ""}`} style={style}>
+        —
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      onError={() => setFailed(true)}
+      className={className}
+      style={style}
+    />
+  );
+}
+
 export default function GitHub() {
   const { t } = useLanguage();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
+
+  const [repos, setRepos] = useState<Repo[]>([]);
+  const [reposLoading, setReposLoading] = useState(true);
+  const [reposError, setReposError] = useState(false);
+
+  useEffect(() => {
+    fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=10`)
+      .then((r) => {
+        if (!r.ok) throw new Error("API error");
+        return r.json();
+      })
+      .then((data: Repo[]) => {
+        setRepos(data.filter((r) => !r.fork).slice(0, 3));
+        setReposLoading(false);
+      })
+      .catch(() => {
+        setReposError(true);
+        setReposLoading(false);
+      });
+  }, []);
 
   return (
     <section id="github" className="py-28 md:py-36 relative">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
       <div className="max-w-6xl mx-auto px-6" ref={ref}>
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          className="mb-14"
+          className="mb-4"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-text tracking-tight leading-[1.15]">
             {t.github.subtitle}
           </h2>
         </motion.div>
 
+        {/* Philosophy paragraph */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+          className="text-muted leading-relaxed max-w-2xl mb-12"
+        >
+          {t.github.philosophy}
+        </motion.p>
+
+        {/* Pinned repos */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.14, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+          className="mb-10"
+        >
+          <p className="text-[11px] font-mono tracking-widest text-muted/50 uppercase mb-4">
+            {t.github.pinned}
+          </p>
+
+          {reposLoading && (
+            <div className="grid sm:grid-cols-3 gap-4">
+              <RepoSkeleton />
+              <RepoSkeleton />
+              <RepoSkeleton />
+            </div>
+          )}
+
+          {reposError && (
+            <p className="text-xs text-muted/50">{t.github.repo_error}</p>
+          )}
+
+          {!reposLoading && !reposError && (
+            <div className="grid sm:grid-cols-3 gap-4">
+              {repos.map((repo, i) => (
+                <RepoCard
+                  key={repo.id}
+                  repo={repo}
+                  noDesc={t.github.no_description}
+                  delay={i * 0.08}
+                />
+              ))}
+            </div>
+          )}
+        </motion.div>
+
+        {/* Stats + profile row */}
         <div className="grid md:grid-cols-5 gap-6">
           {/* Profile card */}
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
             className="md:col-span-2 flex flex-col justify-between rounded-2xl border border-border bg-card p-7 group hover:border-border-light transition-all duration-300"
           >
             <div className="flex items-center gap-4 mb-6">
@@ -66,13 +235,7 @@ export default function GitHub() {
             >
               {t.github.cta}
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path
-                  d="M2 7h10M8 3l4 4-4 4"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </a>
           </motion.div>
@@ -81,27 +244,24 @@ export default function GitHub() {
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+            transition={{ duration: 0.7, delay: 0.28, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
             className="md:col-span-3 rounded-2xl border border-border bg-card overflow-hidden"
           >
-            {/* GitHub stats card from shields/readme-stats */}
             <div className="p-6 pb-4 border-b border-border">
               <p className="text-xs font-semibold tracking-widest uppercase text-muted">
                 {t.github.stats}
               </p>
             </div>
             <div className="p-4 flex items-center justify-center min-h-[160px] bg-card/50">
-              <img
+              <StatImage
                 src={`https://github-readme-stats.vercel.app/api?username=${GITHUB_USERNAME}&show_icons=true&hide_border=true&bg_color=131110&title_color=e8956d&text_color=ede8e0&icon_color=c8a96e&hide_title=true&count_private=true`}
                 alt={`${GITHUB_USERNAME} GitHub stats`}
                 className="max-w-full rounded-lg"
                 style={{ maxHeight: "180px" }}
               />
             </div>
-
-            {/* Contribution graph */}
             <div className="p-4 border-t border-border bg-card/30">
-              <img
+              <StatImage
                 src={`https://ghchart.rshah.org/e8956d/${GITHUB_USERNAME}`}
                 alt={`${GITHUB_USERNAME} contribution chart`}
                 className="w-full rounded-lg opacity-80 hover:opacity-100 transition-opacity"
