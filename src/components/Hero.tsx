@@ -263,10 +263,10 @@ export default function Hero() {
           >
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-[#0d0b08] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-bold text-base text-[#0d0b08] transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
               style={{
                 background: "linear-gradient(135deg, #e8956d 0%, #c8a96e 100%)",
-                boxShadow: "0 4px 24px rgba(232,149,109,0.25)",
+                boxShadow: "0 6px 32px rgba(232,149,109,0.35)",
               }}
             >
               {t.hero.cta_projects}
@@ -283,7 +283,7 @@ export default function Hero() {
 
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-text border border-border-light bg-card hover:bg-card-hover hover:border-[#e8956d]/40 transition-all duration-200"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-medium text-sm text-muted border border-border hover:border-border-light hover:text-text transition-all duration-200"
             >
               {t.hero.cta_contact}
             </a>

@@ -21,6 +21,15 @@ export const translations = {
       p3: "Uso la IA como herramienta de trabajo, no como atajo. El resultado es código que funciona, productos que se entregan, y un proceso que cuida cada detalle — igual que en la cocina.",
       stack: "Stack tecnológico",
     },
+    whatIBuild: {
+      title: "¿Qué construyo?",
+      card1_title: "MVPs",
+      card1_desc: "Tienes una idea. La convertimos en un producto funcional, rápido y sin rodeos.",
+      card2_title: "SaaS Tools",
+      card2_desc: "Aplicaciones web completas, con autenticación, base de datos y lógica de negocio real.",
+      card3_title: "Apps para pequeños negocios",
+      card3_desc: "Soluciones digitales para negocios reales que necesitan herramientas que funcionen.",
+    },
     projects: {
       title: "Proyectos",
       oidoo_tag: "Proyecto principal",
@@ -44,9 +53,9 @@ export const translations = {
       oidoo_f3_desc: "Importa recetas, configura estaciones y empieza el mismo día. Sin integraciones complejas.",
       oidoo_f4_title: "Soporte real, en español",
       oidoo_f4_desc: "Respuesta en menos de 24 horas. Sin bots ni formularios eternos.",
-      wip_name: "Próximamente",
-      wip_desc: "Nuevo producto en desarrollo",
-      wip_badge: "En desarrollo",
+    },
+    testimonials: {
+      title: "Lo que dicen los usuarios",
     },
     github: {
       title: "En GitHub",
@@ -97,6 +106,15 @@ export const translations = {
       p3: "I use AI as a working tool, not a shortcut. The result is code that works, products that ship, and a process that sweats the details — just like in the kitchen.",
       stack: "Tech stack",
     },
+    whatIBuild: {
+      title: "What I build",
+      card1_title: "MVPs",
+      card1_desc: "You have an idea. We turn it into a working product, fast and without overthinking.",
+      card2_title: "SaaS Tools",
+      card2_desc: "Full web applications with auth, database, and real business logic.",
+      card3_title: "Web apps for small business",
+      card3_desc: "Digital solutions for real businesses that need tools that actually work.",
+    },
     projects: {
       title: "Projects",
       oidoo_tag: "Main project",
@@ -120,9 +138,9 @@ export const translations = {
       oidoo_f3_desc: "Import recipes, configure stations, start the same day. No complex integrations.",
       oidoo_f4_title: "Real support, in Spanish",
       oidoo_f4_desc: "Response within 24 hours. No bots or endless forms.",
-      wip_name: "Coming soon",
-      wip_desc: "New product in development",
-      wip_badge: "In development",
+    },
+    testimonials: {
+      title: "What users say",
     },
     github: {
       title: "On GitHub",
