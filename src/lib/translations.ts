@@ -31,6 +31,8 @@ export const translations = {
       card2_desc: "Aplicaciones web completas, con autenticación, base de datos y lógica de negocio real.",
       card3_title: "Apps para pequeños negocios",
       card3_desc: "Soluciones digitales para negocios reales que necesitan herramientas que funcionen.",
+      card4_title: "Páginas web",
+      card4_desc: "Webs rápidas, limpias y con buena presencia. Desde landings hasta sitios de empresa con identidad real.",
     },
     projects: {
       title: "Proyectos",
@@ -124,6 +126,8 @@ export const translations = {
       card2_desc: "Full web applications with auth, database, and real business logic.",
       card3_title: "Web apps for small business",
       card3_desc: "Digital solutions for real businesses that need tools that actually work.",
+      card4_title: "Websites",
+      card4_desc: "Fast, clean websites with real presence. From landing pages to full business sites with a genuine identity.",
     },
     projects: {
       title: "Projects",

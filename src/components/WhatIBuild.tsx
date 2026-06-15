@@ -36,6 +36,16 @@ function IconStore() {
   );
 }
 
+function IconGlobe() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M2 12h20" />
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+    </svg>
+  );
+}
+
 export default function WhatIBuild() {
   const { t } = useLanguage();
   const ref = useRef(null);
@@ -45,6 +55,7 @@ export default function WhatIBuild() {
     { icon: <IconRocket />, title: t.whatIBuild.card1_title, desc: t.whatIBuild.card1_desc, accent: "#e8956d" },
     { icon: <IconLayers />, title: t.whatIBuild.card2_title, desc: t.whatIBuild.card2_desc, accent: "#00d2ff" },
     { icon: <IconStore />, title: t.whatIBuild.card3_title, desc: t.whatIBuild.card3_desc, accent: "#c8a96e" },
+    { icon: <IconGlobe />, title: t.whatIBuild.card4_title, desc: t.whatIBuild.card4_desc, accent: "#a78bfa" },
   ];
 
   return (
@@ -60,7 +71,7 @@ export default function WhatIBuild() {
           {t.whatIBuild.title}
         </motion.h2>
 
-        <div className="grid sm:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {cards.map((card, i) => (
             <motion.div
               key={card.title}
