@@ -54,7 +54,6 @@ export default function WhatIBuild() {
   const cards = [
     { icon: <IconRocket />, title: t.whatIBuild.card1_title, desc: t.whatIBuild.card1_desc, accent: "#e8956d" },
     { icon: <IconLayers />, title: t.whatIBuild.card2_title, desc: t.whatIBuild.card2_desc, accent: "#00d2ff" },
-    { icon: <IconStore />, title: t.whatIBuild.card3_title, desc: t.whatIBuild.card3_desc, accent: "#c8a96e" },
     { icon: <IconGlobe />, title: t.whatIBuild.card4_title, desc: t.whatIBuild.card4_desc, accent: "#a78bfa" },
   ];
 
@@ -71,7 +70,7 @@ export default function WhatIBuild() {
           {t.whatIBuild.title}
         </motion.h2>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-3 gap-4">
           {cards.map((card, i) => (
             <motion.div
               key={card.title}
