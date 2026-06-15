@@ -3,7 +3,7 @@ export const translations = {
     nav: {
       about: "Sobre mí",
       projects: "Proyectos",
-      github: "GitHub",
+      process: "Proceso",
       contact: "Contacto",
     },
     hero: {
@@ -59,15 +59,17 @@ export const translations = {
     testimonials: {
       title: "Lo que dicen los usuarios",
     },
-    github: {
-      title: "En GitHub",
-      subtitle: "Aprendiendo en público. Cada commit cuenta.",
-      philosophy: "No espero tener todo resuelto para compartirlo. Comparto el proceso — los errores, las decisiones, el progreso real.",
-      pinned: "Repositorios recientes",
-      cta: "Ver perfil",
-      stats: "Contribuciones",
-      no_description: "Sin descripción",
-      repo_error: "No se pudieron cargar los repositorios.",
+    process: {
+      title: "Cómo trabajo.",
+      subtitle: "Sin humo. Sin over-engineering. Producto que funciona.",
+      card1_title: "Entiendo el problema primero",
+      card1_desc: "Antes de escribir una línea de código, entiendo qué necesitas resolver y por qué. El código viene después.",
+      card2_title: "Iteraciones pequeñas y reales",
+      card2_desc: "Construyo en pasos cortos y testeables. Cada entrega funciona. Sin sorpresas al final del proyecto.",
+      card3_title: "Producción desde el día uno",
+      card3_desc: "Priorizo que funcione en producción, no solo en local. Performance, errores y edge cases — no son opcionales.",
+      card4_title: "Comunicación sin filtros",
+      card4_desc: "Digo lo que veo. Si algo no tiene sentido técnico o de negocio, lo digo antes de construirlo.",
     },
     contact: {
       title: "Contacto",
@@ -100,7 +102,7 @@ export const translations = {
     nav: {
       about: "About",
       projects: "Projects",
-      github: "GitHub",
+      process: "Process",
       contact: "Contact",
     },
     hero: {
@@ -156,15 +158,17 @@ export const translations = {
     testimonials: {
       title: "What users say",
     },
-    github: {
-      title: "On GitHub",
-      subtitle: "Learning in public. Every commit counts.",
-      philosophy: "I don't wait until everything is figured out to share it. I share the process — the mistakes, the decisions, the real progress.",
-      pinned: "Recent repositories",
-      cta: "View profile",
-      stats: "Contributions",
-      no_description: "No description",
-      repo_error: "Could not load repositories.",
+    process: {
+      title: "How I work.",
+      subtitle: "No fluff. No over-engineering. Product that works.",
+      card1_title: "Understand the problem first",
+      card1_desc: "Before writing a single line of code, I understand what you need to solve and why. The code comes after.",
+      card2_title: "Small, real iterations",
+      card2_desc: "I build in short, testable steps. Every delivery works. No surprises at the end of the project.",
+      card3_title: "Production from day one",
+      card3_desc: "I prioritize working in production, not just locally. Performance, errors, and edge cases are not optional.",
+      card4_title: "Direct communication",
+      card4_desc: "I say what I see. If something doesn't make technical or business sense, I say it before building it.",
     },
     contact: {
       title: "Contact",

@@ -5,7 +5,7 @@ import WhatIBuild from "@/components/WhatIBuild";
 import About from "@/components/About";
 import Projects from "@/components/Projects";
 import Testimonials from "@/components/Testimonials";
-import GitHub from "@/components/GitHub";
+import Process from "@/components/Process";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -19,7 +19,7 @@ export default function Home() {
       <About />
       <Projects />
       <Testimonials />
-      <GitHub />
+      <Process />
       <Contact />
       <Footer />
     </main>
