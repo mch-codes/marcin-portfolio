@@ -104,6 +104,7 @@ export default function About() {
             <div className="space-y-5 text-muted leading-relaxed">
               <p>{t.about.p1}</p>
               <p>{t.about.p2}</p>
+              <p>{t.about.p3}</p>
             </div>
           </div>
 

@@ -16,8 +16,9 @@ export const translations = {
     },
     about: {
       title: "Sobre mí",
-      p1: "Cocinero profesional con más de 10 años en cocinas de Madrid, decidí dar el salto al desarrollo web. Sin bootcamp, sin carrera universitaria — aprendí construyendo cosas reales.",
-      p2: "Usando IA como herramienta, desarrollé productos SaaS que están en producción y siendo usados. El mismo rigor que apliqué en la cocina lo aplico ahora al código: atención al detalle, consistencia, y un producto que realmente funciona.",
+      p1: "Pasé más de 10 años cocinando en cocinas profesionales de Madrid. Aprendí que un buen plato no se improvisa — se construye con atención, consistencia y muchas horas de práctica.",
+      p2: "Cuando decidí dar el salto al desarrollo web, traje ese mismo enfoque conmigo. Sin bootcamp ni carrera universitaria, aprendí construyendo cosas reales: productos SaaS que hoy están en producción y siendo usados por personas de verdad.",
+      p3: "Uso la IA como herramienta de trabajo, no como atajo. El resultado es código que funciona, productos que se entregan, y un proceso que cuida cada detalle — igual que en la cocina.",
       stack: "Stack tecnológico",
     },
     projects: {
@@ -91,8 +92,9 @@ export const translations = {
     },
     about: {
       title: "About me",
-      p1: "Professional cook with over 10 years in Madrid's kitchens, I made the leap into web development. No bootcamp, no CS degree — I learned by building real things.",
-      p2: "Using AI as a tool, I built SaaS products that are live and being used. The same discipline I applied in the kitchen, I now apply to code: attention to detail, consistency, and a product that actually works.",
+      p1: "I spent over 10 years cooking in professional kitchens in Madrid. I learned early on that a great dish isn't improvised — it's built with attention, consistency, and a lot of hours of practice.",
+      p2: "When I decided to move into web development, I brought that same mindset with me. No bootcamp, no CS degree — just learning by building real things: SaaS products that are live today and used by real people.",
+      p3: "I use AI as a working tool, not a shortcut. The result is code that works, products that ship, and a process that sweats the details — just like in the kitchen.",
       stack: "Tech stack",
     },
     projects: {
