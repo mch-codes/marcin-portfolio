@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRef, useEffect } from "react";
+import { scrollToSection } from "@/lib/scroll";
 
 const containerVariants = {
   hidden: {},
@@ -276,8 +277,8 @@ export default function Hero() {
             variants={itemVariants}
             className="flex flex-wrap items-center gap-4"
           >
-            <a
-              href="#projects"
+            <button
+              onClick={() => scrollToSection("projects")}
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-bold text-base text-[#0d0b08] transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
               style={{
                 background: "linear-gradient(135deg, #e8956d 0%, #c8a96e 100%)",
@@ -294,14 +295,14 @@ export default function Hero() {
                   strokeLinejoin="round"
                 />
               </svg>
-            </a>
+            </button>
 
-            <a
-              href="#contact"
+            <button
+              onClick={() => scrollToSection("contact")}
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-medium text-sm text-muted border border-border hover:border-border-light hover:text-text transition-all duration-200"
             >
               {t.hero.cta_contact}
-            </a>
+            </button>
           </motion.div>
         </motion.div>
       </motion.div>

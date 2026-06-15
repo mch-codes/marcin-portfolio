@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import type { Language } from "@/lib/translations";
+import { scrollToSection, scrollToTop } from "@/lib/scroll";
 
 export default function Navigation() {
   const { language, setLanguage, t } = useLanguage();
@@ -17,10 +18,10 @@ export default function Navigation() {
   }, []);
 
   const navLinks = [
-    { label: t.nav.about, href: "#about" },
-    { label: t.nav.projects, href: "#projects" },
-    { label: t.nav.github, href: "#github" },
-    { label: t.nav.contact, href: "#contact" },
+    { label: t.nav.about, id: "about" },
+    { label: t.nav.projects, id: "projects" },
+    { label: t.nav.github, id: "github" },
+    { label: t.nav.contact, id: "contact" },
   ];
 
   return (
@@ -35,23 +36,23 @@ export default function Navigation() {
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a
-          href="#"
+        <button
+          onClick={scrollToTop}
           className="text-text font-semibold text-lg tracking-tight hover:text-accent transition-colors duration-200"
         >
           MC
-        </a>
+        </button>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
+            <button
+              key={link.id}
+              onClick={() => scrollToSection(link.id)}
               className="text-muted text-sm font-medium hover:text-text transition-colors duration-200"
             >
               {link.label}
-            </a>
+            </button>
           ))}
 
           {/* Language toggle */}
@@ -119,14 +120,13 @@ export default function Navigation() {
           >
             <nav className="flex flex-col px-6 py-4 gap-4">
               {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="text-text text-base font-medium py-1 border-b border-border last:border-0"
+                <button
+                  key={link.id}
+                  onClick={() => { scrollToSection(link.id); setMenuOpen(false); }}
+                  className="text-text text-base font-medium py-1 border-b border-border last:border-0 text-left"
                 >
                   {link.label}
-                </a>
+                </button>
               ))}
             </nav>
           </motion.div>
