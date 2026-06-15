@@ -113,7 +113,7 @@ export default function Contact() {
                   onClick={() => setStatus("idle")}
                   className="text-xs text-muted hover:text-text transition-colors underline underline-offset-4"
                 >
-                  Enviar otro mensaje
+                  {t.contact.send_another}
                 </button>
               </div>
             ) : (

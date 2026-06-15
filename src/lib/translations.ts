@@ -13,6 +13,7 @@ export const translations = {
         "Construyo productos reales con herramientas modernas. Desde las cocinas de Madrid al stack de producción.",
       cta_projects: "Ver proyectos",
       cta_contact: "Contacto",
+      available: "Disponible para proyectos",
     },
     about: {
       title: "Sobre mí",
@@ -20,6 +21,7 @@ export const translations = {
       p2: "Cuando decidí dar el salto al desarrollo web, traje ese mismo enfoque conmigo. Sin bootcamp ni carrera universitaria, aprendí construyendo cosas reales: productos SaaS que hoy están en producción y siendo usados por personas de verdad.",
       p3: "Uso la IA como herramienta de trabajo, no como atajo. El resultado es código que funciona, productos que se entregan, y un proceso que cuida cada detalle — igual que en la cocina.",
       stack: "Stack tecnológico",
+      cv_download: "Descargar CV",
     },
     whatIBuild: {
       title: "¿Qué construyo?",
@@ -74,10 +76,16 @@ export const translations = {
       message_placeholder: "Cuéntame sobre tu proyecto...",
       send: "Enviar mensaje",
       sending: "Enviando...",
-      success: "Mensaje enviado. Te escribo pronto.",
-      error: "Algo salió mal. Escríbeme directamente.",
+      success: "Mensaje enviado, te respondo pronto.",
+      error: "Algo salió mal, intenta de nuevo.",
+      send_another: "Enviar otro mensaje",
       location: "Madrid, España",
       or: "o escríbeme directamente",
+    },
+    notFound: {
+      headline: "Esta página no existe…",
+      tagline: "como una receta mal escrita.",
+      back: "Volver al inicio",
     },
     footer: {
       copy: "Diseñado y construido por Marcin.",
@@ -98,6 +106,7 @@ export const translations = {
         "Building real products with modern tools. From Madrid's professional kitchens to production stacks.",
       cta_projects: "View projects",
       cta_contact: "Contact",
+      available: "Available for projects",
     },
     about: {
       title: "About me",
@@ -105,6 +114,7 @@ export const translations = {
       p2: "When I decided to move into web development, I brought that same mindset with me. No bootcamp, no CS degree — just learning by building real things: SaaS products that are live today and used by real people.",
       p3: "I use AI as a working tool, not a shortcut. The result is code that works, products that ship, and a process that sweats the details — just like in the kitchen.",
       stack: "Tech stack",
+      cv_download: "Download CV",
     },
     whatIBuild: {
       title: "What I build",
@@ -159,10 +169,16 @@ export const translations = {
       message_placeholder: "Tell me about your project...",
       send: "Send message",
       sending: "Sending...",
-      success: "Message sent. I'll get back to you soon.",
-      error: "Something went wrong. Write to me directly.",
+      success: "Message sent, I'll get back to you soon.",
+      error: "Something went wrong, please try again.",
+      send_another: "Send another message",
       location: "Madrid, Spain",
       or: "or write to me directly",
+    },
+    notFound: {
+      headline: "This page doesn't exist…",
+      tagline: "like a badly written recipe.",
+      back: "Back to home",
     },
     footer: {
       copy: "Designed and built by Marcin.",
