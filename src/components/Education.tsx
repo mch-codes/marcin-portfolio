@@ -1,20 +1,75 @@
 "use client";
 
-import { m, useInView } from "framer-motion";
-import { useRef } from "react";
+import { m, useInView, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
-function ExternalLinkIcon() {
+function CertificateIcon() {
   return (
     <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
-      <path
-        d="M1.5 9.5L9.5 1.5M9.5 1.5H4.5M9.5 1.5v5"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <rect x="1" y="1.5" width="9" height="7" rx="1" stroke="currentColor" strokeWidth="1.3" />
+      <path d="M3 4h5M3 6h3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
     </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function CertificateModal({
+  src,
+  alt,
+  onClose,
+}: {
+  src: string;
+  alt: string;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <AnimatePresence>
+      <m.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.2 }}
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 bg-black/85 backdrop-blur-sm"
+        onClick={onClose}
+      >
+        <m.div
+          initial={{ scale: 0.96, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.96, opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="relative max-w-4xl w-full"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={src}
+            alt={alt}
+            className="w-full h-auto rounded-xl shadow-2xl"
+          />
+          <button
+            onClick={onClose}
+            className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 flex items-center justify-center text-white hover:bg-black/80 transition-colors"
+            aria-label="Cerrar"
+          >
+            <CloseIcon />
+          </button>
+        </m.div>
+      </m.div>
+    </AnimatePresence>
   );
 }
 
@@ -22,26 +77,27 @@ export default function Education() {
   const { t } = useLanguage();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const [activeCert, setActiveCert] = useState<{ src: string; alt: string } | null>(null);
 
   const items = [
-    {
-      title: "CS50x — Introduction to Computer Science",
-      institution: "Harvard University",
-      inProgress: true,
-    },
     {
       title: "Responsive Web Design",
       institution: "freeCodeCamp",
       hours: "300h",
       year: "2024",
-      verifyUrl: "https://freecodecamp.org/certification/Marcin23/responsive-web-design",
+      certSrc: "/certificates/freecodecamp-responsive-web-design.png",
     },
     {
       title: "Inteligencia Artificial (IA) Creativa",
       institution: "RTVE Instituto",
       hours: "75h · 3 ECTS",
       year: "2025",
-      verifyUrl: "https://formacion.rtve.es/certificado/5jEAMNoBEH",
+      certSrc: "/certificates/rtve-ia-creativa.png",
+    },
+    {
+      title: "CS50x — Introduction to Computer Science",
+      institution: "Harvard University",
+      inProgress: true,
     },
   ];
 
@@ -85,7 +141,7 @@ export default function Education() {
                 <p className="text-xs text-muted mt-0.5">{item.institution}</p>
               </div>
 
-              <div className="flex items-center gap-3 shrink-0 sm:justify-end">
+              <div className="flex items-center gap-3 shrink-0">
                 {item.hours && (
                   <span className="text-xs text-muted/50 tabular-nums">{item.hours}</span>
                 )}
@@ -101,22 +157,28 @@ export default function Education() {
                     {t.education.status_in_progress}
                   </span>
                 )}
-                {item.verifyUrl && (
-                  <a
-                    href={item.verifyUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                {item.certSrc && (
+                  <button
+                    onClick={() => setActiveCert({ src: item.certSrc!, alt: item.title })}
                     className="inline-flex items-center gap-1 text-xs text-muted/40 hover:text-accent transition-colors duration-200"
                   >
                     {t.education.verify}
-                    <ExternalLinkIcon />
-                  </a>
+                    <CertificateIcon />
+                  </button>
                 )}
               </div>
             </m.div>
           ))}
         </div>
       </div>
+
+      {activeCert && (
+        <CertificateModal
+          src={activeCert.src}
+          alt={activeCert.alt}
+          onClose={() => setActiveCert(null)}
+        />
+      )}
     </section>
   );
 }
