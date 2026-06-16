@@ -31,7 +31,7 @@ export default function Navigation() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#0d0b08]/90 backdrop-blur-md border-b border-[#252118]"
+          ? "bg-[#09090b]/90 backdrop-blur-md border-b border-[#3f3f46]"
           : "bg-transparent"
       }`}
     >
@@ -63,7 +63,7 @@ export default function Navigation() {
                 onClick={() => setLanguage(lang)}
                 className={`text-xs font-semibold px-3 py-1 rounded-full transition-all duration-200 uppercase tracking-wide ${
                   language === lang
-                    ? "bg-accent text-[#0d0b08]"
+                    ? "bg-accent text-white"
                     : "text-muted hover:text-text"
                 }`}
               >
@@ -81,7 +81,7 @@ export default function Navigation() {
                 key={lang}
                 onClick={() => setLanguage(lang)}
                 className={`text-xs font-semibold px-2.5 py-1 rounded-full transition-all duration-200 uppercase ${
-                  language === lang ? "bg-accent text-[#0d0b08]" : "text-muted"
+                  language === lang ? "bg-accent text-white" : "text-muted"
                 }`}
               >
                 {lang}
@@ -116,7 +116,7 @@ export default function Navigation() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden bg-[#0d0b08]/95 backdrop-blur-md border-b border-[#252118] overflow-hidden"
+            className="md:hidden bg-[#09090b]/95 backdrop-blur-md border-b border-[#3f3f46] overflow-hidden"
           >
             <nav className="flex flex-col px-6 py-4 gap-4">
               {navLinks.map((link) => (

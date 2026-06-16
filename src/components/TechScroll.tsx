@@ -125,11 +125,11 @@ export default function TechScroll() {
     <div className="relative overflow-hidden border-y border-border py-5 marquee-container">
       <div
         className="absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none"
-        style={{ background: "linear-gradient(to right, #0d0b08, transparent)" }}
+        style={{ background: "linear-gradient(to right, #09090b, transparent)" }}
       />
       <div
         className="absolute right-0 top-0 bottom-0 w-20 z-10 pointer-events-none"
-        style={{ background: "linear-gradient(to left, #0d0b08, transparent)" }}
+        style={{ background: "linear-gradient(to left, #09090b, transparent)" }}
       />
 
       <div className="flex items-center w-max marquee-track">

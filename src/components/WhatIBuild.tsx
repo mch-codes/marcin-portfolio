@@ -52,7 +52,7 @@ export default function WhatIBuild() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   const cards = [
-    { icon: <IconRocket />, title: t.whatIBuild.card1_title, desc: t.whatIBuild.card1_desc, accent: "#e8956d" },
+    { icon: <IconRocket />, title: t.whatIBuild.card1_title, desc: t.whatIBuild.card1_desc, accent: "#10b981" },
     { icon: <IconLayers />, title: t.whatIBuild.card2_title, desc: t.whatIBuild.card2_desc, accent: "#00d2ff" },
     { icon: <IconGlobe />, title: t.whatIBuild.card4_title, desc: t.whatIBuild.card4_desc, accent: "#a78bfa" },
   ];

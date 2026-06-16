@@ -136,8 +136,8 @@ function NetworkCanvas() {
               particles[i].x, particles[i].y,
               particles[j].x, particles[j].y
             );
-            grad.addColorStop(0, `rgba(0, 210, 255, ${t * 0.42})`);
-            grad.addColorStop(1, `rgba(232, 149, 109, ${t * 0.42})`);
+            grad.addColorStop(0, `rgba(52, 211, 153, ${t * 0.42})`);
+            grad.addColorStop(1, `rgba(16, 185, 129, ${t * 0.42})`);
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -157,8 +157,8 @@ function NetworkCanvas() {
           if (dist < MOUSE_DIST) {
             const t = 1 - dist / MOUSE_DIST;
             const grad = ctx.createLinearGradient(mouse.x, mouse.y, p.x, p.y);
-            grad.addColorStop(0, `rgba(200, 169, 110, ${t * 0.7})`);
-            grad.addColorStop(1, `rgba(232, 149, 109, ${t * 0.4})`);
+            grad.addColorStop(0, `rgba(5, 150, 105, ${t * 0.7})`);
+            grad.addColorStop(1, `rgba(16, 185, 129, ${t * 0.4})`);
             ctx.beginPath();
             ctx.moveTo(mouse.x, mouse.y);
             ctx.lineTo(p.x, p.y);
@@ -171,10 +171,10 @@ function NetworkCanvas() {
 
       for (const p of particles) {
         ctx.shadowBlur = 8;
-        ctx.shadowColor = "rgba(232, 149, 109, 0.9)";
+        ctx.shadowColor = "rgba(16, 185, 129, 0.9)";
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(232, 149, 109, 0.85)";
+        ctx.fillStyle = "rgba(16, 185, 129, 0.85)";
         ctx.fill();
         ctx.shadowBlur = 0;
       }
@@ -257,7 +257,7 @@ export default function Hero() {
             variants={itemVariants}
             className="text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.05] tracking-tight mb-10"
             style={{
-              background: "linear-gradient(135deg, #e8956d 0%, #c8a96e 100%)",
+              background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -279,10 +279,10 @@ export default function Hero() {
           >
             <button
               onClick={() => scrollToSection("projects")}
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-bold text-base text-[#0d0b08] transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-bold text-base text-white transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
               style={{
-                background: "linear-gradient(135deg, #e8956d 0%, #c8a96e 100%)",
-                boxShadow: "0 6px 32px rgba(232,149,109,0.35)",
+                background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                boxShadow: "0 6px 32px rgba(16,185,129,0.35)",
               }}
             >
               {t.hero.cta_projects}

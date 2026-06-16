@@ -100,7 +100,7 @@ export default function Contact() {
                   <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                     <path
                       d="M3 9l4 4 8-8"
-                      stroke="#e8956d"
+                      stroke="#10b981"
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -147,10 +147,10 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="self-start inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-[#0d0b08] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="self-start inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
                   style={{
-                    background: "linear-gradient(135deg, #e8956d 0%, #c8a96e 100%)",
-                    boxShadow: "0 4px 16px rgba(232,149,109,0.2)",
+                    background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                    boxShadow: "0 4px 16px rgba(16,185,129,0.2)",
                   }}
                 >
                   {status === "loading" ? t.contact.sending : t.contact.send}

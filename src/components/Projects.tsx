@@ -64,7 +64,7 @@ export default function Projects() {
           transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
           className="rounded-2xl border border-border bg-card overflow-hidden mb-5"
         >
-          <div className="h-px bg-gradient-to-r from-accent/50 via-gold/30 to-transparent" />
+          <div className="h-px bg-gradient-to-r from-accent/50 via-accent/20 to-transparent" />
 
           {/* Browser frame */}
           <div className="border-b border-border">
@@ -105,7 +105,7 @@ export default function Projects() {
               />
               <div
                 className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none"
-                style={{ background: "linear-gradient(to bottom, transparent, #131110)" }}
+                style={{ background: "linear-gradient(to bottom, transparent, #18181b)" }}
               />
             </a>
           </div>
@@ -171,10 +171,10 @@ export default function Projects() {
                 href="https://www.oidoo.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 font-semibold text-sm text-[#0d0b08] px-5 py-2.5 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                className="inline-flex items-center gap-2 font-semibold text-sm text-white px-5 py-2.5 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
                 style={{
-                  background: "linear-gradient(135deg, #e8956d 0%, #c8a96e 100%)",
-                  boxShadow: "0 4px 16px rgba(232,149,109,0.2)",
+                  background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                  boxShadow: "0 4px 16px rgba(16,185,129,0.2)",
                 }}
               >
                 {t.projects.oidoo_cta}
