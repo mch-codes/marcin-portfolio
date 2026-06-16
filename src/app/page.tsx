@@ -1,12 +1,15 @@
+import dynamic from "next/dynamic";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
-import WhatIBuild from "@/components/WhatIBuild";
-import About from "@/components/About";
-import Projects from "@/components/Projects";
-import Process from "@/components/Process";
-import Education from "@/components/Education";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
+
+// Below-fold sections — each becomes its own JS chunk, loaded after initial paint
+const WhatIBuild = dynamic(() => import("@/components/WhatIBuild"));
+const About      = dynamic(() => import("@/components/About"));
+const Education  = dynamic(() => import("@/components/Education"));
+const Projects   = dynamic(() => import("@/components/Projects"));
+const Process    = dynamic(() => import("@/components/Process"));
+const Contact    = dynamic(() => import("@/components/Contact"));
+const Footer     = dynamic(() => import("@/components/Footer"));
 
 export default function Home() {
   return (

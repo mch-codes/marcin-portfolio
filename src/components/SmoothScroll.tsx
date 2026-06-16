@@ -1,9 +1,13 @@
 "use client";
 
 import { useEffect } from "react";
-import { LazyMotion, domAnimation } from "framer-motion";
+import { LazyMotion } from "framer-motion";
 import Lenis from "lenis";
 import { registerLenis } from "@/lib/scroll";
+
+// Async load — framer-motion features ship in a separate chunk, not the initial bundle
+const loadFeatures = () =>
+  import("framer-motion").then((mod) => mod.domAnimation);
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
@@ -25,5 +29,5 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     };
   }, []);
 
-  return <LazyMotion features={domAnimation}>{children}</LazyMotion>;
+  return <LazyMotion features={loadFeatures}>{children}</LazyMotion>;
 }
