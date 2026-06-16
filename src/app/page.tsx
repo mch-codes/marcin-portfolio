@@ -17,9 +17,9 @@ export default function Home() {
       <TechScroll />
       <WhatIBuild />
       <About />
+      <Education />
       <Projects />
       <Process />
-      <Education />
       <Contact />
       <Footer />
     </main>

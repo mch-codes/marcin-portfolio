@@ -52,7 +52,6 @@ function CertificateModal({
           exit={{ scale: 0.96, opacity: 0 }}
           transition={{ duration: 0.2 }}
           className="relative max-w-4xl w-full"
-          onClick={(e) => e.stopPropagation()}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -81,11 +80,9 @@ export default function Education() {
 
   const items = [
     {
-      title: "Responsive Web Design",
-      institution: "freeCodeCamp",
-      hours: "300h",
-      year: "2024",
-      certSrc: "/certificates/freecodecamp-responsive-web-design.png",
+      title: "CS50x — Introduction to Computer Science",
+      institution: "Harvard University",
+      inProgress: true,
     },
     {
       title: "Inteligencia Artificial (IA) Creativa",
@@ -95,9 +92,11 @@ export default function Education() {
       certSrc: "/certificates/rtve-ia-creativa.png",
     },
     {
-      title: "CS50x — Introduction to Computer Science",
-      institution: "Harvard University",
-      inProgress: true,
+      title: "Responsive Web Design",
+      institution: "freeCodeCamp",
+      hours: "300h",
+      year: "2024",
+      certSrc: "/certificates/freecodecamp-responsive-web-design.png",
     },
   ];
 
