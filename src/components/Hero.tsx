@@ -4,6 +4,7 @@ import { m, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRef, useEffect } from "react";
 import { scrollToSection } from "@/lib/scroll";
+import TechScroll from "@/components/TechScroll";
 
 const containerVariants = {
   hidden: {},
@@ -215,11 +216,11 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen flex items-center overflow-hidden">
+    <section ref={sectionRef} className="relative min-h-screen flex flex-col overflow-hidden">
       <NetworkCanvas />
       <m.div
         style={{ y, opacity }}
-        className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-20 w-full"
+        className="relative z-10 flex-1 flex items-center max-w-6xl mx-auto px-6 pt-24 pb-10 w-full"
       >
         <m.div
           variants={containerVariants}
@@ -306,6 +307,9 @@ export default function Hero() {
           </m.div>
         </m.div>
       </m.div>
+      <div className="relative z-10">
+        <TechScroll />
+      </div>
     </section>
   );
 }
