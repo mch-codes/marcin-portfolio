@@ -33,6 +33,9 @@ function NetworkCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // Skip animation entirely for users who prefer reduced motion
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     let animId: number;
 
     const resize = () => {
@@ -40,20 +43,22 @@ function NetworkCanvas() {
       canvas.height = canvas.clientHeight;
     };
     resize();
-    window.addEventListener("resize", resize);
 
-    const N = 130;
-    const MAX_DIST = 200;
-    const MOUSE_DIST = 160;
-    const REPEL_STRENGTH = 4.5;
-    const MIN_SPEED = 0.3;
-    const MAX_SPEED = 2.2;
+    const N = 42;
+    const MAX_DIST = 140;
+    const MOUSE_DIST = 130;
+    const REPEL_STRENGTH = 4.0;
+    const MIN_SPEED = 0.25;
+    const MAX_SPEED = 1.6;
+    const TARGET_FPS = 30;
+    const FRAME_MS = 1000 / TARGET_FPS;
 
     interface Particle { x: number; y: number; vx: number; vy: number; r: number; angle: number }
 
     let W = canvas.width;
     let H = canvas.height;
     const mouse = { x: -9999, y: -9999 };
+    let lastTime = 0;
 
     const particles: Particle[] = Array.from({ length: N }, () => ({
       x: Math.random() * W,
@@ -70,7 +75,6 @@ function NetworkCanvas() {
       W = canvas.width;
       H = canvas.height;
     };
-    window.removeEventListener("resize", resize);
     window.addEventListener("resize", onResize);
 
     const onMouseMove = (e: MouseEvent) => {
@@ -82,18 +86,26 @@ function NetworkCanvas() {
     window.addEventListener("mousemove", onMouseMove);
     canvas.addEventListener("mouseleave", onMouseLeave);
 
-    const draw = () => {
+    // Pre-allocate color strings to avoid repeated string allocation per frame
+    const LINE_COLOR_A = "rgba(52, 211, 153,";
+    const LINE_COLOR_B = "rgba(16, 185, 129,";
+
+    const draw = (timestamp: number) => {
+      animId = requestAnimationFrame(draw);
+
+      // Cap to TARGET_FPS — skip frame if too soon
+      if (timestamp - lastTime < FRAME_MS) return;
+      lastTime = timestamp;
+
       W = canvas.width;
       H = canvas.height;
       ctx.clearRect(0, 0, W, H);
 
       for (const p of particles) {
-        // wander: slowly steer each particle in a drifting direction
         p.angle += (Math.random() - 0.5) * 0.12;
         p.vx += Math.cos(p.angle) * 0.025;
         p.vy += Math.sin(p.angle) * 0.025;
 
-        // repel from mouse
         const mdx = p.x - mouse.x;
         const mdy = p.y - mouse.y;
         const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
@@ -102,11 +114,10 @@ function NetworkCanvas() {
           p.vx += (mdx / mdist) * force * 0.06;
           p.vy += (mdy / mdist) * force * 0.06;
         }
-        // dampen
+
         p.vx *= 0.98;
         p.vy *= 0.98;
 
-        // enforce min speed so particles never stop
         const spd = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
         if (spd < MIN_SPEED) {
           const s = spd > 0 ? spd : 1;
@@ -125,31 +136,27 @@ function NetworkCanvas() {
         if (p.y > H) p.y -= H;
       }
 
-      // lines between particles
+      // Particle-to-particle lines — O(N²/2), N=42 → 861 pairs vs 8,385 at N=130
+      const MAX_DIST_SQ = MAX_DIST * MAX_DIST;
       for (let i = 0; i < N; i++) {
         for (let j = i + 1; j < N; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < MAX_DIST) {
-            const t = 1 - dist / MAX_DIST;
-            const grad = ctx.createLinearGradient(
-              particles[i].x, particles[i].y,
-              particles[j].x, particles[j].y
-            );
-            grad.addColorStop(0, `rgba(52, 211, 153, ${t * 0.42})`);
-            grad.addColorStop(1, `rgba(16, 185, 129, ${t * 0.42})`);
+          const distSq = dx * dx + dy * dy;
+          if (distSq < MAX_DIST_SQ) {
+            const t = 1 - Math.sqrt(distSq) / MAX_DIST;
+            const alpha = (t * 0.42).toFixed(2);
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = grad;
+            ctx.strokeStyle = `${LINE_COLOR_B} ${alpha})`;
             ctx.lineWidth = t * 0.9;
             ctx.stroke();
           }
         }
       }
 
-      // lines from mouse to nearby particles
+      // Mouse lines
       if (mouse.x > 0) {
         for (const p of particles) {
           const dx = p.x - mouse.x;
@@ -157,36 +164,29 @@ function NetworkCanvas() {
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < MOUSE_DIST) {
             const t = 1 - dist / MOUSE_DIST;
-            const grad = ctx.createLinearGradient(mouse.x, mouse.y, p.x, p.y);
-            grad.addColorStop(0, `rgba(5, 150, 105, ${t * 0.7})`);
-            grad.addColorStop(1, `rgba(16, 185, 129, ${t * 0.4})`);
             ctx.beginPath();
             ctx.moveTo(mouse.x, mouse.y);
             ctx.lineTo(p.x, p.y);
-            ctx.strokeStyle = grad;
+            ctx.strokeStyle = `rgba(16, 185, 129, ${(t * 0.5).toFixed(2)})`;
             ctx.lineWidth = t * 1.2;
             ctx.stroke();
           }
         }
       }
 
+      // Particles — skip shadowBlur (expensive GPU op)
+      ctx.fillStyle = "rgba(16, 185, 129, 0.75)";
       for (const p of particles) {
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = "rgba(16, 185, 129, 0.9)";
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(16, 185, 129, 0.85)";
         ctx.fill();
-        ctx.shadowBlur = 0;
       }
-
-      animId = requestAnimationFrame(draw);
     };
 
-    draw();
+    animId = requestAnimationFrame(draw);
 
     return () => {
-      cancelAnimationFrame(animId);
+      if (animId) cancelAnimationFrame(animId);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("mousemove", onMouseMove);
       canvas.removeEventListener("mouseleave", onMouseLeave);

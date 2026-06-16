@@ -100,6 +100,8 @@ export default function Projects() {
               <img
                 src="/oidoo-screenshot.png"
                 alt="Oidoo App"
+                width={1280}
+                height={800}
                 className="w-full object-cover object-top"
                 style={{ maxHeight: "400px" }}
               />
