@@ -100,7 +100,25 @@ const items = [
   },
 ];
 
-const doubled = [...items, ...items];
+function ItemList() {
+  return (
+    <>
+      {items.map((item, i) => (
+        <div key={i} className="flex items-center">
+          <div className="flex items-center gap-2.5 px-7">
+            <span style={{ color: item.color }} className="opacity-60 shrink-0">
+              {item.icon}
+            </span>
+            <span className="text-sm font-medium text-muted whitespace-nowrap">
+              {item.name}
+            </span>
+          </div>
+          <span className="w-px h-3.5 bg-border shrink-0" />
+        </div>
+      ))}
+    </>
+  );
+}
 
 export default function TechScroll() {
   return (
@@ -115,19 +133,12 @@ export default function TechScroll() {
       />
 
       <div className="flex items-center w-max marquee-track">
-        {doubled.map((item, i) => (
-          <div key={i} className="flex items-center">
-            <div className="flex items-center gap-2.5 px-7">
-              <span style={{ color: item.color }} className="opacity-60 shrink-0">
-                {item.icon}
-              </span>
-              <span className="text-sm font-medium text-muted whitespace-nowrap">
-                {item.name}
-              </span>
-            </div>
-            <span className="w-px h-3.5 bg-border shrink-0" />
-          </div>
-        ))}
+        <div className="flex items-center">
+          <ItemList />
+        </div>
+        <div className="flex items-center" aria-hidden="true">
+          <ItemList />
+        </div>
       </div>
     </div>
   );

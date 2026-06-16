@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { m, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRef, useEffect } from "react";
 import { scrollToSection } from "@/lib/scroll";
@@ -217,25 +217,25 @@ export default function Hero() {
   return (
     <section ref={sectionRef} className="relative min-h-screen flex items-center overflow-hidden">
       <NetworkCanvas />
-      <motion.div
+      <m.div
         style={{ y, opacity }}
         className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-20 w-full"
       >
-        <motion.div
+        <m.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           className="max-w-3xl"
         >
-          <motion.p
+          <m.p
             variants={itemVariants}
             className="text-sm font-mono text-muted/60 tracking-wide mb-6"
           >
             Marcin Chrzuszcz
-          </motion.p>
+          </m.p>
 
           {IS_AVAILABLE && (
-            <motion.div variants={itemVariants} className="mb-10">
+            <m.div variants={itemVariants} className="mb-10">
               <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -243,17 +243,17 @@ export default function Hero() {
                 </span>
                 {t.hero.available}
               </span>
-            </motion.div>
+            </m.div>
           )}
 
-          <motion.h1
+          <m.h1
             variants={itemVariants}
             className="text-5xl sm:text-6xl md:text-7xl font-bold text-text leading-[1.05] tracking-tight mb-4"
           >
             {t.hero.headline}
-          </motion.h1>
+          </m.h1>
 
-          <motion.h1
+          <m.h1
             variants={itemVariants}
             className="text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.05] tracking-tight mb-10"
             style={{
@@ -264,16 +264,16 @@ export default function Hero() {
             }}
           >
             {t.hero.headline2}
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             variants={itemVariants}
             className="text-lg sm:text-xl text-muted leading-relaxed max-w-xl mb-12"
           >
             {t.hero.subtext}
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             variants={itemVariants}
             className="flex flex-wrap items-center gap-4"
           >
@@ -303,9 +303,9 @@ export default function Hero() {
             >
               {t.hero.cta_contact}
             </button>
-          </motion.div>
-        </motion.div>
-      </motion.div>
+          </m.div>
+        </m.div>
+      </m.div>
     </section>
   );
 }

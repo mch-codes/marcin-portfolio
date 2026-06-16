@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { LazyMotion, domAnimation } from "framer-motion";
 import Lenis from "lenis";
 import { registerLenis } from "@/lib/scroll";
 
@@ -24,5 +25,5 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     };
   }, []);
 
-  return <>{children}</>;
+  return <LazyMotion features={domAnimation}>{children}</LazyMotion>;
 }

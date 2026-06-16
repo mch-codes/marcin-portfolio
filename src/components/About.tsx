@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { useRef } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -72,7 +71,7 @@ export default function About() {
     <section id="about" className="py-28 md:py-36 relative">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       <div className="max-w-6xl mx-auto px-6">
-        <motion.div
+        <m.div
           ref={ref}
           initial={{ opacity: 0, y: 32 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -127,7 +126,7 @@ export default function About() {
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {stack.map((tech, i) => (
-                <motion.div
+                <m.div
                   key={tech.name}
                   initial={{ opacity: 0, y: 16 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -144,11 +143,11 @@ export default function About() {
                   <span className="text-sm font-medium text-muted group-hover:text-text transition-colors">
                     {tech.name}
                   </span>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import type { Language } from "@/lib/translations";
 import { scrollToSection, scrollToTop } from "@/lib/scroll";
@@ -25,7 +25,7 @@ export default function Navigation() {
   ];
 
   return (
-    <motion.header
+    <m.header
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -111,7 +111,7 @@ export default function Navigation() {
       {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
@@ -129,9 +129,9 @@ export default function Navigation() {
                 </button>
               ))}
             </nav>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </m.header>
   );
 }

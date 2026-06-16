@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { useRef } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { sendContactMessage } from "@/app/actions";
@@ -76,7 +75,7 @@ export default function Contact() {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
       <div className="max-w-6xl mx-auto px-6" ref={ref}>
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
@@ -85,11 +84,11 @@ export default function Contact() {
           <h2 className="text-3xl md:text-4xl font-bold text-text tracking-tight leading-[1.15]">
             {t.contact.subtitle}
           </h2>
-        </motion.div>
+        </m.div>
 
         <div className="grid md:grid-cols-5 gap-10 md:gap-16">
           {/* Left: form */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 32 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
@@ -169,10 +168,10 @@ export default function Contact() {
                 </button>
               </form>
             )}
-          </motion.div>
+          </m.div>
 
           {/* Right: contact info */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 32 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
@@ -216,7 +215,7 @@ export default function Contact() {
                 Marcin Chrzuszcz
               </a>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>

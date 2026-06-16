@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { useRef } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -21,7 +21,7 @@ export default function Process() {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
       <div className="max-w-6xl mx-auto px-6" ref={ref}>
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
@@ -33,11 +33,11 @@ export default function Process() {
           <p className="text-muted leading-relaxed max-w-xl">
             {t.process.subtitle}
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="grid sm:grid-cols-2 gap-5">
           {cards.map((card, i) => (
-            <motion.div
+            <m.div
               key={card.num}
               initial={{ opacity: 0, y: 28 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -51,7 +51,7 @@ export default function Process() {
               <span className="text-[11px] font-mono text-muted/40">{card.num}</span>
               <h3 className="text-base font-semibold text-text leading-snug">{card.title}</h3>
               <p className="text-sm text-muted leading-relaxed">{card.desc}</p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

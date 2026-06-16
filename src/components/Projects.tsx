@@ -1,7 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { useRef } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -45,7 +44,7 @@ export default function Projects() {
 
       <div className="max-w-6xl mx-auto px-6" ref={ref}>
         {/* Section header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
@@ -56,10 +55,10 @@ export default function Projects() {
             <br />
             <span className="text-muted font-normal">en producción.</span>
           </h2>
-        </motion.div>
+        </m.div>
 
         {/* Oidoo showcase */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 32 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
@@ -183,7 +182,7 @@ export default function Projects() {
               </a>
             </div>
           </div>
-        </motion.div>
+        </m.div>
 
       </div>
     </section>

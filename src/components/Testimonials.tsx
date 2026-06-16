@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { useRef } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -47,18 +47,18 @@ export default function Testimonials() {
     <section className="py-24 md:py-32 relative">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       <div className="max-w-6xl mx-auto px-6" ref={ref}>
-        <motion.h2
+        <m.h2
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
           className="text-3xl md:text-4xl font-bold text-text tracking-tight leading-[1.15] mb-12"
         >
           {t.testimonials.title}
-        </motion.h2>
+        </m.h2>
 
         <div className="grid sm:grid-cols-3 gap-4">
           {testimonials.map((item, i) => (
-            <motion.div
+            <m.div
               key={i}
               initial={{ opacity: 0, y: 28 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -71,7 +71,7 @@ export default function Testimonials() {
                 <p className="text-sm font-semibold text-text">{item.name}</p>
                 <p className="text-xs text-muted/60 mt-0.5">{item.role}</p>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>
