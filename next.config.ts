@@ -7,10 +7,30 @@ const nextConfig: NextConfig = {
   },
   images: {
     remotePatterns: [
-      { hostname: "github-readme-stats.vercel.app" },
-      { hostname: "ghchart.rshah.org" },
       { hostname: "avatars.githubusercontent.com" },
     ],
+  },
+  async headers() {
+    return [
+      {
+        source: "/",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=0, stale-while-revalidate=86400",
+          },
+        ],
+      },
+      {
+        source: "/_next/static/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+    ];
   },
 };
 
