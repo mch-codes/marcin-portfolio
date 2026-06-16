@@ -4,6 +4,7 @@ export const translations = {
       about: "Sobre mí",
       projects: "Proyectos",
       process: "Proceso",
+      education: "Formación",
       contact: "Contacto",
     },
     hero: {
@@ -71,6 +72,11 @@ export const translations = {
       card4_title: "Comunicación sin filtros",
       card4_desc: "Digo lo que veo. Si algo no tiene sentido técnico o de negocio, lo digo antes de construirlo.",
     },
+    education: {
+      title: "Formación",
+      status_in_progress: "En curso",
+      verify: "verificar",
+    },
     contact: {
       title: "Contacto",
       subtitle: "¿Tienes un proyecto en mente? Hablemos.",
@@ -103,6 +109,7 @@ export const translations = {
       about: "About",
       projects: "Projects",
       process: "Process",
+      education: "Education",
       contact: "Contact",
     },
     hero: {
@@ -157,6 +164,11 @@ export const translations = {
     },
     testimonials: {
       title: "What users say",
+    },
+    education: {
+      title: "Education",
+      status_in_progress: "In progress",
+      verify: "verify",
     },
     process: {
       title: "How I work.",
