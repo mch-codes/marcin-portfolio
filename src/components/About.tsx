@@ -1,9 +1,180 @@
 "use client";
 
 import Image from "next/image";
-import { m, useInView } from "framer-motion";
-import { useRef } from "react";
+import { m, useScroll, useTransform, useAnimationControls } from "framer-motion";
+import { useRef, useEffect, useLayoutEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
+
+function NetworkCanvas() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let animId: number;
+
+    const resize = () => {
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+    };
+    resize();
+
+    const N = 42;
+    const MAX_DIST = 140;
+    const MOUSE_DIST = 130;
+    const REPEL_STRENGTH = 4.0;
+    const MIN_SPEED = 0.25;
+    const MAX_SPEED = 1.6;
+    const TARGET_FPS = 30;
+    const FRAME_MS = 1000 / TARGET_FPS;
+
+    interface Particle { x: number; y: number; vx: number; vy: number; r: number; angle: number }
+
+    let W = canvas.width;
+    let H = canvas.height;
+    const mouse = { x: -9999, y: -9999 };
+    let lastTime = 0;
+
+    const particles: Particle[] = Array.from({ length: N }, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.85,
+      vy: (Math.random() - 0.5) * 0.85,
+      r: Math.random() * 1.3 + 0.5,
+      angle: Math.random() * Math.PI * 2,
+    }));
+
+    const onResize = () => {
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+      W = canvas.width;
+      H = canvas.height;
+    };
+    window.addEventListener("resize", onResize);
+
+    const onMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    };
+    const onMouseLeave = () => { mouse.x = -9999; mouse.y = -9999; };
+    window.addEventListener("mousemove", onMouseMove);
+    canvas.addEventListener("mouseleave", onMouseLeave);
+
+    const LINE_COLOR_B = "rgba(16, 185, 129,";
+
+    const draw = (timestamp: number) => {
+      animId = requestAnimationFrame(draw);
+
+      if (timestamp - lastTime < FRAME_MS) return;
+      lastTime = timestamp;
+
+      W = canvas.width;
+      H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      for (const p of particles) {
+        p.angle += (Math.random() - 0.5) * 0.12;
+        p.vx += Math.cos(p.angle) * 0.025;
+        p.vy += Math.sin(p.angle) * 0.025;
+
+        const mdx = p.x - mouse.x;
+        const mdy = p.y - mouse.y;
+        const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+        if (mdist < MOUSE_DIST && mdist > 0) {
+          const force = (1 - mdist / MOUSE_DIST) * REPEL_STRENGTH;
+          p.vx += (mdx / mdist) * force * 0.06;
+          p.vy += (mdy / mdist) * force * 0.06;
+        }
+
+        p.vx *= 0.98;
+        p.vy *= 0.98;
+
+        const spd = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+        if (spd < MIN_SPEED) {
+          const s = spd > 0 ? spd : 1;
+          p.vx = (p.vx / s) * MIN_SPEED;
+          p.vy = (p.vy / s) * MIN_SPEED;
+        } else if (spd > MAX_SPEED) {
+          p.vx = (p.vx / spd) * MAX_SPEED;
+          p.vy = (p.vy / spd) * MAX_SPEED;
+        }
+
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0) p.x += W;
+        if (p.x > W) p.x -= W;
+        if (p.y < 0) p.y += H;
+        if (p.y > H) p.y -= H;
+      }
+
+      const MAX_DIST_SQ = MAX_DIST * MAX_DIST;
+      for (let i = 0; i < N; i++) {
+        for (let j = i + 1; j < N; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distSq = dx * dx + dy * dy;
+          if (distSq < MAX_DIST_SQ) {
+            const t = 1 - Math.sqrt(distSq) / MAX_DIST;
+            const alpha = (t * 0.42).toFixed(2);
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `${LINE_COLOR_B} ${alpha})`;
+            ctx.lineWidth = t * 0.9;
+            ctx.stroke();
+          }
+        }
+      }
+
+      if (mouse.x > 0) {
+        for (const p of particles) {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < MOUSE_DIST) {
+            const t = 1 - dist / MOUSE_DIST;
+            ctx.beginPath();
+            ctx.moveTo(mouse.x, mouse.y);
+            ctx.lineTo(p.x, p.y);
+            ctx.strokeStyle = `rgba(16, 185, 129, ${(t * 0.5).toFixed(2)})`;
+            ctx.lineWidth = t * 1.2;
+            ctx.stroke();
+          }
+        }
+      }
+
+      ctx.fillStyle = "rgba(16, 185, 129, 0.75)";
+      for (const p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    };
+
+    animId = requestAnimationFrame(draw);
+
+    return () => {
+      if (animId) cancelAnimationFrame(animId);
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("mousemove", onMouseMove);
+      canvas.removeEventListener("mouseleave", onMouseLeave);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 w-full h-full pointer-events-none"
+      style={{ opacity: 0.55 }}
+    />
+  );
+}
 
 const stack = [
   {
@@ -62,25 +233,60 @@ const stack = [
   },
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.09 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+  },
+};
+
 export default function About() {
   const { t } = useLanguage();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const sectionRef = useRef<HTMLElement>(null);
+  const controls = useAnimationControls();
+  const animationPlayed = useRef(false);
+
+  useLayoutEffect(() => {
+    if (!animationPlayed.current) {
+      animationPlayed.current = true;
+      controls.start("visible");
+    }
+  }, [controls]);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   return (
-    <section id="about" className="py-28 md:py-36 relative">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-      <div className="max-w-6xl mx-auto px-6">
+    <section
+      id="about"
+      ref={sectionRef}
+      className="relative min-h-screen flex flex-col overflow-hidden"
+    >
+      <NetworkCanvas />
+      <m.div
+        style={{ y, opacity }}
+        className="relative z-10 flex-1 flex items-center max-w-6xl mx-auto px-6 pt-24 pb-10 w-full"
+      >
         <m.div
-          ref={ref}
-          initial={{ opacity: 0, y: 32 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          className="grid md:grid-cols-2 gap-16 md:gap-24 items-start"
+          variants={containerVariants}
+          initial="hidden"
+          animate={controls}
+          className="w-full grid md:grid-cols-2 gap-16 md:gap-24 items-start"
         >
           {/* Left: text */}
           <div>
-            <div className="flex items-center gap-4 mb-8">
+            <m.div variants={itemVariants} className="flex items-center gap-4 mb-8">
               <div className="w-14 h-14 rounded-xl overflow-hidden border border-border shrink-0">
                 <Image
                   src="https://avatars.githubusercontent.com/u/141457529?v=4"
@@ -94,50 +300,64 @@ export default function About() {
                 <p className="text-sm font-semibold text-text">Marcin Chrzuszcz</p>
                 <p className="text-xs text-muted mt-0.5">Fullstack Developer · ex-Chef</p>
               </div>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-text tracking-tight mb-8 leading-[1.15]">
+            </m.div>
+
+            <m.h1
+              variants={itemVariants}
+              className="text-4xl md:text-5xl font-bold text-text tracking-tight mb-8 leading-[1.1]"
+            >
               De las cocinas
               <br />
               <span className="text-accent">al código</span>.
-            </h2>
-            <div className="space-y-5 text-muted leading-relaxed mb-8">
+            </m.h1>
+
+            <m.div
+              variants={itemVariants}
+              className="space-y-5 text-muted leading-relaxed mb-8"
+            >
               <p>{t.about.p1}</p>
               <p>{t.about.p2}</p>
               <p>{t.about.p3}</p>
-            </div>
+            </m.div>
 
-            {/* TODO: Replace /public/cv-marcin-chrzuszcz.pdf with your real CV before going live */}
-            <a
+            <m.a
+              variants={itemVariants}
               href="/cv-marcin-chrzuszcz.pdf"
               download
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm text-muted border border-border hover:border-border-light hover:text-text transition-all duration-200"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M7 1v8M4 6l3 3 3-3M2 11h10"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
               {t.about.cv_download}
-            </a>
+            </m.a>
           </div>
 
           {/* Right: stack */}
           <div>
-            <p className="text-[11px] font-mono tracking-widest text-muted/50 uppercase mb-6">
+            <m.p
+              variants={itemVariants}
+              className="text-[11px] font-mono tracking-widest text-muted/50 uppercase mb-6"
+            >
               {t.about.stack}
-            </p>
+            </m.p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {stack.map((tech, i) => (
+              {stack.map((tech) => (
                 <m.div
                   key={tech.name}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{
-                    duration: 0.5,
-                    delay: 0.2 + i * 0.07,
-                    ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-                  }}
+                  variants={itemVariants}
                   className="group flex items-center gap-3 px-4 py-3 rounded-xl bg-card border border-border hover:border-border-light transition-all duration-200 cursor-default"
                 >
-                  <span style={{ color: tech.color }} className="opacity-80 group-hover:opacity-100 transition-opacity">
+                  <span
+                    style={{ color: tech.color }}
+                    className="opacity-80 group-hover:opacity-100 transition-opacity shrink-0"
+                  >
                     {tech.icon}
                   </span>
                   <span className="text-sm font-medium text-muted group-hover:text-text transition-colors">
@@ -148,7 +368,7 @@ export default function About() {
             </div>
           </div>
         </m.div>
-      </div>
+      </m.div>
     </section>
   );
 }
