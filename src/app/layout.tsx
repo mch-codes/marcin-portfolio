@@ -17,7 +17,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Marcin Chrzuszcz",
-  jobTitle: "Fullstack Developer",
+  jobTitle: "Junior Fullstack Developer",
   url: "https://marcin-portfolio-mocha.vercel.app",
   sameAs: [
     "https://github.com/mch-codes",

@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Marcin Chrzuszcz — Fullstack Developer & ex-Chef";
+export const alt = "Marcin Chrzuszcz — Junior Fullstack Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -60,7 +60,7 @@ export default function OGImage() {
               letterSpacing: -0.5,
             }}
           >
-            Fullstack Developer &amp; ex-Chef
+            Junior Fullstack Developer
           </div>
         </div>
 

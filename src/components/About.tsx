@@ -307,7 +307,7 @@ export default function About() {
               </div>
               <div>
                 <p className="text-sm font-semibold text-text">Marcin Chrzuszcz</p>
-                <p className="text-xs text-muted mt-0.5">Fullstack Developer · ex-Chef</p>
+                <p className="text-xs text-muted mt-0.5">Junior Fullstack Developer · ex-Chef</p>
               </div>
             </m.div>
 
