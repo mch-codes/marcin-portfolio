@@ -27,26 +27,26 @@ const jsonLd = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Marcin — Fullstack Developer & ex-Chef | Madrid",
+  title: "Marcin Chrzuszcz — Junior Fullstack Developer | Madrid",
   description:
-    "Fullstack developer and ex-chef building real SaaS products from Madrid. Next.js, Supabase, TypeScript. Available for projects.",
+    "Junior fullstack developer based in Madrid. Next.js, TypeScript, React, Supabase. Open to work.",
   alternates: {
     canonical: SITE_URL,
   },
   openGraph: {
-    title: "Marcin — Fullstack Developer & ex-Chef | Madrid",
+    title: "Marcin Chrzuszcz — Junior Fullstack Developer | Madrid",
     description:
-      "Building real products with modern tools. From Madrid's professional kitchens to production stacks.",
+      "Junior fullstack developer based in Madrid. Next.js, TypeScript, React, Supabase. Open to work.",
     type: "website",
     url: SITE_URL,
     siteName: "Marcin Chrzuszcz",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Marcin Chrzuszcz — Fullstack Developer & ex-Chef" }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Marcin Chrzuszcz — Junior Fullstack Developer | Madrid" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Marcin — Fullstack Developer & ex-Chef | Madrid",
+    title: "Marcin Chrzuszcz — Junior Fullstack Developer | Madrid",
     description:
-      "Building real products with modern tools. From Madrid's professional kitchens to production stacks.",
+      "Junior fullstack developer based in Madrid. Next.js, TypeScript, React, Supabase. Open to work.",
     images: ["/opengraph-image"],
   },
 };

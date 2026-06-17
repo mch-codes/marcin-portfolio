@@ -84,6 +84,9 @@ export default function Contact() {
           <h2 className="text-3xl md:text-4xl font-bold text-text tracking-tight leading-[1.15]">
             {t.contact.subtitle}
           </h2>
+          <p className="text-muted leading-relaxed mt-3 max-w-xl">
+            {t.contact.intro}
+          </p>
         </m.div>
 
         <div className="grid md:grid-cols-5 gap-10 md:gap-16">
