@@ -19,7 +19,7 @@ export const translations = {
     about: {
       title: "Sobre mí",
       p1: "Pasé más de 4 años como jefe de partida en cocinas profesionales de Madrid. Aprendí que un servicio que funciona no se improvisa — se construye con protocolos, comunicación bajo presión y cero margen para el error.",
-      p2: "Cuando decidí dar el salto al desarrollo web, traje ese mismo enfoque. Sin bootcamp ni carrera universitaria, aprendí construyendo productos reales: Oidoo, una app de gestión de cocina que está en producción y siendo usada por restaurantes de verdad.",
+      p2: "Cuando decidí dar el salto al desarrollo web, traje ese mismo enfoque. Sin bootcamp ni carrera universitaria, aprendí construyendo productos reales: Oidoo, una app de gestión de cocina que está en producción y siendo probada en un restaurante real.",
       p3: "Ahora busco un primer rol en Technical Support o Customer Success en una empresa SaaS para hostelería — donde conocer el producto desde dentro marca la diferencia. Nativo en polaco, con buen nivel de español e inglés (B2).",
       stack: "Stack tecnológico",
       cv_download: "Descargar CV",
@@ -126,7 +126,7 @@ export const translations = {
     about: {
       title: "About me",
       p1: "I spent 4+ years as a station chef in professional Madrid kitchens. I learned that a smooth service isn't improvised — it's built on protocols, clear communication under pressure, and zero tolerance for errors.",
-      p2: "When I made the move into web development, I brought that same mindset. No bootcamp, no CS degree — I learned by building real things: Oidoo, a kitchen management app that's live and being used by real restaurants.",
+      p2: "When I made the move into web development, I brought that same mindset. No bootcamp, no CS degree — I learned by building real things: Oidoo, a kitchen management app that's live and being tested in a real restaurant.",
       p3: "Now I'm looking for a first role in Technical Support or Customer Success at a hospitality SaaS company — where knowing the product from the inside actually matters. Native Polish speaker, with solid Spanish and English (B2).",
       stack: "Tech stack",
       cv_download: "Download CV",
