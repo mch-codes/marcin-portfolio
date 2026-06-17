@@ -1,6 +1,6 @@
 "use client";
 
-import { m, useScroll, useTransform } from "framer-motion";
+import { m, useScroll, useTransform, useAnimationControls } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRef, useEffect } from "react";
 import { scrollToSection } from "@/lib/scroll";
@@ -208,6 +208,16 @@ const IS_AVAILABLE = true;
 export default function Hero() {
   const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
+  const controls = useAnimationControls();
+  const animationPlayed = useRef(false);
+
+  useEffect(() => {
+    if (!animationPlayed.current) {
+      animationPlayed.current = true;
+      controls.start("visible");
+    }
+  }, [controls]);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
@@ -225,7 +235,7 @@ export default function Hero() {
         <m.div
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          animate={controls}
           className="max-w-3xl"
         >
           <m.p
