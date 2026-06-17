@@ -8,7 +8,7 @@ export const translations = {
       contact: "Contacto",
     },
     hero: {
-      headline: "Fullstack Developer",
+      headline: "Junior Fullstack Developer",
       headline2: "& ex-Chef",
       subtext:
         "Busco mi primer rol como desarrollador fullstack o frontend en una empresa o startup donde pueda aportar desde el primer día y seguir creciendo.",
@@ -116,7 +116,7 @@ export const translations = {
       contact: "Contact",
     },
     hero: {
-      headline: "Fullstack Developer",
+      headline: "Junior Fullstack Developer",
       headline2: "& ex-Chef",
       subtext:
         "Looking for my first fullstack or frontend developer role at a company or startup where I can contribute from day one and keep growing.",
