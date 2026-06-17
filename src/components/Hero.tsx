@@ -2,7 +2,7 @@
 
 import { m, useScroll, useTransform, useAnimationControls } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
-import { useRef, useEffect } from "react";
+import { useRef, useLayoutEffect } from "react";
 import { scrollToSection } from "@/lib/scroll";
 import TechScroll from "@/components/TechScroll";
 
@@ -211,7 +211,7 @@ export default function Hero() {
   const controls = useAnimationControls();
   const animationPlayed = useRef(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!animationPlayed.current) {
       animationPlayed.current = true;
       controls.start("visible");
