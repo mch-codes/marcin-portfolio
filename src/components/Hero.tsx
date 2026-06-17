@@ -2,7 +2,7 @@
 
 import { m, useScroll, useTransform, useAnimationControls } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
-import { useRef, useLayoutEffect } from "react";
+import { useRef, useEffect, useLayoutEffect } from "react";
 import { scrollToSection } from "@/lib/scroll";
 import TechScroll from "@/components/TechScroll";
 
