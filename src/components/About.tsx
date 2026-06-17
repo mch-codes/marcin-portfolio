@@ -249,7 +249,6 @@ const itemVariants = {
 
 export default function About() {
   const { t } = useLanguage();
-  const sectionRef = useRef<HTMLElement>(null);
   const controls = useAnimationControls();
   const animationPlayed = useRef(false);
 
@@ -260,17 +259,17 @@ export default function About() {
     }
   }, [controls]);
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  // Drive parallax off raw scrollY so layout reflows (font swap, dynamic imports)
+  // can't recalculate the section bounds mid-scroll and cause a brief re-appear.
+  // About is always at offsetTop=0, so scrollY maps directly to progress.
+  const { scrollY } = useScroll();
+  const vh = typeof window !== "undefined" ? window.innerHeight : 700;
+  const opacity = useTransform(scrollY, [0, vh * 0.65], [1, 0]);
+  const y = useTransform(scrollY, [0, vh], ["0%", "30%"]);
 
   return (
     <section
       id="about"
-      ref={sectionRef}
       className="relative min-h-screen flex flex-col overflow-hidden"
     >
       <NetworkCanvas />
