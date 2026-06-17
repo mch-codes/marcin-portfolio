@@ -24,8 +24,8 @@ function NetworkCanvas() {
     };
     resize();
 
-    const N = 42;
-    const MAX_DIST = 140;
+    const N = 80;
+    const MAX_DIST = 160;
     const MOUSE_DIST = 130;
     const REPEL_STRENGTH = 4.0;
     const MIN_SPEED = 0.25;
