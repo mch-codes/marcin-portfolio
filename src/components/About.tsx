@@ -248,7 +248,7 @@ const itemVariants = {
 };
 
 export default function About() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const controls = useAnimationControls();
   const animationPlayed = useRef(false);
 
@@ -331,7 +331,7 @@ export default function About() {
 
             <m.a
               variants={itemVariants}
-              href="/cv-marcin-chrzuszcz.pdf"
+              href={language === "es" ? "/CV es — Marcin Chrzuszcz.pdf" : "/CV en — Marcin Chrzuszcz.pdf"}
               download
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm text-muted border border-border hover:border-border-light hover:text-text transition-all duration-200"
             >
