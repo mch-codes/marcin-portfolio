@@ -285,13 +285,13 @@ export default function About() {
         >
           {/* Left: text */}
           <div>
-            <m.div variants={itemVariants} className="flex items-center gap-4 mb-8">
-              <div className="w-14 h-14 rounded-xl overflow-hidden border border-border shrink-0">
+            <m.div variants={itemVariants} className="flex items-start gap-5 mb-8">
+              <div className="w-28 h-28 rounded-2xl overflow-hidden border border-border shrink-0">
                 <Image
                   src="https://avatars.githubusercontent.com/u/141457529?v=4"
                   alt="Marcin Chrzuszcz"
-                  width={56}
-                  height={56}
+                  width={112}
+                  height={112}
                   className="w-full h-full object-cover"
                 />
               </div>
