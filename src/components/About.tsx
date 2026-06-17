@@ -285,6 +285,16 @@ export default function About() {
         >
           {/* Left: text */}
           <div>
+            <m.div variants={itemVariants} className="mb-6">
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                {t.hero.available}
+              </span>
+            </m.div>
+
             <m.div variants={itemVariants} className="flex items-start gap-5 mb-8">
               <div className="w-28 h-28 rounded-2xl overflow-hidden border border-border shrink-0">
                 <Image
@@ -365,6 +375,12 @@ export default function About() {
                 </m.div>
               ))}
             </div>
+            <m.p
+              variants={itemVariants}
+              className="text-[11px] font-mono tracking-widest text-muted/50 uppercase mt-6"
+            >
+              {t.about.languages}
+            </m.p>
           </div>
         </m.div>
       </m.div>

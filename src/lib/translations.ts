@@ -11,18 +11,19 @@ export const translations = {
       headline: "Fullstack Developer",
       headline2: "& ex-Chef",
       subtext:
-        "Construyo productos reales con herramientas modernas. Desde las cocinas de Madrid al stack de producción.",
+        "Busco mi primer rol en Technical Support o Customer Success en una empresa SaaS de hostelería. También disponible para proyectos.",
       cta_projects: "Ver proyectos",
       cta_contact: "Contacto",
-      available: "Disponible para proyectos",
+      available: "Buscando empleo · Madrid",
     },
     about: {
       title: "Sobre mí",
-      p1: "Pasé más de 10 años cocinando en cocinas profesionales de Madrid. Aprendí que un buen plato no se improvisa — se construye con atención, consistencia y muchas horas de práctica.",
-      p2: "Cuando decidí dar el salto al desarrollo web, traje ese mismo enfoque conmigo. Sin bootcamp ni carrera universitaria, aprendí construyendo cosas reales: productos SaaS que hoy están en producción y siendo usados por personas de verdad.",
-      p3: "Uso la IA como herramienta de trabajo, no como atajo. El resultado es código que funciona, productos que se entregan, y un proceso que cuida cada detalle — igual que en la cocina.",
+      p1: "Pasé más de 4 años como jefe de partida en cocinas profesionales de Madrid. Aprendí que un servicio que funciona no se improvisa — se construye con protocolos, comunicación bajo presión y cero margen para el error.",
+      p2: "Cuando decidí dar el salto al desarrollo web, traje ese mismo enfoque. Sin bootcamp ni carrera universitaria, aprendí construyendo productos reales: Oidoo, una app de gestión de cocina que está en producción y siendo usada por restaurantes de verdad.",
+      p3: "Ahora busco un primer rol en Technical Support o Customer Success en una empresa SaaS para hostelería — donde conocer el producto desde dentro marca la diferencia. Hablo español, inglés y polaco con fluidez.",
       stack: "Stack tecnológico",
       cv_download: "Descargar CV",
+      languages: "Idiomas: Español (nativo) · Inglés (C1) · Polaco (nativo)",
     },
     whatIBuild: {
       title: "¿Qué construyo?",
@@ -56,6 +57,7 @@ export const translations = {
       oidoo_f3_desc: "Importa recetas, configura estaciones y empieza el mismo día. Sin integraciones complejas.",
       oidoo_f4_title: "Soporte real, en español",
       oidoo_f4_desc: "Respuesta en menos de 24 horas. Sin bots ni formularios eternos.",
+      oidoo_extra: "Construido desde dentro: cada funcionalidad nació de un problema real que viví en cocina. Soporte incluido — respuesta en menos de 24h.",
     },
     testimonials: {
       title: "Lo que dicen los usuarios",
@@ -79,7 +81,7 @@ export const translations = {
     },
     contact: {
       title: "Contacto",
-      subtitle: "¿Tienes un proyecto en mente? Hablemos.",
+      subtitle: "¿Tienes un proyecto? Hablemos. ¿Buscas a alguien para tu equipo de soporte o customer success? También.",
       name_label: "Nombre",
       email_label: "Email",
       message_label: "Mensaje",
@@ -116,18 +118,19 @@ export const translations = {
       headline: "Fullstack Developer",
       headline2: "& ex-Chef",
       subtext:
-        "Building real products with modern tools. From Madrid's professional kitchens to production stacks.",
+        "Looking for my first Technical Support or Customer Success role at a hospitality SaaS company. Also open to freelance projects.",
       cta_projects: "View projects",
       cta_contact: "Contact",
-      available: "Available for projects",
+      available: "Open to work · Madrid",
     },
     about: {
       title: "About me",
-      p1: "I spent over 10 years cooking in professional kitchens in Madrid. I learned early on that a great dish isn't improvised — it's built with attention, consistency, and a lot of hours of practice.",
-      p2: "When I decided to move into web development, I brought that same mindset with me. No bootcamp, no CS degree — just learning by building real things: SaaS products that are live today and used by real people.",
-      p3: "I use AI as a working tool, not a shortcut. The result is code that works, products that ship, and a process that sweats the details — just like in the kitchen.",
+      p1: "I spent 4+ years as a station chef in professional Madrid kitchens. I learned that a smooth service isn't improvised — it's built on protocols, clear communication under pressure, and zero tolerance for errors.",
+      p2: "When I made the move into web development, I brought that same mindset. No bootcamp, no CS degree — I learned by building real things: Oidoo, a kitchen management app that's live and being used by real restaurants.",
+      p3: "Now I'm looking for a first role in Technical Support or Customer Success at a hospitality SaaS company — where knowing the product from the inside actually matters. Fluent in Spanish, English, and Polish.",
       stack: "Tech stack",
       cv_download: "Download CV",
+      languages: "Languages: Spanish (native) · English (C1) · Polish (native)",
     },
     whatIBuild: {
       title: "What I build",
@@ -161,6 +164,7 @@ export const translations = {
       oidoo_f3_desc: "Import recipes, configure stations, start the same day. No complex integrations.",
       oidoo_f4_title: "Real support, in Spanish",
       oidoo_f4_desc: "Response within 24 hours. No bots or endless forms.",
+      oidoo_extra: "Built from the inside: every feature came from a real problem I experienced in a professional kitchen. Support included — response in under 24h.",
     },
     testimonials: {
       title: "What users say",
@@ -184,7 +188,7 @@ export const translations = {
     },
     contact: {
       title: "Contact",
-      subtitle: "Have a project in mind? Let's talk.",
+      subtitle: "Got a project? Let's talk. Looking for someone to join your support or customer success team? That too.",
       name_label: "Name",
       email_label: "Email",
       message_label: "Message",

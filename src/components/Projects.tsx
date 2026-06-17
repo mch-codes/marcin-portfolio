@@ -157,6 +157,10 @@ export default function Projects() {
               ))}
             </div>
 
+            <p className="text-sm text-muted leading-relaxed mb-8 italic">
+              {t.projects.oidoo_extra}
+            </p>
+
             {/* Stack + CTA */}
             <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
               <div className="flex flex-wrap gap-2">
