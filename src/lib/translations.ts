@@ -32,6 +32,8 @@ export const translations = {
     },
     projects: {
       title: "Proyectos",
+      headline: "Productos reales,",
+      headline_sub: "en producción.",
       oidoo_tag: "Proyecto principal",
       oidoo_status: "En producción",
       oidoo_name: "Oidoo",
@@ -137,6 +139,8 @@ export const translations = {
     },
     projects: {
       title: "Projects",
+      headline: "Real products,",
+      headline_sub: "in production.",
       oidoo_tag: "Main project",
       oidoo_status: "Live",
       oidoo_name: "Oidoo",

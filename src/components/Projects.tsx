@@ -51,9 +51,9 @@ export default function Projects() {
           className="mb-14"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-text tracking-tight leading-[1.15]">
-            Productos reales,
+            {t.projects.headline}
             <br />
-            <span className="text-muted font-normal">en producción.</span>
+            <span className="text-muted font-normal">{t.projects.headline_sub}</span>
           </h2>
         </m.div>
 
