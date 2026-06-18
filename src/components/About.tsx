@@ -26,8 +26,8 @@ function NetworkCanvas() {
 
     const N = 80;
     const MAX_DIST = 160;
-    const MOUSE_DIST = 130;
-    const REPEL_STRENGTH = 4.0;
+    const MOUSE_DIST = 160;
+    const REPEL_STRENGTH = 7.0;
     const MIN_SPEED = 0.25;
     const MAX_SPEED = 1.6;
     const TARGET_FPS = 30;
@@ -171,7 +171,7 @@ function NetworkCanvas() {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 w-full h-full pointer-events-none"
-      style={{ opacity: 0.55 }}
+      style={{ opacity: 0.75 }}
     />
   );
 }
