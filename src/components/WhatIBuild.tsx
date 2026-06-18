@@ -82,7 +82,7 @@ export default function WhatIBuild() {
               }
               transition={{
                 duration: reducedMotion ? 0 : isInView ? 0.85 : 0.5,
-                delay: reducedMotion ? 0 : isInView ? i * 0.45 : 0,
+                delay: reducedMotion ? 0 : isInView ? i * 0.45 : (cards.length - 1 - i) * 0.12,
                 ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
               }}
               className="group rounded-2xl border border-border bg-card p-7 flex flex-col gap-5 hover:border-border-light transition-colors duration-300"

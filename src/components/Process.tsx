@@ -57,7 +57,7 @@ export default function Process() {
               }
               transition={{
                 duration: reducedMotion ? 0 : isInView ? 1.1 : 0.5,
-                delay: reducedMotion ? 0 : isInView ? i * 0.6 : 0,
+                delay: reducedMotion ? 0 : isInView ? i * 0.6 : (cards.length - 1 - i) * 0.12,
                 ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
               }}
               className="rounded-2xl border border-border bg-card p-8 flex flex-col gap-4 hover:border-border-light transition-colors duration-300"

@@ -77,6 +77,7 @@ function CertificateModal({
 function EducationRow({
   item,
   index,
+  total,
   isLast,
   onCertClick,
   statusLabel,
@@ -84,6 +85,7 @@ function EducationRow({
 }: {
   item: { title: string; institution: string; hours?: string; year?: string; inProgress?: boolean; certSrc?: string };
   index: number;
+  total: number;
   isLast: boolean;
   onCertClick: (src: string, alt: string) => void;
   statusLabel: string;
@@ -111,7 +113,11 @@ function EducationRow({
               ? { opacity: 0, y: 0 }
               : { opacity: 0, y: 48 }
       }
-      transition={{ duration: reducedMotion ? 0 : isInView ? 0.85 : 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+      transition={{
+        duration: reducedMotion ? 0 : isInView ? 0.85 : 0.5,
+        delay: reducedMotion ? 0 : isInView ? 0 : (total - 1 - index) * 0.12,
+        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+      }}
       className={`flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-8 py-6 ${!isLast ? "border-b border-border" : ""}`}
     >
       <span className="hidden sm:block text-[11px] font-mono text-muted/30 w-5 shrink-0 tabular-nums">
@@ -199,6 +205,7 @@ export default function Education() {
               key={item.title}
               item={item}
               index={i}
+              total={items.length}
               isLast={i === items.length - 1}
               onCertClick={(src, alt) => setActiveCert({ src, alt })}
               statusLabel={t.education.status_in_progress}
