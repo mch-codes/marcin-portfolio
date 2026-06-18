@@ -21,6 +21,8 @@ export const translations = {
       p1: "Pasé varios años como jefe de partida en cocinas profesionales de Madrid — Tramo, Mo de Movimiento, Ravioxo. Aprendí que construir algo que funciona de verdad requiere atención, consistencia y muchas horas de práctica.",
       p2: "Cuando decidí dar el salto al desarrollo web, traje ese mismo enfoque. Sin bootcamp ni carrera universitaria, aprendí construyendo cosas reales. Oidoo.app es mi proyecto principal: una app SaaS de gestión de cocina en producción y siendo usada en un restaurante real.",
       p3: "Busco mi primer empleo como desarrollador fullstack junior. Hablo español, inglés y polaco con fluidez.",
+      tagline1: "De las cocinas",
+      tagline2: "al código",
       stack: "Stack tecnológico",
       cv_download: "Descargar CV",
       languages: "Idiomas: Polaco (nativo) · Español (B2) · Inglés (B2)",
@@ -78,6 +80,7 @@ export const translations = {
       title: "Formación",
       status_in_progress: "En curso",
       verify: "verificar",
+      close: "Cerrar",
     },
     contact: {
       title: "Contacto",
@@ -129,6 +132,8 @@ export const translations = {
       p1: "I spent several years as a station chef in professional Madrid kitchens — Tramo, Mo de Movimiento, Ravioxo. I learned that building something that truly works requires attention, consistency and a lot of practice.",
       p2: "When I made the move into web development, I brought that same mindset. No bootcamp, no CS degree — I learned by building real things. Oidoo.app is my main project: a SaaS kitchen management app live in production and being used in a real restaurant.",
       p3: "I'm looking for my first job as a junior fullstack developer. Fluent in Spanish, English and Polish.",
+      tagline1: "From the kitchen",
+      tagline2: "to the code",
       stack: "Tech stack",
       cv_download: "Download CV",
       languages: "Languages: Polish (native) · Spanish (B2) · English (B2)",
@@ -174,6 +179,7 @@ export const translations = {
       title: "Education",
       status_in_progress: "In progress",
       verify: "verify",
+      close: "Close",
     },
     process: {
       title: "How I work.",

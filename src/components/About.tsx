@@ -298,8 +298,8 @@ export default function About() {
 
             <m.div variants={itemVariants} className="pt-1 border-t border-border">
               <p className="text-xl md:text-2xl font-semibold text-text leading-snug mt-5">
-                De las cocinas<br />
-                <span className="text-accent">al código</span>.
+                {t.about.tagline1}<br />
+                <span className="text-accent">{t.about.tagline2}</span>.
               </p>
             </m.div>
 

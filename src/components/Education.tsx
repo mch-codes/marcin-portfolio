@@ -25,10 +25,12 @@ function CertificateModal({
   src,
   alt,
   onClose,
+  closeLabel,
 }: {
   src: string;
   alt: string;
   onClose: () => void;
+  closeLabel: string;
 }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
@@ -62,7 +64,7 @@ function CertificateModal({
           <button
             onClick={onClose}
             className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 flex items-center justify-center text-white hover:bg-black/80 transition-colors"
-            aria-label="Cerrar"
+            aria-label={closeLabel}
           >
             <CloseIcon />
           </button>
@@ -197,6 +199,7 @@ export default function Education() {
           src={activeCert.src}
           alt={activeCert.alt}
           onClose={() => setActiveCert(null)}
+          closeLabel={t.education.close}
         />
       )}
     </section>
