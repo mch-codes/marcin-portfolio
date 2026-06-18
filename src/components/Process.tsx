@@ -1,13 +1,18 @@
 "use client";
 
 import { m, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function Process() {
   const { t } = useLanguage();
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const hasBeenVisible = useRef(false);
+  const isInView = useInView(ref, { once: false, margin: "-80px" });
+
+  useEffect(() => {
+    if (isInView) hasBeenVisible.current = true;
+  }, [isInView]);
 
   const cards = [
     { num: "01", title: t.process.card1_title, desc: t.process.card1_desc },
@@ -40,10 +45,16 @@ export default function Process() {
             <m.div
               key={card.num}
               initial={{ opacity: 0, y: 48 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              animate={
+                isInView
+                  ? { opacity: 1, y: 0 }
+                  : hasBeenVisible.current
+                    ? { opacity: 0, y: 0 }
+                    : { opacity: 0, y: 48 }
+              }
               transition={{
-                duration: 1.1,
-                delay: i * 0.6,
+                duration: isInView ? 1.1 : 0.5,
+                delay: isInView ? i * 0.6 : 0,
                 ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
               }}
               className="rounded-2xl border border-border bg-card p-8 flex flex-col gap-4 hover:border-border-light transition-colors duration-300"

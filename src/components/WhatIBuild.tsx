@@ -1,7 +1,7 @@
 "use client";
 
 import { m, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
 function IconRocket() {
@@ -49,7 +49,12 @@ function IconGlobe() {
 export default function WhatIBuild() {
   const { t } = useLanguage();
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const hasBeenVisible = useRef(false);
+  const isInView = useInView(ref, { once: false, margin: "-80px" });
+
+  useEffect(() => {
+    if (isInView) hasBeenVisible.current = true;
+  }, [isInView]);
 
   const cards = [
     { icon: <IconRocket />, title: t.whatIBuild.card1_title, desc: t.whatIBuild.card1_desc, accent: "#10b981" },
@@ -75,8 +80,18 @@ export default function WhatIBuild() {
             <m.div
               key={card.title}
               initial={{ opacity: 0, y: 48 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.85, delay: i * 0.45, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+              animate={
+                isInView
+                  ? { opacity: 1, y: 0 }
+                  : hasBeenVisible.current
+                    ? { opacity: 0, y: 0 }
+                    : { opacity: 0, y: 48 }
+              }
+              transition={{
+                duration: isInView ? 0.85 : 0.5,
+                delay: isInView ? i * 0.45 : 0,
+                ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+              }}
               className="group rounded-2xl border border-border bg-card p-7 flex flex-col gap-5 hover:border-border-light transition-colors duration-300"
             >
               <span

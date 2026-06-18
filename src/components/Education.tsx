@@ -90,14 +90,25 @@ function EducationRow({
   verifyLabel: string;
 }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "0px 0px -45% 0px" });
+  const hasBeenVisible = useRef(false);
+  const isInView = useInView(ref, { once: false, margin: "0px 0px -45% 0px" });
+
+  useEffect(() => {
+    if (isInView) hasBeenVisible.current = true;
+  }, [isInView]);
 
   return (
     <m.div
       ref={ref}
       initial={{ opacity: 0, y: 48 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+      animate={
+        isInView
+          ? { opacity: 1, y: 0 }
+          : hasBeenVisible.current
+            ? { opacity: 0, y: 0 }
+            : { opacity: 0, y: 48 }
+      }
+      transition={{ duration: isInView ? 0.85 : 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
       className={`flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-8 py-6 ${!isLast ? "border-b border-border" : ""}`}
     >
       <span className="hidden sm:block text-[11px] font-mono text-muted/30 w-5 shrink-0 tabular-nums">
