@@ -12,7 +12,7 @@ export const translations = {
     },
     about: {
       title: "Sobre mí",
-      p1: "Pasé varios años como jefe de partida en cocinas profesionales de Madrid — Tramo, Mo de Movimiento, Ravioxo. Aprendí que construir algo que funciona de verdad requiere atención, consistencia y muchas horas de práctica.",
+      p1: "Pasé varios años como jefe de partida en cocinas profesionales de Madrid. Aprendí que construir algo que funciona de verdad requiere atención, consistencia y muchas horas de práctica.",
       p2: "Cuando di el salto al desarrollo web, traje ese mismo enfoque. Aprendí construyendo productos reales — Oidoo.app es mi proyecto principal: una SaaS de gestión de cocina en producción, usada en un restaurante real.",
       p3: "Hablo polaco (nativo), español e inglés con fluidez.",
       tagline1: "De las cocinas",
@@ -117,7 +117,7 @@ export const translations = {
     },
     about: {
       title: "About me",
-      p1: "I spent several years as a station chef in professional Madrid kitchens — Tramo, Mo de Movimiento, Ravioxo. I learned that building something that truly works requires attention, consistency and a lot of practice.",
+      p1: "I spent several years as a station chef in professional Madrid kitchens. I learned that building something that truly works requires attention, consistency and a lot of practice.",
       p2: "When I made the move into web development, I brought that same mindset. I learned by building real products — Oidoo.app is my main project: a SaaS kitchen management app live in production, used in a real restaurant.",
       p3: "Fluent in Polish (native), Spanish and English.",
       tagline1: "From the kitchen",
