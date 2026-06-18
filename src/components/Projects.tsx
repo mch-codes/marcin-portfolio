@@ -103,7 +103,7 @@ export default function Projects() {
                 width={1280}
                 height={800}
                 className="w-full object-cover object-top"
-                style={{ maxHeight: "400px" }}
+                style={{ maxHeight: "260px" }}
               />
               <div
                 className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none"
@@ -113,9 +113,9 @@ export default function Projects() {
           </div>
 
           {/* Content */}
-          <div className="p-8 md:p-12">
+          <div className="p-6 md:p-8">
             {/* Header row */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-5">
               <span className="text-xs font-medium text-accent/80 bg-accent/8 border border-accent/15 px-3 py-1.5 rounded-md">
                 {t.projects.oidoo_tag}
               </span>
@@ -127,18 +127,18 @@ export default function Projects() {
             </div>
 
             {/* Product name + tagline */}
-            <h3 className="text-4xl md:text-5xl font-bold text-text tracking-tight mb-3">
+            <h3 className="text-2xl md:text-3xl font-bold text-text tracking-tight mb-3">
               {t.projects.oidoo_name}
             </h3>
-            <p className="text-lg text-muted mb-10 max-w-xl leading-relaxed">
+            <p className="text-sm text-muted mb-7 max-w-xl leading-relaxed">
               {t.projects.oidoo_tagline}
             </p>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 border-t border-b border-border py-8 mb-10">
+            <div className="grid grid-cols-3 gap-4 border-t border-b border-border py-5 mb-7">
               {stats.map((s) => (
                 <div key={s.label}>
-                  <p className="text-2xl md:text-3xl font-bold text-text mb-1 tabular-nums">
+                  <p className="text-xl md:text-2xl font-bold text-text mb-1 tabular-nums">
                     {s.val}
                   </p>
                   <p className="text-xs text-muted leading-snug">{s.label}</p>
@@ -147,7 +147,7 @@ export default function Projects() {
             </div>
 
             {/* Feature blocks */}
-            <div className="grid sm:grid-cols-2 gap-x-12 gap-y-8 mb-12">
+            <div className="grid sm:grid-cols-2 gap-x-8 gap-y-5 mb-8">
               {features.map((f) => (
                 <div key={f.num}>
                   <span className="text-[11px] font-mono text-muted/40 block mb-2">{f.num}</span>
