@@ -11,10 +11,10 @@ export const translations = {
       headline: "Junior Fullstack Developer",
       headline2: "& ex-Chef",
       subtext:
-        "Busco mi primer rol como desarrollador fullstack junior en una empresa o startup donde pueda aportar desde el primer día y seguir creciendo.",
+        "Desarrollador fullstack formado construyendo productos reales. Busco un equipo donde pueda aportar desde el primer día y crecer.",
       cta_projects: "Ver proyectos",
       cta_contact: "Contacto",
-      available: "Buscando primer empleo · Madrid",
+      available: "Disponible · Madrid",
     },
     about: {
       title: "Sobre mí",
@@ -122,10 +122,10 @@ export const translations = {
       headline: "Junior Fullstack Developer",
       headline2: "& ex-Chef",
       subtext:
-        "Looking for my first junior fullstack developer role at a company or startup where I can contribute from day one and keep growing.",
+        "Fullstack developer built on real products. Looking for a team where I can contribute from day one and grow.",
       cta_projects: "View projects",
       cta_contact: "Contact",
-      available: "Looking for first job · Madrid",
+      available: "Available · Madrid",
     },
     about: {
       title: "About me",

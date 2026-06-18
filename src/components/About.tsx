@@ -302,7 +302,7 @@ export default function About() {
               <h1 className="text-5xl md:text-6xl font-bold text-text tracking-tight leading-[1.05]">
                 Marcin<br />Chrzuszcz
               </h1>
-              <p className="text-base text-muted mt-3">Junior Fullstack Developer · ex-Chef</p>
+              <p className="text-base text-muted mt-3">Junior Fullstack Developer</p>
             </m.div>
 
             <m.div variants={itemVariants} className="pt-1 border-t border-border">
