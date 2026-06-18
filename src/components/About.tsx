@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { m, useScroll, useTransform, useAnimationControls } from "framer-motion";
-import { useRef, useEffect, useLayoutEffect } from "react";
+import { useRef, useEffect, useLayoutEffect, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
 function NetworkCanvas() {
@@ -259,10 +259,19 @@ export default function About() {
     }
   }, [controls]);
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
   const { scrollY } = useScroll();
   const vh = typeof window !== "undefined" ? window.innerHeight : 700;
-  const opacity = useTransform(scrollY, [0, vh * 0.9], [1, 0]);
-  const y = useTransform(scrollY, [0, vh], ["0%", "15%"]);
+  const opacity = useTransform(scrollY, isMobile ? [0, vh * 1.8] : [0, vh * 0.9], [1, 0]);
+  const y = useTransform(scrollY, [0, vh], ["0%", isMobile ? "0%" : "15%"]);
 
   return (
     <section id="about" className="relative min-h-screen flex flex-col overflow-hidden">
