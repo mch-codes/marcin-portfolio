@@ -4,6 +4,8 @@ export const alt = "Marcin Chrzuszcz — Junior Fullstack Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+const siteHost = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://marcin-portfolio.vercel.app").replace("https://", "");
+
 export default function OGImage() {
   return new ImageResponse(
     (
@@ -42,7 +44,7 @@ export default function OGImage() {
             <span style={{ fontSize: 18, fontWeight: 700, color: "#10b981" }}>MC</span>
           </div>
           <span style={{ fontSize: 14, color: "#71717a", letterSpacing: 2 }}>
-            marcin-portfolio.vercel.app
+            {siteHost}
           </span>
         </div>
 

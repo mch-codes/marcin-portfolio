@@ -11,14 +11,14 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://marcin-portfolio-mocha.vercel.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://marcin-portfolio.vercel.app";
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Marcin Chrzuszcz",
   jobTitle: "Junior Fullstack Developer",
-  url: "https://marcin-portfolio-mocha.vercel.app",
+  url: SITE_URL,
   sameAs: [
     "https://github.com/mch-codes",
     "https://www.linkedin.com/in/marcin-chrzuszcz/",
