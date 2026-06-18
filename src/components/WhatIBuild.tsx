@@ -84,7 +84,7 @@ function WhatIBuildCard({ card, index, total }: { card: CardData; index: number;
         delay: reducedMotion ? 0 : isInView ? (reEntering ? 0 : index * 0.45) : (total - 1 - index) * 0.15,
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       }}
-      className="group rounded-2xl border border-border bg-card p-7 flex flex-col gap-5 hover:border-border-light transition-colors duration-300"
+      className="group rounded-2xl border border-border bg-card p-7 flex flex-col gap-5 hover:border-accent/40 transition-colors duration-300"
     >
       <span
         className="inline-flex items-center justify-center w-10 h-10 rounded-xl"

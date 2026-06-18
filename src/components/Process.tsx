@@ -52,7 +52,7 @@ function ProcessCard({ card, index, total }: { card: ProcessCardData; index: num
         delay: reducedMotion ? 0 : isInView ? 0 : (total - 1 - index) * 0.15,
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       }}
-      className="rounded-2xl border border-border bg-card p-8 flex flex-col gap-4 hover:border-border-light transition-colors duration-300"
+      className="rounded-2xl border border-border bg-card p-8 flex flex-col gap-4 hover:border-accent/40 transition-colors duration-300"
     >
       <span className="text-[11px] font-mono text-muted/40">{card.num}</span>
       <h3 className="text-base font-semibold text-text leading-snug">{card.title}</h3>
