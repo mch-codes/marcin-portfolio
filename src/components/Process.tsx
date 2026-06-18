@@ -4,10 +4,26 @@ import { m, useInView, useReducedMotion } from "framer-motion";
 import { useRef, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
+function useScrollingUp() {
+  const isScrollingUp = useRef(false);
+  useEffect(() => {
+    let lastY = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      isScrollingUp.current = y < lastY;
+      lastY = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return isScrollingUp;
+}
+
 type ProcessCardData = { num: string; title: string; desc: string };
 
 function ProcessCard({ card, index, total }: { card: ProcessCardData; index: number; total: number }) {
   const reducedMotion = useReducedMotion();
+  const isScrollingUp = useScrollingUp();
   const ref = useRef(null);
   const hasBeenVisible = useRef(false);
   const isInView = useInView(ref, { once: false, margin: "0px 0px -40% 0px" });
@@ -15,6 +31,8 @@ function ProcessCard({ card, index, total }: { card: ProcessCardData; index: num
   useEffect(() => {
     if (isInView) hasBeenVisible.current = true;
   }, [isInView]);
+
+  const reEntering = isInView && isScrollingUp.current && hasBeenVisible.current;
 
   return (
     <m.div
@@ -30,8 +48,8 @@ function ProcessCard({ card, index, total }: { card: ProcessCardData; index: num
               : { opacity: 0, y: 48 }
       }
       transition={{
-        duration: reducedMotion ? 0 : isInView ? 1.1 : 0.5,
-        delay: reducedMotion ? 0 : isInView ? index * 0.6 : (total - 1 - index) * 0.15,
+        duration: reducedMotion ? 0 : isInView ? (reEntering ? 0 : 1.1) : 0.5,
+        delay: reducedMotion ? 0 : isInView ? (reEntering ? 0 : index * 0.6) : (total - 1 - index) * 0.15,
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       }}
       className="rounded-2xl border border-border bg-card p-8 flex flex-col gap-4 hover:border-border-light transition-colors duration-300"

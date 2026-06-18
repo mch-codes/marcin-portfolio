@@ -4,6 +4,21 @@ import { m, useInView, useReducedMotion } from "framer-motion";
 import { useRef, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
+function useScrollingUp() {
+  const isScrollingUp = useRef(false);
+  useEffect(() => {
+    let lastY = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      isScrollingUp.current = y < lastY;
+      lastY = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return isScrollingUp;
+}
+
 function IconRocket() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -40,6 +55,7 @@ type CardData = { icon: React.ReactNode; title: string; desc: string; accent: st
 
 function WhatIBuildCard({ card, index, total }: { card: CardData; index: number; total: number }) {
   const reducedMotion = useReducedMotion();
+  const isScrollingUp = useScrollingUp();
   const ref = useRef(null);
   const hasBeenVisible = useRef(false);
   const isInView = useInView(ref, { once: false, margin: "0px 0px -40% 0px" });
@@ -47,6 +63,8 @@ function WhatIBuildCard({ card, index, total }: { card: CardData; index: number;
   useEffect(() => {
     if (isInView) hasBeenVisible.current = true;
   }, [isInView]);
+
+  const reEntering = isInView && isScrollingUp.current && hasBeenVisible.current;
 
   return (
     <m.div
@@ -62,8 +80,8 @@ function WhatIBuildCard({ card, index, total }: { card: CardData; index: number;
               : { opacity: 0, y: 48 }
       }
       transition={{
-        duration: reducedMotion ? 0 : isInView ? 0.85 : 0.5,
-        delay: reducedMotion ? 0 : isInView ? index * 0.45 : (total - 1 - index) * 0.15,
+        duration: reducedMotion ? 0 : isInView ? (reEntering ? 0 : 0.85) : 0.5,
+        delay: reducedMotion ? 0 : isInView ? (reEntering ? 0 : index * 0.45) : (total - 1 - index) * 0.15,
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       }}
       className="group rounded-2xl border border-border bg-card p-7 flex flex-col gap-5 hover:border-border-light transition-colors duration-300"
