@@ -36,18 +36,58 @@ function IconGlobe() {
   );
 }
 
-export default function WhatIBuild() {
-  const { t } = useLanguage();
+type CardData = { icon: React.ReactNode; title: string; desc: string; accent: string };
+
+function WhatIBuildCard({ card, index, total }: { card: CardData; index: number; total: number }) {
   const reducedMotion = useReducedMotion();
   const ref = useRef(null);
   const hasBeenVisible = useRef(false);
-  const isInView = useInView(ref, { once: false, margin: "-80px" });
+  const isInView = useInView(ref, { once: false, margin: "0px 0px -15% 0px" });
 
   useEffect(() => {
     if (isInView) hasBeenVisible.current = true;
   }, [isInView]);
 
-  const cards = [
+  return (
+    <m.div
+      ref={ref}
+      initial={{ opacity: 0, y: 48 }}
+      animate={
+        reducedMotion
+          ? { opacity: 1, y: 0 }
+          : isInView
+            ? { opacity: 1, y: 0 }
+            : hasBeenVisible.current
+              ? { opacity: 0, y: 0 }
+              : { opacity: 0, y: 48 }
+      }
+      transition={{
+        duration: reducedMotion ? 0 : isInView ? 0.85 : 0.5,
+        delay: reducedMotion ? 0 : isInView ? index * 0.45 : (total - 1 - index) * 0.15,
+        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+      }}
+      className="group rounded-2xl border border-border bg-card p-7 flex flex-col gap-5 hover:border-border-light transition-colors duration-300"
+    >
+      <span
+        className="inline-flex items-center justify-center w-10 h-10 rounded-xl"
+        style={{ color: card.accent, background: `${card.accent}12` }}
+      >
+        {card.icon}
+      </span>
+      <div>
+        <h3 className="text-base font-semibold text-text mb-2">{card.title}</h3>
+        <p className="text-sm text-muted leading-relaxed">{card.desc}</p>
+      </div>
+    </m.div>
+  );
+}
+
+export default function WhatIBuild() {
+  const { t } = useLanguage();
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+
+  const cards: CardData[] = [
     { icon: <IconRocket />, title: t.whatIBuild.card1_title, desc: t.whatIBuild.card1_desc, accent: "#10b981" },
     { icon: <IconLayers />, title: t.whatIBuild.card2_title, desc: t.whatIBuild.card2_desc, accent: "#00d2ff" },
     { icon: <IconGlobe />, title: t.whatIBuild.card4_title, desc: t.whatIBuild.card4_desc, accent: "#a78bfa" },
@@ -68,36 +108,7 @@ export default function WhatIBuild() {
 
         <div className="grid sm:grid-cols-3 gap-4">
           {cards.map((card, i) => (
-            <m.div
-              key={card.title}
-              initial={{ opacity: 0, y: 48 }}
-              animate={
-                reducedMotion
-                  ? { opacity: 1, y: 0 }
-                  : isInView
-                    ? { opacity: 1, y: 0 }
-                    : hasBeenVisible.current
-                      ? { opacity: 0, y: 0 }
-                      : { opacity: 0, y: 48 }
-              }
-              transition={{
-                duration: reducedMotion ? 0 : isInView ? 0.85 : 0.5,
-                delay: reducedMotion ? 0 : isInView ? i * 0.45 : (cards.length - 1 - i) * 0.12,
-                ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-              }}
-              className="group rounded-2xl border border-border bg-card p-7 flex flex-col gap-5 hover:border-border-light transition-colors duration-300"
-            >
-              <span
-                className="inline-flex items-center justify-center w-10 h-10 rounded-xl"
-                style={{ color: card.accent, background: `${card.accent}12` }}
-              >
-                {card.icon}
-              </span>
-              <div>
-                <h3 className="text-base font-semibold text-text mb-2">{card.title}</h3>
-                <p className="text-sm text-muted leading-relaxed">{card.desc}</p>
-              </div>
-            </m.div>
+            <WhatIBuildCard key={card.title} card={card} index={i} total={cards.length} />
           ))}
         </div>
       </div>

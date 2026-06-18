@@ -4,18 +4,51 @@ import { m, useInView, useReducedMotion } from "framer-motion";
 import { useRef, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
-export default function Process() {
-  const { t } = useLanguage();
+type ProcessCardData = { num: string; title: string; desc: string };
+
+function ProcessCard({ card, index, total }: { card: ProcessCardData; index: number; total: number }) {
   const reducedMotion = useReducedMotion();
   const ref = useRef(null);
   const hasBeenVisible = useRef(false);
-  const isInView = useInView(ref, { once: false, margin: "-80px" });
+  const isInView = useInView(ref, { once: false, margin: "0px 0px -15% 0px" });
 
   useEffect(() => {
     if (isInView) hasBeenVisible.current = true;
   }, [isInView]);
 
-  const cards = [
+  return (
+    <m.div
+      ref={ref}
+      initial={{ opacity: 0, y: 48 }}
+      animate={
+        reducedMotion
+          ? { opacity: 1, y: 0 }
+          : isInView
+            ? { opacity: 1, y: 0 }
+            : hasBeenVisible.current
+              ? { opacity: 0, y: 0 }
+              : { opacity: 0, y: 48 }
+      }
+      transition={{
+        duration: reducedMotion ? 0 : isInView ? 1.1 : 0.5,
+        delay: reducedMotion ? 0 : isInView ? index * 0.6 : (total - 1 - index) * 0.15,
+        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+      }}
+      className="rounded-2xl border border-border bg-card p-8 flex flex-col gap-4 hover:border-border-light transition-colors duration-300"
+    >
+      <span className="text-[11px] font-mono text-muted/40">{card.num}</span>
+      <h3 className="text-base font-semibold text-text leading-snug">{card.title}</h3>
+      <p className="text-sm text-muted leading-relaxed">{card.desc}</p>
+    </m.div>
+  );
+}
+
+export default function Process() {
+  const { t } = useLanguage();
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+
+  const cards: ProcessCardData[] = [
     { num: "01", title: t.process.card1_title, desc: t.process.card1_desc },
     { num: "02", title: t.process.card2_title, desc: t.process.card2_desc },
     { num: "03", title: t.process.card3_title, desc: t.process.card3_desc },
@@ -43,29 +76,7 @@ export default function Process() {
 
         <div className="grid sm:grid-cols-2 gap-5">
           {cards.map((card, i) => (
-            <m.div
-              key={card.num}
-              initial={{ opacity: 0, y: 48 }}
-              animate={
-                reducedMotion
-                  ? { opacity: 1, y: 0 }
-                  : isInView
-                    ? { opacity: 1, y: 0 }
-                    : hasBeenVisible.current
-                      ? { opacity: 0, y: 0 }
-                      : { opacity: 0, y: 48 }
-              }
-              transition={{
-                duration: reducedMotion ? 0 : isInView ? 1.1 : 0.5,
-                delay: reducedMotion ? 0 : isInView ? i * 0.6 : (cards.length - 1 - i) * 0.12,
-                ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-              }}
-              className="rounded-2xl border border-border bg-card p-8 flex flex-col gap-4 hover:border-border-light transition-colors duration-300"
-            >
-              <span className="text-[11px] font-mono text-muted/40">{card.num}</span>
-              <h3 className="text-base font-semibold text-text leading-snug">{card.title}</h3>
-              <p className="text-sm text-muted leading-relaxed">{card.desc}</p>
-            </m.div>
+            <ProcessCard key={card.num} card={card} index={i} total={cards.length} />
           ))}
         </div>
       </div>
