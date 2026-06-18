@@ -120,11 +120,11 @@ export default function Education() {
           {items.map((item, i) => (
             <m.div
               key={item.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 48 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{
-                duration: 0.5,
-                delay: 0.1 + i * 0.1,
+                duration: 0.85,
+                delay: i * 0.45,
                 ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
               }}
               className={`flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-8 py-6 ${
