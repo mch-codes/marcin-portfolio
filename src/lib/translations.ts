@@ -78,8 +78,8 @@ export const translations = {
     },
     contact: {
       title: "Contacto",
-      subtitle: "¿Buscas un desarrollador junior?",
-      intro: "Estoy disponible para empleo como desarrollador fullstack junior — presencial, híbrido o remoto en España. También abierto a proyectos freelance.",
+      subtitle: "¿Tienes un proyecto o una vacante?",
+      intro: "Disponible para incorporación inmediata — presencial, híbrido o remoto en España. También abierto a proyectos freelance.",
       name_label: "Nombre",
       email_label: "Email",
       message_label: "Mensaje",
@@ -183,8 +183,8 @@ export const translations = {
     },
     contact: {
       title: "Contact",
-      subtitle: "Looking for a junior developer?",
-      intro: "I'm available for junior fullstack developer positions — on-site, hybrid or remote in Spain. Also open to freelance projects.",
+      subtitle: "Got a project or an opening?",
+      intro: "Available now — on-site, hybrid or remote in Spain. Also open to freelance projects.",
       name_label: "Name",
       email_label: "Email",
       message_label: "Message",
