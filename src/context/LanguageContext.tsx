@@ -22,6 +22,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   function setLanguage(lang: Language) {
     setLanguageState(lang);
     localStorage.setItem("lang", lang);
+    document.cookie = `lang=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+    document.documentElement.lang = lang;
   }
 
   return (

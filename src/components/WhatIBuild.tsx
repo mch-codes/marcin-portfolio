@@ -1,6 +1,6 @@
 "use client";
 
-import { m, useInView } from "framer-motion";
+import { m, useInView, useReducedMotion } from "framer-motion";
 import { useRef, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -38,6 +38,7 @@ function IconGlobe() {
 
 export default function WhatIBuild() {
   const { t } = useLanguage();
+  const reducedMotion = useReducedMotion();
   const ref = useRef(null);
   const hasBeenVisible = useRef(false);
   const isInView = useInView(ref, { once: false, margin: "-80px" });
@@ -71,15 +72,17 @@ export default function WhatIBuild() {
               key={card.title}
               initial={{ opacity: 0, y: 48 }}
               animate={
-                isInView
+                reducedMotion
                   ? { opacity: 1, y: 0 }
-                  : hasBeenVisible.current
-                    ? { opacity: 0, y: 0 }
-                    : { opacity: 0, y: 48 }
+                  : isInView
+                    ? { opacity: 1, y: 0 }
+                    : hasBeenVisible.current
+                      ? { opacity: 0, y: 0 }
+                      : { opacity: 0, y: 48 }
               }
               transition={{
-                duration: isInView ? 0.85 : 0.5,
-                delay: isInView ? i * 0.45 : 0,
+                duration: reducedMotion ? 0 : isInView ? 0.85 : 0.5,
+                delay: reducedMotion ? 0 : isInView ? i * 0.45 : 0,
                 ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
               }}
               className="group rounded-2xl border border-border bg-card p-7 flex flex-col gap-5 hover:border-border-light transition-colors duration-300"
