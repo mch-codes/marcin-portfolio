@@ -355,7 +355,7 @@ export default function About() {
 
             <m.div variants={itemVariants} className="w-full flex justify-center">
               <a
-                href={language === "es" ? "/CV es — Marcin Chrzuszcz.pdf" : "/CV en — Marcin Chrzuszcz.pdf"}
+                href={language === "es" ? "/CV document ES .pdf" : "/CV document EN.pdf"}
                 download
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm text-muted border border-border hover:border-accent hover:text-accent transition-all duration-200"
               >
