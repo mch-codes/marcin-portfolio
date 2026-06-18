@@ -42,8 +42,8 @@ export default function Process() {
               initial={{ opacity: 0, y: 48 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{
-                duration: 0.85,
-                delay: i * 0.45,
+                duration: 1.1,
+                delay: i * 0.6,
                 ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
               }}
               className="rounded-2xl border border-border bg-card p-8 flex flex-col gap-4 hover:border-border-light transition-colors duration-300"
