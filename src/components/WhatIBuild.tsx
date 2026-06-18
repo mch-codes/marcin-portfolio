@@ -25,16 +25,6 @@ function IconLayers() {
   );
 }
 
-function IconStore() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 9l1-5h16l1 5" />
-      <path d="M3 9a2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0" />
-      <path d="M5 22V11h14v11" />
-      <path d="M9 22v-5h6v5" />
-    </svg>
-  );
-}
 
 function IconGlobe() {
   return (

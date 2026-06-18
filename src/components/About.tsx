@@ -319,6 +319,7 @@ export default function About() {
                   alt="Marcin Chrzuszcz"
                   width={288}
                   height={288}
+                  priority
                   className="w-full h-full object-cover"
                 />
               </div>
