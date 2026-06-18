@@ -357,7 +357,7 @@ export default function About() {
               <a
                 href={language === "es" ? "/CV es — Marcin Chrzuszcz.pdf" : "/CV en — Marcin Chrzuszcz.pdf"}
                 download
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm text-muted border border-border hover:border-border-light hover:text-text transition-all duration-200"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm text-muted border border-border hover:border-accent hover:text-accent transition-all duration-200"
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <path
