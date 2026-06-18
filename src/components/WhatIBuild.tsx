@@ -74,9 +74,9 @@ export default function WhatIBuild() {
           {cards.map((card, i) => (
             <m.div
               key={card.title}
-              initial={{ opacity: 0, y: 28 }}
+              initial={{ opacity: 0, y: 48 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 + i * 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+              transition={{ duration: 0.65, delay: i * 0.28, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
               className="group rounded-2xl border border-border bg-card p-7 flex flex-col gap-5 hover:border-border-light transition-colors duration-300"
             >
               <span
