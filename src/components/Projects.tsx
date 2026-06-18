@@ -103,7 +103,7 @@ export default function Projects() {
                 width={1280}
                 height={800}
                 className="w-full object-cover object-top"
-                style={{ maxHeight: "260px" }}
+                style={{ maxHeight: "320px" }}
               />
               <div
                 className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none"
@@ -130,7 +130,7 @@ export default function Projects() {
             <h3 className="text-2xl md:text-3xl font-bold text-text tracking-tight mb-3">
               {t.projects.oidoo_name}
             </h3>
-            <p className="text-sm text-muted mb-7 max-w-xl leading-relaxed">
+            <p className="text-xs text-muted mb-7 max-w-xl leading-relaxed">
               {t.projects.oidoo_tagline}
             </p>
 
