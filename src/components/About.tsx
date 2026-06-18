@@ -261,8 +261,8 @@ export default function About() {
 
   const { scrollY } = useScroll();
   const vh = typeof window !== "undefined" ? window.innerHeight : 700;
-  const opacity = useTransform(scrollY, [0, vh * 0.65], [1, 0]);
-  const y = useTransform(scrollY, [0, vh], ["0%", "30%"]);
+  const opacity = useTransform(scrollY, [0, vh * 0.9], [1, 0]);
+  const y = useTransform(scrollY, [0, vh], ["0%", "15%"]);
 
   return (
     <section id="about" className="relative min-h-screen flex flex-col overflow-hidden">
