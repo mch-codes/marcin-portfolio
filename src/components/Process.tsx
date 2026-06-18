@@ -10,7 +10,7 @@ function ProcessCard({ card, index, total }: { card: ProcessCardData; index: num
   const reducedMotion = useReducedMotion();
   const ref = useRef(null);
   const hasBeenVisible = useRef(false);
-  const isInView = useInView(ref, { once: false, margin: "0px 0px -15% 0px" });
+  const isInView = useInView(ref, { once: false, margin: "0px 0px -40% 0px" });
 
   useEffect(() => {
     if (isInView) hasBeenVisible.current = true;
