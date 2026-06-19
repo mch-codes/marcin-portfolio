@@ -23,7 +23,7 @@
 }
 
 @layer base {
-  button {
+  a, button, img, [role="button"] {
     cursor: pointer;
   }
 }
