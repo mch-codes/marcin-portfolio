@@ -62,13 +62,18 @@ export default function Navigation() {
               <button
                 key={lang}
                 onClick={() => setLanguage(lang)}
-                className={`text-xs font-semibold px-3 py-1 rounded-full transition-all duration-200 uppercase tracking-wide ${
-                  language === lang
-                    ? "bg-accent text-white"
-                    : "text-muted hover:text-text"
-                }`}
+                className="relative text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide transition-colors duration-200"
               >
-                {lang}
+                {language === lang && (
+                  <m.span
+                    layoutId="lang-pill-desktop"
+                    className="absolute inset-0 rounded-full bg-accent"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <span className={`relative z-10 ${language === lang ? "text-white" : "text-muted hover:text-text"}`}>
+                  {lang}
+                </span>
               </button>
             ))}
           </div>
@@ -81,11 +86,18 @@ export default function Navigation() {
               <button
                 key={lang}
                 onClick={() => setLanguage(lang)}
-                className={`text-xs font-semibold px-2.5 py-1 rounded-full transition-all duration-200 uppercase ${
-                  language === lang ? "bg-accent text-white" : "text-muted"
-                }`}
+                className="relative text-xs font-semibold px-2.5 py-1 rounded-full uppercase"
               >
-                {lang}
+                {language === lang && (
+                  <m.span
+                    layoutId="lang-pill-mobile"
+                    className="absolute inset-0 rounded-full bg-accent"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <span className={`relative z-10 ${language === lang ? "text-white" : "text-muted"}`}>
+                  {lang}
+                </span>
               </button>
             ))}
           </div>
