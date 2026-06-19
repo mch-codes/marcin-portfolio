@@ -150,8 +150,7 @@ export default function Projects() {
             <div className="grid sm:grid-cols-2 gap-x-8 gap-y-5 mb-8">
               {features.map((f) => (
                 <div key={f.num}>
-                  <span className="text-[11px] font-mono text-muted/40 block mb-2">{f.num}</span>
-                  <h4 className="text-sm font-semibold text-text mb-1.5">{f.title}</h4>
+<h4 className="text-sm font-semibold text-text mb-1.5">{f.title}</h4>
                   <p className="text-sm text-muted leading-relaxed">{f.desc}</p>
                 </div>
               ))}

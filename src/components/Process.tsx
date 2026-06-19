@@ -54,8 +54,7 @@ function ProcessCard({ card, index, total }: { card: ProcessCardData; index: num
       }}
       className="rounded-2xl border border-border bg-card p-8 flex flex-col gap-4 hover:border-accent/40 transition-colors duration-300"
     >
-      <span className="text-[11px] font-mono text-muted/40">{card.num}</span>
-      <h3 className="text-base font-semibold text-text leading-snug">{card.title}</h3>
+<h3 className="text-base font-semibold text-text leading-snug">{card.title}</h3>
       <p className="text-sm text-muted leading-relaxed">{card.desc}</p>
     </m.div>
   );
