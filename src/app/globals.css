@@ -14,7 +14,8 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-space-grotesk);
+  --font-sans: var(--font-jakarta);
+  --font-mono: var(--font-mono);
 }
 
 * {
@@ -36,9 +37,17 @@ html {
 body {
   background-color: #1e1e1e;
   color: #d4d4d4;
-  font-family: var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
+  font-family: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-fraunces), "Fraunces", serif;
+}
+
+code, pre, kbd {
+  font-family: var(--font-mono), "IBM Plex Mono", monospace;
 }
 
 ::selection {
