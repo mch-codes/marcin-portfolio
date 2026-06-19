@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 
 const EMAIL = "marcin.chrzuszcz@gmail.com";
@@ -38,59 +37,46 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-border py-10">
-      <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-8">
-        <div className="flex flex-col gap-6">
-          <div className="flex items-center gap-3">
-            <span className="text-sm font-semibold text-text">MC</span>
-            <span className="w-px h-4 bg-border" />
-            <p className="text-xs text-muted">{t.footer.copy}</p>
-            <span className="text-xs text-muted/40">© {year}</span>
-          </div>
-
-          <div className="flex items-center gap-5">
-            <p className="text-xs text-muted/50 italic hidden sm:block">{t.footer.tagline}</p>
-
-            <div className="flex items-center gap-3">
-              <a
-                href={LINKEDIN}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="text-muted/50 hover:text-text transition-colors duration-200"
-              >
-                <LinkedInIcon />
-              </a>
-              <a
-                href={GITHUB}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub"
-                className="text-muted/50 hover:text-text transition-colors duration-200"
-              >
-                <GitHubIcon />
-              </a>
-              <a
-                href={`mailto:${EMAIL}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Email"
-                className="text-muted/50 hover:text-text transition-colors duration-200"
-              >
-                <MailIcon />
-              </a>
-            </div>
-          </div>
+      <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-semibold text-text">MC</span>
+          <span className="w-px h-4 bg-border" />
+          <p className="text-xs text-muted">{t.footer.copy}</p>
+          <span className="text-xs text-muted/40">© {year}</span>
         </div>
 
-        <div className="w-60 h-60 md:w-72 md:h-72 rounded-2xl overflow-hidden border border-border shadow-2xl shrink-0">
-          <Image
-            src="/5D159DE1-073C-4D6C-BE48-24B3137F7505_1_105_c.jpeg"
-            alt="Marcin Chrzuszcz"
-            width={512}
-            height={512}
-            quality={90}
-            className="w-full h-full object-cover"
-          />
+        <div className="flex items-center gap-5">
+          <p className="text-xs text-muted/50 italic hidden sm:block">{t.footer.tagline}</p>
+
+          <div className="flex items-center gap-3">
+            <a
+              href={LINKEDIN}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="text-muted/50 hover:text-text transition-colors duration-200"
+            >
+              <LinkedInIcon />
+            </a>
+            <a
+              href={GITHUB}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="text-muted/50 hover:text-text transition-colors duration-200"
+            >
+              <GitHubIcon />
+            </a>
+            <a
+              href={`mailto:${EMAIL}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Email"
+              className="text-muted/50 hover:text-text transition-colors duration-200"
+            >
+              <MailIcon />
+            </a>
+          </div>
         </div>
       </div>
     </footer>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { m, useInView } from "framer-motion";
 import { useRef } from "react";
@@ -173,13 +174,23 @@ export default function Contact() {
             )}
           </m.div>
 
-          {/* Right: contact info */}
+          {/* Right: photo + contact info */}
           <m.div
             initial={{ opacity: 0, y: 32 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
             className="md:col-span-2 flex flex-col gap-8"
           >
+            <div className="w-60 h-60 md:w-72 md:h-72 rounded-2xl overflow-hidden border border-border shadow-2xl">
+              <Image
+                src="/5D159DE1-073C-4D6C-BE48-24B3137F7505_1_105_c.jpeg"
+                alt="Marcin Chrzuszcz"
+                width={512}
+                height={512}
+                quality={90}
+                className="w-full h-full object-cover"
+              />
+            </div>
             {/* Email */}
             <div>
               <p className="text-xs font-semibold tracking-widest uppercase text-muted mb-3">
