@@ -289,12 +289,22 @@ export default function About() {
           {/* Left: text content */}
           <div className="flex flex-col gap-7">
             <m.div variants={itemVariants}>
-              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              <span
+                className="inline-flex items-center gap-2 px-3 py-1.5 text-xs text-emerald-400 border border-emerald-500/50 bg-emerald-500/5"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.12em",
+                  boxShadow: "0 0 12px rgba(16,185,129,0.15), 0 0 4px rgba(16,185,129,0.1)",
+                }}
+              >
+                <span className="opacity-40">[</span>
+                <span className="relative flex h-2 w-2 flex-shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 bg-emerald-500" />
                 </span>
                 {t.hero.available}
+                <span className="opacity-40">]</span>
               </span>
             </m.div>
 
