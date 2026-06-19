@@ -333,10 +333,11 @@ export default function About() {
             <m.div variants={itemVariants}>
               <div className="w-60 h-60 md:w-72 md:h-72 rounded-2xl overflow-hidden border border-border shadow-2xl">
                 <Image
-                  src="https://avatars.githubusercontent.com/u/141457529?v=4"
+                  src="https://avatars.githubusercontent.com/u/141457529?v=4&s=512"
                   alt="Marcin Chrzuszcz"
-                  width={288}
-                  height={288}
+                  width={512}
+                  height={512}
+                  quality={90}
                   priority
                   className="w-full h-full object-cover"
                 />
