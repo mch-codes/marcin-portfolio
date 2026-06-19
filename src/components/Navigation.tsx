@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { m, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence, type PanInfo } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import type { Language } from "@/lib/translations";
 import { scrollToSection, scrollToTop } from "@/lib/scroll";
@@ -11,21 +11,45 @@ const LANGS: Language[] = ["es", "en"];
 function LangToggle({ compact = false, className = "" }: { compact?: boolean; className?: string }) {
   const { language, setLanguage } = useLanguage();
   const refs = useRef<(HTMLButtonElement | null)[]>([null, null]);
-  const [pill, setPill] = useState({ left: 0, width: 0 });
+  const [positions, setPositions] = useState<{ left: number; width: number }[]>([]);
 
   useEffect(() => {
-    const idx = LANGS.indexOf(language);
-    const el = refs.current[idx];
-    if (el) setPill({ left: el.offsetLeft, width: el.offsetWidth });
-  }, [language]);
+    const pos = refs.current.map(el =>
+      el ? { left: el.offsetLeft, width: el.offsetWidth } : { left: 0, width: 0 }
+    );
+    if (pos.every(p => p.width > 0)) setPositions(pos);
+  }, []);
+
+  const activeIdx = LANGS.indexOf(language);
+  const baseLeft = positions[0]?.left ?? 0;
+  const targetX = (positions[activeIdx]?.left ?? 0) - baseLeft;
+  const maxX = (positions[LANGS.length - 1]?.left ?? 0) - baseLeft;
+  const pillWidth = positions[activeIdx]?.width ?? 0;
+
+  const handleDragEnd = (_: PointerEvent, info: PanInfo) => {
+    const finalX = targetX + info.offset.x;
+    let closestIdx = 0;
+    let minDist = Infinity;
+    positions.forEach((pos, i) => {
+      const dist = Math.abs((pos.left - baseLeft) - finalX);
+      if (dist < minDist) { minDist = dist; closestIdx = i; }
+    });
+    setLanguage(LANGS[closestIdx]);
+  };
 
   return (
     <div className={`relative flex items-center bg-card border border-border rounded-full px-1 py-1 ${className}`}>
-      {pill.width > 0 && (
+      {pillWidth > 0 && (
         <m.span
-          className="absolute top-1 bottom-1 rounded-full bg-accent pointer-events-none"
-          animate={pill}
+          className="absolute top-1 bottom-1 rounded-full bg-accent cursor-grab active:cursor-grabbing"
+          style={{ left: baseLeft, width: pillWidth }}
+          animate={{ x: targetX }}
           initial={false}
+          drag="x"
+          dragConstraints={{ left: -targetX, right: maxX - targetX }}
+          dragElastic={0.05}
+          dragMomentum={false}
+          onDragEnd={handleDragEnd}
           transition={{ type: "spring", stiffness: 250, damping: 18 }}
         />
       )}
