@@ -290,7 +290,7 @@ export default function About() {
           <div className="flex flex-col gap-7">
             <m.div variants={itemVariants}>
               <span
-                className="inline-flex items-center gap-2 px-3 py-1.5 text-xs text-emerald-400 border border-emerald-500/50 bg-emerald-500/5"
+                className="inline-flex items-center gap-2 px-3 py-1.5 text-xs text-emerald-400"
                 style={{
                   fontFamily: "var(--font-mono)",
                   textTransform: "uppercase",
