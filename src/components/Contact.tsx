@@ -181,16 +181,6 @@ export default function Contact() {
             transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
             className="md:col-span-2 flex flex-row gap-6 items-start"
           >
-            <div className="w-32 h-40 rounded-2xl overflow-hidden border border-border shadow-xl shrink-0">
-              <Image
-                src="/5D159DE1-073C-4D6C-BE48-24B3137F7505_1_105_c.jpeg"
-                alt="Marcin Chrzuszcz"
-                width={256}
-                height={320}
-                quality={90}
-                className="w-full h-full object-cover"
-              />
-            </div>
             <div className="flex flex-col gap-8">
             {/* Email */}
             <div>
@@ -230,6 +220,16 @@ export default function Contact() {
                 Marcin Chrzuszcz
               </a>
             </div>
+            </div>
+            <div className="w-32 h-40 rounded-2xl overflow-hidden border border-border shadow-xl shrink-0">
+              <Image
+                src="/5D159DE1-073C-4D6C-BE48-24B3137F7505_1_105_c.jpeg"
+                alt="Marcin Chrzuszcz"
+                width={256}
+                height={320}
+                quality={90}
+                className="w-full h-full object-cover"
+              />
             </div>
           </m.div>
         </div>
