@@ -41,7 +41,7 @@ function LangToggle({ compact = false, className = "" }: { compact?: boolean; cl
     <div className={`relative flex items-center bg-card border border-border rounded-full px-1 py-1 ${className}`}>
       {pillWidth > 0 && (
         <m.span
-          className="absolute top-1 bottom-1 rounded-full bg-accent cursor-grab active:cursor-grabbing"
+          className="absolute top-1 bottom-1 rounded-full bg-accent cursor-grab active:cursor-grabbing z-10"
           style={{ left: baseLeft, width: pillWidth }}
           animate={{ x: targetX }}
           initial={false}
@@ -58,9 +58,9 @@ function LangToggle({ compact = false, className = "" }: { compact?: boolean; cl
           key={lang}
           ref={(el) => { refs.current[i] = el; }}
           onClick={() => setLanguage(lang)}
-          className={`relative z-10 text-xs font-semibold ${compact ? "px-2.5" : "px-3"} py-1 rounded-full uppercase tracking-wide`}
+          className={`relative text-xs font-semibold ${compact ? "px-2.5" : "px-3"} py-1 rounded-full uppercase tracking-wide`}
         >
-          <span className={`transition-colors duration-150 ${language === lang ? "text-white" : "text-muted hover:text-text"}`}>
+          <span className={`relative z-20 pointer-events-none transition-colors duration-150 ${language === lang ? "text-white" : "text-muted"}`}>
             {lang}
           </span>
         </button>
