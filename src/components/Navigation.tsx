@@ -26,7 +26,7 @@ function LangToggle({ compact = false, className = "" }: { compact?: boolean; cl
           className="absolute top-1 bottom-1 rounded-full bg-accent pointer-events-none"
           animate={pill}
           initial={false}
-          transition={{ type: "spring", stiffness: 400, damping: 30 }}
+          transition={{ type: "spring", stiffness: 500, damping: 18 }}
         />
       )}
       {LANGS.map((lang, i) => (
