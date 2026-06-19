@@ -179,7 +179,7 @@ export default function Contact() {
             initial={{ opacity: 0, y: 32 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-            className="md:col-span-2 flex flex-row gap-6 items-start"
+            className="md:col-span-2 flex flex-col sm:flex-row gap-6 items-start"
           >
             <div className="flex flex-col gap-8">
             {/* Email */}
@@ -221,7 +221,7 @@ export default function Contact() {
               </a>
             </div>
             </div>
-            <div className="w-44 h-56 rounded-2xl overflow-hidden border border-border shadow-xl shrink-0">
+            <div className="w-full h-52 sm:w-44 sm:h-56 rounded-2xl overflow-hidden border border-border shadow-xl shrink-0">
               <Image
                 src="/5D159DE1-073C-4D6C-BE48-24B3137F7505_1_105_c.jpeg"
                 alt="Marcin Chrzuszcz"
