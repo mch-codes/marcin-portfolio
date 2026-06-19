@@ -129,12 +129,21 @@ function EducationRow({
         {item.hours && <span className="text-xs text-muted/50 tabular-nums">{item.hours}</span>}
         {item.year && <span className="text-xs text-muted/50 tabular-nums">{item.year}</span>}
         {item.inProgress && (
-          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-accent border border-accent/20 bg-accent/8 px-2.5 py-1 rounded-md">
+          <span
+            className="inline-flex items-center gap-1.5 text-xs text-emerald-400 px-2.5 py-1"
+            style={{
+              fontFamily: "var(--font-mono)",
+              textTransform: "uppercase",
+              letterSpacing: "0.12em",
+            }}
+          >
+            <span className="opacity-40">[</span>
             <span className="relative flex h-1.5 w-1.5 shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-accent" />
+              <span className="animate-ping absolute inline-flex h-full w-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-1.5 w-1.5 bg-emerald-500" />
             </span>
             {statusLabel}
+            <span className="opacity-40">]</span>
           </span>
         )}
         {item.certSrc && (
