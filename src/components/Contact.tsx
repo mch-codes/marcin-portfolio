@@ -221,7 +221,7 @@ export default function Contact() {
               </a>
             </div>
             </div>
-            <div className="w-32 h-40 rounded-2xl overflow-hidden border border-border shadow-xl shrink-0">
+            <div className="w-44 h-56 rounded-2xl overflow-hidden border border-border shadow-xl shrink-0">
               <Image
                 src="/5D159DE1-073C-4D6C-BE48-24B3137F7505_1_105_c.jpeg"
                 alt="Marcin Chrzuszcz"
