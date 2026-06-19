@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { m, useInView } from "framer-motion";
 import { useRef } from "react";
@@ -76,38 +75,19 @@ export default function Contact() {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
       <div className="max-w-6xl mx-auto px-6" ref={ref}>
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 mb-14">
-          <m.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-text tracking-tight leading-[1.15]">
-              {t.contact.subtitle}
-            </h2>
-            <p className="text-muted leading-relaxed mt-3 max-w-xl">
-              {t.contact.intro}
-            </p>
-          </m.div>
-
-          <m.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-            className="shrink-0"
-          >
-            <div className="w-60 h-60 md:w-72 md:h-72 rounded-2xl overflow-hidden border border-border shadow-2xl">
-              <Image
-                src="/5D159DE1-073C-4D6C-BE48-24B3137F7505_1_105_c.jpeg"
-                alt="Marcin Chrzuszcz"
-                width={512}
-                height={512}
-                quality={90}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </m.div>
-        </div>
+        <m.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+          className="mb-14"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-text tracking-tight leading-[1.15]">
+            {t.contact.subtitle}
+          </h2>
+          <p className="text-muted leading-relaxed mt-3 max-w-xl">
+            {t.contact.intro}
+          </p>
+        </m.div>
 
         <div className="grid md:grid-cols-5 gap-10 md:gap-16">
           {/* Left: form */}
