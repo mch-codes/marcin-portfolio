@@ -204,7 +204,7 @@ export default function Education() {
           </h2>
         </m.div>
 
-        <div id="education-list" className="flex flex-col max-w-3xl">
+        <div className="flex flex-col max-w-3xl">
           {items.map((item, i) => (
             <EducationRow
               key={item.title}

@@ -9,10 +9,11 @@ export function registerLenis(lenis: Lenis) {
 export function scrollToSection(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
+  const heading = el.querySelector("h2, h3") ?? el;
   if (_lenis) {
-    _lenis.scrollTo(el, { offset: -80 });
+    _lenis.scrollTo(heading as HTMLElement, { offset: -96 });
   } else {
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    (heading as HTMLElement).scrollIntoView({ behavior: "smooth", block: "start" });
   }
 }
 
