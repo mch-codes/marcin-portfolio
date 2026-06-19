@@ -295,7 +295,6 @@ export default function About() {
                   fontFamily: "var(--font-mono)",
                   textTransform: "uppercase",
                   letterSpacing: "0.12em",
-                  boxShadow: "0 0 12px rgba(16,185,129,0.15), 0 0 4px rgba(16,185,129,0.1)",
                 }}
               >
                 <span className="opacity-40">[</span>
