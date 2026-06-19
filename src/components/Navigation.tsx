@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { m, AnimatePresence, type PanInfo } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import type { Language } from "@/lib/translations";
 import { scrollToSection, scrollToTop } from "@/lib/scroll";
@@ -11,45 +11,21 @@ const LANGS: Language[] = ["es", "en"];
 function LangToggle({ compact = false, className = "" }: { compact?: boolean; className?: string }) {
   const { language, setLanguage } = useLanguage();
   const refs = useRef<(HTMLButtonElement | null)[]>([null, null]);
-  const [positions, setPositions] = useState<{ left: number; width: number }[]>([]);
+  const [pill, setPill] = useState({ left: 0, width: 0 });
 
   useEffect(() => {
-    const pos = refs.current.map(el =>
-      el ? { left: el.offsetLeft, width: el.offsetWidth } : { left: 0, width: 0 }
-    );
-    if (pos.every(p => p.width > 0)) setPositions(pos);
-  }, []);
-
-  const activeIdx = LANGS.indexOf(language);
-  const baseLeft = positions[0]?.left ?? 0;
-  const targetX = (positions[activeIdx]?.left ?? 0) - baseLeft;
-  const maxX = (positions[LANGS.length - 1]?.left ?? 0) - baseLeft;
-  const pillWidth = positions[activeIdx]?.width ?? 0;
-
-  const handleDragEnd = (_: PointerEvent, info: PanInfo) => {
-    const finalX = targetX + info.offset.x;
-    let closestIdx = 0;
-    let minDist = Infinity;
-    positions.forEach((pos, i) => {
-      const dist = Math.abs((pos.left - baseLeft) - finalX);
-      if (dist < minDist) { minDist = dist; closestIdx = i; }
-    });
-    setLanguage(LANGS[closestIdx]);
-  };
+    const idx = LANGS.indexOf(language);
+    const el = refs.current[idx];
+    if (el) setPill({ left: el.offsetLeft, width: el.offsetWidth });
+  }, [language]);
 
   return (
     <div className={`relative flex items-center bg-card border border-border rounded-full px-1 py-1 ${className}`}>
-      {pillWidth > 0 && (
+      {pill.width > 0 && (
         <m.span
-          className="absolute top-1 bottom-1 rounded-full bg-accent cursor-grab active:cursor-grabbing z-10"
-          style={{ left: baseLeft, width: pillWidth }}
-          animate={{ x: targetX }}
+          className="absolute top-1 bottom-1 rounded-full bg-accent pointer-events-none"
+          animate={pill}
           initial={false}
-          drag="x"
-          dragConstraints={{ left: -targetX, right: maxX - targetX }}
-          dragElastic={0.05}
-          dragMomentum={false}
-          onDragEnd={handleDragEnd}
           transition={{ type: "spring", stiffness: 250, damping: 18 }}
         />
       )}
@@ -58,9 +34,9 @@ function LangToggle({ compact = false, className = "" }: { compact?: boolean; cl
           key={lang}
           ref={(el) => { refs.current[i] = el; }}
           onClick={() => setLanguage(lang)}
-          className={`relative text-xs font-semibold ${compact ? "px-2.5" : "px-3"} py-1 rounded-full uppercase tracking-wide`}
+          className={`relative z-10 text-xs font-semibold ${compact ? "px-2.5" : "px-3"} py-1 rounded-full uppercase tracking-wide`}
         >
-          <span className={`relative z-20 pointer-events-none transition-colors duration-150 ${language === lang ? "text-white" : "text-muted"}`}>
+          <span className={`transition-colors duration-150 ${language === lang ? "text-white" : "text-muted hover:text-text"}`}>
             {lang}
           </span>
         </button>
