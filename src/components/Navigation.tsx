@@ -1,13 +1,52 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import type { Language } from "@/lib/translations";
 import { scrollToSection, scrollToTop } from "@/lib/scroll";
 
+const LANGS: Language[] = ["es", "en"];
+
+function LangToggle({ compact = false, className = "" }: { compact?: boolean; className?: string }) {
+  const { language, setLanguage } = useLanguage();
+  const refs = useRef<(HTMLButtonElement | null)[]>([null, null]);
+  const [pill, setPill] = useState({ left: 0, width: 0 });
+
+  useEffect(() => {
+    const idx = LANGS.indexOf(language);
+    const el = refs.current[idx];
+    if (el) setPill({ left: el.offsetLeft, width: el.offsetWidth });
+  }, [language]);
+
+  return (
+    <div className={`relative flex items-center bg-card border border-border rounded-full px-1 py-1 ${className}`}>
+      {pill.width > 0 && (
+        <m.span
+          className="absolute top-1 bottom-1 rounded-full bg-accent pointer-events-none"
+          animate={pill}
+          initial={false}
+          transition={{ type: "spring", stiffness: 400, damping: 30 }}
+        />
+      )}
+      {LANGS.map((lang, i) => (
+        <button
+          key={lang}
+          ref={(el) => { refs.current[i] = el; }}
+          onClick={() => setLanguage(lang)}
+          className={`relative z-10 text-xs font-semibold ${compact ? "px-2.5" : "px-3"} py-1 rounded-full uppercase tracking-wide`}
+        >
+          <span className={`transition-colors duration-150 ${language === lang ? "text-white" : "text-muted hover:text-text"}`}>
+            {lang}
+          </span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export default function Navigation() {
-  const { language, setLanguage, t } = useLanguage();
+  const { t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -55,67 +94,21 @@ export default function Navigation() {
               {link.label}
             </button>
           ))}
-
-          {/* Language toggle */}
-          <div className="flex items-center gap-1 ml-2 bg-card border border-border rounded-full px-1 py-1">
-            {(["es", "en"] as Language[]).map((lang) => (
-              <button
-                key={lang}
-                onClick={() => setLanguage(lang)}
-                className="relative text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide transition-colors duration-200"
-              >
-                {language === lang && (
-                  <m.span
-                    layoutId="lang-pill-desktop"
-                    className="absolute inset-0 rounded-full bg-accent"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
-                <span className={`relative z-10 ${language === lang ? "text-white" : "text-muted hover:text-text"}`}>
-                  {lang}
-                </span>
-              </button>
-            ))}
-          </div>
+          <LangToggle className="ml-2" />
         </nav>
 
         {/* Mobile: lang toggle + hamburger */}
         <div className="md:hidden flex items-center gap-3">
-          <div className="flex items-center gap-1 bg-card border border-border rounded-full px-1 py-1">
-            {(["es", "en"] as Language[]).map((lang) => (
-              <button
-                key={lang}
-                onClick={() => setLanguage(lang)}
-                className="relative text-xs font-semibold px-2.5 py-1 rounded-full uppercase"
-              >
-                {language === lang && (
-                  <m.span
-                    layoutId="lang-pill-mobile"
-                    className="absolute inset-0 rounded-full bg-accent"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
-                <span className={`relative z-10 ${language === lang ? "text-white" : "text-muted"}`}>
-                  {lang}
-                </span>
-              </button>
-            ))}
-          </div>
+          <LangToggle compact />
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="text-muted hover:text-text transition-colors p-1"
             aria-label="Toggle menu"
           >
             <div className="w-5 flex flex-col gap-1.5">
-              <span
-                className={`block h-px bg-current transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`}
-              />
-              <span
-                className={`block h-px bg-current transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}
-              />
-              <span
-                className={`block h-px bg-current transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}
-              />
+              <span className={`block h-px bg-current transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
+              <span className={`block h-px bg-current transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+              <span className={`block h-px bg-current transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
             </div>
           </button>
         </div>
