@@ -120,11 +120,7 @@ function EducationRow({
       }}
       className={`flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-8 py-6 ${!isLast ? "border-b border-border" : ""}`}
     >
-      <span className="hidden sm:block text-[11px] font-mono text-muted/30 w-5 shrink-0 tabular-nums">
-        {String(index + 1).padStart(2, "0")}
-      </span>
-
-      <div className="flex-1 min-w-0">
+<div className="flex-1 min-w-0">
         <p className="text-sm font-semibold text-text leading-snug">{item.title}</p>
         <p className="text-xs text-muted mt-0.5">{item.institution}</p>
       </div>
