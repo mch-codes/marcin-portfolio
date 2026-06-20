@@ -270,7 +270,7 @@ export default function About() {
 
   const { scrollY } = useScroll();
   const vh = typeof window !== "undefined" ? window.innerHeight : 700;
-  const opacity = useTransform(scrollY, [0, vh * 0.9], isMobile ? [1, 1] : [1, 0]);
+  const opacity = useTransform(scrollY, [vh * 0.6, vh * 1.2], isMobile ? [1, 1] : [1, 0]);
   const y = useTransform(scrollY, [0, vh], ["0%", isMobile ? "0%" : "15%"]);
 
   return (
