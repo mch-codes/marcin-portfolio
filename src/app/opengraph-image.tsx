@@ -4,7 +4,7 @@ export const alt = "Marcin Chrzuszcz — Fullstack Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const siteHost = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://marcin-portfolio.vercel.app").replace("https://", "");
+const siteHost = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://marcin-portfolio-mocha.vercel.app").replace("https://", "");
 
 export default function OGImage() {
   return new ImageResponse(
