@@ -107,7 +107,7 @@ export default function Projects() {
               />
               <div
                 className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none"
-                style={{ background: "linear-gradient(to bottom, transparent, #18181b)" }}
+                style={{ background: "linear-gradient(to bottom, transparent, #ffffff)" }}
               />
             </a>
           </div>
