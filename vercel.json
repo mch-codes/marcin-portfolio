@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "marcin-portfolio.vercel.app" }],
+      "destination": "https://marcin-portfolio-mocha.vercel.app/$1",
+      "permanent": true
+    }
+  ]
+}
