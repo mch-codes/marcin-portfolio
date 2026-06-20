@@ -36,7 +36,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border py-10">
+    <footer className="border-t border-border py-10 bg-[#111113]">
       <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-3">
           <span className="text-sm font-semibold text-text">MC</span>

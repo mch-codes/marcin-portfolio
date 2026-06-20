@@ -72,7 +72,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-28 md:py-36 relative">
+    <section id="contact" className="py-28 md:py-36 relative bg-[#1a1a1e]">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
       <div className="max-w-6xl mx-auto px-6" ref={ref}>
