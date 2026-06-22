@@ -223,7 +223,7 @@ export default function Contact() {
             </div>
             <div className="w-full h-52 sm:w-44 sm:h-56 rounded-2xl overflow-hidden border border-border shadow-xl shrink-0">
               <Image
-                src="/5D159DE1-073C-4D6C-BE48-24B3137F7505_1_105_c.jpeg"
+                src="/footer-photo.webp"
                 alt="Marcin Chrzuszcz"
                 width={256}
                 height={320}

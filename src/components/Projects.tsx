@@ -98,7 +98,7 @@ export default function Projects() {
             {/* Screenshot */}
             <a href="https://www.oidoo.app" target="_blank" rel="noopener noreferrer" className="block relative overflow-hidden">
               <img
-                src="/oidoo-screenshot.png"
+                src="/oidoo-screenshot.webp"
                 alt="Oidoo App"
                 width={1280}
                 height={800}
