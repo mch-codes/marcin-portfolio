@@ -302,7 +302,7 @@ export default function About() {
               <h1 className="text-5xl md:text-6xl font-bold text-text tracking-tight leading-[1.05]">
                 Marcin<br />Chrzuszcz
               </h1>
-              <p className="text-base text-muted mt-3">Fullstack Developer</p>
+              <p className="text-base text-muted mt-3">I know JavaScript, HTML and CSS well enough to build real things. I&apos;m now learning React and Next.js properly so I understand the tools I&apos;ve been using.</p>
             </m.div>
 
             <m.div variants={itemVariants} className="pt-1 border-t border-border">
