@@ -32,7 +32,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Marcin Chrzuszcz",
-  jobTitle: "Fullstack Developer",
+  jobTitle: "Web Developer",
   url: SITE_URL,
   sameAs: [
     "https://github.com/mch-codes",
@@ -42,26 +42,26 @@ const jsonLd = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Marcin Chrzuszcz — Fullstack Developer | Madrid",
+  title: "Marcin Chrzuszcz — Web Developer | Madrid",
   description:
-    "Junior fullstack developer based in Madrid. Next.js, TypeScript, React, Supabase. Open to work.",
+    "Web developer learning in public — building real things with JS, HTML, CSS, React and Next.js. Based in Madrid. Open to work.",
   alternates: {
     canonical: SITE_URL,
   },
   openGraph: {
-    title: "Marcin Chrzuszcz — Fullstack Developer | Madrid",
+    title: "Marcin Chrzuszcz — Web Developer | Madrid",
     description:
-      "Junior fullstack developer based in Madrid. Next.js, TypeScript, React, Supabase. Open to work.",
+      "Web developer learning in public — building real things with JS, HTML, CSS, React and Next.js. Based in Madrid. Open to work.",
     type: "website",
     url: SITE_URL,
     siteName: "Marcin Chrzuszcz",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Marcin Chrzuszcz — Fullstack Developer | Madrid" }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Marcin Chrzuszcz — Web Developer | Madrid" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Marcin Chrzuszcz — Fullstack Developer | Madrid",
+    title: "Marcin Chrzuszcz — Web Developer | Madrid",
     description:
-      "Junior fullstack developer based in Madrid. Next.js, TypeScript, React, Supabase. Open to work.",
+      "Web developer learning in public — building real things with JS, HTML, CSS, React and Next.js. Based in Madrid. Open to work.",
     images: ["/opengraph-image"],
   },
 };

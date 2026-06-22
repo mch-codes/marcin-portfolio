@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Marcin Chrzuszcz — Fullstack Developer";
+export const alt = "Marcin Chrzuszcz — Web Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -62,7 +62,7 @@ export default function OGImage() {
               letterSpacing: -0.5,
             }}
           >
-            Fullstack Developer
+            Web Developer
           </div>
         </div>
 
@@ -73,7 +73,7 @@ export default function OGImage() {
             <span style={{ fontSize: 16, color: "#71717a" }}>Madrid, Spain</span>
           </div>
           <div style={{ display: "flex", gap: 10 }}>
-            {["Next.js", "TypeScript", "Supabase"].map((tech) => (
+            {["JavaScript", "HTML", "CSS"].map((tech) => (
               <div
                 key={tech}
                 style={{

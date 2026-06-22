@@ -24,7 +24,7 @@ export const translations = {
     },
     whatIBuild: {
       title: "¿Qué construyo?",
-      card1_title: "Aplicaciones web fullstack",
+      card1_title: "Aplicaciones web",
       card1_desc: "Next.js, React, TypeScript y Supabase. Desde la base de datos hasta la interfaz, construyo productos completos.",
       card2_title: "Interfaces modernas",
       card2_desc: "UIs limpias, rápidas y accesibles. Tailwind CSS, Framer Motion y atención al detalle en cada componente.",
@@ -132,7 +132,7 @@ export const translations = {
     },
     whatIBuild: {
       title: "What I build",
-      card1_title: "Fullstack web apps",
+      card1_title: "Web apps",
       card1_desc: "Next.js, React, TypeScript and Supabase. From database to UI, I build complete products end to end.",
       card2_title: "Modern interfaces",
       card2_desc: "Clean, fast and accessible UIs. Tailwind CSS, Framer Motion and attention to detail in every component.",
