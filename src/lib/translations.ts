@@ -2,6 +2,7 @@ export const translations = {
   es: {
     nav: {
       about: "Sobre mí",
+      services: "Servicios",
       projects: "Proyectos",
       process: "Proceso",
       education: "Formación",
@@ -30,7 +31,7 @@ export const translations = {
       card1_price: "Desde €800 · entrega en 2–3 semanas",
       card2_title: "Landing page de producto",
       card2_desc: "Una página que convierte visitas en clientes. Diseño y código — todo incluido. Orientación de contenido incluida.",
-      card2_price: "Desde €400 · entrega en 1 semana",
+      card2_price: "Desde €600 · entrega en 1 semana",
       card3_title: "Aplicación web",
       card3_desc: "Construyo la lógica, la base de datos y la interfaz. Como hice con Oidoo.app.",
       card3_price: "Presupuesto según proyecto · hablamos primero",
@@ -123,6 +124,7 @@ export const translations = {
   en: {
     nav: {
       about: "About",
+      services: "Services",
       projects: "Projects",
       process: "Process",
       education: "Education",
@@ -151,7 +153,7 @@ export const translations = {
       card1_price: "From €800 · delivered in 2–3 weeks",
       card2_title: "Product landing page",
       card2_desc: "A page that turns visitors into clients. Design and code — all included. Content guidance provided.",
-      card2_price: "From €400 · delivered in 1 week",
+      card2_price: "From €600 · delivered in 1 week",
       card3_title: "Web application",
       card3_desc: "I build the logic, the database, and the interface. Like I did with Oidoo.app.",
       card3_price: "Custom quote · let's talk first",
