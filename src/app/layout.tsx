@@ -44,14 +44,14 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "Marcin Chrzuszcz — Web Developer | Madrid",
   description:
-    "Web developer learning in public — building real things with JS, HTML, CSS, React and Next.js. Based in Madrid. Open to work.",
+    "Custom web development in Madrid. Next.js, TypeScript, Supabase. One real production project — Oidoo.app. Available for freelance projects.",
   alternates: {
     canonical: SITE_URL,
   },
   openGraph: {
     title: "Marcin Chrzuszcz — Web Developer | Madrid",
     description:
-      "Web developer learning in public — building real things with JS, HTML, CSS, React and Next.js. Based in Madrid. Open to work.",
+      "Custom web development in Madrid. Next.js, TypeScript, Supabase. One real production project — Oidoo.app. Available for freelance projects.",
     type: "website",
     url: SITE_URL,
     siteName: "Marcin Chrzuszcz",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Marcin Chrzuszcz — Web Developer | Madrid",
     description:
-      "Web developer learning in public — building real things with JS, HTML, CSS, React and Next.js. Based in Madrid. Open to work.",
+      "Custom web development in Madrid. Next.js, TypeScript, Supabase. One real production project — Oidoo.app. Available for freelance projects.",
     images: ["/opengraph-image"],
   },
 };
