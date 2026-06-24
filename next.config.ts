@@ -10,28 +10,6 @@ const nextConfig: NextConfig = {
       { hostname: "avatars.githubusercontent.com" },
     ],
   },
-  async headers() {
-    return [
-      {
-        source: "/",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=0, stale-while-revalidate=86400",
-          },
-        ],
-      },
-      {
-        source: "/_next/static/:path*",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-    ];
-  },
 };
 
 export default nextConfig;
