@@ -354,7 +354,7 @@ export default function About() {
               </div>
             </m.div>
 
-            <m.div variants={itemVariants} className="w-full flex justify-center">
+            <m.div variants={itemVariants} className="w-full flex justify-center hidden">
               <a
                 href={language === "es" ? "/CV document ES .pdf" : "/CV document EN.pdf"}
                 download
