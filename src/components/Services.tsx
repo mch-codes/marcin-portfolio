@@ -81,7 +81,7 @@ function ServiceCardItem({ card, index, total }: { card: ServiceCard; index: num
         delay: reducedMotion ? 0 : isInView ? (reEntering ? 0 : index * 0.45) : (total - 1 - index) * 0.15,
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       }}
-      className="group rounded-2xl border border-border bg-card p-7 flex flex-col gap-5 hover:border-accent/40 transition-colors duration-300"
+      className="group rounded-2xl border border-border bg-card p-7 flex flex-col gap-5 sm:grid sm:grid-rows-subgrid sm:row-span-4 sm:gap-y-0 hover:border-accent/40 transition-colors duration-300"
     >
       <span
         className="inline-flex items-center justify-center w-10 h-10 rounded-xl"
@@ -135,7 +135,7 @@ export default function Services() {
           {t.services.title}
         </m.h2>
 
-        <div className="grid sm:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-3 gap-x-4 gap-y-4 sm:grid-rows-[auto_1fr_auto_auto] sm:gap-y-5">
           {cards.map((card, i) => (
             <ServiceCardItem key={card.title} card={card} index={i} total={cards.length} />
           ))}
