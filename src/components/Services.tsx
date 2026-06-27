@@ -93,22 +93,20 @@ function ServiceCardItem({ card, index, total }: { card: ServiceCard; index: num
         <h3 className="text-base font-semibold text-text mb-2">{card.title}</h3>
         <p className="text-sm text-muted leading-relaxed">{card.desc}</p>
       </div>
-      <div className="pt-4 border-t border-border">
-        <p
-          className="text-xs tracking-wide text-accent/70"
-          style={{ fontFamily: "var(--font-mono)" }}
-        >
-          {card.price}
-        </p>
-        <ul className="mt-4 flex flex-col gap-2">
-          {card.features.map((item) => (
-            <li key={item} className="flex items-start gap-2 text-sm text-muted">
-              <span className="mt-0.5 text-xs shrink-0" style={{ color: card.accent }}>✓</span>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul className="flex flex-col gap-2">
+        {card.features.map((item) => (
+          <li key={item} className="flex items-start gap-2 text-sm text-muted">
+            <span className="mt-0.5 text-xs shrink-0" style={{ color: card.accent }}>✓</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+      <p
+        className="pt-4 border-t border-border text-xs tracking-wide text-accent/70"
+        style={{ fontFamily: "var(--font-mono)" }}
+      >
+        {card.price}
+      </p>
     </m.div>
   );
 }
