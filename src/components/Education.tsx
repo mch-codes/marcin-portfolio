@@ -207,7 +207,7 @@ export default function Education() {
         <div className="flex flex-col max-w-3xl">
           {items.map((item, i) => (
             <EducationRow
-              key={item.title}
+              key={i}
               item={item}
               index={i}
               total={items.length}

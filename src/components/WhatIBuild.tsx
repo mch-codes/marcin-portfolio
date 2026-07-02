@@ -126,7 +126,7 @@ export default function WhatIBuild() {
 
         <div className="grid sm:grid-cols-3 gap-4">
           {cards.map((card, i) => (
-            <WhatIBuildCard key={card.title} card={card} index={i} total={cards.length} />
+            <WhatIBuildCard key={i} card={card} index={i} total={cards.length} />
           ))}
         </div>
       </div>

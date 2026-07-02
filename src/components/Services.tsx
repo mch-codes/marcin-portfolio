@@ -131,7 +131,7 @@ export default function Services() {
 
         <div className="grid sm:grid-cols-3 gap-x-4 gap-y-4 sm:grid-rows-[auto_1fr_auto] sm:gap-y-5">
           {cards.map((card, i) => (
-            <ServiceCardItem key={card.title} card={card} index={i} total={cards.length} />
+            <ServiceCardItem key={i} card={card} index={i} total={cards.length} />
           ))}
         </div>
       </div>
