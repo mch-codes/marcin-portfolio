@@ -48,7 +48,7 @@ function IconLayers() {
   );
 }
 
-type ServiceCard = { icon: React.ReactNode; title: string; desc: string; price: string; accent: string; features: string[] };
+type ServiceCard = { icon: React.ReactNode; title: string; desc: string; accent: string; features: string[] };
 
 function ServiceCardItem({ card, index, total }: { card: ServiceCard; index: number; total: number }) {
   const reducedMotion = useReducedMotion();
@@ -81,7 +81,7 @@ function ServiceCardItem({ card, index, total }: { card: ServiceCard; index: num
         delay: reducedMotion ? 0 : isInView ? (reEntering ? 0 : index * 0.45) : (total - 1 - index) * 0.15,
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       }}
-      className="group rounded-2xl border border-border bg-card p-7 flex flex-col gap-5 sm:grid sm:grid-rows-subgrid sm:row-span-4 sm:gap-y-0 hover:border-accent/40 transition-colors duration-300"
+      className="group rounded-2xl border border-border bg-card p-7 flex flex-col gap-5 sm:grid sm:grid-rows-subgrid sm:row-span-3 sm:gap-y-0 hover:border-accent/40 transition-colors duration-300"
     >
       <span
         className="inline-flex items-center justify-center w-10 h-10 rounded-xl"
@@ -101,12 +101,6 @@ function ServiceCardItem({ card, index, total }: { card: ServiceCard; index: num
           </li>
         ))}
       </ul>
-      <p
-        className="pt-4 border-t border-border text-xs tracking-wide text-accent/70"
-        style={{ fontFamily: "var(--font-mono)" }}
-      >
-        {card.price}
-      </p>
     </m.div>
   );
 }
@@ -117,9 +111,9 @@ export default function Services() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   const cards: ServiceCard[] = [
-    { icon: <IconMonitor />, title: t.services.card1_title, desc: t.services.card1_desc, price: t.services.card1_price, features: t.services.card1_features, accent: "#10b981" },
-    { icon: <IconTarget />,  title: t.services.card2_title, desc: t.services.card2_desc, price: t.services.card2_price, features: t.services.card2_features, accent: "#00d2ff" },
-    { icon: <IconLayers />,  title: t.services.card3_title, desc: t.services.card3_desc, price: t.services.card3_price, features: t.services.card3_features, accent: "#a78bfa" },
+    { icon: <IconMonitor />, title: t.services.card1_title, desc: t.services.card1_desc, features: t.services.card1_features, accent: "#10b981" },
+    { icon: <IconTarget />,  title: t.services.card2_title, desc: t.services.card2_desc, features: t.services.card2_features, accent: "#00d2ff" },
+    { icon: <IconLayers />,  title: t.services.card3_title, desc: t.services.card3_desc, features: t.services.card3_features, accent: "#a78bfa" },
   ];
 
   return (
@@ -135,7 +129,7 @@ export default function Services() {
           {t.services.title}
         </m.h2>
 
-        <div className="grid sm:grid-cols-3 gap-x-4 gap-y-4 sm:grid-rows-[auto_1fr_auto_auto] sm:gap-y-5">
+        <div className="grid sm:grid-cols-3 gap-x-4 gap-y-4 sm:grid-rows-[auto_1fr_auto] sm:gap-y-5">
           {cards.map((card, i) => (
             <ServiceCardItem key={card.title} card={card} index={i} total={cards.length} />
           ))}
