@@ -117,7 +117,7 @@ export const translations = {
     },
     contact: {
       title: "Contacto",
-      subtitle: "¿Tienes algo que construir?",
+      subtitle: "Empecemos tu proyecto",
       intro: "Cuéntame qué necesitas. Si encaja, te doy un presupuesto en 24 horas. Sin compromiso.",
       name_label: "Nombre",
       email_label: "Email",
@@ -261,7 +261,7 @@ export const translations = {
     },
     contact: {
       title: "Contact",
-      subtitle: "Got something to build?",
+      subtitle: "Start your project",
       intro: "Tell me what you need. If it's a fit, I'll send a quote within 24 hours. No strings attached.",
       name_label: "Name",
       email_label: "Email",
