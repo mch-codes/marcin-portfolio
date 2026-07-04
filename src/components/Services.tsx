@@ -91,7 +91,7 @@ function ServiceCardItem({ card, index, total }: { card: ServiceCard; index: num
       </span>
       <div className="flex-1">
         <h3 className="text-base font-semibold text-text mb-2">{card.title}</h3>
-        <p className="text-sm text-muted leading-relaxed">{card.desc}</p>
+        <p className="text-sm text-muted leading-relaxed mb-4">{card.desc}</p>
       </div>
       <ul className="flex flex-col gap-2">
         {card.features.map((item) => (
