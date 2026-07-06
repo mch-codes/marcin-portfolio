@@ -89,7 +89,7 @@ function ServiceCardItem({ card, index, total }: { card: ServiceCard; index: num
         delay: reducedMotion ? 0 : isInView ? (reEntering ? 0 : index * 0.45) : (total - 1 - index) * 0.15,
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       }}
-      className="group rounded-2xl border border-border bg-card p-7 flex flex-col gap-5 sm:grid sm:grid-rows-subgrid sm:row-span-3 sm:gap-y-0 hover:border-accent/40 transition-colors duration-300"
+      className="group rounded-2xl border border-border bg-card p-8 md:p-9 flex flex-col gap-6 sm:grid sm:grid-rows-subgrid sm:row-span-3 sm:gap-y-0 hover:border-accent/40 transition-colors duration-300"
     >
       <span
         className="inline-flex items-center justify-center w-10 h-10 rounded-xl"
@@ -138,19 +138,19 @@ export default function Services() {
   ];
 
   return (
-    <section id="services" className="py-24 md:py-32 relative bg-[#1a1a1e]">
+    <section id="services" className="py-28 md:py-40 relative bg-[#1a1a1e]">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       <div className="max-w-6xl mx-auto px-6" ref={ref}>
         <m.h2
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          className="text-3xl md:text-4xl font-bold text-text tracking-tight leading-[1.15] mb-12"
+          className="text-3xl md:text-4xl font-bold text-text tracking-tight leading-[1.15] mb-16"
         >
           {t.services.title}
         </m.h2>
 
-        <div className="grid sm:grid-cols-2 gap-x-4 gap-y-4 sm:grid-rows-[auto_1fr_auto_auto_1fr_auto] sm:gap-y-5">
+        <div className="grid sm:grid-cols-2 gap-x-6 gap-y-6 sm:grid-rows-[auto_1fr_auto_auto_1fr_auto] sm:gap-y-8">
           {cards.map((card, i) => (
             <ServiceCardItem key={i} card={card} index={i} total={cards.length} />
           ))}
@@ -160,7 +160,7 @@ export default function Services() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          className="mt-10 flex flex-col items-center gap-5 text-center rounded-2xl border border-accent/20 bg-accent/5 px-6 py-10 md:px-12"
+          className="mt-16 flex flex-col items-center gap-5 text-center rounded-2xl border border-accent/20 bg-accent/5 px-6 py-12 md:px-14"
         >
           <p className="text-lg md:text-xl font-semibold text-text max-w-xl leading-snug">
             {t.services.cta_text}
