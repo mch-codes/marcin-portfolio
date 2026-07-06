@@ -87,6 +87,8 @@ export const translations = {
       fontaneria_desc: "Landing de urgencias para un fontanero ficticio en Lavapiés — prioriza el contacto rápido (llamada/WhatsApp) y transmite disponibilidad 24h.",
       fisio_name: "Clínica Fisio Vitalia",
       fisio_desc: "Landing para una clínica de fisioterapia ficticia en Chamberí — genera confianza y resuelve dudas antes de la reserva de cita.",
+      taberna_name: "Taberna El Fogón",
+      taberna_desc: "Landing bilingüe para una taberna castellana ficticia en La Latina — la carta es la protagonista, pensada mobile-first para reservas desde Google Maps.",
     },
     testimonials: {
       title: "Lo que dicen los usuarios",
@@ -225,6 +227,8 @@ export const translations = {
       fontaneria_desc: "Emergency-plumber landing page for a fictional Lavapiés business — prioritises fast contact (call/WhatsApp) and 24h availability.",
       fisio_name: "Clínica Fisio Vitalia",
       fisio_desc: "Landing page for a fictional physiotherapy clinic in Chamberí — builds trust and answers questions before booking a visit.",
+      taberna_name: "Taberna El Fogón",
+      taberna_desc: "Bilingual landing page for a fictional Castilian tavern in La Latina — the menu takes center stage, built mobile-first for Google Maps reservations.",
     },
     testimonials: {
       title: "What users say",

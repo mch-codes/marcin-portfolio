@@ -81,6 +81,17 @@ export default function Projects() {
       screenshot: "/fisio-screenshot.png",
       host: "fisio-vitalia-landing.vercel.app",
     },
+    {
+      tag: t.projects.freelance_tag,
+      title: t.projects.taberna_name,
+      desc: t.projects.taberna_desc,
+      stack: freelanceStack,
+      demoUrl: "https://taberna-el-fogon-landing.vercel.app",
+      demoLabel: t.projects.freelance_demo,
+      githubUrl: "https://github.com/mch-codes/taberna-el-fogon-landing",
+      screenshot: "/taberna-screenshot.png",
+      host: "taberna-el-fogon-landing.vercel.app",
+    },
   ];
 
   return (
@@ -103,7 +114,7 @@ export default function Projects() {
         </m.div>
 
         {/* Grid */}
-        <div className="grid sm:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 gap-5">
           {projects.map((p, i) => (
             <m.div
               key={p.title}
