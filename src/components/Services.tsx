@@ -85,8 +85,8 @@ function ServiceCardItem({ card, index, total }: { card: ServiceCard; index: num
               : { opacity: 0, y: 48 }
       }
       transition={{
-        duration: reducedMotion ? 0 : isInView ? (reEntering ? 0 : 0.85) : 0.5,
-        delay: reducedMotion ? 0 : isInView ? (reEntering ? 0 : index * 0.45) : (total - 1 - index) * 0.15,
+        duration: reducedMotion ? 0 : isInView ? (reEntering ? 0 : 0.55) : 0.4,
+        delay: reducedMotion ? 0 : isInView ? (reEntering ? 0 : index * 0.1) : (total - 1 - index) * 0.08,
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       }}
       className="group rounded-2xl border border-border bg-card p-8 md:p-9 flex flex-col gap-6 sm:grid sm:grid-rows-subgrid sm:row-span-3 sm:gap-y-0 hover:border-accent/40 transition-colors duration-300"
