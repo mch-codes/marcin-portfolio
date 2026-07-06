@@ -79,7 +79,7 @@ export const translations = {
       oidoo_name: "Oidoo",
       oidoo_tagline: "La app de gestión de cocina que construí para resolver un problema real — y que hoy está en producción.",
       oidoo_desc:
-        "SaaS de gestión para cocinas profesionales. Control de inventario, escandallos, y comunicación de equipo — todo en una sola plataforma.",
+        "SaaS de gestión para cocinas profesionales. Checklists de estación, recetas centralizadas y partes de servicio — todo digital, sin papel.",
       oidoo_cta: "Ver proyecto",
       freelance_tag: "Demo",
       freelance_demo: "Ver demo",
@@ -219,7 +219,7 @@ export const translations = {
       oidoo_name: "Oidoo",
       oidoo_tagline: "The kitchen management app I built to solve a real problem — now live in production.",
       oidoo_desc:
-        "SaaS for professional kitchen management. Inventory control, recipe costing, and team communication — all in one platform.",
+        "SaaS for professional kitchen management. Station checklists, centralized recipes, and service logs — all digital, no paper.",
       oidoo_cta: "View project",
       freelance_tag: "Demo",
       freelance_demo: "View demo",
