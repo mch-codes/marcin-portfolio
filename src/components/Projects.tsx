@@ -104,7 +104,8 @@ export default function Projects() {
 
         {/* Slider */}
         <div className="relative -mx-6 px-6 sm:mx-0 sm:px-0">
-          <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-2 no-scrollbar">
+          <div className="overflow-x-auto snap-x snap-mandatory pb-2 no-scrollbar">
+            <div className="flex gap-5 w-fit mx-auto">
             {projects.map((p, i) => (
               <m.div
                 key={p.title}
@@ -185,6 +186,7 @@ export default function Projects() {
                 </div>
               </m.div>
             ))}
+            </div>
           </div>
 
           {/* Edge fade hinting more cards */}
