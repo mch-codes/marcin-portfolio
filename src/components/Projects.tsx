@@ -34,6 +34,8 @@ type FreelanceProject = {
   demoUrl: string;
   githubUrl: string;
   stack: string[];
+  screenshot: string;
+  host: string;
 };
 
 export default function Projects() {
@@ -61,6 +63,8 @@ export default function Projects() {
       demoUrl: "https://fontaneria-urgente-lavapies.vercel.app",
       githubUrl: "https://github.com/mch-codes/fontaneria-urgente-lavapies",
       stack: ["Next.js", "TypeScript", "Tailwind"],
+      screenshot: "/fontaneria-screenshot.png",
+      host: "fontaneria-urgente-lavapies.vercel.app",
     },
     {
       name: t.projects.fisio_name,
@@ -68,6 +72,8 @@ export default function Projects() {
       demoUrl: "https://fisio-vitalia-landing.vercel.app",
       githubUrl: "https://github.com/mch-codes/fisio-vitalia-landing",
       stack: ["Next.js", "TypeScript", "Tailwind"],
+      screenshot: "/fisio-screenshot.png",
+      host: "fisio-vitalia-landing.vercel.app",
     },
   ];
 
@@ -239,48 +245,74 @@ export default function Projects() {
               initial={{ opacity: 0, y: 32 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.25 + i * 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-              className="rounded-2xl border border-border bg-card p-6 md:p-7 flex flex-col gap-4 hover:border-accent/40 transition-colors duration-300"
+              className="rounded-2xl border border-border bg-card overflow-hidden flex flex-col hover:border-accent/40 transition-colors duration-300"
             >
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-medium text-muted bg-bg border border-border px-3 py-1.5 rounded-md">
-                  {t.projects.freelance_tag}
-                </span>
-                <a
-                  href={p.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted/60 hover:text-text transition-colors"
-                  aria-label={`${p.name} — GitHub`}
-                >
-                  <GitHubIcon />
+              {/* Mini browser frame */}
+              <div className="border-b border-border">
+                <div className="flex items-center gap-2 px-3 py-2 bg-card">
+                  <div className="flex gap-1 shrink-0">
+                    <div className="w-2 h-2 rounded-full bg-border" />
+                    <div className="w-2 h-2 rounded-full bg-border" />
+                    <div className="w-2 h-2 rounded-full bg-border" />
+                  </div>
+                  <div className="flex-1 flex justify-center">
+                    <span className="text-[11px] text-muted/50 font-mono truncate max-w-[70%]">{p.host}</span>
+                  </div>
+                </div>
+                <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="block relative overflow-hidden">
+                  <img
+                    src={p.screenshot}
+                    alt={p.name}
+                    width={1280}
+                    height={800}
+                    className="w-full object-cover object-top"
+                    style={{ maxHeight: "180px" }}
+                  />
                 </a>
               </div>
 
-              <div>
-                <h4 className="text-base font-semibold text-text mb-1.5">{p.name}</h4>
-                <p className="text-sm text-muted leading-relaxed">{p.desc}</p>
-              </div>
-
-              <div className="flex flex-wrap gap-2 mt-auto pt-2">
-                {p.stack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="text-xs font-medium text-muted border border-border px-2.5 py-1 rounded-lg bg-bg"
-                  >
-                    {tech}
+              <div className="p-6 md:p-7 flex flex-col gap-4 flex-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-medium text-muted bg-bg border border-border px-3 py-1.5 rounded-md">
+                    {t.projects.freelance_tag}
                   </span>
-                ))}
-              </div>
+                  <a
+                    href={p.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted/60 hover:text-text transition-colors"
+                    aria-label={`${p.name} — GitHub`}
+                  >
+                    <GitHubIcon />
+                  </a>
+                </div>
 
-              <a
-                href={p.demoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-light transition-colors"
-              >
-                {t.projects.freelance_demo}
-                <ArrowUpRight />
-              </a>
+                <div>
+                  <h4 className="text-base font-semibold text-text mb-1.5">{p.name}</h4>
+                  <p className="text-sm text-muted leading-relaxed">{p.desc}</p>
+                </div>
+
+                <div className="flex flex-wrap gap-2 mt-auto pt-2">
+                  {p.stack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="text-xs font-medium text-muted border border-border px-2.5 py-1 rounded-lg bg-bg"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <a
+                  href={p.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-light transition-colors"
+                >
+                  {t.projects.freelance_demo}
+                  <ArrowUpRight />
+                </a>
+              </div>
             </m.div>
           ))}
         </div>
