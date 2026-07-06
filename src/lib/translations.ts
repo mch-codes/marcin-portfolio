@@ -28,6 +28,7 @@ export const translations = {
       title: "Servicios",
       card1_title: "Web Presencial / Landing Page",
       card1_desc: "Tu negocio visible en Google en una semana.",
+      card1_price: "Desde 500€",
       card1_features: [
         "Diseño profesional, carta/menú, horarios y ubicación",
         "Botón directo de WhatsApp",
@@ -35,6 +36,7 @@ export const translations = {
       ],
       card2_title: "Web Completa para Negocios",
       card2_desc: "Una web que trabaja para ti.",
+      card2_price: "Desde 800€",
       card2_features: [
         "Hasta 6 páginas",
         "Sistema de reservas online",
@@ -44,12 +46,14 @@ export const translations = {
       ],
       card3_title: "Herramientas a Medida",
       card3_desc: "Apps internas para tu operativa: pedidos, inventario, producción, gestión de equipo.",
+      card3_price: "A medida",
       card3_features: [
         "Como Oidoo.app, mi sistema de cocina en uso real en un restaurante",
       ],
       card3_link: "Ver proyecto",
       card4_title: "Mantenimiento y Soporte",
       card4_desc: "Cambios de contenido cuando lo necesites.",
+      card4_price: "50€/mes",
       card4_features: [
         "Hosting, seguridad y copias de seguridad incluidos",
         "Respuesta en menos de 48h",
@@ -162,6 +166,7 @@ export const translations = {
       title: "Services",
       card1_title: "One-Page Website / Landing Page",
       card1_desc: "Your business visible on Google within a week.",
+      card1_price: "From €500",
       card1_features: [
         "Professional design, menu, hours, and location",
         "Direct WhatsApp button",
@@ -169,6 +174,7 @@ export const translations = {
       ],
       card2_title: "Full Business Website",
       card2_desc: "A website that works for you.",
+      card2_price: "From €800",
       card2_features: [
         "Up to 6 pages",
         "Online booking system",
@@ -178,12 +184,14 @@ export const translations = {
       ],
       card3_title: "Custom Tools",
       card3_desc: "Internal apps for your operation: orders, inventory, production, team management.",
+      card3_price: "Custom quote",
       card3_features: [
         "Like Oidoo.app, my kitchen system in real use at a restaurant",
       ],
       card3_link: "View project",
       card4_title: "Maintenance & Support",
       card4_desc: "Content changes whenever you need them.",
+      card4_price: "€50/mo",
       card4_features: [
         "Hosting, security, and backups included",
         "Response within 48h",

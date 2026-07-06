@@ -56,7 +56,7 @@ function IconWrench() {
   );
 }
 
-type ServiceCard = { icon: React.ReactNode; title: string; desc: string; accent: string; features: string[]; href?: string; linkLabel?: string };
+type ServiceCard = { icon: React.ReactNode; title: string; desc: string; price: string; accent: string; features: string[]; href?: string; linkLabel?: string };
 
 function ServiceCardItem({ card, index, total }: { card: ServiceCard; index: number; total: number }) {
   const reducedMotion = useReducedMotion();
@@ -98,7 +98,12 @@ function ServiceCardItem({ card, index, total }: { card: ServiceCard; index: num
         {card.icon}
       </span>
       <div className="flex-1">
-        <h3 className="text-base font-semibold text-text mb-2">{card.title}</h3>
+        <div className="flex items-start justify-between gap-3 mb-2">
+          <h3 className="text-base font-semibold text-text">{card.title}</h3>
+          <span className="text-sm font-bold shrink-0" style={{ color: card.accent }}>
+            {card.price}
+          </span>
+        </div>
         <p className="text-sm text-muted leading-relaxed mb-4">{card.desc}</p>
       </div>
       <ul className="flex flex-col gap-2">
@@ -131,10 +136,10 @@ export default function Services() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   const cards: ServiceCard[] = [
-    { icon: <IconMonitor />, title: t.services.card1_title, desc: t.services.card1_desc, features: t.services.card1_features, accent: "#10b981" },
-    { icon: <IconTarget />,  title: t.services.card2_title, desc: t.services.card2_desc, features: t.services.card2_features, accent: "#00d2ff" },
-    { icon: <IconLayers />,  title: t.services.card3_title, desc: t.services.card3_desc, features: t.services.card3_features, accent: "#a78bfa", href: "#projects", linkLabel: t.services.card3_link },
-    { icon: <IconWrench />,  title: t.services.card4_title, desc: t.services.card4_desc, features: t.services.card4_features, accent: "#f59e0b" },
+    { icon: <IconMonitor />, title: t.services.card1_title, desc: t.services.card1_desc, price: t.services.card1_price, features: t.services.card1_features, accent: "#10b981" },
+    { icon: <IconTarget />,  title: t.services.card2_title, desc: t.services.card2_desc, price: t.services.card2_price, features: t.services.card2_features, accent: "#00d2ff" },
+    { icon: <IconLayers />,  title: t.services.card3_title, desc: t.services.card3_desc, price: t.services.card3_price, features: t.services.card3_features, accent: "#a78bfa", href: "#projects", linkLabel: t.services.card3_link },
+    { icon: <IconWrench />,  title: t.services.card4_title, desc: t.services.card4_desc, price: t.services.card4_price, features: t.services.card4_features, accent: "#f59e0b" },
   ];
 
   return (
