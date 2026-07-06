@@ -20,6 +20,22 @@ function ArrowUpRight() {
   );
 }
 
+function GitHubIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
+    </svg>
+  );
+}
+
+type FreelanceProject = {
+  name: string;
+  desc: string;
+  demoUrl: string;
+  githubUrl: string;
+  stack: string[];
+};
+
 export default function Projects() {
   const { t } = useLanguage();
   const ref = useRef(null);
@@ -36,6 +52,23 @@ export default function Projects() {
     { val: t.projects.oidoo_stat1_val, label: t.projects.oidoo_stat1_label },
     { val: t.projects.oidoo_stat2_val, label: t.projects.oidoo_stat2_label },
     { val: t.projects.oidoo_stat3_val, label: t.projects.oidoo_stat3_label },
+  ];
+
+  const freelanceProjects: FreelanceProject[] = [
+    {
+      name: t.projects.fontaneria_name,
+      desc: t.projects.fontaneria_desc,
+      demoUrl: "https://fontaneria-urgente-lavapies.vercel.app",
+      githubUrl: "https://github.com/mch-codes/fontaneria-urgente-lavapies",
+      stack: ["Next.js", "TypeScript", "Tailwind"],
+    },
+    {
+      name: t.projects.fisio_name,
+      desc: t.projects.fisio_desc,
+      demoUrl: "https://fisio-vitalia-landing.vercel.app",
+      githubUrl: "https://github.com/mch-codes/fisio-vitalia-landing",
+      stack: ["Next.js", "TypeScript", "Tailwind"],
+    },
   ];
 
   return (
@@ -188,6 +221,69 @@ export default function Projects() {
             </div>
           </div>
         </m.div>
+
+        {/* Freelance projects */}
+        <m.h3
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+          className="text-sm font-semibold text-muted uppercase tracking-widest mt-16 mb-6"
+        >
+          {t.projects.freelance_title}
+        </m.h3>
+
+        <div className="grid sm:grid-cols-2 gap-5">
+          {freelanceProjects.map((p, i) => (
+            <m.div
+              key={p.name}
+              initial={{ opacity: 0, y: 32 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.25 + i * 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+              className="rounded-2xl border border-border bg-card p-6 md:p-7 flex flex-col gap-4 hover:border-accent/40 transition-colors duration-300"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-medium text-muted bg-bg border border-border px-3 py-1.5 rounded-md">
+                  {t.projects.freelance_tag}
+                </span>
+                <a
+                  href={p.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted/60 hover:text-text transition-colors"
+                  aria-label={`${p.name} — GitHub`}
+                >
+                  <GitHubIcon />
+                </a>
+              </div>
+
+              <div>
+                <h4 className="text-base font-semibold text-text mb-1.5">{p.name}</h4>
+                <p className="text-sm text-muted leading-relaxed">{p.desc}</p>
+              </div>
+
+              <div className="flex flex-wrap gap-2 mt-auto pt-2">
+                {p.stack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="text-xs font-medium text-muted border border-border px-2.5 py-1 rounded-lg bg-bg"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <a
+                href={p.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-light transition-colors"
+              >
+                {t.projects.freelance_demo}
+                <ArrowUpRight />
+              </a>
+            </m.div>
+          ))}
+        </div>
 
       </div>
     </section>
