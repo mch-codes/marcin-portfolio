@@ -81,7 +81,7 @@ export const translations = {
       oidoo_desc:
         "SaaS de gestión para cocinas profesionales. Control de inventario, escandallos, y comunicación de equipo — todo en una sola plataforma.",
       oidoo_cta: "Ver proyecto",
-      freelance_tag: "Proyecto freelance",
+      freelance_tag: "Demo",
       freelance_demo: "Ver demo",
       fontaneria_name: "Fontanería Urgente Lavapiés",
       fontaneria_desc: "Landing de urgencias para un fontanero ficticio en Lavapiés — prioriza el contacto rápido (llamada/WhatsApp) y transmite disponibilidad 24h.",
@@ -219,7 +219,7 @@ export const translations = {
       oidoo_desc:
         "SaaS for professional kitchen management. Inventory control, recipe costing, and team communication — all in one platform.",
       oidoo_cta: "View project",
-      freelance_tag: "Freelance project",
+      freelance_tag: "Demo",
       freelance_demo: "View demo",
       fontaneria_name: "Fontanería Urgente Lavapiés",
       fontaneria_desc: "Emergency-plumber landing page for a fictional Lavapiés business — prioritises fast contact (call/WhatsApp) and 24h availability.",
