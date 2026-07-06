@@ -166,7 +166,7 @@ export default function Services() {
             {t.services.cta_text}
           </p>
           <a
-            href="#contact"
+            href="mailto:marcin.chrzuszcz@gmail.com"
             className="inline-flex items-center gap-2 font-semibold text-sm text-white px-6 py-3 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
             style={{
               background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
