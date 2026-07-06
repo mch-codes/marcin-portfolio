@@ -28,15 +28,6 @@
   }
 }
 
-.no-scrollbar {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
 html {
   font-size: 20.8px;
   scroll-behavior: smooth;

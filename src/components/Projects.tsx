@@ -102,98 +102,88 @@ export default function Projects() {
           </h2>
         </m.div>
 
-        {/* Slider */}
-        <div className="relative -mx-6 px-6 sm:mx-0 sm:px-0">
-          <div className="overflow-x-auto snap-x snap-mandatory pb-2 no-scrollbar">
-            <div className="flex gap-5 w-fit mx-auto">
-            {projects.map((p, i) => (
-              <m.div
-                key={p.title}
-                initial={{ opacity: 0, y: 32 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: 0.1 + i * 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-                className="snap-start shrink-0 w-[85vw] sm:w-[380px] rounded-2xl border border-border bg-card overflow-hidden flex flex-col hover:border-accent/40 transition-colors duration-300"
-              >
-                {/* Mini browser frame */}
-                <div className="border-b border-border">
-                  <div className="flex items-center gap-2 px-3 py-2 bg-card">
-                    <div className="flex gap-1 shrink-0">
-                      <div className="w-2 h-2 rounded-full bg-border" />
-                      <div className="w-2 h-2 rounded-full bg-border" />
-                      <div className="w-2 h-2 rounded-full bg-border" />
-                    </div>
-                    <div className="flex-1 flex justify-center">
-                      <span className="text-[11px] text-muted/50 font-mono truncate max-w-[70%]">{p.host}</span>
-                    </div>
+        {/* Grid */}
+        <div className="grid sm:grid-cols-3 gap-5">
+          {projects.map((p, i) => (
+            <m.div
+              key={p.title}
+              initial={{ opacity: 0, y: 32 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.1 + i * 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+              className="rounded-2xl border border-border bg-card overflow-hidden flex flex-col hover:border-accent/40 transition-colors duration-300"
+            >
+              {/* Mini browser frame */}
+              <div className="border-b border-border">
+                <div className="flex items-center gap-2 px-3 py-2 bg-card">
+                  <div className="flex gap-1 shrink-0">
+                    <div className="w-2 h-2 rounded-full bg-border" />
+                    <div className="w-2 h-2 rounded-full bg-border" />
+                    <div className="w-2 h-2 rounded-full bg-border" />
                   </div>
-                  <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="block relative overflow-hidden">
-                    <img
-                      src={p.screenshot}
-                      alt={p.title}
-                      width={1280}
-                      height={800}
-                      className="w-full object-cover object-top"
-                      style={{ maxHeight: "180px" }}
-                    />
-                  </a>
+                  <div className="flex-1 flex justify-center">
+                    <span className="text-[11px] text-muted/50 font-mono truncate max-w-[70%]">{p.host}</span>
+                  </div>
+                </div>
+                <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="block relative overflow-hidden">
+                  <img
+                    src={p.screenshot}
+                    alt={p.title}
+                    width={1280}
+                    height={800}
+                    className="w-full object-cover object-top"
+                    style={{ maxHeight: "180px" }}
+                  />
+                </a>
+              </div>
+
+              <div className="p-6 md:p-7 flex flex-col gap-4 flex-1">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs font-medium text-muted bg-bg border border-border px-3 py-1.5 rounded-md whitespace-nowrap">
+                    {p.tag}
+                  </span>
+                  {p.githubUrl ? (
+                    <a
+                      href={p.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="shrink-0 text-muted/60 hover:text-text transition-colors"
+                      aria-label={`${p.title} — GitHub`}
+                    >
+                      <GitHubIcon />
+                    </a>
+                  ) : p.status ? (
+                    <span className="text-xs text-accent/80 whitespace-nowrap">{p.status}</span>
+                  ) : null}
                 </div>
 
-                <div className="p-6 md:p-7 flex flex-col gap-4 flex-1">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-medium text-muted bg-bg border border-border px-3 py-1.5 rounded-md whitespace-nowrap">
-                      {p.tag}
+                <div>
+                  <h3 className="text-base font-semibold text-text mb-1.5">{p.title}</h3>
+                  <p className="text-sm text-muted leading-relaxed">{p.desc}</p>
+                </div>
+
+                <div className="flex flex-wrap gap-2 mt-auto pt-2">
+                  {p.stack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="text-xs font-medium text-muted border border-border px-2.5 py-1 rounded-lg bg-bg"
+                    >
+                      {tech}
                     </span>
-                    {p.githubUrl ? (
-                      <a
-                        href={p.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="shrink-0 text-muted/60 hover:text-text transition-colors"
-                        aria-label={`${p.title} — GitHub`}
-                      >
-                        <GitHubIcon />
-                      </a>
-                    ) : p.status ? (
-                      <span className="text-xs text-accent/80 whitespace-nowrap">{p.status}</span>
-                    ) : null}
-                  </div>
-
-                  <div>
-                    <h3 className="text-base font-semibold text-text mb-1.5">{p.title}</h3>
-                    <p className="text-sm text-muted leading-relaxed">{p.desc}</p>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 mt-auto pt-2">
-                    {p.stack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="text-xs font-medium text-muted border border-border px-2.5 py-1 rounded-lg bg-bg"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <a
-                    href={p.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-light transition-colors"
-                  >
-                    {p.demoLabel}
-                    <ArrowUpRight />
-                  </a>
+                  ))}
                 </div>
-              </m.div>
-            ))}
-            </div>
-          </div>
 
-          {/* Edge fade hinting more cards */}
-          <div
-            className="hidden sm:block absolute top-0 right-0 bottom-2 w-16 pointer-events-none"
-            style={{ background: "linear-gradient(to right, transparent, #1a1a1e)" }}
-          />
+                <a
+                  href={p.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-light transition-colors"
+                >
+                  {p.demoLabel}
+                  <ArrowUpRight />
+                </a>
+              </div>
+            </m.div>
+          ))}
         </div>
       </div>
     </section>
