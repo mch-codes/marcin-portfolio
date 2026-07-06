@@ -48,7 +48,15 @@ function IconLayers() {
   );
 }
 
-type ServiceCard = { icon: React.ReactNode; title: string; desc: string; accent: string; features: string[] };
+function IconWrench() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L2 19v3h3l7.3-7.3a4 4 0 0 0 5.4-5.4l-2.65 2.65a1.5 1.5 0 0 1-2.12 0l-.88-.88a1.5 1.5 0 0 1 0-2.12L14.7 6.3z" />
+    </svg>
+  );
+}
+
+type ServiceCard = { icon: React.ReactNode; title: string; desc: string; accent: string; features: string[]; href?: string; linkLabel?: string };
 
 function ServiceCardItem({ card, index, total }: { card: ServiceCard; index: number; total: number }) {
   const reducedMotion = useReducedMotion();
@@ -100,6 +108,18 @@ function ServiceCardItem({ card, index, total }: { card: ServiceCard; index: num
             <span>{item}</span>
           </li>
         ))}
+        {card.href && (
+          <li>
+            <a
+              href={card.href}
+              className="inline-flex items-center gap-1.5 text-sm font-medium mt-1 transition-colors"
+              style={{ color: card.accent }}
+            >
+              {card.linkLabel}
+              <span aria-hidden>→</span>
+            </a>
+          </li>
+        )}
       </ul>
     </m.div>
   );
@@ -113,7 +133,8 @@ export default function Services() {
   const cards: ServiceCard[] = [
     { icon: <IconMonitor />, title: t.services.card1_title, desc: t.services.card1_desc, features: t.services.card1_features, accent: "#10b981" },
     { icon: <IconTarget />,  title: t.services.card2_title, desc: t.services.card2_desc, features: t.services.card2_features, accent: "#00d2ff" },
-    { icon: <IconLayers />,  title: t.services.card3_title, desc: t.services.card3_desc, features: t.services.card3_features, accent: "#a78bfa" },
+    { icon: <IconLayers />,  title: t.services.card3_title, desc: t.services.card3_desc, features: t.services.card3_features, accent: "#a78bfa", href: "#projects", linkLabel: t.services.card3_link },
+    { icon: <IconWrench />,  title: t.services.card4_title, desc: t.services.card4_desc, features: t.services.card4_features, accent: "#f59e0b" },
   ];
 
   return (
@@ -129,11 +150,32 @@ export default function Services() {
           {t.services.title}
         </m.h2>
 
-        <div className="grid sm:grid-cols-3 gap-x-4 gap-y-4 sm:grid-rows-[auto_1fr_auto] sm:gap-y-5">
+        <div className="grid sm:grid-cols-2 gap-x-4 gap-y-4 sm:grid-rows-[auto_1fr_auto_auto_1fr_auto] sm:gap-y-5">
           {cards.map((card, i) => (
             <ServiceCardItem key={i} card={card} index={i} total={cards.length} />
           ))}
         </div>
+
+        <m.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+          className="mt-10 flex flex-col items-center gap-5 text-center rounded-2xl border border-accent/20 bg-accent/5 px-6 py-10 md:px-12"
+        >
+          <p className="text-lg md:text-xl font-semibold text-text max-w-xl leading-snug">
+            {t.services.cta_text}
+          </p>
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 font-semibold text-sm text-white px-6 py-3 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+            style={{
+              background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+              boxShadow: "0 4px 16px rgba(16,185,129,0.2)",
+            }}
+          >
+            {t.services.cta_button}
+          </a>
+        </m.div>
       </div>
     </section>
   );
