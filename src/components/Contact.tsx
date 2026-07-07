@@ -198,7 +198,7 @@ export default function Contact() {
             {/* Location */}
             <div>
               <p className="text-xs font-semibold tracking-widest uppercase text-muted mb-3">
-                Location
+                {t.contact.location_label}
               </p>
               <p className="text-text text-sm font-medium">{t.contact.location}</p>
             </div>

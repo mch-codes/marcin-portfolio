@@ -127,6 +127,7 @@ export const translations = {
       error: "Algo salió mal, intenta de nuevo.",
       send_another: "Enviar otro mensaje",
       location: "Madrid, España",
+      location_label: "Ubicación",
       or: "o escríbeme directamente",
     },
     notFound: {
@@ -267,6 +268,7 @@ export const translations = {
       error: "Something went wrong, please try again.",
       send_another: "Send another message",
       location: "Madrid, Spain",
+      location_label: "Location",
       or: "or write to me directly",
     },
     notFound: {
