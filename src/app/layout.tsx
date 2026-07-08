@@ -42,26 +42,26 @@ const jsonLd = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Marcin Chrzuszcz — Web Developer | Madrid",
+  title: "Marcin Chrzuszcz — Desarrollador Web | Madrid",
   description:
-    "Custom web development in Madrid. Next.js, TypeScript, Supabase. One real production project — Oidoo.app. Available for freelance projects.",
+    "Desarrollo web a medida en Madrid. Next.js, TypeScript, Supabase. Un proyecto real en producción — Oidoo.app. Disponible para proyectos freelance.",
   alternates: {
     canonical: SITE_URL,
   },
   openGraph: {
-    title: "Marcin Chrzuszcz — Web Developer | Madrid",
+    title: "Marcin Chrzuszcz — Desarrollador Web | Madrid",
     description:
-      "Custom web development in Madrid. Next.js, TypeScript, Supabase. One real production project — Oidoo.app. Available for freelance projects.",
+      "Desarrollo web a medida en Madrid. Next.js, TypeScript, Supabase. Un proyecto real en producción — Oidoo.app. Disponible para proyectos freelance.",
     type: "website",
     url: SITE_URL,
     siteName: "Marcin Chrzuszcz",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Marcin Chrzuszcz — Web Developer | Madrid" }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Marcin Chrzuszcz — Desarrollador Web | Madrid" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Marcin Chrzuszcz — Web Developer | Madrid",
+    title: "Marcin Chrzuszcz — Desarrollador Web | Madrid",
     description:
-      "Custom web development in Madrid. Next.js, TypeScript, Supabase. One real production project — Oidoo.app. Available for freelance projects.",
+      "Desarrollo web a medida en Madrid. Next.js, TypeScript, Supabase. Un proyecto real en producción — Oidoo.app. Disponible para proyectos freelance.",
     images: ["/opengraph-image"],
   },
 };

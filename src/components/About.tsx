@@ -257,7 +257,7 @@ const itemVariants = {
 };
 
 export default function About() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const controls = useAnimationControls();
   const animationPlayed = useRef(false);
 
@@ -352,25 +352,6 @@ export default function About() {
                   </div>
                 ))}
               </div>
-            </m.div>
-
-            <m.div variants={itemVariants} className="w-full flex justify-center hidden">
-              <a
-                href={language === "es" ? "/CV document ES .pdf" : "/CV document EN.pdf"}
-                download
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm text-muted border border-border hover:border-accent hover:text-accent transition-all duration-200"
-              >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path
-                    d="M7 1v8M4 6l3 3 3-3M2 11h10"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                {t.about.cv_download}
-              </a>
             </m.div>
           </div>
         </m.div>
