@@ -121,7 +121,7 @@ export default function Projects() {
               initial={{ opacity: 0, y: 32 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.1 + i * 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-              className="rounded-2xl border border-border bg-card overflow-hidden flex flex-col hover:border-accent/40 transition-colors duration-300"
+              className="relative rounded-2xl border border-border bg-card overflow-hidden flex flex-col hover:border-accent/40 transition-colors duration-300"
             >
               {/* Mini browser frame */}
               <div className="border-b border-border">
@@ -135,7 +135,7 @@ export default function Projects() {
                     <span className="text-[11px] text-muted/50 font-mono truncate max-w-[70%]">{p.host}</span>
                   </div>
                 </div>
-                <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="block relative overflow-hidden">
+                <div className="relative overflow-hidden">
                   <img
                     src={p.screenshot}
                     alt={p.title}
@@ -144,7 +144,7 @@ export default function Projects() {
                     className="w-full object-cover object-top"
                     style={{ maxHeight: "180px" }}
                   />
-                </a>
+                </div>
               </div>
 
               <div className="p-6 md:p-7 flex flex-col gap-4 flex-1">
@@ -157,7 +157,7 @@ export default function Projects() {
                       href={p.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="shrink-0 text-muted/60 hover:text-text transition-colors"
+                      className="relative z-10 shrink-0 text-muted/60 hover:text-text transition-colors"
                       aria-label={`${p.title} — GitHub`}
                     >
                       <GitHubIcon />
@@ -187,7 +187,7 @@ export default function Projects() {
                   href={p.demoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-light transition-colors"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-light transition-colors after:absolute after:inset-0"
                 >
                   {p.demoLabel}
                   <ArrowUpRight />
