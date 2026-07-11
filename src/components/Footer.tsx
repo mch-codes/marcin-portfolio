@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 
 const EMAIL = "marcin.chrzuszcz@gmail.com";
@@ -52,6 +53,13 @@ export default function Footer() {
           <span className="w-px h-4 bg-border" />
           <p className="text-xs text-muted">{t.footer.copy}</p>
           <span className="text-xs text-muted/40">© {year}</span>
+          <span className="w-px h-4 bg-border" />
+          <Link href="/aviso-legal" className="text-xs text-muted/50 hover:text-text transition-colors">
+            {t.footer.legal}
+          </Link>
+          <Link href="/politica-privacidad" className="text-xs text-muted/50 hover:text-text transition-colors">
+            {t.footer.privacy}
+          </Link>
         </div>
 
         <div className="flex items-center gap-5">

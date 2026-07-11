@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { m, useInView } from "framer-motion";
 import { useRef } from "react";
@@ -144,6 +145,17 @@ export default function Contact() {
                   required
                   rows={5}
                 />
+
+                <label className="flex items-start gap-2 text-xs text-muted">
+                  <input type="checkbox" name="consent" required className="mt-0.5" />
+                  <span>
+                    {t.contact.consent_pre}
+                    <Link href="/politica-privacidad" className="underline underline-offset-2 hover:text-text">
+                      {t.contact.consent_link}
+                    </Link>
+                    {t.contact.consent_post}
+                  </span>
+                </label>
 
                 {status === "error" && (
                   <p className="text-xs text-red-400">{t.contact.error}</p>

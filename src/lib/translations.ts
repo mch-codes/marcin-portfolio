@@ -128,6 +128,9 @@ export const translations = {
       location: "Madrid, España",
       location_label: "Ubicación",
       or: "o escríbeme directamente",
+      consent_pre: "He leído y acepto la ",
+      consent_link: "política de privacidad",
+      consent_post: "",
     },
     notFound: {
       headline: "Esta página no existe…",
@@ -137,6 +140,70 @@ export const translations = {
     footer: {
       copy: "Diseñado y construido por Marcin.",
       tagline: "De la cocina al código.",
+      legal: "Aviso legal",
+      privacy: "Política de privacidad",
+    },
+    legalPage: {
+      title: "Aviso legal",
+      updated: "Última actualización: julio de 2026",
+      back: "← Volver al inicio",
+      sections: [
+        {
+          heading: "1. Datos identificativos",
+          body: "En cumplimiento del artículo 10 de la Ley 34/2002, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSI-CE), se informa de los siguientes datos: Titular: Marcin Chrzuszcz. NIF: [pendiente de completar — el titular debe añadir su NIF de autónomo antes de recibir tráfico real]. Domicilio: Madrid, España. Correo electrónico de contacto: marcin.chrzuszcz@gmail.com. Actividad: desarrollo de sitios y aplicaciones web como profesional autónomo.",
+        },
+        {
+          heading: "2. Objeto",
+          body: "Este sitio web tiene como finalidad presentar los servicios profesionales de desarrollo web de Marcin Chrzuszcz y permitir el contacto con potenciales clientes a través del formulario habilitado a tal efecto.",
+        },
+        {
+          heading: "3. Condiciones de uso",
+          body: "El acceso a este sitio web es gratuito y no requiere registro previo. El usuario se compromete a hacer un uso adecuado de los contenidos y a no emplearlos para incurrir en actividades ilícitas, ilegales o contrarias a la buena fe y al orden público.",
+        },
+        {
+          heading: "4. Propiedad intelectual",
+          body: "Los contenidos de este sitio (textos, imágenes, diseño y código) son propiedad de Marcin Chrzuszcz o se utilizan con la debida autorización, salvo que se indique lo contrario. Queda prohibida su reproducción total o parcial sin autorización expresa.",
+        },
+        {
+          heading: "5. Legislación y jurisdicción",
+          body: "Las presentes condiciones se rigen por la legislación española. Para cualquier controversia derivada del acceso o uso de este sitio, las partes se someten a los juzgados y tribunales que resulten competentes conforme a la normativa vigente.",
+        },
+      ],
+    },
+    privacyPage: {
+      title: "Política de privacidad",
+      updated: "Última actualización: julio de 2026",
+      back: "← Volver al inicio",
+      sections: [
+        {
+          heading: "1. Responsable del tratamiento",
+          body: "Marcin Chrzuszcz, con domicilio en Madrid, España, y correo de contacto marcin.chrzuszcz@gmail.com, es el responsable del tratamiento de los datos personales recogidos a través de este sitio web.",
+        },
+        {
+          heading: "2. Datos que se recogen y finalidad",
+          body: "A través del formulario de contacto se recogen nombre, correo electrónico y el contenido del mensaje enviado. Estos datos se usan exclusivamente para responder a la consulta o solicitud de presupuesto del usuario. No se utilizan para envío de comunicaciones comerciales no solicitadas ni se ceden a terceros con fines publicitarios.",
+        },
+        {
+          heading: "3. Legitimación",
+          body: "La base legal para el tratamiento es el consentimiento del usuario, otorgado al marcar la casilla de aceptación antes de enviar el formulario (art. 6.1.a del RGPD).",
+        },
+        {
+          heading: "4. Destinatarios y encargados del tratamiento",
+          body: "Los mensajes enviados a través del formulario se procesan mediante el servicio Resend (Resend Inc.), utilizado únicamente como proveedor técnico de envío de correo electrónico. Este proveedor puede ubicarse fuera del Espacio Económico Europeo; en ese caso, la transferencia se realiza bajo garantías adecuadas conforme al RGPD (cláusulas contractuales tipo). El sitio también utiliza Vercel Analytics para estadísticas de uso agregadas y sin cookies de seguimiento.",
+        },
+        {
+          heading: "5. Conservación",
+          body: "Los datos se conservan únicamente durante el tiempo necesario para atender la consulta y, en su caso, durante el plazo legalmente exigible para el cumplimiento de obligaciones fiscales o contractuales derivadas de una eventual relación profesional.",
+        },
+        {
+          heading: "6. Cookies",
+          body: "Este sitio utiliza una cookie técnica (\"lang\") para recordar el idioma elegido por el usuario, con una duración de un año. No se utilizan cookies de publicidad ni de seguimiento de terceros. Vercel Analytics no utiliza cookies.",
+        },
+        {
+          heading: "7. Derechos del usuario",
+          body: "El usuario puede ejercer sus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad enviando un correo a marcin.chrzuszcz@gmail.com. Asimismo, tiene derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (www.aepd.es) si considera que el tratamiento no se ajusta a la normativa vigente.",
+        },
+      ],
     },
   },
   en: {
@@ -268,6 +335,9 @@ export const translations = {
       location: "Madrid, Spain",
       location_label: "Location",
       or: "or write to me directly",
+      consent_pre: "I have read and accept the ",
+      consent_link: "privacy policy",
+      consent_post: "",
     },
     notFound: {
       headline: "This page doesn't exist…",
@@ -277,6 +347,70 @@ export const translations = {
     footer: {
       copy: "Designed and built by Marcin.",
       tagline: "From the kitchen to the code.",
+      legal: "Legal notice",
+      privacy: "Privacy policy",
+    },
+    legalPage: {
+      title: "Legal notice",
+      updated: "Last updated: July 2026",
+      back: "← Back to home",
+      sections: [
+        {
+          heading: "1. Identification details",
+          body: "In compliance with article 10 of Spanish Law 34/2002 on Information Society Services and Electronic Commerce (LSSI-CE), the following details are provided: Owner: Marcin Chrzuszcz. Tax ID (NIF): [pending — the owner must add their freelancer tax ID before this site receives real traffic]. Address: Madrid, Spain. Contact email: marcin.chrzuszcz@gmail.com. Activity: web and application development as a self-employed professional.",
+        },
+        {
+          heading: "2. Purpose",
+          body: "This website presents the professional web development services offered by Marcin Chrzuszcz and allows potential clients to get in touch through the contact form provided.",
+        },
+        {
+          heading: "3. Terms of use",
+          body: "Access to this website is free and does not require registration. Users agree to make appropriate use of the content and not to use it for unlawful, illegal purposes or purposes contrary to good faith and public order.",
+        },
+        {
+          heading: "4. Intellectual property",
+          body: "The content of this site (text, images, design and code) is owned by Marcin Chrzuszcz or used with the appropriate authorization, unless stated otherwise. Reproduction, in whole or in part, without express authorization is prohibited.",
+        },
+        {
+          heading: "5. Applicable law and jurisdiction",
+          body: "These terms are governed by Spanish law. Any dispute arising from access to or use of this site shall be submitted to the courts with jurisdiction under applicable regulations.",
+        },
+      ],
+    },
+    privacyPage: {
+      title: "Privacy policy",
+      updated: "Last updated: July 2026",
+      back: "← Back to home",
+      sections: [
+        {
+          heading: "1. Data controller",
+          body: "Marcin Chrzuszcz, based in Madrid, Spain, contact email marcin.chrzuszcz@gmail.com, is the controller responsible for processing personal data collected through this website.",
+        },
+        {
+          heading: "2. Data collected and purpose",
+          body: "The contact form collects name, email address and message content. This data is used exclusively to respond to the user's inquiry or quote request. It is not used for unsolicited marketing communications and is not shared with third parties for advertising purposes.",
+        },
+        {
+          heading: "3. Legal basis",
+          body: "The legal basis for processing is the user's consent, given by checking the consent box before submitting the form (art. 6.1.a GDPR).",
+        },
+        {
+          heading: "4. Recipients and data processors",
+          body: "Messages submitted through the contact form are processed via Resend (Resend Inc.), used solely as a technical email-delivery provider. This provider may be located outside the European Economic Area; in that case, the transfer takes place under appropriate GDPR safeguards (standard contractual clauses). The site also uses Vercel Analytics for aggregated, cookieless usage statistics.",
+        },
+        {
+          heading: "5. Data retention",
+          body: "Data is kept only for as long as necessary to handle the inquiry and, where applicable, for the period legally required to meet tax or contractual obligations arising from a professional relationship.",
+        },
+        {
+          heading: "6. Cookies",
+          body: "This site uses one technical cookie (\"lang\") to remember the user's chosen language, valid for one year. No advertising or third-party tracking cookies are used. Vercel Analytics does not use cookies.",
+        },
+        {
+          heading: "7. Your rights",
+          body: "You may exercise your rights of access, rectification, erasure, objection, restriction of processing and portability by emailing marcin.chrzuszcz@gmail.com. You also have the right to lodge a complaint with the Spanish Data Protection Agency (www.aepd.es) if you believe the processing does not comply with applicable law.",
+        },
+      ],
     },
   },
 };
