@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { m, useScroll, useTransform, useAnimationControls } from "framer-motion";
+import { m, useScroll, useTransform, useAnimationControls, useReducedMotion } from "framer-motion";
 import { useRef, useEffect, useLayoutEffect, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { scrollToSection } from "@/lib/scroll";
@@ -19,7 +19,7 @@ function NetworkCanvas() {
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    let animId: number;
+    let animId = 0;
 
     const resize = () => {
       canvas.width = canvas.clientWidth;
@@ -160,9 +160,20 @@ function NetworkCanvas() {
       }
     };
 
-    animId = requestAnimationFrame(draw);
+    // Only burn frames while the hero is actually on screen — the link pass is
+    // O(n²) and would otherwise run for the whole session, off-screen included.
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        if (!animId) animId = requestAnimationFrame(draw);
+      } else if (animId) {
+        cancelAnimationFrame(animId);
+        animId = 0;
+      }
+    });
+    io.observe(canvas);
 
     return () => {
+      io.disconnect();
       if (animId) cancelAnimationFrame(animId);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("mousemove", onMouseMove);
@@ -281,10 +292,13 @@ export default function About() {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
+  const reducedMotion = useReducedMotion();
+  const still = isMobile || reducedMotion;
+
   const { scrollY } = useScroll();
   const vh = typeof window !== "undefined" ? window.innerHeight : 700;
-  const opacity = useTransform(scrollY, [vh * 0.6, vh * 1.2], isMobile ? [1, 1] : [1, 0]);
-  const y = useTransform(scrollY, [0, vh], ["0%", isMobile ? "0%" : "15%"]);
+  const opacity = useTransform(scrollY, [vh * 0.6, vh * 1.2], still ? [1, 1] : [1, 0]);
+  const y = useTransform(scrollY, [0, vh], ["0%", still ? "0%" : "15%"]);
 
   return (
     <section id="about" className="relative min-h-screen flex flex-col overflow-hidden">
