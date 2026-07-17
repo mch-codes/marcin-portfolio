@@ -292,24 +292,23 @@ export default function About() {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
-  // Starts at the SSR value so hydration matches, then corrects on mount.
-  const [vh, setVh] = useState(700);
-  useEffect(() => {
-    const onResize = () => setVh(window.innerHeight);
-    onResize();
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
-
   const reducedMotion = useReducedMotion();
   const still = isMobile || reducedMotion;
 
-  const { scrollY } = useScroll();
-  const opacity = useTransform(scrollY, [vh * 0.6, vh * 1.2], still ? [1, 1] : [1, 0]);
-  const y = useTransform(scrollY, [0, vh], ["0%", still ? "0%" : "15%"]);
+  // Keyed to the section's own travel, not the viewport: the hero is taller than
+  // one screen, so a vh-based fade blanked the last paragraphs before they could
+  // be read. 0 = section top at viewport top, 1 = section bottom at viewport top,
+  // so the fade can only start once everything has scrolled up into view.
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const opacity = useTransform(scrollYProgress, [0.85, 1], still ? [1, 1] : [1, 0]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", still ? "0%" : "8%"]);
 
   return (
-    <section id="about" className="relative min-h-screen flex flex-col overflow-hidden">
+    <section ref={sectionRef} id="about" className="relative min-h-screen flex flex-col overflow-hidden">
       <NetworkCanvas />
       <m.div
         style={{ y, opacity }}
