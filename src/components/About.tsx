@@ -4,6 +4,9 @@ import Image from "next/image";
 import { m, useScroll, useTransform, useAnimationControls } from "framer-motion";
 import { useRef, useEffect, useLayoutEffect, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
+import { scrollToSection } from "@/lib/scroll";
+
+const WHATSAPP = "https://wa.me/34633683404";
 
 function NetworkCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -303,6 +306,39 @@ export default function About() {
               </h1>
               <p className="text-base text-muted mt-3">{t.about.subtitle}</p>
               <p className="text-sm text-muted/70 mt-2">{t.about.hero_sub}</p>
+            </m.div>
+
+            <m.div variants={itemVariants} className="flex flex-col gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  type="button"
+                  onClick={() => scrollToSection("contact")}
+                  className="inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3 rounded-xl font-semibold text-sm text-white transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#111114]"
+                  style={{
+                    background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                    boxShadow: "0 4px 16px rgba(16,185,129,0.2)",
+                  }}
+                >
+                  {t.about.cta_primary}
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                    <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+
+                <a
+                  href={WHATSAPP}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={t.about.cta_whatsapp_aria}
+                  className="inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3 rounded-xl font-semibold text-sm text-text border border-border bg-card hover:border-[#25D366]/50 hover:bg-[#25D366] hover:text-white transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#111114]"
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4" aria-hidden>
+                    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.55-3.7 8.24-8.24 8.24zm4.52-6.17c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.78.97-.14.17-.29.19-.53.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43-.14-.01-.31-.01-.48-.01-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.43 1.03 2.6.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.23-.16-.48-.28z" />
+                  </svg>
+                  WhatsApp
+                </a>
+              </div>
+              <p className="text-xs text-muted/70">{t.about.cta_trust}</p>
             </m.div>
 
             <m.div variants={itemVariants} className="pt-1 border-t border-border">
