@@ -292,11 +292,19 @@ export default function About() {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
+  // Starts at the SSR value so hydration matches, then corrects on mount.
+  const [vh, setVh] = useState(700);
+  useEffect(() => {
+    const onResize = () => setVh(window.innerHeight);
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
   const reducedMotion = useReducedMotion();
   const still = isMobile || reducedMotion;
 
   const { scrollY } = useScroll();
-  const vh = typeof window !== "undefined" ? window.innerHeight : 700;
   const opacity = useTransform(scrollY, [vh * 0.6, vh * 1.2], still ? [1, 1] : [1, 0]);
   const y = useTransform(scrollY, [0, vh], ["0%", still ? "0%" : "15%"]);
 
