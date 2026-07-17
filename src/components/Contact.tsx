@@ -254,7 +254,6 @@ export default function Contact() {
                 alt="Marcin Chrzuszcz"
                 width={256}
                 height={320}
-                quality={90}
                 className="w-full h-full object-cover"
               />
             </div>
