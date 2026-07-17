@@ -8,9 +8,6 @@ export const translations = {
       education: "Formación",
       contact: "Contacto",
     },
-    hero: {
-      available: "Disponible · Madrid",
-    },
     about: {
       title: "Sobre mí",
       p1: "Pasé varios años como jefe de partida en cocinas profesionales de Madrid. En cocina aprendes rápido que nada funciona por accidente — cada plato, cada servicio, requiere atención, sistemas y consistencia.",
@@ -221,9 +218,6 @@ export const translations = {
       process: "Process",
       education: "Education",
       contact: "Contact",
-    },
-    hero: {
-      available: "Available · Madrid",
     },
     about: {
       title: "About me",

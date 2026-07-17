@@ -24,7 +24,7 @@ export default function MidCta() {
         <button
           type="button"
           onClick={() => scrollToSection("contact")}
-          className="inline-flex items-center justify-center gap-2 shrink-0 min-h-[44px] px-6 py-3 rounded-xl font-semibold text-sm text-white transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#111114]"
+          className="inline-flex items-center justify-center gap-2 shrink-0 min-h-[44px] px-6 py-3 rounded-xl font-semibold text-sm text-white transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
           style={{
             background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
             boxShadow: "0 4px 16px rgba(16,185,129,0.2)",
