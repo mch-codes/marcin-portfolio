@@ -1,23 +1,8 @@
 "use client";
 
-import { m, useInView, useReducedMotion } from "framer-motion";
-import { useRef, useEffect } from "react";
+import { m, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { useLanguage } from "@/context/LanguageContext";
-
-function useScrollingUp() {
-  const isScrollingUp = useRef(false);
-  useEffect(() => {
-    let lastY = window.scrollY;
-    const onScroll = () => {
-      const y = window.scrollY;
-      isScrollingUp.current = y < lastY;
-      lastY = y;
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-  return isScrollingUp;
-}
 
 function IconMonitor() {
   return (
@@ -60,37 +45,28 @@ const withPeriod = (s: string) => (/[.!?]$/.test(s) ? s : `${s}.`);
 
 type ServiceCard = { icon: React.ReactNode; title: string; desc: string; price: string; accent: string; features: string[]; href?: string; linkLabel?: string };
 
-function ServiceCardItem({ card, index, total }: { card: ServiceCard; index: number; total: number }) {
+function ServiceCardItem({ card, index }: { card: ServiceCard; index: number }) {
   const reducedMotion = useReducedMotion();
-  const isScrollingUp = useScrollingUp();
-  const ref = useRef(null);
-  const hasBeenVisible = useRef(false);
-  const isInView = useInView(ref, { once: false, margin: "0px 0px -40% 0px" });
+  const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (isInView) hasBeenVisible.current = true;
-  }, [isInView]);
-
-  const reEntering = isInView && isScrollingUp.current && hasBeenVisible.current;
+  // In the 2-col grid, even indices sit left and odd sit right — each card
+  // enters from its own side. Scroll-linked, matching the About story.
+  const fromLeft = index % 2 === 0;
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "center center"],
+  });
+  const x = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reducedMotion ? ["0vw", "0vw"] : [fromLeft ? "-100vw" : "100vw", "0vw"],
+  );
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [0, 1]);
 
   return (
     <m.div
       ref={ref}
-      initial={{ opacity: 0, y: 48 }}
-      animate={
-        reducedMotion
-          ? { opacity: 1, y: 0 }
-          : isInView
-            ? { opacity: 1, y: 0 }
-            : hasBeenVisible.current
-              ? { opacity: 0, y: 0 }
-              : { opacity: 0, y: 48 }
-      }
-      transition={{
-        duration: reducedMotion ? 0 : isInView ? (reEntering ? 0 : 0.55) : 0.4,
-        delay: reducedMotion ? 0 : isInView ? (reEntering ? 0 : index * 0.1) : (total - 1 - index) * 0.08,
-        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-      }}
+      style={{ x, opacity }}
       className="flex flex-col items-center text-center"
     >
       <span className="text-text">{card.icon}</span>
@@ -132,7 +108,7 @@ export default function Services() {
   ];
 
   return (
-    <section id="services" className="py-28 md:py-40 relative">
+    <section id="services" className="py-28 md:py-40 relative overflow-hidden">
       <div className="overflow-hidden" ref={ref}>
         <m.h2
           initial={{ opacity: 0, y: 20 }}
@@ -156,7 +132,7 @@ export default function Services() {
 
         <div className="mt-24 md:mt-32 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20 justify-items-center">
           {cards.map((card, i) => (
-            <ServiceCardItem key={i} card={card} index={i} total={cards.length} />
+            <ServiceCardItem key={i} card={card} index={i} />
           ))}
         </div>
 
