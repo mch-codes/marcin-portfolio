@@ -1,8 +1,8 @@
 "use client";
 
-import { m, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { m } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
+import { SectionHeader, SlideIn } from "@/components/Section";
 
 function IconMonitor() {
   return (
@@ -45,30 +45,12 @@ const withPeriod = (s: string) => (/[.!?]$/.test(s) ? s : `${s}.`);
 
 type ServiceCard = { icon: React.ReactNode; title: string; desc: string; price: string; accent: string; features: string[]; href?: string; linkLabel?: string };
 
+// Pinwheel: the middle pair crosses over instead of entering from its own side.
+const CARD_FROM = ["left", "right", "right", "left"] as const;
+
 function ServiceCardItem({ card, index }: { card: ServiceCard; index: number }) {
-  const reducedMotion = useReducedMotion();
-  const ref = useRef<HTMLDivElement>(null);
-
-  // In the 2-col grid, even indices sit left and odd sit right — each card
-  // enters from its own side. Scroll-linked, matching the About story.
-  const fromLeft = index % 2 === 0;
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "center center"],
-  });
-  const x = useTransform(
-    scrollYProgress,
-    [0, 1],
-    reducedMotion ? ["0vw", "0vw"] : [fromLeft ? "-100vw" : "100vw", "0vw"],
-  );
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [0, 1]);
-
   return (
-    <m.div
-      ref={ref}
-      style={{ x, opacity }}
-      className="flex flex-col items-center text-center"
-    >
+    <SlideIn from={CARD_FROM[index % 4]} className="flex flex-col items-center text-center">
       <span className="text-text">{card.icon}</span>
       <h3 className="mt-8 text-2xl font-bold text-text tracking-tight leading-tight max-w-xs">
         {withPeriod(card.title)}
@@ -91,14 +73,12 @@ function ServiceCardItem({ card, index }: { card: ServiceCard; index: number }) 
           <span aria-hidden>→</span>
         </a>
       )}
-    </m.div>
+    </SlideIn>
   );
 }
 
 export default function Services() {
-  const { t, language } = useLanguage();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const { t } = useLanguage();
 
   const cards: ServiceCard[] = [
     { icon: <IconMonitor />, title: t.services.card1_title, desc: t.services.card1_desc, price: t.services.card1_price, features: t.services.card1_features, accent: "#10b981" },
@@ -109,27 +89,9 @@ export default function Services() {
 
   return (
     <section id="services" className="py-28 md:py-40 relative overflow-hidden">
-      <div className="overflow-hidden" ref={ref}>
-        <m.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          className={`${language === "es" ? "text-[22.5vw]" : "text-[25.5vw]"} font-black text-text tracking-tighter leading-none lowercase text-center whitespace-nowrap -mb-[0.15em]`}
-        >
-          {t.services.title}
-        </m.h2>
-      </div>
+      <SectionHeader word={t.services.title}>{t.services.cta_text}</SectionHeader>
 
       <div className="max-w-6xl mx-auto px-6">
-        <m.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          className="ml-auto max-w-md text-xl text-muted leading-relaxed md:text-right"
-        >
-          {t.services.cta_text}
-        </m.p>
-
         <div className="mt-24 md:mt-32 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20 justify-items-center">
           {cards.map((card, i) => (
             <ServiceCardItem key={i} card={card} index={i} />
@@ -138,7 +100,8 @@ export default function Services() {
 
         <m.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
           className="mt-28 md:mt-32 flex justify-center"
         >

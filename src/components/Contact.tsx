@@ -3,9 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { m, useInView } from "framer-motion";
-import { useRef } from "react";
 import { useLanguage } from "@/context/LanguageContext";
+import { SectionHeader } from "@/components/Section";
 import { sendContactMessage } from "@/app/actions";
 
 const EMAIL = "marcin.chrzuszcz@gmail.com";
@@ -58,8 +57,6 @@ function InputField({
 
 export default function Contact() {
   const { t } = useLanguage();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -74,34 +71,15 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-28 md:py-36 relative bg-[#1a1a1e]">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+    <section id="contact" className="py-28 md:py-40 relative">
+      <SectionHeader word={t.contact.title}>{t.contact.intro}</SectionHeader>
 
-      <div className="max-w-6xl mx-auto px-6" ref={ref}>
-        <m.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          className="mb-14"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-text tracking-tight leading-[1.15]">
-            {t.contact.subtitle}
-          </h2>
-          <p className="text-muted leading-relaxed mt-3 max-w-xl">
-            {t.contact.intro}
-          </p>
-        </m.div>
-
-        <div className="grid md:grid-cols-5 gap-10 md:gap-16">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="mt-24 md:mt-32 grid md:grid-cols-5 gap-10 md:gap-16">
           {/* Left: form */}
-          <m.div
-            initial={{ opacity: 0, y: 32 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-            className="md:col-span-3"
-          >
+          <div className="md:col-span-3">
             {status === "success" ? (
-              <div className="flex flex-col items-start gap-4 p-8 rounded-2xl border border-accent/30 bg-accent/5">
+              <div className="flex flex-col items-start gap-4">
                 <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
                   <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                     <path
@@ -199,15 +177,10 @@ export default function Contact() {
                 </div>
               </form>
             )}
-          </m.div>
+          </div>
 
           {/* Right: photo + contact info */}
-          <m.div
-            initial={{ opacity: 0, y: 32 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-            className="md:col-span-2 flex flex-col sm:flex-row gap-6 items-start"
-          >
+          <div className="md:col-span-2 flex flex-col sm:flex-row gap-6 items-start">
             <div className="flex flex-col gap-8">
             {/* Email */}
             <div>
@@ -239,7 +212,7 @@ export default function Contact() {
                 href={LINKEDIN}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-medium text-text border border-border bg-card hover:border-border-light hover:bg-card-hover px-4 py-2.5 rounded-xl transition-all duration-200"
+                className="inline-flex items-center gap-2 text-sm font-medium text-text hover:text-muted transition-colors"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
@@ -248,7 +221,7 @@ export default function Contact() {
               </a>
             </div>
             </div>
-            <div className="w-full h-52 sm:w-44 sm:h-56 rounded-2xl overflow-hidden border border-border shadow-xl shrink-0">
+            <div className="w-full h-52 sm:w-44 sm:h-56 overflow-hidden shrink-0">
               <Image
                 src="/footer-photo.webp"
                 alt="Marcin Chrzuszcz"
@@ -257,7 +230,7 @@ export default function Contact() {
                 className="w-full h-full object-cover"
               />
             </div>
-          </m.div>
+          </div>
         </div>
       </div>
     </section>

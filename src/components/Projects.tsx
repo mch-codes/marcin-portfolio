@@ -1,8 +1,7 @@
 "use client";
 
-import { m, useInView } from "framer-motion";
-import { useRef } from "react";
 import { useLanguage } from "@/context/LanguageContext";
+import { SectionHeader, SlideIn } from "@/components/Section";
 
 const oidooStack = ["Next.js", "TypeScript", "Supabase", "Vercel"];
 const freelanceStack = ["Next.js", "TypeScript", "Tailwind"];
@@ -29,6 +28,9 @@ function GitHubIcon() {
   );
 }
 
+// Opposite phase to the Services pinwheel, so the two sections don't rhyme.
+const PROJECT_FROM = ["right", "left", "left", "right"] as const;
+
 type ProjectCard = {
   tag: string;
   status?: string;
@@ -43,9 +45,7 @@ type ProjectCard = {
 };
 
 export default function Projects() {
-  const { t, language } = useLanguage();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const { t } = useLanguage();
 
   const projects: ProjectCard[] = [
     {
@@ -95,103 +95,57 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className="py-28 md:py-36 relative bg-[#1a1a1e]">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-
-      {/* Section header — full-bleed wordmark */}
-      <div className="overflow-hidden mb-14" ref={ref}>
-        <m.h2
-          initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          className={`${language === "es" ? "text-[22.5vw]" : "text-[25.5vw]"} font-black text-text tracking-tighter leading-none lowercase text-center whitespace-nowrap -mb-[0.15em]`}
-        >
-          {t.projects.headline}
-        </m.h2>
-      </div>
+    <section id="projects" className="py-28 md:py-40 relative overflow-hidden">
+      <SectionHeader word={t.projects.headline} />
 
       <div className="max-w-6xl mx-auto px-6">
-        {/* Grid */}
-        <div className="grid sm:grid-cols-2 gap-5">
+        <div className="mt-24 md:mt-32 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20">
           {projects.map((p, i) => (
-            <m.div
+            <SlideIn
               key={p.title}
-              initial={{ opacity: 0, y: 32 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.1 + i * 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-              className="relative rounded-2xl border border-border bg-card overflow-hidden flex flex-col hover:border-accent/40 transition-colors duration-300"
+              from={PROJECT_FROM[i % 4]}
+              className="relative flex flex-col items-center text-center"
             >
-              {/* Mini browser frame */}
-              <div className="border-b border-border">
-                <div className="flex items-center gap-2 px-3 py-2 bg-card">
-                  <div className="flex gap-1 shrink-0">
-                    <div className="w-2 h-2 rounded-full bg-border" />
-                    <div className="w-2 h-2 rounded-full bg-border" />
-                    <div className="w-2 h-2 rounded-full bg-border" />
-                  </div>
-                  <div className="flex-1 flex justify-center">
-                    <span className="text-[11px] text-muted/50 font-mono truncate max-w-[70%]">{p.host}</span>
-                  </div>
-                </div>
-                <div className="relative overflow-hidden">
-                  <img
-                    src={p.screenshot}
-                    alt={p.title}
-                    width={1280}
-                    height={800}
-                    className="w-full object-cover object-top"
-                    style={{ maxHeight: "180px" }}
-                  />
-                </div>
-              </div>
+              <img
+                src={p.screenshot}
+                alt={p.title}
+                width={1280}
+                height={800}
+                className="w-full object-cover object-top"
+                style={{ maxHeight: "220px" }}
+              />
 
-              <div className="p-6 md:p-7 flex flex-col gap-4 flex-1">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-medium text-muted bg-bg border border-border px-3 py-1.5 rounded-md whitespace-nowrap">
-                    {p.tag}
-                  </span>
-                  {p.githubUrl ? (
-                    <a
-                      href={p.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="relative z-10 shrink-0 text-muted/60 hover:text-text transition-colors"
-                      aria-label={`${p.title} — GitHub`}
-                    >
-                      <GitHubIcon />
-                    </a>
-                  ) : p.status ? (
-                    <span className="text-xs text-accent/80 whitespace-nowrap">{p.status}</span>
-                  ) : null}
-                </div>
+              <p className="mt-8 text-xs font-mono tracking-widest text-muted/60 uppercase">
+                {p.tag}
+                {p.status ? ` · ${p.status}` : ""}
+              </p>
+              <h3 className="mt-4 text-2xl font-bold text-text tracking-tight leading-tight">{p.title}</h3>
+              <p className="mt-4 text-base text-muted leading-relaxed max-w-sm">{p.desc}</p>
+              <p className="mt-5 text-sm text-muted">{p.stack.join(" · ")}</p>
 
-                <div>
-                  <h3 className="text-base font-semibold text-text mb-1.5">{p.title}</h3>
-                  <p className="text-sm text-muted leading-relaxed">{p.desc}</p>
-                </div>
-
-                <div className="flex flex-wrap gap-2 mt-auto pt-2">
-                  {p.stack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="text-xs font-medium text-muted border border-border px-2.5 py-1 rounded-lg bg-bg"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
+              <div className="mt-5 flex items-center gap-6">
                 <a
                   href={p.demoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-light transition-colors after:absolute after:inset-0"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-text hover:text-muted transition-colors after:absolute after:inset-0"
                 >
                   {p.demoLabel}
                   <ArrowUpRight />
                 </a>
+                {p.githubUrl && (
+                  <a
+                    href={p.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative z-10 text-muted/60 hover:text-text transition-colors"
+                    aria-label={`${p.title} — GitHub`}
+                  >
+                    <GitHubIcon />
+                  </a>
+                )}
               </div>
-            </m.div>
+            </SlideIn>
           ))}
         </div>
       </div>
