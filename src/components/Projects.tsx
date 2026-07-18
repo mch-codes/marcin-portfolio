@@ -43,7 +43,7 @@ type ProjectCard = {
 };
 
 export default function Projects() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -98,21 +98,19 @@ export default function Projects() {
     <section id="projects" className="py-28 md:py-36 relative bg-[#1a1a1e]">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
-      <div className="max-w-6xl mx-auto px-6" ref={ref}>
-        {/* Section header */}
-        <m.div
+      {/* Section header — full-bleed wordmark */}
+      <div className="overflow-hidden mb-14" ref={ref}>
+        <m.h2
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          className="mb-14"
+          className={`${language === "es" ? "text-[22.5vw]" : "text-[25.5vw]"} font-black text-text tracking-tighter leading-none lowercase text-center whitespace-nowrap -mb-[0.15em]`}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-text tracking-tight leading-[1.15]">
-            {t.projects.headline}
-            <br />
-            <span className="text-muted font-normal">{t.projects.headline_sub}</span>
-          </h2>
-        </m.div>
+          {t.projects.headline}
+        </m.h2>
+      </div>
 
+      <div className="max-w-6xl mx-auto px-6">
         {/* Grid */}
         <div className="grid sm:grid-cols-2 gap-5">
           {projects.map((p, i) => (

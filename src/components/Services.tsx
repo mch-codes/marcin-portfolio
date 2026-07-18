@@ -131,7 +131,7 @@ function ServiceCardItem({ card, index, total }: { card: ServiceCard; index: num
 }
 
 export default function Services() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -150,7 +150,7 @@ export default function Services() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          className="text-[25.5vw] font-black text-text tracking-tighter leading-none lowercase text-center whitespace-nowrap -mb-[0.15em]"
+          className={`${language === "es" ? "text-[22.5vw]" : "text-[25.5vw]"} font-black text-text tracking-tighter leading-none lowercase text-center whitespace-nowrap -mb-[0.15em]`}
         >
           {t.services.title}
         </m.h2>
