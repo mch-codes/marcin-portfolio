@@ -43,7 +43,7 @@ function IconWrench() {
 
 const withPeriod = (s: string) => (/[.!?]$/.test(s) ? s : `${s}.`);
 
-type ServiceCard = { icon: React.ReactNode; title: string; desc: string; price: string; accent: string; features: string[]; href?: string; linkLabel?: string };
+type ServiceCard = { icon: React.ReactNode; title: string; desc: string; price: string; features: string[]; href?: string; linkLabel?: string };
 
 // Pinwheel: the middle pair crosses over instead of entering from its own side.
 const CARD_FROM = ["left", "right", "right", "left"] as const;
@@ -81,10 +81,10 @@ export default function Services() {
   const { t } = useLanguage();
 
   const cards: ServiceCard[] = [
-    { icon: <IconMonitor />, title: t.services.card1_title, desc: t.services.card1_desc, price: t.services.card1_price, features: t.services.card1_features, accent: "#10b981" },
-    { icon: <IconTarget />,  title: t.services.card2_title, desc: t.services.card2_desc, price: t.services.card2_price, features: t.services.card2_features, accent: "#00d2ff" },
-    { icon: <IconLayers />,  title: t.services.card3_title, desc: t.services.card3_desc, price: t.services.card3_price, features: t.services.card3_features, accent: "#a78bfa", href: "#projects", linkLabel: t.services.card3_link },
-    { icon: <IconWrench />,  title: t.services.card4_title, desc: t.services.card4_desc, price: t.services.card4_price, features: t.services.card4_features, accent: "#f59e0b" },
+    { icon: <IconMonitor />, title: t.services.card1_title, desc: t.services.card1_desc, price: t.services.card1_price, features: t.services.card1_features },
+    { icon: <IconTarget />,  title: t.services.card2_title, desc: t.services.card2_desc, price: t.services.card2_price, features: t.services.card2_features },
+    { icon: <IconLayers />,  title: t.services.card3_title, desc: t.services.card3_desc, price: t.services.card3_price, features: t.services.card3_features, href: "#projects", linkLabel: t.services.card3_link },
+    { icon: <IconWrench />,  title: t.services.card4_title, desc: t.services.card4_desc, price: t.services.card4_price, features: t.services.card4_features },
   ];
 
   return (

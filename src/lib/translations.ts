@@ -5,7 +5,6 @@ export const translations = {
       services: "Servicios",
       projects: "Productos",
       process: "Proceso",
-      education: "Formación",
       contact: "Contacto",
     },
     about: {
@@ -64,17 +63,7 @@ export const translations = {
       cta_text: "Cuéntame qué necesita tu negocio y te respondo en 24h, sin compromiso",
       cta_button: "Hablemos",
     },
-    whatIBuild: {
-      title: "¿Qué construyo?",
-      card1_title: "Sitios web y aplicaciones",
-      card1_desc: "Construyo cosas con HTML, CSS y JavaScript. Actualmente aprendiendo React y Next.js aplicándolos en proyectos reales.",
-      card2_title: "Interfaces limpias",
-      card2_desc: "Me importa cómo se ven y se sienten las cosas. Rápidas, legibles y adaptadas al móvil.",
-      card4_title: "Productos reales",
-      card4_desc: "Oidoo.app funciona en un restaurante real. No hago proyectos de práctica — construyo cosas que se usan.",
-    },
     projects: {
-      title: "Proyectos",
       headline: "Productos",
       oidoo_tag: "Proyecto principal",
       oidoo_status: "En producción",
@@ -92,11 +81,7 @@ export const translations = {
       taberna_name: "Taberna El Fogón",
       taberna_desc: "Landing bilingüe para una taberna castellana ficticia en La Latina — la carta es la protagonista, pensada mobile-first para reservas desde Google Maps.",
     },
-    testimonials: {
-      title: "Lo que dicen los usuarios",
-    },
     process: {
-      title: "Cómo trabajo.",
       subtitle: "Sin humo. Sin over-engineering. Producto que funciona.",
       card1_title: "Entiendo el problema primero",
       card1_desc: "Antes de escribir una línea de código, entiendo qué hay que construir y por qué. El código viene después.",
@@ -106,12 +91,6 @@ export const translations = {
       card3_desc: "Priorizo que funcione en producción, no solo en local. Performance, errores y edge cases no son opcionales.",
       card4_title: "Comunicación sin filtros",
       card4_desc: "Digo lo que veo. Si algo no tiene sentido técnico, lo digo antes de construirlo.",
-    },
-    education: {
-      title: "Formación",
-      status_in_progress: "En curso",
-      verify: "verificar",
-      close: "Cerrar",
     },
     contact: {
       title: "Contacto",
@@ -215,7 +194,6 @@ export const translations = {
       services: "Services",
       projects: "Products",
       process: "Process",
-      education: "Education",
       contact: "Contact",
     },
     about: {
@@ -274,17 +252,7 @@ export const translations = {
       cta_text: "Tell me what your business needs and I'll get back to you within 24h, no commitment",
       cta_button: "Let's talk",
     },
-    whatIBuild: {
-      title: "What I build",
-      card1_title: "Websites & web apps",
-      card1_desc: "I build things with HTML, CSS and JavaScript. Currently learning React and Next.js by applying them to real projects.",
-      card2_title: "Clean interfaces",
-      card2_desc: "I care about how things look and feel. Fast, readable, mobile-friendly — no bloat.",
-      card4_title: "Real products",
-      card4_desc: "Oidoo.app is live in a real restaurant. I don't do practice projects — I build things that get used.",
-    },
     projects: {
-      title: "Projects",
       headline: "Products",
       oidoo_tag: "Main project",
       oidoo_status: "Live",
@@ -302,17 +270,7 @@ export const translations = {
       taberna_name: "Taberna El Fogón",
       taberna_desc: "Bilingual landing page for a fictional Castilian tavern in La Latina — the menu takes center stage, built mobile-first for Google Maps reservations.",
     },
-    testimonials: {
-      title: "What users say",
-    },
-    education: {
-      title: "Education",
-      status_in_progress: "In progress",
-      verify: "verify",
-      close: "Close",
-    },
     process: {
-      title: "How I work.",
       subtitle: "No fluff. No over-engineering. Product that works.",
       card1_title: "Understand the problem first",
       card1_desc: "Before writing a single line of code, I understand what needs to be built and why. Code comes after.",

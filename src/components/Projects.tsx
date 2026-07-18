@@ -41,7 +41,6 @@ type ProjectCard = {
   demoLabel: string;
   githubUrl?: string;
   screenshot: string;
-  host: string;
 };
 
 export default function Projects() {
@@ -57,7 +56,6 @@ export default function Projects() {
       demoUrl: "https://www.oidoo.app",
       demoLabel: t.projects.oidoo_cta,
       screenshot: "/oidoo-screenshot.webp",
-      host: "oidoo.app",
     },
     {
       tag: t.projects.freelance_tag,
@@ -68,7 +66,6 @@ export default function Projects() {
       demoLabel: t.projects.freelance_demo,
       githubUrl: "https://github.com/mch-codes/fontaneria-urgente-lavapies",
       screenshot: "/fontaneria-screenshot.png",
-      host: "fontaneria-urgente-lavapies.vercel.app",
     },
     {
       tag: t.projects.freelance_tag,
@@ -79,7 +76,6 @@ export default function Projects() {
       demoLabel: t.projects.freelance_demo,
       githubUrl: "https://github.com/mch-codes/fisio-vitalia-landing",
       screenshot: "/fisio-screenshot.png",
-      host: "fisio-vitalia-landing.vercel.app",
     },
     {
       tag: t.projects.freelance_tag,
@@ -90,7 +86,6 @@ export default function Projects() {
       demoLabel: t.projects.freelance_demo,
       githubUrl: "https://github.com/mch-codes/taberna-el-fogon-landing",
       screenshot: "/taberna-screenshot.png",
-      host: "taberna-el-fogon-landing.vercel.app",
     },
   ];
 
