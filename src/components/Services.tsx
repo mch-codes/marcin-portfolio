@@ -145,16 +145,18 @@ export default function Services() {
   return (
     <section id="services" className="py-28 md:py-40 relative bg-[#1a1a1e]">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-      <div className="max-w-6xl mx-auto px-6" ref={ref}>
+      <div className="overflow-hidden mb-16" ref={ref}>
         <m.h2
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          className="text-3xl md:text-4xl font-bold text-text tracking-tight leading-[1.15] mb-16"
+          className="text-[25.5vw] font-black text-text tracking-tighter leading-none lowercase text-center whitespace-nowrap -mb-[0.15em]"
         >
           {t.services.title}
         </m.h2>
+      </div>
 
+      <div className="max-w-6xl mx-auto px-6">
         <div className="grid sm:grid-cols-2 gap-x-6 gap-y-6 sm:grid-rows-[auto_1fr_auto_auto_1fr_auto] sm:gap-y-8">
           {cards.map((card, i) => (
             <ServiceCardItem key={i} card={card} index={i} total={cards.length} />
