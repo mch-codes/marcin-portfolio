@@ -9,8 +9,8 @@ export const translations = {
     },
     about: {
       title: "Sobre mí",
-      p1: "Pasé varios años como jefe de partida en cocinas profesionales de Madrid. En cocina aprendes rápido que nada funciona por accidente — cada plato, cada servicio, requiere atención, sistemas y consistencia.",
-      p2: "Cuando salté al desarrollo, traje ese mismo enfoque. No espero tener todo claro para empezar: construyo, rompo cosas, las arreglo. Oidoo.app nació de un problema real que viví en cocina — hoy está en producción y se usa en un restaurante de verdad.",
+      p1: "Pasé varios años como jefe de partida en cocinas profesionales de Madrid. En cocina aprendes rápido que nada funciona por accidente — cada plato, cada servicio, depende de atención, sistemas y consistencia. Pero también aprendes que la maestría no llega esperando: el servicio empieza estés listo o no, así que cocinas, fallas y corriges.",
+      p2: "Traje las dos costumbres al desarrollo. No espero a saberlo todo — construyo, rompo cosas y las arreglo. Después convierto lo que funciona en un sistema. Oidoo.app nació de un problema real que viví en cocina — así que construí la herramienta yo mismo y hoy la uso a diario en la cocina profesional donde trabajo. Está en producción, probada contra servicio real, no en condiciones de demo.",
       p3: "Hablo polaco (nativo), español e inglés con fluidez.",
       subtitle: "Webs que consiguen que te llamen, no solo que te vean.",
       hero_sub: "Desarrollo web a medida para negocios en Madrid. Next.js, TypeScript, Supabase. Con un proyecto en producción real — Oidoo.app. Disponible para proyectos freelance.",
@@ -198,8 +198,8 @@ export const translations = {
     },
     about: {
       title: "About me",
-      p1: "I spent several years as a section chef in professional kitchens in Madrid. In a kitchen you learn fast that nothing works by accident — every dish, every service, takes attention, systems, and consistency.",
-      p2: "When I moved into development, I brought that same mindset. I don't wait until I know everything to start: I build, break things, fix them. Oidoo.app came from a real problem I lived in the kitchen — it's now in production and used in a real restaurant.",
+      p1: "I spent several years as a section chef in professional kitchens in Madrid. In a kitchen, you learn fast that nothing works by accident — every dish, every service, depends on attention, systems, and consistency. But you also learn that mastery doesn't come from standing back: service starts whether you're ready or not, so you cook, you fail, you correct.",
+      p2: "I brought both habits into development. I don't wait until I know everything — I build, break things, and fix them. Then I turn what works into a system. Oidoo.app came from a real problem I lived in the kitchen — so I built the tool myself and now use it daily in the professional kitchen where I work. It runs in production, tested against real service, not demo conditions.",
       p3: "I speak Polish (native), Spanish, and English fluently.",
       subtitle: "Websites that get you called, not just looked at.",
       hero_sub: "Custom web development for businesses in Madrid. Next.js, TypeScript, Supabase. With one real production project — Oidoo.app. Available for freelance projects.",
