@@ -154,7 +154,7 @@ export default function Services() {
           {t.services.cta_text}
         </m.p>
 
-        <div className="mt-24 md:mt-32 grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-20 justify-items-center">
+        <div className="mt-24 md:mt-32 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20 justify-items-center">
           {cards.map((card, i) => (
             <ServiceCardItem key={i} card={card} index={i} total={cards.length} />
           ))}
