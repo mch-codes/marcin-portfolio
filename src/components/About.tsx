@@ -308,7 +308,7 @@ export default function About() {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", still ? "0%" : "8%"]);
 
   return (
-    <section ref={sectionRef} id="about" className="relative min-h-screen flex flex-col overflow-hidden">
+    <section ref={sectionRef} id="hero" className="relative min-h-screen flex flex-col overflow-hidden">
       <NetworkCanvas />
       <m.div
         style={{ y, opacity }}
@@ -373,18 +373,6 @@ export default function About() {
               <p className="text-xs text-muted/85">{t.about.cta_trust}</p>
             </m.div>
 
-            <m.div variants={itemVariants} className="pt-1 border-t border-border">
-              <p className="text-xl md:text-2xl font-semibold text-text leading-snug mt-5">
-                {t.about.tagline1}<br />
-                <span className="text-accent">{t.about.tagline2}</span>.
-              </p>
-            </m.div>
-
-            <m.div variants={itemVariants} className="space-y-4 text-muted leading-relaxed">
-              <p>{t.about.p1}</p>
-              <p>{t.about.p2}</p>
-              <p>{t.about.p3}</p>
-            </m.div>
           </div>
 
           {/* Right: photo + stack pills */}

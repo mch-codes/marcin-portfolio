@@ -3,6 +3,7 @@ import Navigation from "@/components/Navigation";
 import About from "@/components/About";
 
 // Below-fold sections — each becomes its own JS chunk, loaded after initial paint
+const AboutMe    = dynamic(() => import("@/components/AboutMe"));
 const Services   = dynamic(() => import("@/components/Services"));
 const Projects   = dynamic(() => import("@/components/Projects"));
 const MidCta     = dynamic(() => import("@/components/MidCta"));
@@ -15,6 +16,7 @@ export default function Home() {
     <main>
       <Navigation />
       <About />
+      <AboutMe />
       <Services />
       <Projects />
       <MidCta />
