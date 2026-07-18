@@ -21,7 +21,7 @@ function useScrollingUp() {
 
 function IconMonitor() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+    <svg className="h-14 w-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
       <rect x="2" y="3" width="20" height="14" rx="2" />
       <path d="M8 21h8M12 17v4" />
     </svg>
@@ -30,7 +30,7 @@ function IconMonitor() {
 
 function IconTarget() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+    <svg className="h-14 w-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="10" />
       <circle cx="12" cy="12" r="6" />
       <circle cx="12" cy="12" r="2" />
@@ -40,7 +40,7 @@ function IconTarget() {
 
 function IconLayers() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+    <svg className="h-14 w-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
       <polygon points="12 2 2 7 12 12 22 7 12 2" />
       <polyline points="2 17 12 22 22 17" />
       <polyline points="2 12 12 17 22 12" />
@@ -50,11 +50,13 @@ function IconLayers() {
 
 function IconWrench() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+    <svg className="h-14 w-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
       <path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L2 19v3h3l7.3-7.3a4 4 0 0 0 5.4-5.4l-2.65 2.65a1.5 1.5 0 0 1-2.12 0l-.88-.88a1.5 1.5 0 0 1 0-2.12L14.7 6.3z" />
     </svg>
   );
 }
+
+const withPeriod = (s: string) => (/[.!?]$/.test(s) ? s : `${s}.`);
 
 type ServiceCard = { icon: React.ReactNode; title: string; desc: string; price: string; accent: string; features: string[]; href?: string; linkLabel?: string };
 
@@ -89,43 +91,30 @@ function ServiceCardItem({ card, index, total }: { card: ServiceCard; index: num
         delay: reducedMotion ? 0 : isInView ? (reEntering ? 0 : index * 0.1) : (total - 1 - index) * 0.08,
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       }}
-      className="group rounded-2xl border border-border bg-card p-8 md:p-9 flex flex-col gap-6 sm:grid sm:grid-rows-subgrid sm:row-span-3 sm:gap-y-0 hover:border-accent/40 transition-colors duration-300"
+      className="flex flex-col items-center text-center"
     >
-      <span
-        className="inline-flex items-center justify-center w-10 h-10 rounded-xl"
-        style={{ color: card.accent, background: `${card.accent}12` }}
-      >
-        {card.icon}
-      </span>
-      <div className="flex-1">
-        <div className="flex items-start justify-between gap-3 mb-2">
-          <h3 className="text-base font-semibold text-text">{card.title}</h3>
-          <span className="text-sm font-bold shrink-0" style={{ color: card.accent }}>
-            {card.price}
-          </span>
-        </div>
-        <p className="text-sm text-muted leading-relaxed mb-4">{card.desc}</p>
-      </div>
-      <ul className="flex flex-col gap-2">
+      <span className="text-text">{card.icon}</span>
+      <h3 className="mt-8 text-2xl font-bold text-text tracking-tight leading-tight max-w-xs">
+        {withPeriod(card.title)}
+      </h3>
+      <p className="mt-4 text-base text-muted leading-relaxed max-w-xs">{card.desc}</p>
+      <p className="mt-5 text-sm font-semibold text-text">{card.price}</p>
+      <ul className="mt-5 flex flex-col gap-2 max-w-xs">
         {card.features.map((item) => (
-          <li key={item} className="flex items-start gap-2 text-sm text-muted">
-            <span className="mt-0.5 text-xs shrink-0" style={{ color: card.accent }}>✓</span>
-            <span>{item}</span>
+          <li key={item} className="text-sm text-muted leading-relaxed">
+            {item}
           </li>
         ))}
-        {card.href && (
-          <li>
-            <a
-              href={card.href}
-              className="inline-flex items-center gap-1.5 text-sm font-medium mt-1 transition-colors"
-              style={{ color: card.accent }}
-            >
-              {card.linkLabel}
-              <span aria-hidden>→</span>
-            </a>
-          </li>
-        )}
       </ul>
+      {card.href && (
+        <a
+          href={card.href}
+          className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-text hover:text-muted transition-colors"
+        >
+          {card.linkLabel}
+          <span aria-hidden>→</span>
+        </a>
+      )}
     </m.div>
   );
 }
@@ -143,9 +132,8 @@ export default function Services() {
   ];
 
   return (
-    <section id="services" className="py-28 md:py-40 relative bg-[#1a1a1e]">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-      <div className="overflow-hidden mb-16" ref={ref}>
+    <section id="services" className="py-28 md:py-40 relative">
+      <div className="overflow-hidden" ref={ref}>
         <m.h2
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -157,7 +145,16 @@ export default function Services() {
       </div>
 
       <div className="max-w-6xl mx-auto px-6">
-        <div className="grid sm:grid-cols-2 gap-x-6 gap-y-6 sm:grid-rows-[auto_1fr_auto_auto_1fr_auto] sm:gap-y-8">
+        <m.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+          className="ml-auto max-w-md text-xl text-muted leading-relaxed md:text-right"
+        >
+          {t.services.cta_text}
+        </m.p>
+
+        <div className="mt-24 md:mt-32 grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-20 justify-items-center">
           {cards.map((card, i) => (
             <ServiceCardItem key={i} card={card} index={i} total={cards.length} />
           ))}
@@ -167,11 +164,8 @@ export default function Services() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          className="mt-16 flex flex-col items-center gap-5 text-center rounded-2xl border border-accent/20 bg-accent/5 px-6 py-12 md:px-14"
+          className="mt-28 md:mt-32 flex justify-center"
         >
-          <p className="text-lg md:text-xl font-semibold text-text max-w-xl leading-snug">
-            {t.services.cta_text}
-          </p>
           <a
             href="mailto:marcin.chrzuszcz@gmail.com"
             className="inline-flex items-center gap-2 font-semibold text-sm text-white px-6 py-3 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
