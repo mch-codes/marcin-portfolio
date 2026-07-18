@@ -28,9 +28,6 @@ function GitHubIcon() {
   );
 }
 
-// Opposite phase to the Services pinwheel, so the two sections don't rhyme.
-const PROJECT_FROM = ["right", "left", "left", "right"] as const;
-
 type ProjectCard = {
   tag: string;
   status?: string;
@@ -95,10 +92,10 @@ export default function Projects() {
 
       <div className="max-w-6xl mx-auto px-6">
         <div className="mt-24 md:mt-32 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20">
-          {projects.map((p, i) => (
+          {projects.map((p) => (
             <SlideIn
               key={p.title}
-              from={PROJECT_FROM[i % 4]}
+              from="left"
               className="relative flex flex-col items-center text-center"
             >
               <img

@@ -45,12 +45,9 @@ const withPeriod = (s: string) => (/[.!?]$/.test(s) ? s : `${s}.`);
 
 type ServiceCard = { icon: React.ReactNode; title: string; desc: string; price: string; features: string[]; href?: string; linkLabel?: string };
 
-// Pinwheel: the middle pair crosses over instead of entering from its own side.
-const CARD_FROM = ["left", "right", "right", "left"] as const;
-
-function ServiceCardItem({ card, index }: { card: ServiceCard; index: number }) {
+function ServiceCardItem({ card }: { card: ServiceCard }) {
   return (
-    <SlideIn from={CARD_FROM[index % 4]} className="flex flex-col items-center text-center">
+    <SlideIn from="right" className="flex flex-col items-center text-center">
       <span className="text-text">{card.icon}</span>
       <h3 className="mt-8 text-2xl font-bold text-text tracking-tight leading-tight max-w-xs">
         {withPeriod(card.title)}
@@ -94,7 +91,7 @@ export default function Services() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="mt-24 md:mt-32 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20 justify-items-center">
           {cards.map((card, i) => (
-            <ServiceCardItem key={i} card={card} index={i} />
+            <ServiceCardItem key={i} card={card} />
           ))}
         </div>
 
