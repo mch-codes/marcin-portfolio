@@ -1,7 +1,20 @@
 "use client";
 
 import { m, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+/** Matches Tailwind's `md` breakpoint, so JS motion cuts out where the layout does. */
+export function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+  return isMobile;
+}
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
@@ -99,7 +112,12 @@ export function SlideIn({
   className?: string;
   children: React.ReactNode;
 }) {
+  // Same flag the hero uses: on a narrow screen a full-viewport slide reads as
+  // jitter, not motion, so the content just sits where it lands. Both hooks
+  // must be called unconditionally — `||` inline would short-circuit one away.
+  const isMobile = useIsMobile();
   const reducedMotion = useReducedMotion();
+  const still = isMobile || reducedMotion;
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -108,9 +126,9 @@ export function SlideIn({
   const x = useTransform(
     scrollYProgress,
     [0, 1],
-    reducedMotion ? ["0vw", "0vw"] : [from === "left" ? "-100vw" : "100vw", "0vw"],
+    still ? ["0vw", "0vw"] : [from === "left" ? "-100vw" : "100vw", "0vw"],
   );
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [0, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6], still ? [1, 1] : [0, 1]);
 
   return (
     <m.div ref={ref} style={{ x, opacity }} className={className}>

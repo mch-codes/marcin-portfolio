@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import { m, useScroll, useTransform, useAnimationControls, useReducedMotion } from "framer-motion";
-import { useRef, useEffect, useLayoutEffect, useState } from "react";
+import { useRef, useEffect, useLayoutEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { scrollToSection } from "@/lib/scroll";
-import { Splash } from "@/components/Section";
+import { Splash, useIsMobile } from "@/components/Section";
 
 const WHATSAPP = "https://wa.me/34633683404";
 
@@ -284,15 +284,7 @@ export default function About() {
     }
   }, [controls]);
 
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 767px)");
-    setIsMobile(mq.matches);
-    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
-
+  const isMobile = useIsMobile();
   const reducedMotion = useReducedMotion();
   const still = isMobile || reducedMotion;
 
