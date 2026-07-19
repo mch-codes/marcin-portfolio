@@ -5,6 +5,7 @@ import { m, useScroll, useTransform, useAnimationControls, useReducedMotion } fr
 import { useRef, useEffect, useLayoutEffect, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { scrollToSection } from "@/lib/scroll";
+import { Splash } from "@/components/Section";
 
 const WHATSAPP = "https://wa.me/34633683404";
 
@@ -329,7 +330,7 @@ export default function About() {
                 className="text-[21vw] md:text-[8vw] font-black text-text tracking-tighter leading-none"
                 style={{ fontFamily: "var(--font-fraunces), Fraunces, serif" }}
               >
-                Marcin<br />Chrzuszcz
+                <Splash n={2}>Marcin</Splash><br />Chrzuszcz
               </p>
               <h1
                 className="text-base font-normal text-muted mt-3"

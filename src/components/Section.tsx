@@ -11,6 +11,31 @@ const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 // can't see in the source, so `text-[${n}vw]` would silently produce nothing.
 const WORDMARK_VW = 202;
 
+/**
+ * Paints one of public/splash-*.svg behind its text.
+ *
+ * ponytail: one stretched SVG, no per-letter masking. It's an inline
+ * background so the box tracks the glyphs at any size or language, and
+ * preserveAspectRatio="none" lets it smear to fit — which is what wet paint
+ * does anyway. Inline style rather than a utility class keeps the asset path
+ * out of Tailwind's scanner, which treats bracket syntax in any file text as
+ * a real class and emits an unresolvable import.
+ */
+export function Splash({ n, children }: { n: 0 | 1 | 2 | 3; children: React.ReactNode }) {
+  return (
+    <span
+      style={{
+        backgroundImage: `url(/splash-${n}.svg)`,
+        backgroundSize: "100% 100%",
+        backgroundRepeat: "no-repeat",
+      }}
+      className="px-[0.04em] -mx-[0.04em]"
+    >
+      {children}
+    </span>
+  );
+}
+
 /** Full-bleed lowercase wordmark, with an optional supporting line set to the right. */
 export function SectionHeader({
   word,
@@ -39,22 +64,7 @@ export function SectionHeader({
           style={{ fontSize: `${WORDMARK_VW / word.length}vw` }}
           className="font-black text-text tracking-tighter leading-none lowercase text-center whitespace-nowrap -mb-[0.15em]"
         >
-          {/* ponytail: one stretched SVG, no per-letter masking. The splash is
-              preserveAspectRatio="none" so it smears to fit — which is what
-              wet paint does anyway. */}
-          {/* Inline style, not a utility class: keeps the asset path out of
-              Tailwind's scanner, which treats bracket syntax in any file text
-              as a real class and emits an unresolvable import. */}
-          <span
-            style={{
-              backgroundImage: `url(/splash-${splash}.svg)`,
-              backgroundSize: "100% 100%",
-              backgroundRepeat: "no-repeat",
-            }}
-            className="px-[0.04em] -mx-[0.04em]"
-          >
-            {first}
-          </span>
+          <Splash n={splash}>{first}</Splash>
           {rest.length > 0 && ` ${rest.join(" ")}`}
         </m.h2>
       </div>
