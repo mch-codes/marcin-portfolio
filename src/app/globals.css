@@ -28,6 +28,35 @@
   }
 }
 
+/* Hand-torn outlines, to match the splash headings. The slash syntax sets
+   horizontal and vertical radii separately, so each corner bends on a
+   different ellipse and no two read alike — a plain border-radius can't do
+   this. Four variants so no two adjacent CTAs share a silhouette.
+   Values are tuned to the 44px control height; scaling the buttons
+   means retuning them. */
+.btn-splash-0 {
+  border-radius: 14px 5px 16px 6px / 6px 16px 5px 14px;
+}
+.btn-splash-1 {
+  border-radius: 5px 17px 4px 13px / 15px 4px 14px 5px;
+}
+.btn-splash-2 {
+  border-radius: 16px 6px 5px 15px / 5px 13px 16px 6px;
+}
+.btn-splash-3 {
+  border-radius: 6px 14px 15px 4px / 13px 5px 6px 16px;
+}
+
+/* The language toggle runs ~28px tall, so the CTA radii would round it to a
+   lozenge. Same idea, scaled down. The pill is inset within the container,
+   hence its own slightly tighter set. */
+.toggle-splash {
+  border-radius: 9px 3px 10px 4px / 4px 10px 3px 9px;
+}
+.pill-splash {
+  border-radius: 3px 8px 3px 7px / 7px 3px 8px 3px;
+}
+
 html {
   font-size: 20.8px;
   scroll-behavior: smooth;

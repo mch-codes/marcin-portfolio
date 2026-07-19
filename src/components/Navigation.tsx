@@ -20,10 +20,10 @@ function LangToggle({ compact = false, className = "" }: { compact?: boolean; cl
   }, [language]);
 
   return (
-    <div className={`relative flex items-center border border-border ${className}`}>
+    <div className={`toggle-splash relative flex items-center border border-border ${className}`}>
       {pill.width > 0 && (
         <m.span
-          className="absolute top-0 bottom-0 bg-accent pointer-events-none"
+          className="pill-splash absolute top-0 bottom-0 bg-accent pointer-events-none"
           animate={pill}
           initial={false}
           transition={{ type: "spring", stiffness: 250, damping: 18 }}
