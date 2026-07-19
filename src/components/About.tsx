@@ -375,6 +375,10 @@ export default function About() {
                   width={460}
                   height={460}
                   priority
+                  /* Container is w-60/md:w-72 against a 20.8px root, so 312px
+                     then 374px — without this the optimizer assumes 100vw and
+                     ships the 1080w variant for a 312px box. */
+                  sizes="(max-width: 768px) 312px, 374px"
                   className="w-full h-full object-cover"
                 />
               </div>
