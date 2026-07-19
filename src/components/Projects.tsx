@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { SectionHeader, SlideIn } from "@/components/Section";
 
@@ -98,11 +99,15 @@ export default function Projects() {
               from="left"
               className="relative flex flex-col items-center text-center"
             >
-              <img
+              {/* next/image, not <img>: Vercel then serves a resized AVIF/WebP
+                  instead of the full-size PNG. Two-up grid above md, so a card
+                  is never wider than half the 72rem container. */}
+              <Image
                 src={p.screenshot}
                 alt={p.title}
                 width={1280}
                 height={800}
+                sizes="(max-width: 768px) 100vw, 36rem"
                 className="w-full object-cover object-top"
                 style={{ maxHeight: "220px" }}
               />
