@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
@@ -217,15 +216,6 @@ export default function Contact() {
                 Marcin Chrzuszcz
               </a>
             </div>
-            </div>
-            <div className="w-full h-52 sm:w-44 sm:h-56 overflow-hidden shrink-0">
-              <Image
-                src="/footer-photo.webp"
-                alt="Marcin Chrzuszcz"
-                width={256}
-                height={320}
-                className="w-full h-full object-cover"
-              />
             </div>
           </div>
         </div>
