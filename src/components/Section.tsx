@@ -12,9 +12,22 @@ const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 const WORDMARK_VW = 202;
 
 /** Full-bleed lowercase wordmark, with an optional supporting line set to the right. */
-export function SectionHeader({ word, children }: { word: string; children?: React.ReactNode }) {
+export function SectionHeader({
+  word,
+  splash = 0,
+  children,
+}: {
+  word: string;
+  /** Which of public/splash-*.svg to paint behind the first word. Set per
+      section so no two adjacent headings repeat a shape. */
+  splash?: 0 | 1 | 2 | 3;
+  children?: React.ReactNode;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
+  // Splash goes behind the first word only — on a two-word heading the second
+  // stays bare, which is the look. Single-word headings get it whole.
+  const [first, ...rest] = word.split(" ");
 
   return (
     <>
@@ -26,7 +39,23 @@ export function SectionHeader({ word, children }: { word: string; children?: Rea
           style={{ fontSize: `${WORDMARK_VW / word.length}vw` }}
           className="font-black text-text tracking-tighter leading-none lowercase text-center whitespace-nowrap -mb-[0.15em]"
         >
-          {word}
+          {/* ponytail: one stretched SVG, no per-letter masking. The splash is
+              preserveAspectRatio="none" so it smears to fit — which is what
+              wet paint does anyway. */}
+          {/* Inline style, not a utility class: keeps the asset path out of
+              Tailwind's scanner, which treats bracket syntax in any file text
+              as a real class and emits an unresolvable import. */}
+          <span
+            style={{
+              backgroundImage: `url(/splash-${splash}.svg)`,
+              backgroundSize: "100% 100%",
+              backgroundRepeat: "no-repeat",
+            }}
+            className="px-[0.04em] -mx-[0.04em]"
+          >
+            {first}
+          </span>
+          {rest.length > 0 && ` ${rest.join(" ")}`}
         </m.h2>
       </div>
 

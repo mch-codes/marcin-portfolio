@@ -88,7 +88,7 @@ export default function Projects() {
 
   return (
     <section id="projects" className="py-28 md:py-40 relative overflow-hidden">
-      <SectionHeader word={t.projects.headline} />
+      <SectionHeader word={t.projects.headline} splash={2} />
 
       <div className="max-w-6xl mx-auto px-6">
         <div className="mt-24 md:mt-32 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20">

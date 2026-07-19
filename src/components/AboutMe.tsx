@@ -8,7 +8,7 @@ export default function AboutMe() {
 
   return (
     <section id="about" className="py-28 md:py-40 relative overflow-hidden">
-      <SectionHeader word={t.about.title}>
+      <SectionHeader word={t.about.title} splash={0}>
         {t.about.tagline1} {t.about.tagline2}.
       </SectionHeader>
 
