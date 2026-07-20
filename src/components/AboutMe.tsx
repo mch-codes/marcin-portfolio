@@ -17,7 +17,7 @@ export default function AboutMe() {
             word gap grows by the same absolute amount the letter gaps do and
             shrinks in proportion — words stop reading as units. word-spacing
             buys that separation back. Tailwind has no utility for it. */}
-        <SlideIn className="mt-24 md:mt-32 max-w-2xl space-y-6 text-lg text-muted leading-relaxed tracking-[0.13em] [word-spacing:0.25em]">
+        <SlideIn className="mt-24 md:mt-32 max-w-2xl space-y-6 text-lg text-muted leading-relaxed tracking-[0.15em] [word-spacing:0.25em]">
           <p>{t.about.p1}</p>
           <p>{t.about.p2}</p>
           <p>{t.about.p3}</p>
