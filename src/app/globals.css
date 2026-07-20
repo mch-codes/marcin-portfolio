@@ -57,13 +57,19 @@
   border-radius: 3px 8px 3px 7px / 7px 3px 8px 3px;
 }
 
-/* The hero photo. All four corners tear, unlike the menu panel — nothing
-   sits flush against it. Radii run much larger than the buttons because the
-   box is 312px/374px, and the button values would read as a rounding error
-   at that scale rather than a torn edge. The container already carries
-   overflow-hidden, so the image clips to this. */
+/* The hero photo, cut to the same torn edge as the splash blobs. A mask
+   rather than border-radius: radii can only bend corners, so the straight
+   runs between them stayed visibly ruler-drawn next to the painted
+   headings. The splash-*.svg files themselves can't be reused here — they
+   are 400x160 with detached paint specks, which on a 1:1 portrait would
+   squash the shape and strew loose fragments of the face around it. */
 .photo-splash {
-  border-radius: 38px 14px 42px 16px / 16px 40px 13px 36px;
+  -webkit-mask-image: url(/photo-mask.svg);
+  mask-image: url(/photo-mask.svg);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
 
 /* The mobile menu panel hangs off the header, so only its bottom edge is

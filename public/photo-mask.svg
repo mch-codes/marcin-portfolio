@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" preserveAspectRatio="none">
+  <!-- Torn square in the same hand of the splash-*.svg blobs, but authored
+       1:1 so a portrait masks without distortion. No detached specks: on a
+       face they read as fragments of the photo floating loose, not paint. -->
+  <path fill="#fff" d="M18 44C56 10 132 26 198 16c62-10 138 4 176 34 18 48 4 108 12 166 8 56-8 122-32 166-56 20-132 4-196 12-58 8-116-6-146-30-16-54-2-118-12-178C-6 128 2 74 18 44Z"/>
+</svg>
