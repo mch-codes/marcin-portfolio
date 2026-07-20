@@ -71,16 +71,16 @@ export default function Navigation() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
         scrolled
-          ? "bg-[#1e1e1e]/60 backdrop-blur-xl border-white/5"
+          ? "bg-bg/60 backdrop-blur-xl border-border/50"
           : "bg-transparent border-transparent"
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <button
           onClick={scrollToTop}
-          className="text-text font-semibold text-lg tracking-tight hover:text-accent transition-colors duration-200"
+          className="font-[family-name:var(--font-fraunces)] text-text font-black text-xl lowercase tracking-tighter hover:text-muted transition-colors duration-200"
         >
-          MC
+          mc
         </button>
 
         {/* Desktop nav */}
@@ -89,7 +89,7 @@ export default function Navigation() {
             <button
               key={link.id}
               onClick={() => scrollToSection(link.id)}
-              className="text-muted text-sm font-medium hover:text-accent transition-colors duration-200"
+              className="text-muted text-sm font-medium hover:text-text transition-colors duration-200"
             >
               {link.label}
             </button>
@@ -122,7 +122,7 @@ export default function Navigation() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden bg-[#09090b]/95 backdrop-blur-md border-b border-[#3f3f46] overflow-hidden"
+            className="menu-splash md:hidden bg-bg/95 backdrop-blur-md border-b border-border overflow-hidden"
           >
             <nav className="flex flex-col px-6 py-4 gap-4">
               {navLinks.map((link) => (

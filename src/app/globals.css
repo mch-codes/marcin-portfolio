@@ -57,6 +57,14 @@
   border-radius: 3px 8px 3px 7px / 7px 3px 8px 3px;
 }
 
+/* The mobile menu panel hangs off the header, so only its bottom edge is
+   free to tear — rounding the top would open a seam against the bar above.
+   Larger radii than the buttons because the panel is full-bleed and a 14px
+   bend reads as a rounding error at that width. */
+.menu-splash {
+  border-radius: 0 0 22px 9px / 0 0 9px 20px;
+}
+
 html {
   font-size: 20.8px;
   scroll-behavior: smooth;
