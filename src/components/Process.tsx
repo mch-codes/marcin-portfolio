@@ -16,7 +16,7 @@ export default function Process() {
   ];
 
   return (
-    <section id="process" className="py-28 md:py-40 relative overflow-hidden">
+    <section id="process" className="py-28 md:py-40 relative overflow-hidden bg-card">
       <SectionHeader word={t.nav.process} splash={3}>{t.process.subtitle}</SectionHeader>
 
       <div className="max-w-6xl mx-auto px-6">
