@@ -13,7 +13,7 @@ export default function AboutMe() {
       </SectionHeader>
 
       <div className="max-w-6xl mx-auto px-6">
-        <SlideIn className="mt-24 md:mt-32 max-w-2xl space-y-6 text-lg text-muted leading-relaxed tracking-wider">
+        <SlideIn className="mt-24 md:mt-32 max-w-2xl space-y-6 text-lg text-muted leading-relaxed tracking-widest">
           <p>{t.about.p1}</p>
           <p>{t.about.p2}</p>
           <p>{t.about.p3}</p>
