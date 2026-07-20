@@ -64,7 +64,7 @@ function ServiceCardItem({ card }: { card: ServiceCard }) {
       {card.href && (
         <a
           href={card.href}
-          className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-text hover:text-muted transition-colors"
+          className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-text transition-colors"
         >
           {card.linkLabel}
           <span aria-hidden>→</span>

@@ -8,6 +8,11 @@ import { scrollToSection, scrollToTop } from "@/lib/scroll";
 
 const LANGS: Language[] = ["es", "en"];
 
+/** Every focusable control in the bar shares one ring, so keyboard focus
+    doesn't change shape as you tab across the nav. */
+const FOCUS_RING =
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
+
 function LangToggle({ compact = false, className = "" }: { compact?: boolean; className?: string }) {
   const { language, setLanguage } = useLanguage();
   const refs = useRef<(HTMLButtonElement | null)[]>([null, null]);
@@ -34,7 +39,7 @@ function LangToggle({ compact = false, className = "" }: { compact?: boolean; cl
           key={lang}
           ref={(el) => { refs.current[i] = el; }}
           onClick={() => setLanguage(lang)}
-          className={`relative z-10 text-xs font-semibold ${compact ? "px-2.5" : "px-3"} py-1.5 uppercase tracking-wide focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg`}
+          className={`relative z-10 text-xs font-semibold ${compact ? "px-2.5" : "px-3"} py-1.5 uppercase tracking-wide ${FOCUS_RING}`}
         >
           <span className={`transition-colors duration-150 ${language === lang ? "text-bg" : "text-muted hover:text-text"}`}>
             {lang}
@@ -78,7 +83,7 @@ export default function Navigation() {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <button
           onClick={scrollToTop}
-          className="font-[family-name:var(--font-fraunces)] text-muted font-black text-xl lowercase tracking-tighter hover:text-text transition-colors duration-200"
+          className={`font-[family-name:var(--font-fraunces)] text-muted font-black text-xl lowercase tracking-tighter hover:text-text transition-colors duration-200 ${FOCUS_RING}`}
         >
           mc
         </button>
@@ -89,7 +94,7 @@ export default function Navigation() {
             <button
               key={link.id}
               onClick={() => scrollToSection(link.id)}
-              className="font-[family-name:var(--font-fraunces)] text-muted text-base font-semibold lowercase hover:text-text transition-colors duration-200"
+              className={`font-[family-name:var(--font-fraunces)] text-muted text-base font-semibold lowercase hover:text-text transition-colors duration-200 ${FOCUS_RING}`}
             >
               {link.label}
             </button>
@@ -102,7 +107,7 @@ export default function Navigation() {
           <LangToggle compact />
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="text-muted hover:text-text transition-colors p-1"
+            className={`text-muted hover:text-text transition-colors p-1 ${FOCUS_RING}`}
             aria-label="Toggle menu"
           >
             <div className="w-5 flex flex-col gap-1.5">
@@ -129,7 +134,7 @@ export default function Navigation() {
                 <button
                   key={link.id}
                   onClick={() => { scrollToSection(link.id); setMenuOpen(false); }}
-                  className="font-[family-name:var(--font-fraunces)] text-text text-base font-semibold lowercase py-1 border-b border-border last:border-0 text-left"
+                  className={`font-[family-name:var(--font-fraunces)] text-text text-base font-semibold lowercase py-1 border-b border-border last:border-0 text-left ${FOCUS_RING}`}
                 >
                   {link.label}
                 </button>

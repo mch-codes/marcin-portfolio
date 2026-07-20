@@ -125,7 +125,7 @@ export default function Projects() {
                   href={p.demoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-text hover:text-muted transition-colors after:absolute after:inset-0"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-text transition-colors after:absolute after:inset-0"
                 >
                   {p.demoLabel}
                   <ArrowUpRight />
