@@ -57,6 +57,15 @@
   border-radius: 3px 8px 3px 7px / 7px 3px 8px 3px;
 }
 
+/* The hero photo. All four corners tear, unlike the menu panel — nothing
+   sits flush against it. Radii run much larger than the buttons because the
+   box is 312px/374px, and the button values would read as a rounding error
+   at that scale rather than a torn edge. The container already carries
+   overflow-hidden, so the image clips to this. */
+.photo-splash {
+  border-radius: 38px 14px 42px 16px / 16px 40px 13px 36px;
+}
+
 /* The mobile menu panel hangs off the header, so only its bottom edge is
    free to tear — rounding the top would open a seam against the bar above.
    Larger radii than the buttons because the panel is full-bleed and a 14px
