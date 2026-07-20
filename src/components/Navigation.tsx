@@ -78,7 +78,7 @@ export default function Navigation() {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <button
           onClick={scrollToTop}
-          className="font-[family-name:var(--font-fraunces)] text-text font-black text-xl lowercase tracking-tighter hover:text-muted transition-colors duration-200"
+          className="font-[family-name:var(--font-fraunces)] text-muted font-black text-xl lowercase tracking-tighter hover:text-text transition-colors duration-200"
         >
           mc
         </button>
