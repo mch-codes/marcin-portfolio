@@ -319,7 +319,7 @@ export default function About() {
               {/* Font families set inline: the unlayered `h1, h2, h3` rule in globals.css
                   outranks Tailwind's layered utilities, so classes can't swap them. */}
               <p
-                className="text-[23vw] md:text-[8vw] font-black text-text tracking-tighter leading-none"
+                className="text-[22vw] md:text-[8vw] font-black text-text tracking-tighter leading-none"
                 style={{ fontFamily: "var(--font-fraunces), Fraunces, serif" }}
               >
                 <Splash n={2}>Marcin</Splash><br />Chrzuszcz
