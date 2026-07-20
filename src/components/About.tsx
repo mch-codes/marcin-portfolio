@@ -368,7 +368,7 @@ export default function About() {
           {/* Right: photo + stack pills */}
           <div className="flex flex-col items-center gap-8">
             <m.div variants={itemVariants}>
-              <div className="photo-splash w-60 h-60 md:w-72 md:h-72 overflow-hidden">
+              <div className="w-60 h-60 md:w-72 md:h-72 overflow-hidden">
                 <Image
                   src="/avatar.jpg"
                   alt="Marcin Chrzuszcz"
