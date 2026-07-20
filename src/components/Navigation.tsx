@@ -89,7 +89,7 @@ export default function Navigation() {
             <button
               key={link.id}
               onClick={() => scrollToSection(link.id)}
-              className="text-muted text-sm font-medium hover:text-text transition-colors duration-200"
+              className="font-[family-name:var(--font-fraunces)] text-muted text-base font-semibold lowercase hover:text-text transition-colors duration-200"
             >
               {link.label}
             </button>
@@ -129,7 +129,7 @@ export default function Navigation() {
                 <button
                   key={link.id}
                   onClick={() => { scrollToSection(link.id); setMenuOpen(false); }}
-                  className="text-text text-base font-medium py-1 border-b border-border last:border-0 text-left"
+                  className="font-[family-name:var(--font-fraunces)] text-text text-base font-semibold lowercase py-1 border-b border-border last:border-0 text-left"
                 >
                   {link.label}
                 </button>

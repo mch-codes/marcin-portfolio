@@ -49,7 +49,7 @@ export default function Footer() {
     <footer className="border-t border-border py-10 bg-[#111113]">
       <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-3">
-          <span className="text-sm font-semibold text-text">MC</span>
+          <span className="font-[family-name:var(--font-fraunces)] text-base font-black lowercase tracking-tighter text-text">mc</span>
           <span className="w-px h-4 bg-border" />
           <p className="text-xs text-muted">{t.footer.copy}</p>
           <span className="text-xs text-muted/40">© {year}</span>
