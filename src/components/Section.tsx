@@ -88,7 +88,7 @@ export function SectionHeader({
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.15, ease }}
-            className="ml-auto max-w-md text-xl text-muted leading-relaxed md:text-right"
+            className="ml-auto max-w-md text-base text-muted leading-relaxed md:text-xl md:text-right"
           >
             {children}
           </m.p>
