@@ -60,7 +60,7 @@ export const translations = {
         "Hosting, seguridad y copias de seguridad incluidos",
         "Respuesta en menos de 48h",
       ],
-      cta_text: "Cuéntame qué necesita tu negocio y te respondo en 24h, sin compromiso",
+      cta_text: "Cuéntame qué necesitas. Respondo en 24h, sin compromiso.",
       cta_button: "Hablemos",
     },
     projects: {
@@ -249,7 +249,7 @@ export const translations = {
         "Hosting, security, and backups included",
         "Response within 48h",
       ],
-      cta_text: "Tell me what your business needs and I'll get back to you within 24h, no commitment",
+      cta_text: "Tell me what you need. I reply within 24h, no commitment.",
       cta_button: "Let's talk",
     },
     projects: {
