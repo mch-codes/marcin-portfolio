@@ -86,7 +86,7 @@ export default function Services() {
 
   return (
     <section id="services" className="py-28 md:py-40 relative overflow-hidden bg-card">
-      <SectionHeader word={t.services.title} splash={1}>{t.services.cta_text}</SectionHeader>
+      <SectionHeader word={t.services.title} splash={1} scale={1.12}>{t.services.cta_text}</SectionHeader>
 
       <div className="max-w-6xl mx-auto px-6">
         <div className="mt-24 md:mt-32 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20 justify-items-center">

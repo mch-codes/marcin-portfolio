@@ -53,12 +53,18 @@ export function Splash({ n, children }: { n: 0 | 1 | 2 | 3; children: React.Reac
 export function SectionHeader({
   word,
   splash = 0,
+  scale = 1,
   children,
 }: {
   word: string;
   /** Which of public/splash-*.svg to paint behind the first word. Set per
       section so no two adjacent headings repeat a shape. */
   splash?: 0 | 1 | 2 | 3;
+  /** Multiplier on the derived size, for a word the formula undersells.
+      A multiplier rather than an absolute vw: the size has to stay derived
+      from length, or the other language regresses — "servicios" is 9 chars
+      and "services" is 8, so any fixed number is wrong for one of them. */
+  scale?: number;
   children?: React.ReactNode;
 }) {
   const ref = useRef(null);
@@ -74,7 +80,7 @@ export function SectionHeader({
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease }}
-          style={{ fontSize: `${WORDMARK_VW / word.length}vw` }}
+          style={{ fontSize: `${(WORDMARK_VW / word.length) * scale}vw` }}
           className="font-black text-text tracking-tighter leading-none lowercase text-center whitespace-nowrap -mb-[0.15em]"
         >
           <Splash n={splash}>{first}</Splash>
