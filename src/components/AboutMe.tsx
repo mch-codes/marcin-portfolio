@@ -13,7 +13,11 @@ export default function AboutMe() {
       </SectionHeader>
 
       <div className="max-w-6xl mx-auto px-6">
-        <SlideIn className="mt-24 md:mt-32 max-w-2xl space-y-6 text-lg text-muted leading-relaxed tracking-widest">
+        {/* Letterspacing at 0.1em lands on the space character too, so the
+            word gap grows by the same absolute amount the letter gaps do and
+            shrinks in proportion — words stop reading as units. word-spacing
+            buys that separation back. Tailwind has no utility for it. */}
+        <SlideIn className="mt-24 md:mt-32 max-w-2xl space-y-6 text-lg text-muted leading-relaxed tracking-widest [word-spacing:0.25em]">
           <p>{t.about.p1}</p>
           <p>{t.about.p2}</p>
           <p>{t.about.p3}</p>
