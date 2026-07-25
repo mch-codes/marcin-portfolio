@@ -372,8 +372,8 @@ export default function About() {
                 <Image
                   src="/avatar.jpg"
                   alt="Marcin Chrzuszcz"
-                  width={460}
-                  height={460}
+                  width={600}
+                  height={600}
                   priority
                   /* Container is w-60/md:w-72 against a 20.8px root, so 312px
                      then 374px — without this the optimizer assumes 100vw and
