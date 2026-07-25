@@ -9,7 +9,7 @@ narrow viewport has far less room left of the centred photo than a wide one.
 import math
 
 W, H   = 400, 2000
-INK    = "#d4d4d4"
+INK    = "#1e1e1e"  # --color-text; page.tsx renders it at 0.12 opacity
 K      = 6          # wave periods over the run
 AMP    = 20         # swing of each line
 GAP    = 64         # distance between the two lines   -> extent = 64 + 40 = 104

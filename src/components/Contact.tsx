@@ -83,7 +83,7 @@ export default function Contact() {
                   <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                     <path
                       d="M3 9l4 4 8-8"
-                      stroke="#10b981"
+                      stroke="#047857"
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"

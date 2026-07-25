@@ -10,7 +10,10 @@ export default function Icon() {
         style={{
           width: 32,
           height: 32,
-          background: "#09090b",
+          // The tile is 32px on a browser tab that may itself be white, so it
+          // takes the accent as its fill rather than the page background —
+          // a white-on-white favicon reads as no favicon.
+          background: "#047857",
           borderRadius: 8,
           display: "flex",
           alignItems: "center",
@@ -21,7 +24,7 @@ export default function Icon() {
           style={{
             fontSize: 13,
             fontWeight: 700,
-            color: "#10b981",
+            color: "#ffffff",
             letterSpacing: "-0.5px",
             fontFamily: "sans-serif",
           }}
