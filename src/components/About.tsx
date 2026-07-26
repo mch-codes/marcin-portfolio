@@ -6,8 +6,6 @@ import { useLanguage } from "@/context/LanguageContext";
 import { scrollToSection } from "@/lib/scroll";
 import { useIsMobile } from "@/components/Section";
 
-const WHATSAPP = "https://wa.me/34633683404";
-
 /* Both halves of the name share one size token so they can't drift apart —
    the whole point is that the horizontal given name and the vertical surname
    read as one word broken across a corner. In vh, not vw: the surname's run
@@ -41,18 +39,17 @@ const CTA = "inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-
 const GIVEN_TOP = "pt-[90px]";
 const SURNAME_TOP = "pt-20";
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.22 } },
-};
-
+/* One shared variant, per-element delay through `custom`. A staggerChildren
+   container can't do it: the surname is pinned to the page edge and lives
+   outside the content column, so it isn't a child of anything the column
+   could stagger. Order is Marcin → Chrzuszcz → subtitle → CTA. */
 const itemVariants = {
   hidden: { opacity: 0, y: 32 },
-  visible: {
+  visible: (delay: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
-  },
+    transition: { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+  }),
 };
 
 export default function About() {
@@ -90,8 +87,12 @@ export default function About() {
           this to the 72rem gutter instead of the page edge. Sized in vh rather
           than vw because what it has to fit is the viewport height — 9 glyphs
           at roughly 0.55em advance each, so ~5em of run. */}
-      <div
+      <m.div
         aria-hidden
+        variants={itemVariants}
+        custom={0.45}
+        initial="hidden"
+        animate={controls}
         className={`pointer-events-none select-none absolute right-2 md:right-4 top-0 bottom-0 flex items-start ${SURNAME_TOP}`}
       >
         {/* writing-mode has to sit on the text, not on the flex box above it:
@@ -100,20 +101,15 @@ export default function About() {
         <span className={`${NAME_SIZE} [writing-mode:vertical-rl]`}>
           Chrzuszcz
         </span>
-      </div>
+      </m.div>
 
       <m.div
         style={{ y, opacity }}
         className={`relative z-10 flex-1 flex max-w-6xl mx-auto px-6 ${GIVEN_TOP} pb-10 w-full`}
       >
-        <m.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={controls}
-          className="w-full max-w-2xl flex flex-col gap-12 pr-16 md:pr-0"
-        >
+        <div className="w-full max-w-2xl flex flex-col gap-12 pr-16 md:pr-0">
           {/* Text content, single column since the portrait came out. */}
-            <m.div variants={itemVariants}>
+            <m.div variants={itemVariants} custom={0} initial="hidden" animate={controls}>
               {/* The surname is rendered separately, pinned to the page edge —
                   aria-label keeps the two halves one name for a screen reader,
                   and the vertical half is hidden from the tree to match.
@@ -126,7 +122,13 @@ export default function About() {
             {/* mt-auto, not a spacer: the column now stretches the full section
                 height, so the CTA falls to the bottom edge on its own and stays
                 there whatever the name block above it measures. */}
-            <m.div variants={itemVariants} className="mt-auto flex flex-col sm:flex-row gap-3">
+            <m.div
+              variants={itemVariants}
+              custom={1.35}
+              initial="hidden"
+              animate={controls}
+              className="mt-auto flex flex-col sm:flex-row gap-3"
+            >
                 <button
                   type="button"
                   onClick={() => scrollToSection("contact")}
@@ -137,32 +139,20 @@ export default function About() {
                     <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </button>
-
-                <a
-                  href={WHATSAPP}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={t.about.cta_whatsapp_aria}
-                  className={CTA}
-                >
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4" aria-hidden>
-                    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.55-3.7 8.24-8.24 8.24zm4.52-6.17c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.78.97-.14.17-.29.19-.53.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43-.14-.01-.31-.01-.48-.01-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.43 1.03 2.6.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.23-.16-.48-.28z" />
-                  </svg>
-                  WhatsApp
-                </a>
             </m.div>
-        </m.div>
+        </div>
 
         {/* Dead centre of the section, out of the flow entirely — the name is
             top-left and the CTA bottom-left, so this is a third anchor rather
             than part of either. Positioned against the wrapper above (it is
             `relative`) and not the max-w-2xl column, which is left-hung and
             would centre this on the column's midpoint instead of the page's.
-            Outside the stagger container too, so it carries its own fade. */}
+            Third in the sequence, after both halves of the name. */}
         <m.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          variants={itemVariants}
+          custom={0.9}
+          initial="hidden"
+          animate={controls}
           className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto max-w-xl pl-6 pr-16 md:pr-6 text-center"
         >
           {/* This one does need the inline family. It is an h1, and the

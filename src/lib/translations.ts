@@ -24,7 +24,6 @@ export const translations = {
       tagline2: "al código",
       languages: "Idiomas: Polaco (nativo) · Español (B2) · Inglés (B2)",
       cta_primary: "Cuéntame tu proyecto",
-      cta_whatsapp_aria: "Escríbeme por WhatsApp",
     },
     midcta: {
       text: "¿Tu negocio necesita algo así? Hablemos.",
@@ -216,7 +215,6 @@ export const translations = {
       tagline2: "to the code",
       languages: "Languages: Polish (native) · Spanish (B2) · English (B2)",
       cta_primary: "Tell me about your project",
-      cta_whatsapp_aria: "Message me on WhatsApp",
     },
     midcta: {
       text: "Does your business need something like this? Let's talk.",
