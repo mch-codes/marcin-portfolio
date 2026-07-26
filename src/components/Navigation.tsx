@@ -62,16 +62,13 @@ export default function Navigation() {
 
   return (
     <>
-    {/* Floating monogram — rides on `scrolled`, the state the header already
-        computes, so it only appears once the hero is behind you. Bottom-right
-        rather than left: Next's dev-tools bubble sits bottom-left in `next dev`
-        and would cover it locally. */}
+    {/* Floating monogram, always on screen. Bottom-left puts it under Next's
+        dev-tools bubble in `next dev` — that bubble does not exist in a
+        production build, so the overlap is local only. */}
     <button
       onClick={scrollToTop}
       aria-label="Back to top"
-      className={`fixed bottom-6 right-6 z-50 grid place-items-center w-10 h-10 rounded-full border border-border bg-bg/60 backdrop-blur-xl text-xs font-semibold tracking-wide text-muted transition-all duration-300 hover:text-text hover:border-text ${FOCUS_RING} ${
-        scrolled ? "opacity-100" : "opacity-0 pointer-events-none"
-      }`}
+      className={`fixed bottom-6 left-6 z-50 grid place-items-center w-10 h-10 rounded-full border border-border bg-bg/60 backdrop-blur-xl text-xs font-semibold tracking-wide text-muted transition-colors duration-300 hover:text-text hover:border-text ${FOCUS_RING}`}
     >
       MC
     </button>
