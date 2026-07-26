@@ -1,195 +1,12 @@
 "use client";
 
 import { m, useScroll, useTransform, useAnimationControls, useReducedMotion } from "framer-motion";
-import { useRef, useEffect, useLayoutEffect } from "react";
+import { useRef, useLayoutEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { scrollToSection } from "@/lib/scroll";
-import { Splash, useIsMobile } from "@/components/Section";
+import { useIsMobile } from "@/components/Section";
 
 const WHATSAPP = "https://wa.me/34633683404";
-
-function NetworkCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    let animId = 0;
-
-    const resize = () => {
-      canvas.width = canvas.clientWidth;
-      canvas.height = canvas.clientHeight;
-    };
-    resize();
-
-    const N = 80;
-    const MAX_DIST = 160;
-    const MOUSE_DIST = 160;
-    const REPEL_STRENGTH = 7.0;
-    const MIN_SPEED = 0.25;
-    const MAX_SPEED = 1.6;
-    const TARGET_FPS = 30;
-    const FRAME_MS = 1000 / TARGET_FPS;
-
-    interface Particle { x: number; y: number; vx: number; vy: number; r: number; angle: number }
-
-    let W = canvas.width;
-    let H = canvas.height;
-    const mouse = { x: -9999, y: -9999 };
-    let lastTime = 0;
-
-    const particles: Particle[] = Array.from({ length: N }, () => ({
-      x: Math.random() * W,
-      y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.85,
-      vy: (Math.random() - 0.5) * 0.85,
-      r: Math.random() * 1.3 + 0.5,
-      angle: Math.random() * Math.PI * 2,
-    }));
-
-    const onResize = () => {
-      canvas.width = canvas.clientWidth;
-      canvas.height = canvas.clientHeight;
-      W = canvas.width;
-      H = canvas.height;
-    };
-    window.addEventListener("resize", onResize);
-
-    const onMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
-    };
-    const onMouseLeave = () => { mouse.x = -9999; mouse.y = -9999; };
-    window.addEventListener("mousemove", onMouseMove);
-    canvas.addEventListener("mouseleave", onMouseLeave);
-
-    const LINE_COLOR_B = "rgba(4, 120, 87,";
-
-    const draw = (timestamp: number) => {
-      animId = requestAnimationFrame(draw);
-
-      if (timestamp - lastTime < FRAME_MS) return;
-      lastTime = timestamp;
-
-      W = canvas.width;
-      H = canvas.height;
-      ctx.clearRect(0, 0, W, H);
-
-      for (const p of particles) {
-        p.angle += (Math.random() - 0.5) * 0.12;
-        p.vx += Math.cos(p.angle) * 0.025;
-        p.vy += Math.sin(p.angle) * 0.025;
-
-        const mdx = p.x - mouse.x;
-        const mdy = p.y - mouse.y;
-        const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-        if (mdist < MOUSE_DIST && mdist > 0) {
-          const force = (1 - mdist / MOUSE_DIST) * REPEL_STRENGTH;
-          p.vx += (mdx / mdist) * force * 0.06;
-          p.vy += (mdy / mdist) * force * 0.06;
-        }
-
-        p.vx *= 0.98;
-        p.vy *= 0.98;
-
-        const spd = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-        if (spd < MIN_SPEED) {
-          const s = spd > 0 ? spd : 1;
-          p.vx = (p.vx / s) * MIN_SPEED;
-          p.vy = (p.vy / s) * MIN_SPEED;
-        } else if (spd > MAX_SPEED) {
-          p.vx = (p.vx / spd) * MAX_SPEED;
-          p.vy = (p.vy / spd) * MAX_SPEED;
-        }
-
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0) p.x += W;
-        if (p.x > W) p.x -= W;
-        if (p.y < 0) p.y += H;
-        if (p.y > H) p.y -= H;
-      }
-
-      const MAX_DIST_SQ = MAX_DIST * MAX_DIST;
-      for (let i = 0; i < N; i++) {
-        for (let j = i + 1; j < N; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const distSq = dx * dx + dy * dy;
-          if (distSq < MAX_DIST_SQ) {
-            const t = 1 - Math.sqrt(distSq) / MAX_DIST;
-            const alpha = (t * 0.42).toFixed(2);
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `${LINE_COLOR_B} ${alpha})`;
-            ctx.lineWidth = t * 0.9;
-            ctx.stroke();
-          }
-        }
-      }
-
-      if (mouse.x > 0) {
-        for (const p of particles) {
-          const dx = p.x - mouse.x;
-          const dy = p.y - mouse.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < MOUSE_DIST) {
-            const t = 1 - dist / MOUSE_DIST;
-            ctx.beginPath();
-            ctx.moveTo(mouse.x, mouse.y);
-            ctx.lineTo(p.x, p.y);
-            ctx.strokeStyle = `rgba(4, 120, 87, ${(t * 0.5).toFixed(2)})`;
-            ctx.lineWidth = t * 1.2;
-            ctx.stroke();
-          }
-        }
-      }
-
-      ctx.fillStyle = "rgba(4, 120, 87, 0.75)";
-      for (const p of particles) {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    };
-
-    // Only burn frames while the hero is actually on screen — the link pass is
-    // O(n²) and would otherwise run for the whole session, off-screen included.
-    const io = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        if (!animId) animId = requestAnimationFrame(draw);
-      } else if (animId) {
-        cancelAnimationFrame(animId);
-        animId = 0;
-      }
-    });
-    io.observe(canvas);
-
-    return () => {
-      io.disconnect();
-      if (animId) cancelAnimationFrame(animId);
-      window.removeEventListener("resize", onResize);
-      window.removeEventListener("mousemove", onMouseMove);
-      canvas.removeEventListener("mouseleave", onMouseLeave);
-    };
-  }, []);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      aria-hidden
-      className="absolute inset-0 w-full h-full pointer-events-none"
-      style={{ opacity: 0.75 }}
-    />
-  );
-}
 
 const stack = [
   {
@@ -301,7 +118,6 @@ export default function About() {
 
   return (
     <section ref={sectionRef} id="hero" className="relative min-h-screen flex flex-col overflow-hidden">
-      <NetworkCanvas />
       <m.div
         style={{ y, opacity }}
         className="relative z-10 flex-1 flex items-center max-w-6xl mx-auto px-6 pt-24 pb-10 w-full"
@@ -312,9 +128,7 @@ export default function About() {
           animate={controls}
           className="w-full max-w-2xl flex flex-col gap-12"
         >
-          {/* Text content. Single column since the portrait came out: a
-              two-up grid with nothing in the right cell just reads as a
-              layout bug, and the canvas and river already fill that side. */}
+          {/* Text content, single column since the portrait came out. */}
           <div className="flex flex-col gap-7">
             <m.div variants={itemVariants}>
               {/* Font families set inline: the unlayered `h1, h2, h3` rule in globals.css
@@ -323,7 +137,7 @@ export default function About() {
                 className="text-[22vw] md:text-[8vw] font-black text-text tracking-tighter leading-none"
                 style={{ fontFamily: "var(--font-fraunces), Fraunces, serif" }}
               >
-                <Splash n={2}>Marcin</Splash><br />Chrzuszcz
+                Marcin<br />Chrzuszcz
               </p>
               <h1
                 className="text-base font-normal text-muted mt-3"
@@ -339,7 +153,7 @@ export default function About() {
                 <button
                   type="button"
                   onClick={() => scrollToSection("contact")}
-                  className="btn-splash-0 inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3 text-sm font-semibold text-accent border border-accent hover:bg-accent hover:text-bg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                  className="inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3 text-sm font-semibold text-accent border border-accent hover:bg-accent hover:text-bg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
                   
                 >
                   {t.about.cta_primary}
@@ -353,7 +167,7 @@ export default function About() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={t.about.cta_whatsapp_aria}
-                  className="btn-splash-1 inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3 text-sm font-semibold text-text border border-border hover:border-[#25D366] hover:bg-[#25D366] hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                  className="inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3 text-sm font-semibold text-text border border-border hover:border-[#25D366] hover:bg-[#25D366] hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
                 >
                   <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4" aria-hidden>
                     <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.55-3.7 8.24-8.24 8.24zm4.52-6.17c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.78.97-.14.17-.29.19-.53.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43-.14-.01-.31-.01-.48-.01-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.43 1.03 2.6.12.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.23-.16-.48-.28z" />

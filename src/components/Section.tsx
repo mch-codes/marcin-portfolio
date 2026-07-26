@@ -1,6 +1,6 @@
 "use client";
 
-import { m, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { m, useInView, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 /** Matches Tailwind's `md` breakpoint, so JS motion cuts out where the layout does. */
@@ -24,42 +24,13 @@ const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 // can't see in the source, so `text-[${n}vw]` would silently produce nothing.
 const WORDMARK_VW = 202;
 
-/**
- * Paints one of public/splash-*.svg behind its text.
- *
- * ponytail: one stretched SVG, no per-letter masking. It's an inline
- * background so the box tracks the glyphs at any size or language, and
- * preserveAspectRatio="none" lets it smear to fit — which is what wet paint
- * does anyway. Inline style rather than a utility class keeps the asset path
- * out of Tailwind's scanner, which treats bracket syntax in any file text as
- * a real class and emits an unresolvable import.
- */
-export function Splash({ n, children }: { n: 0 | 1 | 2 | 3; children: React.ReactNode }) {
-  return (
-    <span
-      style={{
-        backgroundImage: `url(/splash-${n}.svg)`,
-        backgroundSize: "100% 100%",
-        backgroundRepeat: "no-repeat",
-      }}
-      className="px-[0.04em] -mx-[0.04em]"
-    >
-      {children}
-    </span>
-  );
-}
-
 /** Full-bleed lowercase wordmark, with an optional supporting line set to the right. */
 export function SectionHeader({
   word,
-  splash = 0,
   scale = 1,
   children,
 }: {
   word: string;
-  /** Which of public/splash-*.svg to paint behind the first word. Set per
-      section so no two adjacent headings repeat a shape. */
-  splash?: 0 | 1 | 2 | 3;
   /** Multiplier on the derived size, for a word the formula undersells.
       A multiplier rather than an absolute vw: the size has to stay derived
       from length, or the other language regresses — "servicios" is 9 chars
@@ -69,9 +40,6 @@ export function SectionHeader({
 }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
-  // Splash goes behind the first word only — on a two-word heading the second
-  // stays bare, which is the look. Single-word headings get it whole.
-  const [first, ...rest] = word.split(" ");
 
   return (
     <>
@@ -83,8 +51,7 @@ export function SectionHeader({
           style={{ fontSize: `${(WORDMARK_VW / word.length) * scale}vw` }}
           className="font-black text-text tracking-tighter leading-none lowercase text-center whitespace-nowrap -mb-[0.15em]"
         >
-          <Splash n={splash}>{first}</Splash>
-          {rest.length > 0 && ` ${rest.join(" ")}`}
+          {word}
         </m.h2>
       </div>
 
@@ -105,39 +72,30 @@ export function SectionHeader({
 }
 
 /**
- * Scroll-linked entrance from off-screen. Tracks scroll position both ways
- * rather than firing once. Needs overflow-hidden on an ancestor — the start
- * position is a full viewport out, which is real horizontal scroll otherwise.
+ * Entrance fade for content blocks. Replaces the old SlideIn, which flew
+ * elements in from a full viewport out — that needed overflow-hidden on an
+ * ancestor to avoid real horizontal scroll, and the travel was the loudest
+ * motion on the page. This just lifts 12px and fades.
  */
-export function SlideIn({
-  from = "left",
+export function Reveal({
   className,
   children,
 }: {
-  from?: "left" | "right";
   className?: string;
   children: React.ReactNode;
 }) {
-  // Same flag the hero uses: on a narrow screen a full-viewport slide reads as
-  // jitter, not motion, so the content just sits where it lands. Both hooks
-  // must be called unconditionally — `||` inline would short-circuit one away.
-  const isMobile = useIsMobile();
   const reducedMotion = useReducedMotion();
-  const still = isMobile || reducedMotion;
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "center center"],
-  });
-  const x = useTransform(
-    scrollYProgress,
-    [0, 1],
-    still ? ["0vw", "0vw"] : [from === "left" ? "-100vw" : "100vw", "0vw"],
-  );
-  const opacity = useTransform(scrollYProgress, [0, 0.6], still ? [1, 1] : [0, 1]);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <m.div ref={ref} style={{ x, opacity }} className={className}>
+    <m.div
+      ref={ref}
+      initial={reducedMotion ? false : { opacity: 0, y: 12 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, ease }}
+      className={className}
+    >
       {children}
     </m.div>
   );

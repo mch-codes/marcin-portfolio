@@ -25,10 +25,10 @@ function LangToggle({ compact = false, className = "" }: { compact?: boolean; cl
   }, [language]);
 
   return (
-    <div className={`toggle-splash relative flex items-center border border-border ${className}`}>
+    <div className={`relative flex items-center border border-border ${className}`}>
       {pill.width > 0 && (
         <m.span
-          className="pill-splash absolute top-0 bottom-0 bg-accent pointer-events-none"
+          className="absolute top-0 bottom-0 bg-accent pointer-events-none"
           animate={pill}
           initial={false}
           transition={{ type: "spring", stiffness: 250, damping: 18 }}
@@ -127,7 +127,7 @@ export default function Navigation() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="menu-splash md:hidden bg-bg/95 backdrop-blur-md border-b border-border overflow-hidden"
+            className="md:hidden bg-bg/95 backdrop-blur-md border-b border-border overflow-hidden"
           >
             <nav className="flex flex-col px-6 py-4 gap-4">
               {navLinks.map((link) => (

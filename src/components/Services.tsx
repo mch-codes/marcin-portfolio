@@ -2,7 +2,7 @@
 
 import { m } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
-import { SectionHeader, SlideIn } from "@/components/Section";
+import { SectionHeader, Reveal } from "@/components/Section";
 
 function IconMonitor() {
   return (
@@ -47,7 +47,7 @@ type ServiceCard = { icon: React.ReactNode; title: string; desc: string; price: 
 
 function ServiceCardItem({ card }: { card: ServiceCard }) {
   return (
-    <SlideIn from="right" className="flex flex-col items-center text-center">
+    <Reveal className="flex flex-col items-center text-center">
       <span className="text-text">{card.icon}</span>
       <h3 className="mt-8 text-2xl font-bold text-text tracking-tight leading-tight max-w-xs">
         {withPeriod(card.title)}
@@ -70,7 +70,7 @@ function ServiceCardItem({ card }: { card: ServiceCard }) {
           <span aria-hidden>→</span>
         </a>
       )}
-    </SlideIn>
+    </Reveal>
   );
 }
 
@@ -85,11 +85,11 @@ export default function Services() {
   ];
 
   return (
-    <section id="services" className="py-28 md:py-40 relative overflow-hidden bg-card">
-      <SectionHeader word={t.services.title} splash={1} scale={1.12}>{t.services.cta_text}</SectionHeader>
+    <section id="services" className="py-20 md:py-24 relative overflow-hidden bg-card">
+      <SectionHeader word={t.services.title} scale={1.12}>{t.services.cta_text}</SectionHeader>
 
       <div className="max-w-6xl mx-auto px-6">
-        <div className="mt-24 md:mt-32 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20 justify-items-center">
+        <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-14 justify-items-center">
           {cards.map((card, i) => (
             <ServiceCardItem key={i} card={card} />
           ))}
@@ -100,11 +100,11 @@ export default function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-          className="mt-28 md:mt-32 flex justify-center"
+          className="mt-16 md:mt-20 flex justify-center"
         >
           <a
             href="mailto:marcin.chrzuszcz@gmail.com"
-            className="btn-splash-2 inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3 text-sm font-semibold text-accent border border-accent hover:bg-accent hover:text-bg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+            className="inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3 text-sm font-semibold text-accent border border-accent hover:bg-accent hover:text-bg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
             
           >
             {t.services.cta_button}

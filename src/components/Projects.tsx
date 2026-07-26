@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
-import { SectionHeader, SlideIn } from "@/components/Section";
+import { SectionHeader, Reveal } from "@/components/Section";
 
 const oidooStack = ["Next.js", "TypeScript", "Supabase", "Vercel"];
 const freelanceStack = ["Next.js", "TypeScript", "Tailwind"];
@@ -88,15 +88,14 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className="py-28 md:py-40 relative overflow-hidden">
-      <SectionHeader word={t.projects.headline} splash={2} />
+    <section id="projects" className="py-20 md:py-24 relative overflow-hidden">
+      <SectionHeader word={t.projects.headline} />
 
       <div className="max-w-6xl mx-auto px-6">
-        <div className="mt-24 md:mt-32 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20">
+        <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-14">
           {projects.map((p) => (
-            <SlideIn
+            <Reveal
               key={p.title}
-              from="left"
               className="relative flex flex-col items-center text-center"
             >
               {/* next/image, not <img>: Vercel then serves a resized AVIF/WebP
@@ -142,7 +141,7 @@ export default function Projects() {
                   </a>
                 )}
               </div>
-            </SlideIn>
+            </Reveal>
           ))}
         </div>
       </div>
