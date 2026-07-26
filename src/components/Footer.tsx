@@ -39,7 +39,7 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-border py-10 bg-bg">
-      <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div className="px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-3">
           <span className="font-[family-name:var(--font-fraunces)] text-base font-black lowercase tracking-tighter text-text"><Wordmark /></span>
           <span className="w-px h-4 bg-border" />

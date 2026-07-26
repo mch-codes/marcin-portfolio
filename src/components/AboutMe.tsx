@@ -15,7 +15,7 @@ export default function AboutMe() {
         {t.about.tagline1} {t.about.tagline2}.
       </SectionHeader>
 
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="px-6">
         {/* Set at the default tracking. This ran at tracking-[0.15em] with a
             matching [word-spacing:0.25em] to compensate; at this much
             body copy the spacing cost more in reading speed than it bought in

@@ -91,7 +91,7 @@ export default function Projects() {
     <section id="projects" className="py-20 md:py-24 relative overflow-hidden">
       <SectionHeader word={t.projects.headline} />
 
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="px-6">
         <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-14">
           {projects.map((p) => (
             <Reveal

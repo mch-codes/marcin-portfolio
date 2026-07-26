@@ -81,7 +81,7 @@ export function SectionHeader({
       </div>
 
       {children && (
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="px-6">
           <m.p
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}

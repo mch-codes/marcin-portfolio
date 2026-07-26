@@ -88,9 +88,8 @@ export default function About() {
     <section ref={sectionRef} id="hero" className="relative min-h-screen flex flex-col overflow-hidden">
       {/* Positioned against the section rather than nested in the column below
           — that one carries a transform and would become the containing block.
-          It repeats the column's own `max-w-6xl mx-auto px-6` instead, so the
-          surname's right edge lands on the same gutter the given name's left
-          edge does. Sized in vh rather than vw because what it has to fit is
+          It repeats the column's own `px-6` instead, so the surname's right
+          edge lands on the same gutter the given name's left edge does. Sized in vh rather than vw because what it has to fit is
           the viewport height — 9 glyphs at roughly 0.55em advance each, so
           ~5em of run. */}
       <m.div
@@ -99,7 +98,7 @@ export default function About() {
         custom={0.45}
         initial="hidden"
         animate={controls}
-        className={`pointer-events-none select-none absolute inset-x-0 top-0 bottom-0 max-w-6xl mx-auto px-6 flex justify-end items-start ${SURNAME_TOP}`}
+        className={`pointer-events-none select-none absolute inset-x-0 top-0 bottom-0 px-6 flex justify-end items-start ${SURNAME_TOP}`}
       >
         {/* writing-mode has to sit on the text, not on the flex box above it:
             it swaps the flex axes, so `items-start` on the same element
@@ -111,7 +110,7 @@ export default function About() {
 
       <m.div
         style={{ y, opacity }}
-        className={`relative z-10 flex-1 flex max-w-6xl mx-auto px-6 ${GIVEN_TOP} pb-10 w-full`}
+        className={`relative z-10 flex-1 flex px-6 ${GIVEN_TOP} pb-10 w-full`}
       >
         <div className="w-full max-w-2xl flex flex-col gap-12 pr-20 md:pr-0">
           {/* Text content, single column since the portrait came out. */}

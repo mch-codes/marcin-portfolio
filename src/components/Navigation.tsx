@@ -44,10 +44,17 @@ function LangToggle({ className = "" }: { className?: string }) {
 export default function Navigation() {
   const { t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+      // The hero is min-h-screen, so one viewport is its height. 0.8 rather
+      // than 1 so the badge is already in place as the next section arrives.
+      setPastHero(window.scrollY > window.innerHeight * 0.8);
+    };
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -62,17 +69,28 @@ export default function Navigation() {
 
   return (
     <>
-    {/* Floating monogram, always on screen. Bottom-left puts it under Next's
-        dev-tools bubble in `next dev` — that bubble does not exist in a
-        production build, so the overlap is local only. */}
-    {/* bottom-10 matches the hero's pb-10, so the badge shares a baseline with
-        the CTA row. Horizontally it sits in the left margin — but that margin
-        only exists once the viewport clears the 1152px content column, so below
-        xl it swaps to the right gutter rather than landing on the buttons. */}
+    {/* Floating monogram. Hidden over the hero — the hero already carries the
+        name at full size, so the badge there is the same word twice. It fades
+        in once the first section takes over as the thing being scrolled.
+        Kept mounted rather than unmounted so the fade has something to run on;
+        inert + aria-hidden take it out of the tab order and the a11y tree
+        while invisible.
+
+        bottom-10 matches the hero's pb-10, left-6 the sections' px-6 gutter —
+        one value at every width, since the sections are full-bleed. Bottom-left
+        puts it under Next's dev-tools bubble in `next dev`; that bubble does
+        not exist in a production build, so the overlap is local only.
+
+        Solid ink fill, so no border and no backdrop-blur — both only did
+        anything under the old translucent bg. No hover state. */}
     <button
       onClick={scrollToTop}
       aria-label="Back to top"
-      className={`fixed bottom-10 right-6 xl:right-auto xl:left-6 z-50 grid place-items-center w-10 h-10 rounded-full border border-border bg-bg/60 backdrop-blur-xl text-xs font-semibold tracking-wide text-muted transition-colors duration-300 hover:text-text hover:border-text ${FOCUS_RING}`}
+      inert={!pastHero}
+      aria-hidden={!pastHero}
+      className={`fixed bottom-10 left-6 z-50 grid place-items-center w-10 h-10 rounded-full bg-text text-bg text-xs font-semibold tracking-wide transition-opacity duration-300 ${FOCUS_RING} ${
+        pastHero ? "opacity-100" : "opacity-0 pointer-events-none"
+      }`}
     >
       MC
     </button>
@@ -92,7 +110,7 @@ export default function Navigation() {
           stay put no matter what the logo or the toggle measure. Centring them
           inside a flex row would instead park them midway between those two,
           which drifts as soon as either changes width or the language does. */}
-      <div className="max-w-6xl mx-auto px-6 h-16 grid grid-cols-[1fr_auto_1fr] items-center">
+      <div className="px-6 h-16 grid grid-cols-[1fr_auto_1fr] items-center">
         {/* Columns are assigned explicitly because the first one is empty now
             that the monogram is gone. Left to auto-placement the nav would fall
             into column 1 and the centring would collapse. */}
