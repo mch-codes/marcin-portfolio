@@ -9,11 +9,10 @@ export const translations = {
     },
     about: {
       title: "Sobre mí",
-      p1: "Varios años como jefe de partida en cocinas de Madrid.",
-      p2: "En cocina aprendes rápido: nada funciona por accidente. Cada plato depende de atención, sistemas y consistencia. Y el servicio empieza estés listo o no — así que construyes, fallas, corriges.",
-      p3: "Traje esa disciplina al desarrollo. No espero saberlo todo. Construyo, rompo cosas, las arreglo. Lo que funciona, lo convierto en sistema.",
-      p4: "Oidoo.app nació de un problema real que viví en cocina. Lo construí yo mismo. Hoy lo uso a diario — en producción, probado contra servicio real, no en demo.",
-      p5: "Polaco, español e inglés.",
+      p1: "Varios años como jefe de partida en cocinas de Madrid. Ahí aprendes rápido: nada funciona por accidente. Cada plato depende de atención, sistemas, consistencia. El servicio empieza estés listo o no — así que construyes, fallas, corriges.",
+      p2: "Traje esa disciplina al desarrollo. No espero a saberlo todo. Construyo, rompo cosas, las arreglo. Lo que funciona, se convierte en sistema.",
+      p3: "Oidoo.app nació de un problema real que viví en cocina. Lo construí yo mismo. Lo uso a diario — en producción, probado contra servicio real, no una demo.",
+      p4: "Hablo polaco, español e inglés — a diario.",
       subtitle: "Webs que consiguen que te llamen, no solo que te vean.",
       // One sentence per entry — the hero renders each on its own line.
       hero_sub: [
@@ -203,11 +202,10 @@ export const translations = {
     },
     about: {
       title: "About me",
-      p1: "Several years as a section chef in Madrid kitchens.",
-      p2: "In a kitchen you learn fast: nothing works by accident. Every dish depends on attention, systems, consistency. And service starts whether you're ready or not — so you build, you fail, you correct.",
-      p3: "I brought that discipline into development. I don't wait until I know everything. I build, break things, fix them. What works, I turn into a system.",
-      p4: "Oidoo.app came from a real problem I lived in the kitchen. I built it myself. I use it daily now — in production, tested against real service, not a demo.",
-      p5: "Polish, Spanish and English.",
+      p1: "Several years as a section chef in Madrid kitchens. You learn fast: nothing works by accident. Every dish depends on attention, systems, consistency. Service starts whether you're ready or not — so you build, you fail, you correct.",
+      p2: "I brought that discipline into development. I don't wait until I know everything. I build, break things, fix them. What works, becomes a system.",
+      p3: "Oidoo.app came from a real problem I lived in the kitchen. I built it myself. I use it daily — in production, tested against real service, not a demo.",
+      p4: "I speak Polish, Spanish, and English — daily.",
       subtitle: "Websites that get you called, not just looked at.",
       hero_sub: [
         "Custom web development for businesses in Madrid.",
