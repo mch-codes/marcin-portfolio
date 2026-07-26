@@ -42,7 +42,7 @@ const SURNAME_TOP = "pt-20";
 /* One shared variant, per-element delay through `custom`. A staggerChildren
    container can't do it: the surname is positioned against the section and
    lives outside the content column, so it isn't a child of anything the
-   column could stagger. Order is Marcin → Chrzuszcz → subtitle → CTA. */
+   column could stagger. Order is Marcin → Chrzuszcz → CTA → the centre copy. */
 const itemVariants = {
   hidden: { opacity: 0, y: 32 },
   visible: (delay: number = 0) => ({
@@ -126,7 +126,7 @@ export default function About() {
                 there whatever the name block above it measures. */}
             <m.div
               variants={itemVariants}
-              custom={1.35}
+              custom={0.9}
               initial="hidden"
               animate={controls}
               className="mt-auto flex flex-col sm:flex-row gap-3"
@@ -149,10 +149,11 @@ export default function About() {
             than part of either. Positioned against the wrapper above (it is
             `relative`) and not the max-w-2xl column, which is left-hung and
             would centre this on the column's midpoint instead of the page's.
-            Third in the sequence, after both halves of the name. */}
+            Last in the sequence — the name and the CTA land first, then
+            the copy that explains them. */}
         <m.div
           variants={itemVariants}
-          custom={0.9}
+          custom={1.35}
           initial="hidden"
           animate={controls}
           className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto max-w-xl pl-6 pr-20 md:pr-6 text-center"
