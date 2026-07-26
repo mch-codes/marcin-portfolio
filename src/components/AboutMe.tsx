@@ -21,12 +21,22 @@ export default function AboutMe() {
         <Reveal className="mt-14 md:mt-20 max-w-2xl space-y-6 text-lg text-muted leading-relaxed">
           {[t.about.p1, t.about.p2, t.about.p3, t.about.p4, t.about.p5].map((para) => (
             // Marker highlight: an inline span so the band hugs each line and
-            // stops at the ragged right edge. Same colour as ::selection, so a
-            // real selection over it reads as one continuous tone.
-            // ponytail: no box-decoration-clone — that only matters once this
-            // grows padding, a border, or a radius.
+            // stops at the ragged right edge.
+            //
+            // 0.21em closes the leading gap exactly — Inter's content box is
+            // 1.211em (ascender 0.969 + descender 0.242), leading-relaxed is
+            // 1.625em, so each line needs (1.625 - 1.211) / 2 to meet its
+            // neighbour. Retune it if the leading or the body font changes.
+            // box-decoration-clone is what gets that padding onto every line
+            // instead of just the first and last.
+            //
+            // Flat #d2e7e1 is accent at 18% over white, pre-composited: the
+            // translucent version double-darkens wherever two bands overlap,
+            // which stripes the block on any sub-pixel rounding.
             <p key={para}>
-              <span className="bg-accent/18 text-text">{para}</span>
+              <span className="bg-[#d2e7e1] text-text py-[0.21em] box-decoration-clone">
+                {para}
+              </span>
             </p>
           ))}
         </Reveal>
