@@ -65,10 +65,14 @@ export default function Navigation() {
     {/* Floating monogram, always on screen. Bottom-left puts it under Next's
         dev-tools bubble in `next dev` — that bubble does not exist in a
         production build, so the overlap is local only. */}
+    {/* bottom-10 matches the hero's pb-10, so the badge shares a baseline with
+        the CTA row. Horizontally it sits in the left margin — but that margin
+        only exists once the viewport clears the 1152px content column, so below
+        xl it swaps to the right gutter rather than landing on the buttons. */}
     <button
       onClick={scrollToTop}
       aria-label="Back to top"
-      className={`fixed bottom-6 left-6 z-50 grid place-items-center w-10 h-10 rounded-full border border-border bg-bg/60 backdrop-blur-xl text-xs font-semibold tracking-wide text-muted transition-colors duration-300 hover:text-text hover:border-text ${FOCUS_RING}`}
+      className={`fixed bottom-10 right-6 xl:right-auto xl:left-6 z-50 grid place-items-center w-10 h-10 rounded-full border border-border bg-bg/60 backdrop-blur-xl text-xs font-semibold tracking-wide text-muted transition-colors duration-300 hover:text-text hover:border-text ${FOCUS_RING}`}
     >
       MC
     </button>
