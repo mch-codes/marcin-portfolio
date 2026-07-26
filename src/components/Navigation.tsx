@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import type { Language } from "@/lib/translations";
-import { scrollToSection } from "@/lib/scroll";
+import { scrollToSection, scrollToTop } from "@/lib/scroll";
 
 const LANGS: Language[] = ["es", "en"];
 
@@ -13,38 +13,29 @@ const LANGS: Language[] = ["es", "en"];
 const FOCUS_RING =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
 
-function LangToggle({ compact = false, className = "" }: { compact?: boolean; className?: string }) {
-  const { language, setLanguage } = useLanguage();
-  const refs = useRef<(HTMLButtonElement | null)[]>([null, null]);
-  const [pill, setPill] = useState({ left: 0, width: 0 });
+/** Shared by the nav links and the language buttons so they read as one row:
+    muted until hovered, with a rule that wipes in from the left. */
+const NAV_ITEM =
+  `relative text-base font-semibold lowercase transition-colors duration-200 after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full after:bg-current after:origin-left after:scale-x-0 after:transition-transform after:duration-200 hover:after:scale-x-100 ${FOCUS_RING}`;
 
-  useEffect(() => {
-    const idx = LANGS.indexOf(language);
-    const el = refs.current[idx];
-    if (el) setPill({ left: el.offsetLeft, width: el.offsetWidth });
-  }, [language]);
+/** Plain text, same weight and size as the links — the active language is the
+    one at full text colour, so no pill or border is needed to mark it. */
+function LangToggle({ className = "" }: { className?: string }) {
+  const { language, setLanguage } = useLanguage();
 
   return (
-    <div className={`relative flex items-center border border-border ${className}`}>
-      {pill.width > 0 && (
-        <m.span
-          className="absolute top-0 bottom-0 bg-accent pointer-events-none"
-          animate={pill}
-          initial={false}
-          transition={{ type: "spring", stiffness: 250, damping: 18 }}
-        />
-      )}
+    <div className={`flex items-center gap-2 ${className}`}>
       {LANGS.map((lang, i) => (
-        <button
-          key={lang}
-          ref={(el) => { refs.current[i] = el; }}
-          onClick={() => setLanguage(lang)}
-          className={`relative z-10 text-xs font-semibold ${compact ? "px-2.5" : "px-3"} py-1.5 uppercase tracking-wide ${FOCUS_RING}`}
-        >
-          <span className={`transition-colors duration-150 ${language === lang ? "text-bg" : "text-muted hover:text-text"}`}>
+        <span key={lang} className="flex items-center gap-2">
+          {i > 0 && <span className="text-border select-none">/</span>}
+          <button
+            onClick={() => setLanguage(lang)}
+            aria-current={language === lang ? "true" : undefined}
+            className={`${NAV_ITEM} ${language === lang ? "text-text" : "text-muted hover:text-text"}`}
+          >
             {lang}
-          </span>
-        </button>
+          </button>
+        </span>
       ))}
     </div>
   );
@@ -70,6 +61,21 @@ export default function Navigation() {
   ];
 
   return (
+    <>
+    {/* Floating monogram — rides on `scrolled`, the state the header already
+        computes, so it only appears once the hero is behind you. Bottom-right
+        rather than left: Next's dev-tools bubble sits bottom-left in `next dev`
+        and would cover it locally. */}
+    <button
+      onClick={scrollToTop}
+      aria-label="Back to top"
+      className={`fixed bottom-6 right-6 z-50 grid place-items-center w-10 h-10 rounded-full border border-border bg-bg/60 backdrop-blur-xl text-xs font-semibold tracking-wide text-muted transition-all duration-300 hover:text-text hover:border-text ${FOCUS_RING} ${
+        scrolled ? "opacity-100" : "opacity-0 pointer-events-none"
+      }`}
+    >
+      MC
+    </button>
+
     <m.header
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -97,22 +103,20 @@ export default function Navigation() {
             <button
               key={link.id}
               onClick={() => scrollToSection(link.id)}
-              className={`text-muted text-base font-semibold lowercase hover:text-text transition-colors duration-200 ${FOCUS_RING}`}
+              className={`${NAV_ITEM} text-muted hover:text-text`}
             >
               {link.label}
             </button>
           ))}
+          <LangToggle />
         </nav>
 
         <div className="col-start-3 justify-self-end flex items-center gap-3">
           {/* Wrapped rather than given `hidden md:flex` directly: LangToggle's
               own class list already carries `flex`, and two unprefixed display
               utilities on one element resolve by stylesheet order, not intent. */}
-          <div className="hidden md:block">
-            <LangToggle />
-          </div>
           <div className="md:hidden">
-            <LangToggle compact />
+            <LangToggle />
           </div>
 
           <button
@@ -154,5 +158,6 @@ export default function Navigation() {
         )}
       </AnimatePresence>
     </m.header>
+    </>
   );
 }
