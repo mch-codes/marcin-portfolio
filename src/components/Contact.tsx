@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { SectionHeader } from "@/components/Section";
+import { SectionHeader, CTA } from "@/components/Section";
 import { sendContactMessage } from "@/app/actions";
 
 const EMAIL = "marcin.chrzuszcz@gmail.com";
@@ -30,7 +30,7 @@ function InputField({
   maxLength?: number;
 }) {
   const baseClass =
-    "w-full bg-card border border-border rounded-xl px-4 py-3 text-text text-sm placeholder:text-muted/60 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-200 resize-none";
+    "w-full bg-card border border-border rounded-xl px-4 py-3 text-text text-sm placeholder:text-muted focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-200 resize-none";
 
   return (
     <div>
@@ -167,7 +167,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={status === "loading"}
-                    className="self-start inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3 text-sm font-semibold text-accent border border-accent hover:bg-accent hover:text-bg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-60 disabled:cursor-not-allowed"
+                    className={`${CTA} self-start disabled:opacity-60 disabled:cursor-not-allowed`}
                     
                   >
                     {status === "loading" ? t.contact.sending : t.contact.send}

@@ -44,18 +44,18 @@ export default function Footer() {
           <span className="font-[family-name:var(--font-fraunces)] text-base font-black lowercase tracking-tighter text-text"><Wordmark /></span>
           <span className="w-px h-4 bg-border" />
           <p className="text-xs text-muted">{t.footer.copy}</p>
-          <span className="text-xs text-muted/40">© {year}</span>
+          <span className="text-xs text-muted">© {year}</span>
           <span className="w-px h-4 bg-border" />
-          <Link href="/aviso-legal" className="text-xs text-muted/50 hover:text-text transition-colors">
+          <Link href="/aviso-legal" className="text-xs text-muted hover:text-text transition-colors">
             {t.footer.legal}
           </Link>
-          <Link href="/politica-privacidad" className="text-xs text-muted/50 hover:text-text transition-colors">
+          <Link href="/politica-privacidad" className="text-xs text-muted hover:text-text transition-colors">
             {t.footer.privacy}
           </Link>
         </div>
 
         <div className="flex items-center gap-5">
-          <p className="text-xs text-muted/50 italic hidden sm:block">{t.footer.tagline}</p>
+          <p className="text-xs text-muted italic hidden sm:block">{t.footer.tagline}</p>
 
           <div className="flex items-center gap-3">
             <a
@@ -63,7 +63,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="text-muted/50 hover:text-text transition-colors duration-200"
+              className="text-muted hover:text-text transition-colors duration-200"
             >
               <LinkedInIcon />
             </a>
@@ -72,7 +72,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="text-muted/50 hover:text-text transition-colors duration-200"
+              className="text-muted hover:text-text transition-colors duration-200"
             >
               <GitHubIcon />
             </a>
@@ -81,7 +81,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Email"
-              className="text-muted/50 hover:text-text transition-colors duration-200"
+              className="text-muted hover:text-text transition-colors duration-200"
             >
               <MailIcon />
             </a>

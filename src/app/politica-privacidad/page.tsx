@@ -17,7 +17,7 @@ export default function PoliticaPrivacidad() {
         </Link>
 
         <h1 className="text-3xl font-bold text-text tracking-tight mb-2">{t.privacyPage.title}</h1>
-        <p className="text-xs text-muted/60 mb-10">{t.privacyPage.updated}</p>
+        <p className="text-xs text-muted mb-10">{t.privacyPage.updated}</p>
 
         <div className="flex flex-col gap-8">
           {t.privacyPage.sections.map((section) => (

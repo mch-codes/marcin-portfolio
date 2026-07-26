@@ -2,7 +2,7 @@
 
 import { m } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
-import { SectionHeader, Reveal } from "@/components/Section";
+import { SectionHeader, Reveal, CTA } from "@/components/Section";
 
 function IconMonitor() {
   return (
@@ -85,7 +85,7 @@ export default function Services() {
   ];
 
   return (
-    <section id="services" className="py-20 md:py-24 relative overflow-hidden bg-card">
+    <section id="services" className="py-20 md:py-24 relative overflow-hidden">
       <SectionHeader word={t.services.title} scale={1.12}>{t.services.cta_text}</SectionHeader>
 
       <div className="px-6 md:px-16">
@@ -104,7 +104,7 @@ export default function Services() {
         >
           <a
             href="mailto:marcin.chrzuszcz@gmail.com"
-            className="inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3 text-sm font-semibold text-accent border border-accent hover:bg-accent hover:text-bg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+            className={CTA}
             
           >
             {t.services.cta_button}

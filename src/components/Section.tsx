@@ -19,6 +19,15 @@ export function useIsMobile() {
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
 /**
+ * The one button look on the site — the hero's pill. Every other CTA (services,
+ * mid-page, contact submit, 404) imports this rather than restating it, so
+ * there is a single place to change the shape. Callers append only what is
+ * theirs alone: `shrink-0`, `self-start`, `disabled:*`.
+ */
+export const CTA =
+  "inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3 rounded-full border border-border text-sm font-semibold text-muted transition-colors duration-200 hover:text-text hover:border-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
+
+/**
  * The "mc" monogram: upright m, sideways c. Shared because it sits in both the
  * header and the footer and the two have to stay identical.
  *

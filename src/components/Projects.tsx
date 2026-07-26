@@ -111,7 +111,7 @@ export default function Projects() {
                 style={{ maxHeight: "220px" }}
               />
 
-              <p className="mt-8 text-xs font-mono tracking-widest text-muted/60 uppercase">
+              <p className="mt-8 text-xs font-mono tracking-widest text-muted uppercase">
                 {p.tag}
                 {p.status ? ` · ${p.status}` : ""}
               </p>
@@ -134,7 +134,7 @@ export default function Projects() {
                     href={p.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative z-10 text-muted/60 hover:text-text transition-colors"
+                    className="relative z-10 text-muted hover:text-text transition-colors"
                     aria-label={`${p.title} — GitHub`}
                   >
                     <GitHubIcon />

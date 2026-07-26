@@ -4,7 +4,7 @@ import { m, useScroll, useTransform, useAnimationControls, useReducedMotion } fr
 import { useRef, useLayoutEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { scrollToSection } from "@/lib/scroll";
-import { useIsMobile } from "@/components/Section";
+import { useIsMobile, CTA } from "@/components/Section";
 
 /* Both halves of the name share one size token so they can't drift apart —
    the whole point is that the horizontal given name and the vertical surname
@@ -38,7 +38,6 @@ const NAME_SIZE = "text-(length:--name-size) font-black text-text tracking-tight
 /* Same language as the MC monogram in the nav: a hairline ring, no fill, no
    colour of its own. min-h-[44px] is the tap target, rounded-full turns the
    pill into the pressed-out version of that circle. */
-const CTA = "inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3 rounded-full border border-border text-sm font-semibold text-muted transition-colors duration-200 hover:text-text hover:border-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
 
 const GIVEN_TOP = "pt-[90px]";
 const SURNAME_TOP = "pt-20";
@@ -172,7 +171,7 @@ export default function About() {
           </h1>
           {/* One <p>, one line per sentence: spans rather than separate
               paragraphs so it stays a single block to a screen reader. */}
-          <p className="mt-4 text-sm text-muted/85">
+          <p className="mt-4 text-sm text-muted">
             {t.about.hero_sub.map((line) => (
               <span key={line} className="block">{line}</span>
             ))}

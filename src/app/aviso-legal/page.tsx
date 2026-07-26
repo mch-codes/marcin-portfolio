@@ -17,7 +17,7 @@ export default function AvisoLegal() {
         </Link>
 
         <h1 className="text-3xl font-bold text-text tracking-tight mb-2">{t.legalPage.title}</h1>
-        <p className="text-xs text-muted/60 mb-10">{t.legalPage.updated}</p>
+        <p className="text-xs text-muted mb-10">{t.legalPage.updated}</p>
 
         <div className="flex flex-col gap-8">
           {t.legalPage.sections.map((section) => (

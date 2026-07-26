@@ -3,6 +3,7 @@
 import { m } from "framer-motion";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
+import { CTA } from "@/components/Section";
 
 export default function NotFound() {
   const { t } = useLanguage();
@@ -19,7 +20,7 @@ export default function NotFound() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1, duration: 0.6 }}
-          className="text-[11px] font-mono tracking-widest text-muted/50 uppercase mb-6"
+          className="text-[11px] font-mono tracking-widest text-muted uppercase mb-6"
         >
           404
         </m.p>
@@ -49,7 +50,7 @@ export default function NotFound() {
         >
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-muted border border-border hover:border-border-light hover:text-text transition-all duration-200"
+            className={CTA}
           >
             ← {t.notFound.back}
           </Link>
