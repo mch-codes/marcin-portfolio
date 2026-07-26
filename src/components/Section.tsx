@@ -18,6 +18,23 @@ export function useIsMobile() {
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
+/**
+ * The "mc" monogram: upright m, sideways c. Shared because it sits in both the
+ * header and the footer and the two have to stay identical.
+ *
+ * The c turns via writing-mode rather than `rotate-90`, matching the hero
+ * surname — a transform would leave the glyph's layout box upright, so the
+ * pair would need a hand-tuned negative margin to close the gap. Sizing and
+ * colour stay with the caller; only the arrangement lives here.
+ */
+export function Wordmark({ className = "" }: { className?: string }) {
+  return (
+    <span className={`inline-flex items-center leading-none ${className}`}>
+      m<span className="[writing-mode:vertical-rl] leading-none">c</span>
+    </span>
+  );
+}
+
 // Sized so the word spans the viewport: 22.5vw fit the 9-char "servicios",
 // 25.5vw the 8-char "services". One knob for every wordmark on the page.
 // Must be an inline style — Tailwind can't generate arbitrary values it

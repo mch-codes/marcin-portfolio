@@ -18,7 +18,7 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-jakarta);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-mono);
 }
 
@@ -41,7 +41,7 @@ html {
 body {
   background-color: #ffffff;
   color: #1e1e1e;
-  font-family: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

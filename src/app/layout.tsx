@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Plus_Jakarta_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
 import { cookies } from "next/headers";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
@@ -13,9 +13,12 @@ const fraunces = Fraunces({
   axes: ["opsz", "SOFT", "WONK"],
 });
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+// Stands in for Neue Haas Grotesk, which is a licensed Monotype family and
+// cannot be fetched here. Same neo-grotesque skeleton; a taller x-height and
+// more open apertures are the visible differences. Variable, so no weight list.
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-jakarta",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -71,7 +74,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const lang = cookieStore.get("lang")?.value === "en" ? "en" : "es";
 
   return (
-    <html lang={lang} className={`${fraunces.variable} ${plusJakartaSans.variable} ${ibmPlexMono.variable}`}>
+    <html lang={lang} className={`${fraunces.variable} ${inter.variable} ${ibmPlexMono.variable}`}>
       <head>
         <script
           type="application/ld+json"

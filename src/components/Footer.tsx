@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
+import { Wordmark } from "@/components/Section";
 
 const EMAIL = "marcin.chrzuszcz@gmail.com";
 const LINKEDIN = "https://www.linkedin.com/in/marcin-chrzuszcz/";
@@ -49,7 +50,7 @@ export default function Footer() {
     <footer className="border-t border-border py-10 bg-bg">
       <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-3">
-          <span className="font-[family-name:var(--font-fraunces)] text-base font-black lowercase tracking-tighter text-text">mc</span>
+          <span className="font-[family-name:var(--font-fraunces)] text-base font-black lowercase tracking-tighter text-text"><Wordmark /></span>
           <span className="w-px h-4 bg-border" />
           <p className="text-xs text-muted">{t.footer.copy}</p>
           <span className="text-xs text-muted/40">© {year}</span>

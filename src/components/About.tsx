@@ -8,6 +8,34 @@ import { useIsMobile } from "@/components/Section";
 
 const WHATSAPP = "https://wa.me/34633683404";
 
+/* Both halves of the name share one size token so they can't drift apart —
+   the whole point is that the horizontal given name and the vertical surname
+   read as one word broken across a corner. In vh, not vw: the surname's run
+   has to fit the viewport height, and the given name has to match it.
+   Their vertical offsets are separate — see GIVEN_TOP / SURNAME_TOP below.
+
+   The desktop value is derived, not picked. "Chrzuszcz" runs 4.94em in Inter
+   (it was 4.03em in Fraunces — swapping the family lengthened it by 22% and
+   overflowed the section, which `overflow-hidden` silently clipped). Budget is
+   the section height less SURNAME_TOP: 900 - 104 leaves ~796px, so 17vh
+   (~153px) lands the tail around 860px with room to spare. Re-measure this if
+   the family, the surname, or SURNAME_TOP ever changes. */
+const NAME_SIZE = "text-[7vh] md:text-[17vh] font-black text-text tracking-tighter leading-none";
+
+/* The two halves are deliberately off each other's baseline now. Each has its
+   own ceiling, and both are tighter than they look:
+
+   GIVEN_TOP is an exact pixel rather than a scale step: the scale straddles the
+   target (pt-16 is 83px, pt-20 is 104px against the 20.8px root) with nothing
+   in between. 83px is the floor either way — that is the height of the fixed
+   header, and below it the caps of "Marcin" run up under the nav bar.
+
+   SURNAME_TOP sits at 104px (pt-20 against the 20.8px root). Its own ceiling
+   is around pt-28: at 20vh the run is ~725px inside a 900px section, so only
+   ~175px of slack exists before the tail clips at the fold. */
+const GIVEN_TOP = "pt-[90px]";
+const SURNAME_TOP = "pt-20";
+
 const stack = [
   {
     name: "Next.js",
@@ -118,30 +146,49 @@ export default function About() {
 
   return (
     <section ref={sectionRef} id="hero" className="relative min-h-screen flex flex-col overflow-hidden">
+      {/* Anchored to the section, not to the content column: the m.div below
+          carries a transform, which would make it the containing block and pin
+          this to the 72rem gutter instead of the page edge. Sized in vh rather
+          than vw because what it has to fit is the viewport height — 9 glyphs
+          at roughly 0.55em advance each, so ~5em of run. */}
+      <div
+        aria-hidden
+        className={`pointer-events-none select-none absolute right-2 md:right-4 top-0 bottom-0 flex items-start ${SURNAME_TOP}`}
+      >
+        {/* writing-mode has to sit on the text, not on the flex box above it:
+            it swaps the flex axes, so `items-start` on the same element
+            aligns horizontally and the run drifts off the top. */}
+        <span className={`${NAME_SIZE} [writing-mode:vertical-rl]`}>
+          Chrzuszcz
+        </span>
+      </div>
+
       <m.div
         style={{ y, opacity }}
-        className="relative z-10 flex-1 flex items-center max-w-6xl mx-auto px-6 pt-24 pb-10 w-full"
+        className={`relative z-10 flex-1 flex items-start max-w-6xl mx-auto px-6 ${GIVEN_TOP} pb-10 w-full`}
       >
         <m.div
           variants={containerVariants}
           initial="hidden"
           animate={controls}
-          className="w-full max-w-2xl flex flex-col gap-12"
+          className="w-full max-w-2xl flex flex-col gap-12 pr-16 md:pr-0"
         >
           {/* Text content, single column since the portrait came out. */}
           <div className="flex flex-col gap-7">
             <m.div variants={itemVariants}>
-              {/* Font families set inline: the unlayered `h1, h2, h3` rule in globals.css
-                  outranks Tailwind's layered utilities, so classes can't swap them. */}
-              <p
-                className="text-[22vw] md:text-[8vw] font-black text-text tracking-tighter leading-none"
-                style={{ fontFamily: "var(--font-fraunces), Fraunces, serif" }}
-              >
-                Marcin<br />Chrzuszcz
+              {/* The surname is rendered separately, pinned to the page edge —
+                  aria-label keeps the two halves one name for a screen reader,
+                  and the vertical half is hidden from the tree to match.
+                  No font-family override: both halves inherit the body sans. */}
+              <p aria-label="Marcin Chrzuszcz" className={NAME_SIZE}>
+                Marcin
               </p>
+              {/* This one does need the inline family. It is an h1, and the
+                  unlayered `h1, h2, h3` rule in globals.css sets Fraunces at a
+                  specificity Tailwind's layered utilities cannot beat. */}
               <h1
                 className="text-base font-normal text-muted mt-3"
-                style={{ fontFamily: "var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif" }}
+                style={{ fontFamily: "var(--font-inter), Inter, system-ui, sans-serif" }}
               >
                 {t.about.subtitle}
               </h1>

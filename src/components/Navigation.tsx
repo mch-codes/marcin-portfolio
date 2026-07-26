@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { m, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import type { Language } from "@/lib/translations";
-import { scrollToSection, scrollToTop } from "@/lib/scroll";
+import { scrollToSection } from "@/lib/scroll";
 
 const LANGS: Language[] = ["es", "en"];
 
@@ -80,34 +80,44 @@ export default function Navigation() {
           : "bg-transparent border-transparent"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <button
-          onClick={scrollToTop}
-          className={`font-[family-name:var(--font-fraunces)] text-muted font-black text-xl lowercase tracking-tighter hover:text-text transition-colors duration-200 ${FOCUS_RING}`}
-        >
-          mc
-        </button>
+      {/* Three columns rather than justify-between: the 1fr side columns split
+          the leftover space evenly, so the links centre on the bar itself and
+          stay put no matter what the logo or the toggle measure. Centring them
+          inside a flex row would instead park them midway between those two,
+          which drifts as soon as either changes width or the language does. */}
+      <div className="max-w-6xl mx-auto px-6 h-16 grid grid-cols-[1fr_auto_1fr] items-center">
+        {/* Columns are assigned explicitly because the first one is empty now
+            that the monogram is gone. Left to auto-placement the nav would fall
+            into column 1 and the centring would collapse. */}
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        {/* Desktop nav — the middle column. Collapses to zero width below md,
+            leaving the two side columns to behave as a plain split bar. */}
+        <nav className="col-start-2 hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <button
               key={link.id}
               onClick={() => scrollToSection(link.id)}
-              className={`font-[family-name:var(--font-fraunces)] text-muted text-base font-semibold lowercase hover:text-text transition-colors duration-200 ${FOCUS_RING}`}
+              className={`text-muted text-base font-semibold lowercase hover:text-text transition-colors duration-200 ${FOCUS_RING}`}
             >
               {link.label}
             </button>
           ))}
-          <LangToggle className="ml-2" />
         </nav>
 
-        {/* Mobile: lang toggle + hamburger */}
-        <div className="md:hidden flex items-center gap-3">
-          <LangToggle compact />
+        <div className="col-start-3 justify-self-end flex items-center gap-3">
+          {/* Wrapped rather than given `hidden md:flex` directly: LangToggle's
+              own class list already carries `flex`, and two unprefixed display
+              utilities on one element resolve by stylesheet order, not intent. */}
+          <div className="hidden md:block">
+            <LangToggle />
+          </div>
+          <div className="md:hidden">
+            <LangToggle compact />
+          </div>
+
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className={`text-muted hover:text-text transition-colors p-1 ${FOCUS_RING}`}
+            className={`md:hidden text-muted hover:text-text transition-colors p-1 ${FOCUS_RING}`}
             aria-label="Toggle menu"
           >
             <div className="w-5 flex flex-col gap-1.5">
@@ -134,7 +144,7 @@ export default function Navigation() {
                 <button
                   key={link.id}
                   onClick={() => { scrollToSection(link.id); setMenuOpen(false); }}
-                  className={`font-[family-name:var(--font-fraunces)] text-text text-base font-semibold lowercase py-1 border-b border-border last:border-0 text-left ${FOCUS_RING}`}
+                  className={`text-text text-base font-semibold lowercase py-1 border-b border-border last:border-0 text-left ${FOCUS_RING}`}
                 >
                   {link.label}
                 </button>
