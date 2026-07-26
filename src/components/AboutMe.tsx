@@ -7,9 +7,7 @@ export default function AboutMe() {
   const { t } = useLanguage();
 
   return (
-    // font-mono here, not on each block: the wordmark is an <h2> and globals.css
-    // sets Fraunces on h1-h3 directly, so it keeps its serif rather than inheriting.
-    <section id="about" className="py-20 md:py-24 relative overflow-hidden font-mono">
+    <section id="about" className="py-20 md:py-24 relative overflow-hidden">
       <SectionHeader word={t.about.title} />
 
       <div className="px-6 md:px-16">
@@ -21,7 +19,11 @@ export default function AboutMe() {
         {/* text-muted like every other section's body copy. It used to be
             text-text because muted only cleared 3.4:1 on the old mint
             background; on white it measures 4.83:1, so the exception is gone. */}
-        <Reveal className="mt-14 md:mt-20 max-w-2xl space-y-6 text-lg text-muted leading-relaxed">
+        {/* ml-auto puts the block against the right gutter; the lines inside stay
+            left-aligned, since a right rag over four paragraphs costs more in
+            reading speed than it buys. The footnote takes the left gutter so
+            the two don't stack on the same edge. */}
+        <Reveal className="mt-14 md:mt-20 ml-auto max-w-2xl space-y-6 text-lg text-muted leading-relaxed">
           {[t.about.p1, t.about.p2, t.about.p3, t.about.p4].map((para, i) => (
             // One line per sentence, spans inside a single <p> so the paragraph
             // still reads as one block — same pattern as hero_sub in About.tsx.
@@ -48,7 +50,7 @@ export default function AboutMe() {
           ))}
         </Reveal>
 
-        <Footnote>{t.about.tagline1} {t.about.tagline2}.</Footnote>
+        <Footnote align="left">{t.about.tagline1} {t.about.tagline2}.</Footnote>
       </div>
     </section>
   );

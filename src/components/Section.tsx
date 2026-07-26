@@ -106,13 +106,21 @@ export function SectionHeader({
  * Flush to the right gutter, so its right edge lands on the same line the
  * hero's vertical surname hangs on. The asterisk is inline and superscripted,
  * so it hangs off the top-left of the first word instead of floating in the
- * block's corner. Mono here rather than inherited: About Me sets font-mono on
- * the whole section, Services does not.
+ * block's corner. Mono is set here rather than inherited — no section carries
+ * font-mono any more, and the three footnotes have to read alike.
  */
-export function Footnote({ children }: { children: React.ReactNode }) {
+export function Footnote({
+  align = "right",
+  children,
+}: {
+  /** Which gutter the line hangs on. Left is for a section whose body copy
+      sits on the right, so the two don't stack against the same edge. */
+  align?: "left" | "right";
+  children: React.ReactNode;
+}) {
   return (
     <Reveal className="mt-14 md:mt-20 font-mono text-xs md:text-base text-muted leading-relaxed">
-      <p className="ml-auto max-w-md text-right">
+      <p className={`max-w-md ${align === "left" ? "mr-auto text-left" : "ml-auto text-right"}`}>
         <span aria-hidden className="align-super text-text text-xl md:text-2xl leading-none -mr-0.5">*</span>
         {children}
       </p>
