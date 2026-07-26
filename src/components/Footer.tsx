@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
-import { Wordmark } from "@/components/Section";
+import { scrollToTop } from "@/lib/scroll";
+import { BADGE } from "@/components/Section";
 
 const EMAIL = "marcin.chrzuszcz@gmail.com";
 const LINKEDIN = "https://www.linkedin.com/in/marcin-chrzuszcz/";
@@ -41,7 +42,12 @@ export default function Footer() {
     <footer className="border-t border-border py-10 bg-bg">
       <div className="px-6 md:px-16 flex flex-col sm:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-3">
-          <span className="font-[family-name:var(--font-fraunces)] text-base font-black lowercase tracking-tighter text-text"><Wordmark /></span>
+          {/* Takes over from the floating badge, which hides itself once the
+              footer is on screen — same disc, same job, so the control never
+              appears twice. */}
+          <button onClick={scrollToTop} aria-label="Back to top" className={BADGE}>
+            MC
+          </button>
           <span className="w-px h-4 bg-border" />
           <p className="text-xs text-muted">{t.footer.copy}</p>
           <span className="text-xs text-muted">© {year}</span>

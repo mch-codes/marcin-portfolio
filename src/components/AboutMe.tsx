@@ -1,7 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/context/LanguageContext";
-import { SectionHeader, Reveal } from "@/components/Section";
+import { SectionHeader, Reveal, Footnote } from "@/components/Section";
 
 export default function AboutMe() {
   const { t } = useLanguage();
@@ -48,19 +48,7 @@ export default function AboutMe() {
           ))}
         </Reveal>
 
-        {/* Tagline sits at the foot of the section rather than in
-            SectionHeader's children slot, which sets its line right-aligned in
-            a column beside the wordmark. The asterisk is inline and
-            superscripted so it hangs off the top-left of the first word. */}
-        <Reveal className="mt-14 md:mt-20 text-xs md:text-base text-muted leading-relaxed">
-          {/* Flush to the right gutter, so its right edge lands on the same
-              line as the hero's vertical "Chrzuszcz" — both sit inside the
-              shared px-6 md:px-16 column. */}
-          <p className="ml-auto max-w-md text-right">
-            <span aria-hidden className="align-super text-text text-xl md:text-2xl leading-none -mr-0.5">*</span>
-            {t.about.tagline1} {t.about.tagline2}.
-          </p>
-        </Reveal>
+        <Footnote>{t.about.tagline1} {t.about.tagline2}.</Footnote>
       </div>
     </section>
   );

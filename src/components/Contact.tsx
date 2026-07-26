@@ -77,7 +77,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-20 md:py-24 relative">
-      <SectionHeader word={t.contact.title}>{t.contact.intro}</SectionHeader>
+      <SectionHeader word={t.contact.title} />
 
       <div className="px-6 md:px-16">
         <div className="mt-14 md:mt-20 grid md:grid-cols-5 gap-10 md:gap-16">

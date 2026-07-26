@@ -80,7 +80,7 @@ h1, h2, h3 {
 }
 
 code, pre, kbd {
-  font-family: var(--font-mono), "IBM Plex Mono", monospace;
+  font-family: var(--font-mono), "DM Mono", monospace;
 }
 
 ::selection {

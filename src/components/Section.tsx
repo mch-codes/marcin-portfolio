@@ -28,21 +28,16 @@ export const CTA =
   "inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3 rounded-full border border-border text-sm font-semibold text-muted transition-colors duration-200 hover:text-text hover:border-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
 
 /**
- * The "mc" monogram: upright m, sideways c. Shared because it sits in both the
- * header and the footer and the two have to stay identical.
+ * The ink-filled "MC" badge. One look, two places: the back-to-top control
+ * pinned bottom-left and the footer's mark. The caller owns position and
+ * behaviour; only the disc itself lives here.
  *
- * The c turns via writing-mode rather than `rotate-90`, matching the hero
- * surname — a transform would leave the glyph's layout box upright, so the
- * pair would need a hand-tuned negative margin to close the gap. Sizing and
- * colour stay with the caller; only the arrangement lives here.
+ * This replaced a lowercase Fraunces monogram with a sideways c. It was the
+ * only thing on the page in that arrangement, and the two marks reading
+ * differently made them look like two brands.
  */
-export function Wordmark({ className = "" }: { className?: string }) {
-  return (
-    <span className={`inline-flex items-center leading-none ${className}`}>
-      m<span className="[writing-mode:vertical-rl] leading-none">c</span>
-    </span>
-  );
-}
+export const BADGE =
+  "grid place-items-center w-10 h-10 rounded-full bg-text text-bg text-xs font-semibold tracking-wide focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
 
 // Sized so the word spans the viewport: 22.5vw fit the 9-char "servicios",
 // 25.5vw the 8-char "services". One knob for every wordmark on the page.
@@ -106,6 +101,26 @@ export function SectionHeader({
 }
 
 /**
+ * A section's supporting line, set at its foot rather than in SectionHeader's
+ * children slot — that one puts the line in a column beside the wordmark.
+ * Flush to the right gutter, so its right edge lands on the same line the
+ * hero's vertical surname hangs on. The asterisk is inline and superscripted,
+ * so it hangs off the top-left of the first word instead of floating in the
+ * block's corner. Mono here rather than inherited: About Me sets font-mono on
+ * the whole section, Services does not.
+ */
+export function Footnote({ children }: { children: React.ReactNode }) {
+  return (
+    <Reveal className="mt-14 md:mt-20 font-mono text-xs md:text-base text-muted leading-relaxed">
+      <p className="ml-auto max-w-md text-right">
+        <span aria-hidden className="align-super text-text text-xl md:text-2xl leading-none -mr-0.5">*</span>
+        {children}
+      </p>
+    </Reveal>
+  );
+}
+
+/**
  * Entrance fade for content blocks. Replaces the old SlideIn, which flew
  * elements in from a full viewport out — that needed overflow-hidden on an
  * ancestor to avoid real horizontal scroll, and the travel was the loudest
@@ -113,9 +128,14 @@ export function SectionHeader({
  */
 export function Reveal({
   className,
+  delay = 0,
   children,
 }: {
   className?: string;
+  /** Seconds to hold before this block fades in. Used to stagger a grid so its
+      cards land one after another; each Reveal still waits for its own
+      in-view, so a card below the fold doesn't burn its delay off-screen. */
+  delay?: number;
   children: React.ReactNode;
 }) {
   const reducedMotion = useReducedMotion();
@@ -127,7 +147,7 @@ export function Reveal({
       ref={ref}
       initial={reducedMotion ? false : { opacity: 0, y: 12 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, ease }}
+      transition={{ duration: 0.7, delay: reducedMotion ? 0 : delay, ease }}
       className={className}
     >
       {children}

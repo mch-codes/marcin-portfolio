@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
+import { Fraunces, Inter, DM_Mono } from "next/font/google";
 import { cookies } from "next/headers";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
@@ -22,11 +22,16 @@ const inter = Inter({
   display: "swap",
 });
 
-const ibmPlexMono = IBM_Plex_Mono({
+// Not a variable family, so every weight here is another file over the wire.
+// 400 is the only one rendered: the mono runs are the About Me section, the
+// Projects meta labels and the 404 label, none of which set a font-weight.
+// Add a weight back the moment you write `font-semibold` on something mono —
+// without it the browser synthesises a fake bold.
+const dmMono = DM_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
-  weight: ["400", "500", "600"],
+  weight: ["400"],
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://marcin-portfolio-mocha.vercel.app";
@@ -74,7 +79,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const lang = cookieStore.get("lang")?.value === "en" ? "en" : "es";
 
   return (
-    <html lang={lang} className={`${fraunces.variable} ${inter.variable} ${ibmPlexMono.variable}`}>
+    <html lang={lang} className={`${fraunces.variable} ${inter.variable} ${dmMono.variable}`}>
       <head>
         <script
           type="application/ld+json"

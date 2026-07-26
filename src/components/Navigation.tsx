@@ -5,6 +5,7 @@ import { m, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import type { Language } from "@/lib/translations";
 import { scrollToSection, scrollToTop } from "@/lib/scroll";
+import { BADGE } from "@/components/Section";
 
 const LANGS: Language[] = ["es", "en"];
 
@@ -46,6 +47,7 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [pastHero, setPastHero] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [atFooter, setAtFooter] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -59,6 +61,18 @@ export default function Navigation() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // The footer carries its own copy of the badge, so the floating one steps
+  // aside once the footer is on screen rather than sitting on top of it. An
+  // observer, not a scroll threshold: the footer's offset moves with the
+  // content above it, and Lenis drives real scrollTop so this fires normally.
+  useEffect(() => {
+    const footer = document.querySelector("footer");
+    if (!footer) return;
+    const io = new IntersectionObserver(([entry]) => setAtFooter(entry.isIntersecting));
+    io.observe(footer);
+    return () => io.disconnect();
+  }, []);
+
   const navLinks = [
     { label: t.nav.about, id: "about" },
     { label: t.nav.services, id: "services" },
@@ -66,6 +80,8 @@ export default function Navigation() {
     { label: t.nav.process, id: "process" },
     { label: t.nav.contact, id: "contact" },
   ];
+
+  const showBadge = pastHero && !atFooter;
 
   return (
     <>
@@ -87,10 +103,10 @@ export default function Navigation() {
     <button
       onClick={scrollToTop}
       aria-label="Back to top"
-      inert={!pastHero}
-      aria-hidden={!pastHero}
-      className={`fixed bottom-2 left-2 z-50 grid place-items-center w-10 h-10 rounded-full bg-text text-bg text-xs font-semibold tracking-wide transition-opacity duration-300 ${FOCUS_RING} ${
-        pastHero ? "opacity-100" : "opacity-0 pointer-events-none"
+      inert={!showBadge}
+      aria-hidden={!showBadge}
+      className={`${BADGE} fixed bottom-2 left-2 z-50 transition-opacity duration-300 ${
+        showBadge ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
     >
       MC
