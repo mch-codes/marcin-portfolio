@@ -17,8 +17,12 @@ import { useIsMobile } from "@/components/Section";
    overflowed the section, which `overflow-hidden` silently clipped). Budget is
    the section height less SURNAME_TOP: 900 - 104 leaves ~796px, so 17vh
    (~153px) lands the tail around 860px with room to spare. Re-measure this if
-   the family, the surname, or SURNAME_TOP ever changes. */
-const NAME_SIZE = "text-[7vh] md:text-[17vh] font-black text-text tracking-tighter leading-none";
+   the family, the surname, or SURNAME_TOP ever changes.
+
+   The value itself lives in globals.css as --name-size, because the section
+   wordmarks cap themselves against it — this is the largest type on the site
+   and the cap is what keeps it that way. */
+const NAME_SIZE = "text-(length:--name-size) font-black text-text tracking-tighter leading-none";
 
 /* The two halves are deliberately off each other's baseline now. Each has its
    own ceiling, and both are tighter than they look:

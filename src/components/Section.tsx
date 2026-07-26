@@ -41,6 +41,14 @@ export function Wordmark({ className = "" }: { className?: string }) {
 // can't see in the source, so `text-[${n}vw]` would silently produce nothing.
 const WORDMARK_VW = 202;
 
+// Ceiling on the above. The hero name is meant to be the largest type on the
+// site, and the derived vw size beat it by ~2.5x on a laptop — so a wordmark
+// may run to the viewport edge only until it reaches this fraction of the
+// name. Expressed against --name-size (globals.css) rather than as a smaller
+// vw constant on purpose: vw and vh trade places with the aspect ratio, so a
+// constant that holds on 1440x780 loses on 1920x600.
+const WORDMARK_CAP = "calc(var(--name-size) * 0.85)";
+
 /** Full-bleed lowercase wordmark, with an optional supporting line set to the right. */
 export function SectionHeader({
   word,
@@ -65,7 +73,7 @@ export function SectionHeader({
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease }}
-          style={{ fontSize: `${(WORDMARK_VW / word.length) * scale}vw` }}
+          style={{ fontSize: `min(${(WORDMARK_VW / word.length) * scale}vw, ${WORDMARK_CAP})` }}
           className="font-black text-text tracking-tighter leading-none lowercase text-center whitespace-nowrap -mb-[0.15em]"
         >
           {word}

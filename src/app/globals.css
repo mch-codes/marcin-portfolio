@@ -36,6 +36,23 @@
   }
 }
 
+/* The hero name is the largest type on the site, and that is a rule rather
+   than a coincidence: this is its size, and the full-bleed section wordmarks
+   cap themselves at a fraction of it — see WORDMARK_CAP in Section.tsx. Both
+   read the same variable so neither can drift past the other.
+
+   The breakpoint is 48rem to match Tailwind's `md`, which resolves against the
+   20.8px root below, not against 16px. */
+:root {
+  --name-size: 7vh;
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --name-size: 17vh;
+  }
+}
+
 /* No `scroll-behavior: smooth` here. Lenis drives scrollTop itself, one write
    per frame; native smooth scrolling then eases toward each of those writes in
    turn and the two fight, which is what made the nav links jump. Smoothness
