@@ -1,4 +1,8 @@
 @import "tailwindcss";
+/* Lenis' own sheet. Not optional: it sets `html.lenis, html.lenis body
+   { height: auto }`, without which Lenis measures the wrong scroll extent
+   and its programmatic scrollTo lands short. */
+@import "lenis/dist/lenis.css";
 
 @theme {
   --color-bg: #ffffff;
@@ -32,9 +36,12 @@
   }
 }
 
+/* No `scroll-behavior: smooth` here. Lenis drives scrollTop itself, one write
+   per frame; native smooth scrolling then eases toward each of those writes in
+   turn and the two fight, which is what made the nav links jump. Smoothness
+   comes from Lenis — see SmoothScroll.tsx. */
 html {
   font-size: 20.8px;
-  scroll-behavior: smooth;
   background-color: #ffffff;
 }
 
