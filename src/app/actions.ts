@@ -13,12 +13,43 @@ function escapeHtml(str: string): string {
     .replace(/'/g, "&#x27;");
 }
 
+/* Caps, not validation for its own sake: this endpoint is a plain POST anyone
+   can hit directly, so without them a bot can push an arbitrarily large body
+   through to Resend. Generous enough that no real enquiry hits them. */
+const MAX = { name: 100, email: 200, message: 5000 };
+
+/* Deliberately loose — the only thing that matters here is that it is a single
+   address with no whitespace, because it goes into replyTo. Anything stricter
+   rejects valid addresses. */
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export async function sendContactMessage(formData: FormData) {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
   const message = formData.get("message") as string;
 
+  // Honeypot: hidden in the form, so only a bot filling every field reaches
+  // this. Returns success so it cannot tell it was caught and retry.
+  if (formData.get("website")) {
+    return { success: true };
+  }
+
   if (!name || !email || !message) {
+    return { success: false };
+  }
+
+  // The consent checkbox is `required` in the browser only — a direct POST
+  // skips it entirely, and sending without it is the GDPR problem.
+  if (formData.get("consent") !== "on") {
+    return { success: false };
+  }
+
+  if (
+    name.length > MAX.name ||
+    email.length > MAX.email ||
+    message.length > MAX.message ||
+    !EMAIL_RE.test(email)
+  ) {
     return { success: false };
   }
 

@@ -16,6 +16,7 @@ function InputField({
   placeholder,
   required,
   rows,
+  maxLength,
 }: {
   label: string;
   name: string;
@@ -23,6 +24,10 @@ function InputField({
   placeholder?: string;
   required?: boolean;
   rows?: number;
+  /** Mirrors the caps in sendContactMessage — the server is what enforces
+      them; this only stops a real visitor writing past the limit and losing
+      the message on submit. */
+  maxLength?: number;
 }) {
   const baseClass =
     "w-full bg-card border border-border rounded-xl px-4 py-3 text-text text-sm placeholder:text-muted/60 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-200 resize-none";
@@ -38,6 +43,7 @@ function InputField({
           placeholder={placeholder}
           required={required}
           rows={rows}
+          maxLength={maxLength}
           className={baseClass}
         />
       ) : (
@@ -46,6 +52,7 @@ function InputField({
           name={name}
           placeholder={placeholder}
           required={required}
+          maxLength={maxLength}
           className={baseClass}
         />
       )}
@@ -105,6 +112,7 @@ export default function Contact() {
                     name="name"
                     placeholder={t.contact.name_placeholder}
                     required
+                    maxLength={100}
                   />
                   <InputField
                     label={t.contact.email_label}
@@ -112,6 +120,7 @@ export default function Contact() {
                     type="email"
                     placeholder={t.contact.email_placeholder}
                     required
+                    maxLength={200}
                   />
                 </div>
                 <InputField
@@ -119,7 +128,24 @@ export default function Contact() {
                   name="message"
                   placeholder={t.contact.message_placeholder}
                   required
+                  maxLength={5000}
                   rows={5}
+                />
+
+                {/* Honeypot. Off-screen rather than type="hidden" or
+                    display:none — bots skip the former and detect the latter,
+                    but a positioned real text input still gets filled. tabIndex
+                    and aria-hidden keep it away from keyboards and screen
+                    readers; autoComplete="off" stops the browser filling it
+                    for a real visitor, which would block their own message.
+                    Checked in sendContactMessage. */}
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden
+                  className="absolute -left-[9999px] w-px h-px opacity-0"
                 />
 
                 <label className="flex items-start gap-2 text-xs text-muted">
