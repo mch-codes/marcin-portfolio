@@ -19,7 +19,7 @@ export default function Process() {
     <section id="process" className="py-20 md:py-24 relative overflow-hidden bg-card">
       <SectionHeader word={t.nav.process}>{t.process.subtitle}</SectionHeader>
 
-      <div className="px-6">
+      <div className="px-6 md:px-16">
         <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-14 justify-items-center">
           {cards.map((card) => (
             <Reveal

@@ -8,7 +8,7 @@ export default function NotFound() {
   const { t } = useLanguage();
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 bg-bg">
+    <div className="min-h-screen flex items-center justify-center px-6 md:px-16 bg-bg">
       <m.div
         initial={{ opacity: 0, y: 32 }}
         animate={{ opacity: 1, y: 0 }}

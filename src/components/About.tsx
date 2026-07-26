@@ -98,7 +98,7 @@ export default function About() {
         custom={0.45}
         initial="hidden"
         animate={controls}
-        className={`pointer-events-none select-none absolute inset-x-0 top-0 bottom-0 px-6 flex justify-end items-start ${SURNAME_TOP}`}
+        className={`pointer-events-none select-none absolute inset-x-0 top-0 bottom-0 px-6 md:px-16 flex justify-end items-start ${SURNAME_TOP}`}
       >
         {/* writing-mode has to sit on the text, not on the flex box above it:
             it swaps the flex axes, so `items-start` on the same element
@@ -110,7 +110,7 @@ export default function About() {
 
       <m.div
         style={{ y, opacity }}
-        className={`relative z-10 flex-1 flex px-6 ${GIVEN_TOP} pb-10 w-full`}
+        className={`relative z-10 flex-1 flex px-6 md:px-16 ${GIVEN_TOP} pb-10 w-full`}
       >
         <div className="w-full max-w-2xl flex flex-col gap-12 pr-20 md:pr-0">
           {/* Text content, single column since the portrait came out. */}

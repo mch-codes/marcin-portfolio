@@ -7,7 +7,7 @@ export default function PoliticaPrivacidad() {
   const { t } = useLanguage();
 
   return (
-    <div className="min-h-screen px-6 py-20 bg-bg">
+    <div className="min-h-screen px-6 md:px-16 py-20 bg-bg">
       <div className="max-w-2xl mx-auto">
         <Link
           href="/"

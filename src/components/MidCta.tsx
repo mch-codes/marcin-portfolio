@@ -11,7 +11,7 @@ export default function MidCta() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <div className="px-6 pt-20 md:pt-24" ref={ref}>
+    <div className="px-6 md:px-16 pt-20 md:pt-24" ref={ref}>
       <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}

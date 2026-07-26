@@ -88,7 +88,7 @@ export default function Services() {
     <section id="services" className="py-20 md:py-24 relative overflow-hidden bg-card">
       <SectionHeader word={t.services.title} scale={1.12}>{t.services.cta_text}</SectionHeader>
 
-      <div className="px-6">
+      <div className="px-6 md:px-16">
         <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-14 justify-items-center">
           {cards.map((card, i) => (
             <ServiceCardItem key={i} card={card} />
