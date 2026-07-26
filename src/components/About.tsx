@@ -40,9 +40,9 @@ const GIVEN_TOP = "pt-[90px]";
 const SURNAME_TOP = "pt-20";
 
 /* One shared variant, per-element delay through `custom`. A staggerChildren
-   container can't do it: the surname is pinned to the page edge and lives
-   outside the content column, so it isn't a child of anything the column
-   could stagger. Order is Marcin → Chrzuszcz → subtitle → CTA. */
+   container can't do it: the surname is positioned against the section and
+   lives outside the content column, so it isn't a child of anything the
+   column could stagger. Order is Marcin → Chrzuszcz → subtitle → CTA. */
 const itemVariants = {
   hidden: { opacity: 0, y: 32 },
   visible: (delay: number = 0) => ({
@@ -82,18 +82,20 @@ export default function About() {
 
   return (
     <section ref={sectionRef} id="hero" className="relative min-h-screen flex flex-col overflow-hidden">
-      {/* Anchored to the section, not to the content column: the m.div below
-          carries a transform, which would make it the containing block and pin
-          this to the 72rem gutter instead of the page edge. Sized in vh rather
-          than vw because what it has to fit is the viewport height — 9 glyphs
-          at roughly 0.55em advance each, so ~5em of run. */}
+      {/* Positioned against the section rather than nested in the column below
+          — that one carries a transform and would become the containing block.
+          It repeats the column's own `max-w-6xl mx-auto px-6` instead, so the
+          surname's right edge lands on the same gutter the given name's left
+          edge does. Sized in vh rather than vw because what it has to fit is
+          the viewport height — 9 glyphs at roughly 0.55em advance each, so
+          ~5em of run. */}
       <m.div
         aria-hidden
         variants={itemVariants}
         custom={0.45}
         initial="hidden"
         animate={controls}
-        className={`pointer-events-none select-none absolute right-2 md:right-4 top-0 bottom-0 flex items-start ${SURNAME_TOP}`}
+        className={`pointer-events-none select-none absolute inset-x-0 top-0 bottom-0 max-w-6xl mx-auto px-6 flex justify-end items-start ${SURNAME_TOP}`}
       >
         {/* writing-mode has to sit on the text, not on the flex box above it:
             it swaps the flex axes, so `items-start` on the same element
@@ -107,10 +109,10 @@ export default function About() {
         style={{ y, opacity }}
         className={`relative z-10 flex-1 flex max-w-6xl mx-auto px-6 ${GIVEN_TOP} pb-10 w-full`}
       >
-        <div className="w-full max-w-2xl flex flex-col gap-12 pr-16 md:pr-0">
+        <div className="w-full max-w-2xl flex flex-col gap-12 pr-20 md:pr-0">
           {/* Text content, single column since the portrait came out. */}
             <m.div variants={itemVariants} custom={0} initial="hidden" animate={controls}>
-              {/* The surname is rendered separately, pinned to the page edge —
+              {/* The surname is rendered separately, hung off the right gutter —
                   aria-label keeps the two halves one name for a screen reader,
                   and the vertical half is hidden from the tree to match.
                   No font-family override: both halves inherit the body sans. */}
@@ -153,7 +155,7 @@ export default function About() {
           custom={0.9}
           initial="hidden"
           animate={controls}
-          className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto max-w-xl pl-6 pr-16 md:pr-6 text-center"
+          className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto max-w-xl pl-6 pr-20 md:pr-6 text-center"
         >
           {/* This one does need the inline family. It is an h1, and the
               unlayered `h1, h2, h3` rule in globals.css sets Fraunces at a
