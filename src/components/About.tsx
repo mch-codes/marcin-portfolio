@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { m, useScroll, useTransform, useAnimationControls, useReducedMotion } from "framer-motion";
 import { useRef, useEffect, useLayoutEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
@@ -311,9 +310,11 @@ export default function About() {
           variants={containerVariants}
           initial="hidden"
           animate={controls}
-          className="w-full grid md:grid-cols-2 gap-16 md:gap-20 items-center"
+          className="w-full max-w-2xl flex flex-col gap-12"
         >
-          {/* Left: text content */}
+          {/* Text content. Single column since the portrait came out: a
+              two-up grid with nothing in the right cell just reads as a
+              layout bug, and the canvas and river already fill that side. */}
           <div className="flex flex-col gap-7">
             <m.div variants={itemVariants}>
               {/* Font families set inline: the unlayered `h1, h2, h3` rule in globals.css
@@ -365,30 +366,13 @@ export default function About() {
 
           </div>
 
-          {/* Right: photo + stack pills */}
-          <div className="flex flex-col items-center gap-8">
-            <m.div variants={itemVariants}>
-              <div className="w-60 h-60 md:w-72 md:h-72 overflow-hidden">
-                <Image
-                  src="/avatar.jpg"
-                  alt="Marcin Chrzuszcz"
-                  width={600}
-                  height={600}
-                  priority
-                  /* Container is w-60/md:w-72 against a 20.8px root, so 312px
-                     then 374px — without this the optimizer assumes 100vw and
-                     ships the 1080w variant for a 312px box. */
-                  sizes="(max-width: 768px) 312px, 374px"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </m.div>
-
+          {/* Stack pills */}
+          <div className="flex flex-col gap-8">
             <m.div variants={itemVariants} className="w-full">
-              <p className="text-[10px] font-mono tracking-widest text-muted/50 uppercase mb-3 text-center">
+              <p className="text-[10px] font-mono tracking-widest text-muted/50 uppercase mb-3">
                 {t.about.stack}
               </p>
-              <div className="flex flex-wrap justify-center gap-x-5 gap-y-3">
+              <div className="flex flex-wrap gap-x-5 gap-y-3">
                 {stack.map((tech) => (
                   <div key={tech.name} className="flex items-center gap-1.5 text-sm text-muted">
                     <span style={{ color: tech.color }} className="opacity-80 shrink-0">
