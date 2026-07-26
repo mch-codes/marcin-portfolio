@@ -9,9 +9,11 @@ export const translations = {
     },
     about: {
       title: "Sobre mí",
-      p1: "Pasé varios años como jefe de partida en cocinas profesionales de Madrid. En cocina aprendes rápido que nada funciona por accidente — cada plato, cada servicio, depende de atención, sistemas y consistencia. Pero también aprendes que la maestría no llega esperando: el servicio empieza estés listo o no, así que cocinas, fallas y corriges.",
-      p2: "Traje las dos costumbres al desarrollo. No espero a saberlo todo — construyo, rompo cosas y las arreglo. Después convierto lo que funciona en un sistema. Oidoo.app nació de un problema real que viví en cocina — así que construí la herramienta yo mismo y hoy la uso a diario en la cocina profesional donde trabajo. Está en producción, probada contra servicio real, no en condiciones de demo.",
-      p3: "Hablo polaco (nativo), español e inglés con fluidez.",
+      p1: "Varios años como jefe de partida en cocinas de Madrid.",
+      p2: "En cocina aprendes rápido: nada funciona por accidente. Cada plato depende de atención, sistemas y consistencia. Y el servicio empieza estés listo o no — así que construyes, fallas, corriges.",
+      p3: "Traje esa disciplina al desarrollo. No espero saberlo todo. Construyo, rompo cosas, las arreglo. Lo que funciona, lo convierto en sistema.",
+      p4: "Oidoo.app nació de un problema real que viví en cocina. Lo construí yo mismo. Hoy lo uso a diario — en producción, probado contra servicio real, no en demo.",
+      p5: "Polaco, español e inglés.",
       subtitle: "Webs que consiguen que te llamen, no solo que te vean.",
       // One sentence per entry — the hero renders each on its own line.
       hero_sub: [
@@ -201,9 +203,11 @@ export const translations = {
     },
     about: {
       title: "About me",
-      p1: "I spent several years as a section chef in professional kitchens in Madrid. In a kitchen, you learn fast that nothing works by accident — every dish, every service, depends on attention, systems, and consistency. But you also learn that mastery doesn't come from standing back: service starts whether you're ready or not, so you cook, you fail, you correct.",
-      p2: "I brought both habits into development. I don't wait until I know everything — I build, break things, and fix them. Then I turn what works into a system. Oidoo.app came from a real problem I lived in the kitchen — so I built the tool myself and now use it daily in the professional kitchen where I work. It runs in production, tested against real service, not demo conditions.",
-      p3: "I speak Polish (native), Spanish, and English fluently.",
+      p1: "Several years as a section chef in Madrid kitchens.",
+      p2: "In a kitchen you learn fast: nothing works by accident. Every dish depends on attention, systems, consistency. And service starts whether you're ready or not — so you build, you fail, you correct.",
+      p3: "I brought that discipline into development. I don't wait until I know everything. I build, break things, fix them. What works, I turn into a system.",
+      p4: "Oidoo.app came from a real problem I lived in the kitchen. I built it myself. I use it daily now — in production, tested against real service, not a demo.",
+      p5: "Polish, Spanish and English.",
       subtitle: "Websites that get you called, not just looked at.",
       hero_sub: [
         "Custom web development for businesses in Madrid.",
