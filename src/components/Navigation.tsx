@@ -76,10 +76,11 @@ export default function Navigation() {
         inert + aria-hidden take it out of the tab order and the a11y tree
         while invisible.
 
-        bottom-10 matches the hero's pb-10, left-6 the sections' px-6 gutter —
-        one value at every width, since the sections are full-bleed. Bottom-left
-        puts it under Next's dev-tools bubble in `next dev`; that bubble does
-        not exist in a production build, so the overlap is local only.
+        Bottom-left, hard against the edge and deliberately off the sections'
+        px-6 md:px-16 gutter — it reads as a viewport control, not as part of
+        the text column. Bottom-left also puts it under Next's dev-tools bubble
+        in `next dev`; that bubble does not exist in a production build, so the
+        overlap is local only.
 
         Solid ink fill, so no border and no backdrop-blur — both only did
         anything under the old translucent bg. No hover state. */}
@@ -88,7 +89,7 @@ export default function Navigation() {
       aria-label="Back to top"
       inert={!pastHero}
       aria-hidden={!pastHero}
-      className={`fixed bottom-10 left-6 z-50 grid place-items-center w-10 h-10 rounded-full bg-text text-bg text-xs font-semibold tracking-wide transition-opacity duration-300 ${FOCUS_RING} ${
+      className={`fixed bottom-2 left-2 z-50 grid place-items-center w-10 h-10 rounded-full bg-text text-bg text-xs font-semibold tracking-wide transition-opacity duration-300 ${FOCUS_RING} ${
         pastHero ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
     >
@@ -110,7 +111,7 @@ export default function Navigation() {
           stay put no matter what the logo or the toggle measure. Centring them
           inside a flex row would instead park them midway between those two,
           which drifts as soon as either changes width or the language does. */}
-      <div className="px-6 h-16 grid grid-cols-[1fr_auto_1fr] items-center">
+      <div className="px-6 md:px-16 h-16 grid grid-cols-[1fr_auto_1fr] items-center">
         {/* Columns are assigned explicitly because the first one is empty now
             that the monogram is gone. Left to auto-placement the nav would fall
             into column 1 and the centring would collapse. */}
@@ -162,7 +163,7 @@ export default function Navigation() {
             transition={{ duration: 0.25 }}
             className="md:hidden bg-bg/95 backdrop-blur-md border-b border-border overflow-hidden"
           >
-            <nav className="flex flex-col px-6 py-4 gap-4">
+            <nav className="flex flex-col px-6 md:px-16 py-4 gap-4">
               {navLinks.map((link) => (
                 <button
                   key={link.id}
