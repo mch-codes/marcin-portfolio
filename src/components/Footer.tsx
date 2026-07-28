@@ -61,7 +61,12 @@ export default function Footer() {
         </div>
 
         <div className="flex items-center gap-5">
-          <p className="text-xs text-muted italic hidden sm:block">{t.footer.tagline}</p>
+          <p className="text-xs text-muted italic hidden sm:block">
+            {/* Same superscript asterisk the section Footnotes carry, sized down
+                to this line. In the markup, not the copy, so both languages get it. */}
+            <span aria-hidden className="align-super text-text text-sm leading-none -mr-0.5">*</span>
+            {t.footer.tagline}
+          </p>
 
           <div className="flex items-center gap-3">
             <a

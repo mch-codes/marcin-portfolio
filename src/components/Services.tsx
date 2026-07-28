@@ -68,7 +68,7 @@ export default function Services() {
         {/* Capped and centred rather than run to the page gutters: each child
             inside a card is max-w-xs, so a full-width grid left ~190px of air
             to the right of every card. Change this and the caps together. */}
-        <div className="mt-14 md:mt-20 mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-14">
+        <div className="mt-24 md:mt-32 mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-14">
           {cards.map((card, i) => (
             <ServiceCardItem key={i} card={card} delay={i * 0.2} />
           ))}
