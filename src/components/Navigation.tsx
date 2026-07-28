@@ -112,10 +112,15 @@ export default function Navigation() {
       MC
     </button>
 
+    {/* Last thing on screen: the name letters land, the CTA follows, the copy
+        turns in on its cube face, and the bar drops in over the tail of it.
+        -100% of its own height, not a nudge — it starts genuinely off the page,
+        so it needs no fade to hide the entrance. Re-time against About.tsx if
+        that sequence changes. */}
     <m.header
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      initial={{ y: "-100%" }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.7, delay: 1.25, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
         scrolled
           ? "bg-bg/60 backdrop-blur-xl border-border/50"
