@@ -1,7 +1,7 @@
 "use client";
 
 import { m, useScroll, useTransform, useAnimationControls, useReducedMotion } from "framer-motion";
-import { useRef, useLayoutEffect } from "react";
+import { useRef, useLayoutEffect, type ReactNode } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { scrollToSection } from "@/lib/scroll";
 import { useIsMobile, CTA } from "@/components/Section";
@@ -55,6 +55,37 @@ const itemVariants = {
   }),
 };
 
+/* The name lands letter by letter. Same variant as everything else, just an
+   extra delay per index — the wrappers below stop carrying `variants` so the
+   letters aren't moved twice, but they keep initial/animate so the state still
+   propagates down. inline-block because transforms don't apply to inline
+   boxes; it works inside the vertical writing mode too. */
+function Letters({ text, delay }: { text: string; delay: number }) {
+  return text.split("").map((char, i) => (
+    <m.span key={i} variants={itemVariants} custom={delay + i * 0.05} className="inline-block">
+      {char}
+    </m.span>
+  ));
+}
+
+/* The whole copy block rides one face of an invisible cube. The cube is never
+   drawn — only the face carrying the text — so it starts edge-on at -90°, no
+   height to the eye and nothing to hide, then turns to face front.
+   transformOrigin pushes the hinge behind the text by about half the block, so
+   it turns like a solid rather than flipping in place like a card. */
+function CubeReveal({ delay, children }: { delay: number; children: ReactNode }) {
+  return (
+    <m.div
+      style={{ transformOrigin: "50% 50% -3.5em", backfaceVisibility: "hidden" }}
+      initial={{ rotateX: -90, transformPerspective: 900 }}
+      animate={{ rotateX: 0 }}
+      transition={{ duration: 1.1, delay, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </m.div>
+  );
+}
+
 export default function About() {
   const { t } = useLanguage();
   const controls = useAnimationControls();
@@ -93,8 +124,6 @@ export default function About() {
           ~5em of run. */}
       <m.div
         aria-hidden
-        variants={itemVariants}
-        custom={0.45}
         initial="hidden"
         animate={controls}
         className={`pointer-events-none select-none absolute inset-x-0 top-0 bottom-0 px-6 md:px-16 flex justify-end items-start ${SURNAME_TOP}`}
@@ -103,7 +132,7 @@ export default function About() {
             it swaps the flex axes, so `items-start` on the same element
             aligns horizontally and the run drifts off the top. */}
         <span className={`${NAME_SIZE} [writing-mode:vertical-rl]`}>
-          Chrzuszcz
+          <Letters text="Chrzuszcz" delay={0.45} />
         </span>
       </m.div>
 
@@ -113,13 +142,13 @@ export default function About() {
       >
         <div className="w-full max-w-2xl flex flex-col gap-12 pr-20 md:pr-0">
           {/* Text content, single column since the portrait came out. */}
-            <m.div variants={itemVariants} custom={0} initial="hidden" animate={controls}>
+            <m.div initial="hidden" animate={controls}>
               {/* The surname is rendered separately, hung off the right gutter —
                   aria-label keeps the two halves one name for a screen reader,
                   and the vertical half is hidden from the tree to match.
                   No font-family override: both halves inherit the body sans. */}
               <p aria-label="Marcin Chrzuszcz" className={NAME_SIZE}>
-                Marcin
+                <Letters text="Marcin" delay={0} />
               </p>
             </m.div>
 
@@ -153,13 +182,11 @@ export default function About() {
             would centre this on the column's midpoint instead of the page's.
             Last in the sequence — the name and the CTA land first, then
             the copy that explains them. */}
-        <m.div
-          variants={itemVariants}
-          custom={1.35}
-          initial="hidden"
-          animate={controls}
-          className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto max-w-xl pl-6 pr-20 md:pr-6 text-center"
-        >
+        {/* The centring stays on this div and the turn happens inside it:
+            framer writes `transform` inline, which would eat the -translate-y.
+            The cube is the reveal now, so this block no longer fades in. */}
+        <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto max-w-xl pl-6 pr-20 md:pr-6 text-center">
+          <CubeReveal delay={1.35}>
           {/* This one does need the inline family. It is an h1, and the
               unlayered `h1, h2, h3` rule in globals.css sets Fraunces at a
               specificity Tailwind's layered utilities cannot beat. */}
@@ -176,7 +203,8 @@ export default function About() {
               <span key={line} className="block">{line}</span>
             ))}
           </p>
-        </m.div>
+          </CubeReveal>
+        </div>
       </m.div>
     </section>
   );
