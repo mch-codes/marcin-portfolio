@@ -150,11 +150,10 @@ export default function Projects() {
                 />
               </div>
 
-              {/* The caption travels over the wordmark like the image does, so
-                  it needs the same opaque fill — otherwise the title and the
-                  letterforms cross and neither is readable. bg-bg, not
-                  transparent, is the whole reason this is a block. */}
-              <div className={`w-full bg-bg pt-8 pb-2 flex flex-col items-center ${side.items}`}>
+              {/* Deliberately unfilled: the wordmark reads through the caption
+                  as the card passes over it. ponytail: costs legibility where
+                  the two cross — put bg-bg back if that bothers you. */}
+              <div className={`w-full pt-8 pb-2 flex flex-col items-center ${side.items}`}>
                 <p className="text-xs font-mono tracking-widest text-muted uppercase">
                   {p.tag}
                   {p.status ? ` · ${p.status}` : ""}
