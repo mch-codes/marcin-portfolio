@@ -139,14 +139,14 @@ export default function Projects() {
               {/* next/image, not <img>: Vercel then serves a resized AVIF/WebP
                   instead of the full-size PNG. Card caps at max-w-3xl, so
                   `sizes` can be honest about it. */}
-              <div className="w-full overflow-hidden">
+              <div className="w-full">
                 <Image
                   src={p.screenshot}
                   alt={p.title}
                   width={1280}
                   height={800}
                   sizes="(max-width: 768px) 100vw, 48rem"
-                  className="w-full aspect-[16/10] object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                  className="w-full aspect-[16/10] object-cover object-top"
                 />
               </div>
 
