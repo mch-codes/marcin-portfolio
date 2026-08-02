@@ -107,20 +107,22 @@ export default function Projects() {
           {projects.map((p) => (
             <Reveal
               key={p.title}
-              className="relative flex flex-col items-center text-center"
+              className="group relative flex flex-col items-center text-center"
             >
               {/* next/image, not <img>: Vercel then serves a resized AVIF/WebP
                   instead of the full-size PNG. Two-up grid above md, so a card
                   is never wider than half the 72rem container. */}
-              <Image
-                src={p.screenshot}
-                alt={p.title}
-                width={1280}
-                height={800}
-                sizes="(max-width: 768px) 100vw, 36rem"
-                className="w-full object-cover object-top"
-                style={{ maxHeight: "220px" }}
-              />
+              <div className="w-full overflow-hidden" style={{ maxHeight: "220px" }}>
+                <Image
+                  src={p.screenshot}
+                  alt={p.title}
+                  width={1280}
+                  height={800}
+                  sizes="(max-width: 768px) 100vw, 36rem"
+                  className="w-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                  style={{ maxHeight: "220px" }}
+                />
+              </div>
 
               <p className="mt-8 text-xs font-mono tracking-widest text-muted uppercase">
                 {p.tag}
