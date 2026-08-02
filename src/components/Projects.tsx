@@ -56,6 +56,17 @@ export default function Projects() {
       screenshot: "/oidoo-screenshot.webp",
     },
     {
+      tag: t.projects.client_tag,
+      status: t.projects.oidoo_status,
+      title: t.projects.hebras_name,
+      desc: t.projects.hebras_desc,
+      stack: freelanceStack,
+      demoUrl: "https://hebras-lemon.vercel.app",
+      demoLabel: t.projects.client_cta,
+      githubUrl: "https://github.com/mch-codes/hebras",
+      screenshot: "/hebras-screenshot.png",
+    },
+    {
       tag: t.projects.freelance_tag,
       title: t.projects.fontaneria_name,
       desc: t.projects.fontaneria_desc,

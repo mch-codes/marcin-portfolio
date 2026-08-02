@@ -84,6 +84,10 @@ export const translations = {
       fisio_desc: "Landing para una clínica de fisioterapia ficticia en Chamberí — genera confianza y resuelve dudas antes de la reserva de cita.",
       taberna_name: "Taberna El Fogón",
       taberna_desc: "Landing bilingüe para una taberna castellana ficticia en La Latina — la carta es la protagonista, pensada mobile-first para reservas desde Google Maps.",
+      client_tag: "Cliente",
+      client_cta: "Ver web",
+      hebras_name: "Hebras",
+      hebras_desc: "Web para una marca de ganchillo artesanal en Madrid — el catálogo de piezas manda y cada una lleva a WhatsApp, porque se teje por encargo.",
     },
     process: {
       subtitle: "Sin humo. Sin over-engineering. Producto que funciona.",
@@ -275,6 +279,10 @@ export const translations = {
       fisio_desc: "Landing page for a fictional physiotherapy clinic in Chamberí — builds trust and answers questions before booking a visit.",
       taberna_name: "Taberna El Fogón",
       taberna_desc: "Bilingual landing page for a fictional Castilian tavern in La Latina — the menu takes center stage, built mobile-first for Google Maps reservations.",
+      client_tag: "Client",
+      client_cta: "Visit site",
+      hebras_name: "Hebras",
+      hebras_desc: "Website for a handmade crochet brand in Madrid — the piece catalogue leads and each one opens WhatsApp, since everything is made to order.",
     },
     process: {
       subtitle: "No fluff. No over-engineering. Product that works.",
