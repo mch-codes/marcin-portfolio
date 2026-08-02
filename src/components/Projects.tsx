@@ -98,49 +98,82 @@ export default function Projects() {
     },
   ];
 
+  // No `overflow-hidden` on this section, unlike its neighbours: an
+  // overflow-clipped ancestor kills position:sticky on the header below.
   return (
-    <section id="projects" className="py-20 md:py-24 relative overflow-hidden">
-      <SectionHeader word={t.projects.headline} />
+    <section id="projects" className="pt-20 md:pt-24 pb-32 md:pb-48 relative">
+      {/*
+        The wordmark pins to the middle of the viewport and stays there for the
+        length of the section while the cards ride up over it. `top-1/2` is
+        where sticky catches; the translate then lifts it by half its own
+        height, which sticky ignores when it measures — so the two together
+        centre it.
 
-      <div className="px-6 md:px-16">
-        <div className="mt-24 md:mt-32 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-14">
-          {projects.map((p) => (
+        No background fill and no z-index on purpose: the cards below carry
+        `z-10` and paint over the letterforms, which is the whole effect. Give
+        this block an opaque bg and the cards slide under it like a shelf
+        instead.
+      */}
+      <div className="sticky top-1/2 -translate-y-1/2">
+        <SectionHeader word={t.projects.headline} />
+      </div>
+
+      {/* One card per row, and a screen's worth of air between them, so only
+          one is ever over the wordmark at a time. They alternate gutters
+          rather than sitting centred, so each covers a different part of the
+          word on its way past. */}
+      <div className="relative z-10 px-6 md:px-16">
+        <div className="mt-16 md:mt-24 flex flex-col gap-28 md:gap-40">
+          {projects.map((p, i) => {
+            // Odd cards hang on the right gutter. Below md there's no room to
+            // offset anything, so both settle back to centred.
+            const side = i % 2 === 0
+              ? { self: "md:self-start", items: "md:items-start", text: "md:text-left" }
+              : { self: "md:self-end", items: "md:items-end", text: "md:text-right" };
+
+            return (
             <Reveal
               key={p.title}
-              className="group relative flex flex-col items-center text-center"
+              className={`group relative w-full md:max-w-2xl flex flex-col items-center text-center ${side.self} ${side.items} ${side.text}`}
             >
               {/* next/image, not <img>: Vercel then serves a resized AVIF/WebP
-                  instead of the full-size PNG. Two-up grid above md, so a card
-                  is never wider than half the 72rem container. */}
-              <div className="w-full overflow-hidden" style={{ maxHeight: "220px" }}>
+                  instead of the full-size PNG. Card caps at max-w-3xl, so
+                  `sizes` can be honest about it. */}
+              <div className="w-full overflow-hidden">
                 <Image
                   src={p.screenshot}
                   alt={p.title}
                   width={1280}
                   height={800}
-                  sizes="(max-width: 768px) 100vw, 36rem"
-                  className="w-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-                  style={{ maxHeight: "220px" }}
+                  sizes="(max-width: 768px) 100vw, 48rem"
+                  className="w-full aspect-[16/10] object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 />
               </div>
 
-              <p className="mt-8 text-xs font-mono tracking-widest text-muted uppercase">
-                {p.tag}
-                {p.status ? ` · ${p.status}` : ""}
-              </p>
-              <h3 className="mt-4 text-2xl font-bold text-text tracking-tight leading-tight">{p.title}</h3>
-              <p className="mt-4 text-base text-muted leading-relaxed max-w-sm">{p.desc}</p>
-              <p className="mt-5 text-sm text-muted">{p.stack.join(" · ")}</p>
+              {/* The caption travels over the wordmark like the image does, so
+                  it needs the same opaque fill — otherwise the title and the
+                  letterforms cross and neither is readable. bg-bg, not
+                  transparent, is the whole reason this is a block. */}
+              <div className={`w-full bg-bg pt-8 pb-2 flex flex-col items-center ${side.items}`}>
+                <p className="text-xs font-mono tracking-widest text-muted uppercase">
+                  {p.tag}
+                  {p.status ? ` · ${p.status}` : ""}
+                </p>
+                <h3 className="mt-4 text-2xl md:text-3xl font-bold text-text tracking-tight leading-tight">{p.title}</h3>
+                <p className="mt-4 text-base text-muted leading-relaxed max-w-md">{p.desc}</p>
+                <p className="mt-5 text-sm text-muted">{p.stack.join(" · ")}</p>
 
-              <div className="mt-5 flex items-center gap-6">
+                <div className="mt-5 flex items-center gap-6">
                 <a
                   href={p.demoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-text transition-colors after:absolute after:inset-0"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors duration-200 group-hover:text-accent group-focus-within:text-accent after:absolute after:inset-0"
                 >
                   {p.demoLabel}
-                  <ArrowUpRight />
+                  <span className="transition-transform duration-200 group-hover:translate-x-1">
+                    <ArrowUpRight />
+                  </span>
                 </a>
                 {p.githubUrl && (
                   <a
@@ -152,10 +185,12 @@ export default function Projects() {
                   >
                     <GitHubIcon />
                   </a>
-                )}
+                  )}
+                </div>
               </div>
             </Reveal>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
