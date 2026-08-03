@@ -1,6 +1,7 @@
 "use server";
 
 import { Resend } from "resend";
+import { allowContact } from "@/lib/rateLimit";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -12,6 +13,12 @@ function escapeHtml(str: string): string {
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#x27;");
 }
+
+/* The subject is a header, not a body — escapeHtml leaves newlines alone, and
+   a name carrying one has no legitimate reason to. Resend takes JSON rather
+   than raw SMTP so this isn't header injection, but a subject line can't hold
+   a line break either way. */
+const stripControlChars = (str: string) => str.replace(/[\r\n\t]+/g, " ").trim();
 
 /* Caps, not validation for its own sake: this endpoint is a plain POST anyone
    can hit directly, so without them a bot can push an arbitrarily large body
@@ -53,6 +60,14 @@ export async function sendContactMessage(formData: FormData) {
     return { success: false };
   }
 
+  /* Checked once the request looks real, so a flood of malformed POSTs can't
+     burn a genuine sender's budget — and before Resend, which is the part
+     that costs money. Returns the generic failure: telling a bot it was
+     limited only teaches it the ceiling. */
+  if (!(await allowContact())) {
+    return { success: false };
+  }
+
   const safeName = escapeHtml(name);
   const safeEmail = escapeHtml(email);
   const safeMessage = escapeHtml(message);
@@ -62,7 +77,7 @@ export async function sendContactMessage(formData: FormData) {
       from: process.env.RESEND_FROM_EMAIL ?? "Portfolio <onboarding@resend.dev>",
       to: "marcin.chrzuszcz@gmail.com",
       replyTo: email,
-      subject: `Contacto: ${safeName}`,
+      subject: `Contacto: ${stripControlChars(safeName)}`,
       html: `
         <div style="font-family:sans-serif;max-width:480px">
           <p><strong>Nombre:</strong> ${safeName}</p>
@@ -74,7 +89,10 @@ export async function sendContactMessage(formData: FormData) {
     });
     return { success: true };
   } catch (error) {
-    console.error("Email error:", error);
+    /* Name only. The full error carries the request Resend rejected — which
+       includes the sender's address and message — and this lands in Vercel's
+       logs, which are a wider audience than the inbox. */
+    console.error("Email send failed:", error instanceof Error ? error.message : "unknown");
     return { success: false };
   }
 }
