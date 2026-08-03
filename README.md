@@ -49,6 +49,12 @@ npm run shot -- https://hebras-lemon.vercel.app hebras
 
 Writes `public/<name>-screenshot.webp` at 1280x800. Dismisses the cookie banner first, and refuses a URL that doesn't return 200.
 
+The link-preview image is the same script pointed at this site — a name with an extension is used verbatim, and an explicit size overrides the default:
+
+```bash
+npm run shot -- https://marcin-portfolio-mocha.vercel.app og.jpg 1200x630
+```
+
 ### Environment variables
 
 ```env

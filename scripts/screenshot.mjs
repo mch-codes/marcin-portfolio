@@ -11,11 +11,15 @@
 import { spawn } from "node:child_process";
 import sharp from "sharp";
 
-const [url, name] = process.argv.slice(2);
+const [url, name, size = "1280x800"] = process.argv.slice(2);
 if (!url || !name) {
-  console.error("usage: npm run shot -- <url> <name>");
+  console.error("usage: npm run shot -- <url> <name> [<width>x<height>]");
   process.exit(1);
 }
+const [W, H] = size.split("x").map(Number);
+// A name with an extension is a literal filename — that's how the OG image
+// asks for public/og.jpg instead of public/og-screenshot.webp.
+const out = name.includes(".") ? `public/${name}` : `public/${name}-screenshot.webp`;
 
 // A dead URL still renders — as Vercel's 404 — and would quietly overwrite a
 // good screenshot, so refuse before Chrome ever starts.
@@ -77,8 +81,8 @@ try {
 
   await send("Page.enable");
   await send("Emulation.setDeviceMetricsOverride", {
-    width: 1280,
-    height: 800,
+    width: W,
+    height: H,
     deviceScaleFactor: 2,
     mobile: false,
   });
@@ -102,11 +106,13 @@ try {
   const { data } = await send("Page.captureScreenshot", { format: "png" });
   ws.close();
 
-  const out = `public/${name}-screenshot.webp`;
-  const info = await sharp(Buffer.from(data, "base64"))
-    .resize(1280, 800)
-    .webp({ quality: 82 })
-    .toFile(out);
+  const shrunk = sharp(Buffer.from(data, "base64")).resize(W, H);
+  // webp for the project cards; jpeg for the OG image, because not every link
+  // scraper that matters (WhatsApp) reliably renders webp.
+  const info = await (out.endsWith(".webp")
+    ? shrunk.webp({ quality: 82 })
+    : shrunk.jpeg({ quality: 85 })
+  ).toFile(out);
   console.log(`${out} — ${(info.size / 1024).toFixed(0)}KB`);
 } finally {
   chrome.kill();
