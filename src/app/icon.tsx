@@ -11,10 +11,10 @@ export default function Icon() {
           width: 32,
           height: 32,
           // The tile is 32px on a browser tab that may itself be white, so it
-          // takes the accent as its fill rather than the page background —
+          // carries its own fill rather than the page background —
           // a white-on-white favicon reads as no favicon.
-          background: "#047857",
-          borderRadius: 8,
+          background: "#000000",
+          borderRadius: "50%",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
