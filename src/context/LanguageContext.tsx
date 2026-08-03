@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useSyncExternalStore } from "react";
 import { Language, Translations, translations } from "@/lib/translations";
 
 interface LanguageContextType {
@@ -11,19 +11,33 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>("es");
+// localStorage is the store; the server can't read it, so SSR renders "es" and
+// the saved choice lands on the client's first commit. "storage" covers other
+// tabs, the custom event covers this one — localStorage doesn't notify its own
+// writer.
+const LANG_EVENT = "langchange";
 
-  useEffect(() => {
-    const saved = localStorage.getItem("lang") as Language;
-    if (saved === "es" || saved === "en") setLanguageState(saved);
-  }, []);
+function subscribe(onChange: () => void) {
+  window.addEventListener("storage", onChange);
+  window.addEventListener(LANG_EVENT, onChange);
+  return () => {
+    window.removeEventListener("storage", onChange);
+    window.removeEventListener(LANG_EVENT, onChange);
+  };
+}
+
+// Must return a primitive: React compares snapshots by identity, so a fresh
+// object every call would loop forever.
+const getSnapshot = (): Language => (localStorage.getItem("lang") === "en" ? "en" : "es");
+
+export function LanguageProvider({ children }: { children: React.ReactNode }) {
+  const language = useSyncExternalStore(subscribe, getSnapshot, () => "es" as Language);
 
   function setLanguage(lang: Language) {
-    setLanguageState(lang);
     localStorage.setItem("lang", lang);
     document.cookie = `lang=${lang}; path=/; max-age=31536000; SameSite=Lax`;
     document.documentElement.lang = lang;
+    window.dispatchEvent(new Event(LANG_EVENT));
   }
 
   return (

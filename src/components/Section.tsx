@@ -1,19 +1,26 @@
 "use client";
 
 import { m, useInView, useReducedMotion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useSyncExternalStore } from "react";
+
+// Built on first read, not at import: matchMedia doesn't exist on the server.
+let mql: MediaQueryList | undefined;
+const getMql = () => (mql ??= window.matchMedia("(max-width: 767px)"));
 
 /** Matches Tailwind's `md` breakpoint, so JS motion cuts out where the layout does. */
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 767px)");
-    setIsMobile(mq.matches);
-    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
-  return isMobile;
+  // A media query is an external store, so it subscribes rather than setting
+  // state from an effect — the server snapshot is false, and the client's real
+  // value arrives on the first commit without a second render.
+  return useSyncExternalStore(
+    (onChange) => {
+      const q = getMql();
+      q.addEventListener("change", onChange);
+      return () => q.removeEventListener("change", onChange);
+    },
+    () => getMql().matches,
+    () => false
+  );
 }
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
