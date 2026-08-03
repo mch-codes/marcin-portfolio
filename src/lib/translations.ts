@@ -142,7 +142,12 @@ export const translations = {
       sections: [
         {
           heading: "1. Datos identificativos",
-          body: "En cumplimiento del artículo 10 de la Ley 34/2002, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSI-CE), se informa de los siguientes datos: Titular: Marcin Chrzuszcz. NIF: [pendiente de completar — el titular debe añadir su NIF de autónomo antes de recibir tráfico real]. Domicilio: Madrid, España. Correo electrónico de contacto: marcin.chrzuszcz@gmail.com. Actividad: desarrollo de sitios y aplicaciones web como profesional autónomo.",
+          // TODO: add `NIF: <NIE>.` after "Titular:" once registered as
+          // autónomo — LSSI-CE art. 10 lists it among the required data, and
+          // it is owed by the time the first client is invoiced. The bracketed
+          // placeholder that used to sit here rendered to visitors, which read
+          // worse than the omission does.
+          body: "En cumplimiento del artículo 10 de la Ley 34/2002, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSI-CE), se informa de los siguientes datos: Titular: Marcin Chrzuszcz. Domicilio: Madrid, España. Correo electrónico de contacto: marcin.chrzuszcz@gmail.com. Actividad: desarrollo de sitios y aplicaciones web.",
         },
         {
           heading: "2. Objeto",
@@ -340,7 +345,7 @@ export const translations = {
       sections: [
         {
           heading: "1. Identification details",
-          body: "In compliance with article 10 of Spanish Law 34/2002 on Information Society Services and Electronic Commerce (LSSI-CE), the following details are provided: Owner: Marcin Chrzuszcz. Tax ID (NIF): [pending — the owner must add their freelancer tax ID before this site receives real traffic]. Address: Madrid, Spain. Contact email: marcin.chrzuszcz@gmail.com. Activity: web and application development as a self-employed professional.",
+          body: "In compliance with article 10 of Spanish Law 34/2002 on Information Society Services and Electronic Commerce (LSSI-CE), the following details are provided: Owner: Marcin Chrzuszcz. Address: Madrid, Spain. Contact email: marcin.chrzuszcz@gmail.com. Activity: web and application development.",
         },
         {
           heading: "2. Purpose",
