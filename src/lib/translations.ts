@@ -87,7 +87,7 @@ export const translations = {
       client_tag: "Cliente",
       client_cta: "Ver web",
       hebras_name: "Hebras",
-      hebras_desc: "Web para una marca de ganchillo artesanal en Madrid — el catálogo de piezas manda y cada una lleva a WhatsApp, porque se teje por encargo.",
+      hebras_desc: "Web para una marca de ganchillo artesanal en Madrid — el catálogo de piezas manda y el contacto pasa por Instagram, donde ya está la clientela.",
     },
     process: {
       subtitle: "Sin humo. Sin over-engineering. Producto que funciona.",
@@ -282,7 +282,7 @@ export const translations = {
       client_tag: "Client",
       client_cta: "Visit site",
       hebras_name: "Hebras",
-      hebras_desc: "Website for a handmade crochet brand in Madrid — the piece catalogue leads and each one opens WhatsApp, since everything is made to order.",
+      hebras_desc: "Website for a handmade crochet brand in Madrid — the piece catalogue leads and contact runs through Instagram, where the customers already are.",
     },
     process: {
       subtitle: "No fluff. No over-engineering. Product that works.",
