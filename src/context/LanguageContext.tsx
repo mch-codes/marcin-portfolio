@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useSyncExternalStore } from "react";
+import React, { createContext, useContext, useEffect, useSyncExternalStore } from "react";
 import { Language, Translations, translations } from "@/lib/translations";
 
 interface LanguageContextType {
@@ -33,10 +33,17 @@ const getSnapshot = (): Language => (localStorage.getItem("lang") === "en" ? "en
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const language = useSyncExternalStore(subscribe, getSnapshot, () => "es" as Language);
 
+  // <html lang> follows the store rather than being set at the click. The two
+  // only ever disagree on a stale visitor — the cookie SSR reads is capped at a
+  // year and localStorage isn't — but that visitor was getting English text
+  // under lang="es", which is what a screen reader picks its voice from.
+  useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
+
   function setLanguage(lang: Language) {
     localStorage.setItem("lang", lang);
     document.cookie = `lang=${lang}; path=/; max-age=31536000; SameSite=Lax`;
-    document.documentElement.lang = lang;
     window.dispatchEvent(new Event(LANG_EVENT));
   }
 

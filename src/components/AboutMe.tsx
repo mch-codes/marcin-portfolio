@@ -24,7 +24,7 @@ export default function AboutMe() {
             reading speed than it buys. The footnote takes the left gutter so
             the two don't stack on the same edge. */}
         <Reveal className="mt-24 md:mt-32 ml-auto max-w-2xl space-y-6 text-lg text-muted leading-relaxed">
-          {[t.about.p1, t.about.p2, t.about.p3, t.about.p4].map((para, i) => (
+          {[t.about.p1, t.about.p2, t.about.p2b, t.about.p3, t.about.p4].map((para, i) => (
             // One line per sentence, spans inside a single <p> so the paragraph
             // still reads as one block — same pattern as hero_sub in About.tsx.
             // ponytail: split on ". ", not a sentence tokeniser. It survives

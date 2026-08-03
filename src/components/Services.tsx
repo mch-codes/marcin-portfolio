@@ -6,7 +6,7 @@ import { SectionHeader, Reveal, CTA, Footnote } from "@/components/Section";
 
 const withPeriod = (s: string) => (/[.!?]$/.test(s) ? s : `${s}.`);
 
-type ServiceCard = { title: string; desc: string; price: string; features: string[]; href?: string; linkLabel?: string };
+type ServiceCard = { title: string; desc: string; price: string; features: string[] };
 
 function ServiceCardItem({ card, delay }: { card: ServiceCard; delay: number }) {
   return (
@@ -31,20 +31,8 @@ function ServiceCardItem({ card, delay }: { card: ServiceCard; delay: number }) 
         </ul>
       </Reveal>
 
-      {/* The link rides with the price rather than the body: it sits below the
-          price on screen, so revealing it earlier would leave it hanging under
-          nothing. */}
       <Reveal delay={delay + 0.5} className="flex flex-col items-start">
         <p className="mt-5 text-sm font-semibold text-text">{card.price}</p>
-        {card.href && (
-          <a
-            href={card.href}
-            className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-text transition-colors"
-          >
-            {card.linkLabel}
-            <span aria-hidden>→</span>
-          </a>
-        )}
       </Reveal>
     </div>
   );
@@ -56,7 +44,7 @@ export default function Services() {
   const cards: ServiceCard[] = [
     { title: t.services.card1_title, desc: t.services.card1_desc, price: t.services.card1_price, features: t.services.card1_features },
     { title: t.services.card2_title, desc: t.services.card2_desc, price: t.services.card2_price, features: t.services.card2_features },
-    { title: t.services.card3_title, desc: t.services.card3_desc, price: t.services.card3_price, features: t.services.card3_features, href: "#projects", linkLabel: t.services.card3_link },
+    { title: t.services.card3_title, desc: t.services.card3_desc, price: t.services.card3_price, features: t.services.card3_features },
     { title: t.services.card4_title, desc: t.services.card4_desc, price: t.services.card4_price, features: t.services.card4_features },
   ];
 

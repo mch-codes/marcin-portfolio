@@ -48,28 +48,31 @@ const jsonLd = {
   ],
 };
 
+// Stated once — it was three copies of the same two strings, and they had
+// already drifted apart once.
+const TITLE = "Marcin Chrzuszcz — Webs para artesanos | Madrid";
+const DESCRIPTION =
+  "Webs para ceramistas, joyeros, marroquineros y talleres textiles de Madrid. Catálogo de piezas, contacto por Instagram y WhatsApp, o tienda online con Stripe. Desde 400€.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Marcin Chrzuszcz — Desarrollador Web | Madrid",
-  description:
-    "Desarrollo web a medida en Madrid. Next.js, TypeScript, Supabase. Un proyecto real en producción — Oidoo.app. Disponible para proyectos freelance.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: {
     canonical: SITE_URL,
   },
   openGraph: {
-    title: "Marcin Chrzuszcz — Desarrollador Web | Madrid",
-    description:
-      "Desarrollo web a medida en Madrid. Next.js, TypeScript, Supabase. Un proyecto real en producción — Oidoo.app. Disponible para proyectos freelance.",
+    title: TITLE,
+    description: DESCRIPTION,
     type: "website",
     url: SITE_URL,
     siteName: "Marcin Chrzuszcz",
-    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Marcin Chrzuszcz — Desarrollador Web | Madrid" }],
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: TITLE }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Marcin Chrzuszcz — Desarrollador Web | Madrid",
-    description:
-      "Desarrollo web a medida en Madrid. Next.js, TypeScript, Supabase. Un proyecto real en producción — Oidoo.app. Disponible para proyectos freelance.",
+    title: TITLE,
+    description: DESCRIPTION,
     images: ["/og.jpg"],
   },
 };

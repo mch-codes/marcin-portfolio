@@ -44,17 +44,10 @@ type ProjectCard = {
 export default function Projects() {
   const { t } = useLanguage();
 
-  const projects: ProjectCard[] = [
-    {
-      tag: t.projects.oidoo_tag,
-      status: t.projects.oidoo_status,
-      title: t.projects.oidoo_name,
-      desc: t.projects.oidoo_tagline,
-      stack: oidooStack,
-      demoUrl: "https://www.oidoo.app",
-      demoLabel: t.projects.oidoo_cta,
-      screenshot: "/oidoo-screenshot.webp",
-    },
+  // Hebras leads — it is the niche this site sells to, so the case study a
+  // maker recognises comes first. Oidoo follows as credibility rather than as
+  // the headline: it says the code holds up, not that you should buy it.
+  const featured: ProjectCard[] = [
     {
       tag: t.projects.client_tag,
       status: t.projects.oidoo_status,
@@ -66,6 +59,21 @@ export default function Projects() {
       githubUrl: "https://github.com/mch-codes/hebras",
       screenshot: "/hebras-screenshot.webp",
     },
+    {
+      tag: t.projects.oidoo_tag,
+      status: t.projects.oidoo_status,
+      title: t.projects.oidoo_name,
+      desc: t.projects.oidoo_tagline,
+      stack: oidooStack,
+      demoUrl: "https://www.oidoo.app",
+      demoLabel: t.projects.oidoo_cta,
+      screenshot: "/oidoo-screenshot.webp",
+    },
+  ];
+
+  // Other sectors. Kept, but folded away — they dilute the niche if they sit
+  // in the same run as the two above.
+  const others: ProjectCard[] = [
     {
       tag: t.projects.freelance_tag,
       title: t.projects.fontaneria_name,
@@ -123,8 +131,27 @@ export default function Projects() {
           rather than sitting centred, so each covers a different part of the
           word on its way past. */}
       <div className="relative z-10 px-6 md:px-16">
-        <div className="mt-16 md:mt-24 flex flex-col gap-28 md:gap-40">
-          {projects.map((p, i) => {
+        <ProjectList projects={featured} />
+
+        {/* Native <details>: the whole point is that these are secondary, and
+            a disclosure element says so with no state, no JS and no
+            accessibility work of our own. The cards inside are the same
+            component — folding them away is the deprioritisation. */}
+        <details className="mt-28 md:mt-40">
+          <summary className="cursor-pointer marker:text-muted text-xs font-mono tracking-widest text-muted uppercase hover:text-text transition-colors">
+            {t.projects.others}
+          </summary>
+          <ProjectList projects={others} />
+        </details>
+      </div>
+    </section>
+  );
+}
+
+function ProjectList({ projects }: { projects: ProjectCard[] }) {
+  return (
+    <div className="mt-16 md:mt-24 flex flex-col gap-28 md:gap-40">
+      {projects.map((p, i) => {
             // Odd cards hang on the right gutter. Below md there's no room to
             // offset anything, so both settle back to centred.
             const side = i % 2 === 0
@@ -190,8 +217,6 @@ export default function Projects() {
             </Reveal>
             );
           })}
-        </div>
-      </div>
-    </section>
+    </div>
   );
 }
