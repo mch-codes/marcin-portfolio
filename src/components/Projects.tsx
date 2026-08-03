@@ -64,7 +64,7 @@ export default function Projects() {
       demoUrl: "https://hebras-lemon.vercel.app",
       demoLabel: t.projects.client_cta,
       githubUrl: "https://github.com/mch-codes/hebras",
-      screenshot: "/hebras-screenshot.png",
+      screenshot: "/hebras-screenshot.webp",
     },
     {
       tag: t.projects.freelance_tag,
@@ -74,7 +74,7 @@ export default function Projects() {
       demoUrl: "https://fontaneria-urgente-lavapies.vercel.app",
       demoLabel: t.projects.freelance_demo,
       githubUrl: "https://github.com/mch-codes/fontaneria-urgente-lavapies",
-      screenshot: "/fontaneria-screenshot.png",
+      screenshot: "/fontaneria-screenshot.webp",
     },
     {
       tag: t.projects.freelance_tag,
@@ -84,7 +84,7 @@ export default function Projects() {
       demoUrl: "https://fisio-vitalia-landing.vercel.app",
       demoLabel: t.projects.freelance_demo,
       githubUrl: "https://github.com/mch-codes/fisio-vitalia-landing",
-      screenshot: "/fisio-screenshot.png",
+      screenshot: "/fisio-screenshot.webp",
     },
     {
       tag: t.projects.freelance_tag,
@@ -94,7 +94,7 @@ export default function Projects() {
       demoUrl: "https://taberna-el-fogon-landing.vercel.app",
       demoLabel: t.projects.freelance_demo,
       githubUrl: "https://github.com/mch-codes/taberna-el-fogon-landing",
-      screenshot: "/taberna-screenshot.png",
+      screenshot: "/taberna-screenshot.webp",
     },
   ];
 
