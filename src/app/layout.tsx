@@ -67,7 +67,11 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE_URL,
     siteName: "Marcin Chrzuszcz",
-    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: TITLE }],
+    // 1600x840, not the usual 1200x630. Same 1.91:1 ratio, but the hero sizes
+    // the vertical surname at 17vh against a ~900px budget (About.tsx), so at
+    // 630px tall the last letters of "Chrzuszcz" fall off the bottom. Shoot it
+    // taller and every scraper downscales from a whole layout.
+    images: [{ url: "/og.jpg", width: 1600, height: 840, alt: TITLE }],
   },
   twitter: {
     card: "summary_large_image",
