@@ -50,7 +50,7 @@ export default function Services() {
 
   return (
     <section id="services" className="py-20 md:py-24 relative overflow-hidden">
-      <SectionHeader word={t.services.title} scale={1.12} />
+      <SectionHeader word={t.services.title} />
 
       <div className="px-6 md:px-16">
         {/* Capped and centred rather than run to the page gutters: each child

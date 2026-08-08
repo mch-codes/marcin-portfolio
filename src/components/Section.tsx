@@ -1,7 +1,7 @@
 "use client";
 
 import { m, useInView, useReducedMotion } from "framer-motion";
-import { useRef, useSyncExternalStore } from "react";
+import { useLayoutEffect, useRef, useSyncExternalStore } from "react";
 
 // Built on first read, not at import: matchMedia doesn't exist on the server.
 let mql: MediaQueryList | undefined;
@@ -46,46 +46,65 @@ export const CTA =
 export const BADGE =
   "grid place-items-center w-10 h-10 rounded-full bg-text text-bg text-xs font-semibold tracking-wide focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
 
-// Sized so the word spans the viewport: 22.5vw fit the 9-char "servicios",
-// 25.5vw the 8-char "services". One knob for every wordmark on the page.
-// Must be an inline style — Tailwind can't generate arbitrary values it
-// can't see in the source, so `text-[${n}vw]` would silently produce nothing.
-const WORDMARK_VW = 202;
+/* Every wordmark runs the full width of the page, so its size is measured
+   rather than derived: type it at a known size, see how wide it came out, and
+   scale by the ratio. A per-word estimate can't do this — the old one guessed
+   from character count, which is wrong by the difference between an "i" and a
+   "w" and needed a hand-tuned multiplier per section to compensate.
+   text-[22vw] is only what the first paint and a no-JS render fall back to. */
+function useFitToWidth(word: string) {
+  const ref = useRef<HTMLHeadingElement>(null);
 
-// Ceiling on the above. The hero name is meant to be the largest type on the
-// site, and the derived vw size beat it by ~2.5x on a laptop — so a wordmark
-// may run to the viewport edge only until it reaches this fraction of the
-// name. Expressed against --name-size (globals.css) rather than as a smaller
-// vw constant on purpose: vw and vh trade places with the aspect ratio, so a
-// constant that holds on 1440x780 loses on 1920x600.
-const WORDMARK_CAP = "calc(var(--name-size) * 0.85)";
+  useLayoutEffect(() => {
+    const el = ref.current;
+    const box = el?.parentElement;
+    if (!el || !box) return;
+
+    const fit = () => {
+      // Measured at a fixed 100px rather than at whatever it currently is, so
+      // the result doesn't drift as it's applied and re-measured.
+      el.style.fontSize = "100px";
+      el.style.fontSize = `${(100 * box.clientWidth) / el.getBoundingClientRect().width}px`;
+    };
+
+    fit();
+    // The webfont lands after first paint; Inter and the fallback don't measure
+    // the same, so the first fit is against the wrong metrics.
+    document.fonts.ready.then(fit);
+    // Covers viewport resize and anything else that moves the gutters.
+    const ro = new ResizeObserver(fit);
+    ro.observe(box);
+    return () => ro.disconnect();
+  }, [word]);
+
+  return ref;
+}
 
 /** Full-bleed lowercase wordmark, with an optional supporting line set to the right. */
 export function SectionHeader({
   word,
-  scale = 1,
   children,
 }: {
   word: string;
-  /** Multiplier on the derived size, for a word the formula undersells.
-      A multiplier rather than an absolute vw: the size has to stay derived
-      from length, or the other language regresses — "servicios" is 9 chars
-      and "services" is 8, so any fixed number is wrong for one of them. */
-  scale?: number;
   children?: React.ReactNode;
 }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const wordRef = useFitToWidth(word);
 
   return (
     <>
       <div className="overflow-hidden" ref={ref}>
         <m.h2
+          ref={wordRef}
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease }}
-          style={{ fontSize: `min(${(WORDMARK_VW / word.length) * scale}vw, ${WORDMARK_CAP})` }}
-          className="font-black text-text tracking-tighter leading-none lowercase text-center whitespace-nowrap -mb-[0.15em]"
+          /* Inline, not a `font-sans` utility: the unlayered `h1, h2, h3` rule
+             in globals.css sets Fraunces at a specificity Tailwind's layered
+             utilities cannot beat. Same override the hero h1 carries. */
+          style={{ fontFamily: "var(--font-inter), Inter, system-ui, sans-serif" }}
+          className="w-fit text-[22vw] font-bold text-text tracking-tighter leading-none lowercase whitespace-nowrap -mb-[0.15em]"
         >
           {word}
         </m.h2>

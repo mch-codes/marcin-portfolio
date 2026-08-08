@@ -41,10 +41,9 @@
   }
 }
 
-/* The hero name is the largest type on the site, and that is a rule rather
-   than a coincidence: this is its size, and the full-bleed section wordmarks
-   cap themselves at a fraction of it — see WORDMARK_CAP in Section.tsx. Both
-   read the same variable so neither can drift past the other.
+/* The hero name's size. It used to be the largest type on the site, with the
+   section wordmarks capped at a fraction of it; the wordmarks now run the full
+   page width instead and are bigger — see useFitToWidth in Section.tsx.
 
    The breakpoint is 48rem to match Tailwind's `md`, which resolves against the
    20.8px root below, not against 16px. */
