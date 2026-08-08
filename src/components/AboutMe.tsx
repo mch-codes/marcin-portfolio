@@ -1,7 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/context/LanguageContext";
-import { SectionHeader, Reveal, Footnote } from "@/components/Section";
+import { SectionHeader, Reveal } from "@/components/Section";
 
 export default function AboutMe() {
   const { t } = useLanguage();
@@ -21,8 +21,7 @@ export default function AboutMe() {
             background; on white it measures 4.83:1, so the exception is gone. */}
         {/* ml-auto puts the block against the right gutter; the lines inside stay
             left-aligned, since a right rag over four paragraphs costs more in
-            reading speed than it buys. The footnote takes the left gutter so
-            the two don't stack on the same edge. */}
+            reading speed than it buys. */}
         <Reveal className="mt-24 md:mt-32 ml-auto max-w-2xl space-y-6 text-lg text-muted leading-relaxed">
           {[t.about.p1, t.about.p2, t.about.p2b, t.about.p3, t.about.p4].map((para, i) => (
             // One line per sentence, spans inside a single <p> so the paragraph
@@ -49,8 +48,6 @@ export default function AboutMe() {
             </p>
           ))}
         </Reveal>
-
-        <Footnote align="left">{t.about.tagline1} {t.about.tagline2}.</Footnote>
       </div>
     </section>
   );

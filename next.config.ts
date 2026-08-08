@@ -14,7 +14,8 @@ import path from "path";
    script same-origin from /_vercel/insights but reports to vitals. */
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  // React's dev build needs eval() for its debugging features; production never does.
+  `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self'",
