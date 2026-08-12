@@ -8,11 +8,10 @@ import { registerLenis } from "@/lib/scroll";
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const lenis = new Lenis({
-      // Lenis' own default. Was 0.8, which undercut it — the wheel stopped
-      // almost where it landed, so the easing barely read. This is the knob
-      // for how heavy the page feels; the exponential ease below only shapes
-      // the tail.
-      duration: 1.2,
+      // Under Lenis' 1.2 default: the wheel stops closer to where it lands,
+      // which reads as a lighter page. This is the knob for how heavy it
+      // feels; the exponential ease below only shapes the tail.
+      duration: 0.8,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
