@@ -9,7 +9,7 @@ export function registerLenis(lenis: Lenis) {
 /* Per-call, not on the Lenis instance: the instance duration also governs the
    wheel, and slowing that makes the whole page feel laggy under the hand. A
    click is a different gesture — it asks for a journey, not a nudge. */
-const CLICK_DURATION = 1;
+const CLICK_DURATION = 2;
 
 export function scrollToSection(id: string) {
   const el = document.getElementById(id);
