@@ -9,15 +9,17 @@ export const translations = {
     },
     about: {
       title: "Sobre mí",
-      p1: "Cocinero durante varios años en Londres y Madrid.",
-      p2: "Esa misma disciplina es la que traigo al desarrollo: construir, probar, corregir, repetir. Lo que funciona, se convierte en sistema.",
-      p3: "Ambos oficios viven donde la precisión se encuentra con la creatividad.",
+      p1: "Pasé años cocinando en Londres y Madrid. Las cocinas me enseñaron que la precisión y la creatividad no son opuestos: son la misma habilidad.",
+      p2: "Un buen plato es disciplina e instinto trabajando juntos: técnica lo bastante firme para confiar en ella, imaginación lo bastante suelta para hacerlo tuyo.",
+      p3: "En algún momento encontré un segundo oficio construido sobre la misma tensión. El código no es solo lógica: hay verdadero arte en una interfaz limpia, una estructura elegante, un sistema que parece obvio una vez construido pero que no lo era antes de construirlo. Aprendí igual que aprendí a cocinar: con las manos, iterando, buscando ese punto donde lo técnico y lo bello se encuentran. Lo que empezó como algo paralelo ya está funcionando en una cocina real, planificando producción de verdad.",
+      p4: "Tres idiomas, tres habitaciones de la misma vida:",
       // One language per line — rendered as a plain list, no markers.
-      p4: [
-        "El polaco es casa",
-        "El español es la vida en Madrid",
-        "El inglés es donde vive el código",
+      langs: [
+        "Polaco — casa.",
+        "Español — la vida en Madrid.",
+        "Inglés — donde vive el código.",
       ],
+      close: "Dos oficios. Un mismo instinto para encontrar dónde la precisión se cruza con la creatividad.",
       portraitAlt: "Marcin con chaquetilla de cocina, retrato en blanco y negro que se convierte en ASCII.",
       subtitle: "De las cocinas al código.",
       // One sentence per entry — the hero renders each on its own line.
@@ -214,14 +216,16 @@ export const translations = {
     },
     about: {
       title: "About me",
-      p1: "Cook for several years in London and Madrid.",
-      p2: "That same discipline is what I bring to development: build, test, fix, repeat. What works, becomes a system.",
-      p3: "Both live where precision meets creativity.",
-      p4: [
-        "Polish is home",
-        "Spanish is life in Madrid",
-        "English is where the code lives",
+      p1: "I spent years cooking in London and Madrid. Kitchens taught me that precision and creativity aren't opposites — they're the same skill.",
+      p2: "A good plate is discipline and instinct working together: technique tight enough to trust, imagination loose enough to make it yours.",
+      p3: "Somewhere along the way I found a second craft built on the same tension. Code isn't just logic — there's real artistry in a clean interface, an elegant structure, a system that feels obvious once it's built but wasn't before you built it. I taught myself the same way I learned to cook: hands-on, iterating, chasing that point where the technical and the beautiful meet. What started as a side pursuit is now running in an actual kitchen, planning real production.",
+      p4: "Three languages, three rooms of the same life:",
+      langs: [
+        "Polish — home.",
+        "Spanish — life in Madrid.",
+        "English — where the code lives.",
       ],
+      close: "Two crafts. One instinct for where precision meets creativity.",
       portraitAlt: "Marcin in chef's whites, a black-and-white portrait resolving into ASCII.",
       subtitle: "From the kitchen to the code.",
       hero_sub: [

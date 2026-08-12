@@ -26,6 +26,21 @@ const RAMP = "@%#*+=-:. ";
 const WIDTH = 320;
 const HEIGHT = 456;
 const CELL = 5;
+const COLS = Math.floor(WIDTH / CELL);
+
+/* The front isn't a rule, it's a blocky edge: columns convert in slabs of
+   BLOCK, each slab running ahead of or behind its neighbours by its own fixed
+   amount, so the boundary steps in squares rather than rolling in a wave —
+   the photo comes apart in tiles. One offset per slab from a fract-sine hash;
+   ponytail: deterministic, no table, no noise library. AMP is the half-range;
+   the scan travels that much past both ends so the edge still clears the frame
+   completely at either extreme. */
+const BLOCK = 1;
+const AMP = 26;
+const edgeOffset = (col: number) => {
+  const h = Math.sin(Math.floor(col / BLOCK) * 127.1) * 43758.5453;
+  return (h - Math.floor(h) - 0.5) * 2 * AMP;
+};
 
 type Cell = { col: number; row: number; char: string; lum: number };
 
@@ -128,41 +143,45 @@ export default function Portrait({ alt }: { alt: string }) {
     // Three tones, not a per-pixel gradient: the darks carry the face, the
     // mids sit back, the lights recede. All ink and grey — the source is a
     // black-and-white photograph and colour only made it look tinted.
-    const drawAscii = (untilY = Infinity) => {
-      for (const p of gridRef.current) {
-        const y = p.row * CELL;
-        if (y > untilY) continue;
-        ctx.fillStyle = p.lum < 70 ? ink : p.lum < 140 ? mid : muted;
-        ctx.fillText(p.char, p.col * CELL, y);
+    // Where each column has converted down to. Snapped to whole cells, so the
+    // ground, the glyphs and the photo all cut on the same step and no sliver
+    // of one shows through the other.
+    const p = Math.min(Math.max(progress, 0), 1);
+    const scanY = p * (HEIGHT + 2 * AMP) - AMP;
+    const edges = Array.from({ length: COLS }, (_, col) =>
+      Math.min(HEIGHT, Math.max(0, Math.round((scanY + edgeOffset(col)) / CELL) * CELL)),
+    );
+
+    const drawAscii = () => {
+      for (const g of gridRef.current) {
+        if (g.row * CELL >= edges[g.col]) continue;
+        ctx.fillStyle = g.lum < 70 ? ink : g.lum < 140 ? mid : muted;
+        ctx.fillText(g.char, g.col * CELL, g.row * CELL);
       }
     };
 
-    const scanY = Math.min(Math.max(progress, 0), 1) * HEIGHT;
-
-    if (scanY >= HEIGHT) {
+    if (p >= 1) {
+      // Every column has already clamped to HEIGHT — the scan overshoots by AMP.
       drawAscii();
       return;
     }
 
-    // Below the line: the photo, untouched.
+    // Below the edge: the photo, untouched.
     ctx.save();
     ctx.beginPath();
-    ctx.rect(0, scanY, WIDTH, HEIGHT - scanY);
+    edges.forEach((e, col) => e < HEIGHT && ctx.rect(col * CELL, e, CELL, HEIGHT - e));
     ctx.clip();
     ctx.drawImage(img, 0, 0, WIDTH, HEIGHT);
     ctx.restore();
 
-    if (scanY <= 0) return;
+    if (p <= 0) return;
 
     // Above it: opaque ASCII on a clean ground, so the two never blend.
-    ctx.save();
-    ctx.beginPath();
-    ctx.rect(0, 0, WIDTH, scanY);
-    ctx.clip();
-    ctx.fillStyle = bg;
-    ctx.fillRect(0, 0, WIDTH, scanY);
-    drawAscii(scanY);
-    ctx.restore();
+    edges.forEach((e, col) => {
+      ctx.fillStyle = bg;
+      ctx.fillRect(col * CELL, 0, CELL, e);
+    });
+    drawAscii();
     // No rule at the boundary: the change in texture marks it on its own.
   }, []);
 

@@ -38,18 +38,21 @@ export default function AboutMe() {
               mobile for the same reason. */}
           <div className="mt-8 md:mt-10 flex flex-col md:flex-row md:items-start gap-10 md:gap-16">
             <div className="max-w-2xl space-y-6 text-base md:text-lg font-normal text-muted leading-relaxed">
-              {[t.about.p2, t.about.p3].map((para) => (
+              {[t.about.p2, t.about.p3, t.about.p4].map((para) => (
                 <p key={para}>{para}</p>
               ))}
 
               {/* Still a list to a screen reader, just an undecorated one —
                   no markers, no indent, set tighter than the paragraph gap so
-                  the three lines read as one block. */}
-              <ul className="space-y-1">
-                {t.about.p4.map((line) => (
+                  the three lines read as one block. Pulled up against the line
+                  that introduces them, which ends on a colon. */}
+              <ul className="space-y-1 !mt-2">
+                {t.about.langs.map((line) => (
                   <li key={line}>{line}</li>
                 ))}
               </ul>
+
+              <p className="text-text">{t.about.close}</p>
             </div>
 
             <Portrait alt={t.about.portraitAlt} />
