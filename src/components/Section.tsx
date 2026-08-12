@@ -56,7 +56,7 @@ export const BADGE =
    scale by the ratio. A per-word estimate can't do this — the old one guessed
    from character count, which is wrong by the difference between an "i" and a
    "w" and needed a hand-tuned multiplier per section to compensate.
-   text-[19vw] is only what the first paint and a no-JS render fall back to —
+   text-[16vw] is only what the first paint and a no-JS render fall back to —
    kept near the fitted size at the gutters below so there is no visible jump. */
 function useFitToWidth(word: string) {
   const ref = useRef<HTMLHeadingElement>(null);
@@ -101,12 +101,13 @@ export function SectionHeader({
   return (
     <>
       {/* The gutters are what size the wordmark: it fits its parent, so insetting
-          the parent is the whole knob. Same px-6/md:px-16 the body copy uses,
-          so the word lines up with the columns under it.
+          the parent is the whole knob — wider padding here, smaller type. Set
+          deeper than the body's px-6/md:px-16 so the word reads as a heading
+          rather than a full-bleed slab.
           The padding has to live on an outer div, not on the measuring box —
           clientWidth counts padding, so padding there would leave the fit
           targeting the full width while drawing into a narrower box. */}
-      <div className="px-6 md:px-16">
+      <div className="px-10 md:px-48">
         <div className="overflow-hidden" ref={ref}>
           <m.h2
             ref={wordRef}
@@ -117,7 +118,7 @@ export function SectionHeader({
                in globals.css sets Fraunces at a specificity Tailwind's layered
                utilities cannot beat. Same override the hero h1 carries. */
             style={{ fontFamily: "var(--font-inter), Inter, system-ui, sans-serif" }}
-            className="w-fit text-[19vw] font-bold text-text tracking-tighter leading-none lowercase whitespace-nowrap -mb-[0.15em]"
+            className="w-fit text-[16vw] font-bold text-text tracking-tighter leading-none lowercase whitespace-nowrap -mb-[0.15em]"
           >
             {word}
           </m.h2>
