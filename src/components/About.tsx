@@ -191,7 +191,7 @@ export default function About() {
               unlayered `h1, h2, h3` rule in globals.css sets Fraunces at a
               specificity Tailwind's layered utilities cannot beat. */}
           <h1
-            className="text-base font-normal text-text md:whitespace-nowrap"
+            className="text-xl md:text-2xl font-medium text-text md:whitespace-nowrap"
             style={{ fontFamily: "var(--font-inter), Inter, system-ui, sans-serif" }}
           >
             {t.about.subtitle}

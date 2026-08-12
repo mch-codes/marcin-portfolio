@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 import { scrollToTop } from "@/lib/scroll";
 import { BADGE } from "@/components/Section";
+import { CONTACT_EMAIL as EMAIL } from "@/lib/constants";
 
-const EMAIL = "marcin.chrzuszcz@gmail.com";
 const LINKEDIN = "https://www.linkedin.com/in/marcin-chrzuszcz/";
 const GITHUB = "https://github.com/mch-codes";
 

@@ -24,6 +24,9 @@
   --color-accent: #047857;
   --color-accent-light: #059669;
   --color-gold: #10b981;
+  /* red-700, ~5.9:1 on white — the same contrast bar the tokens above hold
+     to, which is why the form's error line no longer reaches for red-400. */
+  --color-error: #b91c1c;
 }
 
 @theme inline {

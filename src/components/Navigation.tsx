@@ -146,7 +146,7 @@ export default function Navigation() {
             <button
               key={link.id}
               onClick={() => scrollToSection(link.id)}
-              className={`${NAV_ITEM} text-muted hover:text-text`}
+              className={`${NAV_ITEM} text-text`}
             >
               {link.label}
             </button>

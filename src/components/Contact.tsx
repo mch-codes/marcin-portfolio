@@ -5,8 +5,8 @@ import { useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { SectionHeader, CTA } from "@/components/Section";
 import { sendContactMessage } from "@/app/actions";
+import { CONTACT_EMAIL as EMAIL } from "@/lib/constants";
 
-const EMAIL = "marcin.chrzuszcz@gmail.com";
 const LINKEDIN = "https://www.linkedin.com/in/marcin-chrzuszcz/";
 
 function InputField({
@@ -160,7 +160,7 @@ export default function Contact() {
                 </label>
 
                 {status === "error" && (
-                  <p className="text-xs text-red-400">{t.contact.error}</p>
+                  <p className="text-xs text-error">{t.contact.error}</p>
                 )}
 
                 <div className="flex flex-wrap items-center gap-3">

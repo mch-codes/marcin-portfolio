@@ -3,6 +3,7 @@
 import { m } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import { SectionHeader, Reveal, CTA, Footnote } from "@/components/Section";
+import { CONTACT_EMAIL } from "@/lib/constants";
 
 const withPeriod = (s: string) => (/[.!?]$/.test(s) ? s : `${s}.`);
 
@@ -72,7 +73,7 @@ export default function Services() {
           className="mt-16 md:mt-20 mx-auto max-w-4xl flex justify-start"
         >
           <a
-            href="mailto:marcin.chrzuszcz@gmail.com"
+            href={`mailto:${CONTACT_EMAIL}`}
             className={CTA}
             
           >
