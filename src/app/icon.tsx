@@ -10,10 +10,11 @@ export default function Icon() {
         style={{
           width: 32,
           height: 32,
-          // The tile is 32px on a browser tab that may itself be white, so it
-          // carries its own fill rather than the page background —
-          // a white-on-white favicon reads as no favicon.
-          background: "#000000",
+          // White fill on a browser tab that is itself usually white, so the
+          // disc needs the ring to have an edge at all — without it the mark
+          // reads as two floating letters.
+          background: "#ffffff",
+          border: "2px solid #000000",
           borderRadius: "50%",
           display: "flex",
           alignItems: "center",
@@ -24,7 +25,7 @@ export default function Icon() {
           style={{
             fontSize: 13,
             fontWeight: 700,
-            color: "#ffffff",
+            color: "#000000",
             letterSpacing: "-0.5px",
             fontFamily: "sans-serif",
           }}
