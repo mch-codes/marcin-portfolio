@@ -9,11 +9,15 @@ export const translations = {
     },
     about: {
       title: "Sobre mí",
-      p1: "Varios años como jefe de partida en cocinas de Madrid. Ahí aprendes rápido: nada funciona por accidente. Cada plato depende de atención, sistemas, consistencia. El servicio empieza estés listo o no — así que construyes, fallas, corriges.",
-      p2: "Traje esa disciplina al desarrollo. No espero a saberlo todo. Construyo, rompo cosas, las arreglo. Lo que funciona, se convierte en sistema.",
-      p2b: "Es la misma disciplina que hay en un taller: respeto por el material, precisión en la medida, y una pieza que sale igual de bien la número veinte que la primera.",
-      p3: "Oidoo.app nació de un problema real que viví en cocina. Lo construí yo mismo. Lo uso a diario — en producción, probado contra servicio real, no una demo.",
-      p4: "Hablo polaco, español e inglés — a diario.",
+      p1: "Cocinero durante varios años en Londres y Madrid.",
+      p2: "Esa misma disciplina es la que traigo al desarrollo: construir, probar, corregir, repetir. Lo que funciona, se convierte en sistema.",
+      p3: "Ambos oficios viven donde la precisión se encuentra con la creatividad.",
+      // One language per line — rendered as a plain list, no markers.
+      p4: [
+        "El polaco es casa",
+        "El español es la vida en Madrid",
+        "El inglés es donde vive el código",
+      ],
       portraitAlt: "Marcin con chaquetilla de cocina, retrato en blanco y negro que se convierte en ASCII.",
       subtitle: "De las cocinas al código.",
       // One sentence per entry — the hero renders each on its own line.
@@ -210,11 +214,14 @@ export const translations = {
     },
     about: {
       title: "About me",
-      p1: "Several years as a section chef in Madrid kitchens. You learn fast: nothing works by accident. Every dish depends on attention, systems, consistency. Service starts whether you're ready or not — so you build, you fail, you correct.",
-      p2: "I brought that discipline into development. I don't wait to know everything. I build, break, fix — repeat. What works, becomes a system.",
-      p2b: "It's the same discipline a workshop runs on: respect for the material, precision in the measure, and a piece that comes out as well the twentieth time as the first.",
-      p3: "Oidoo.app came from a real problem I lived in the kitchen. I built it myself. I use it daily — in production, tested against real service, not a demo.",
-      p4: "I speak Polish, Spanish, and English — daily.",
+      p1: "Cook for several years in London and Madrid.",
+      p2: "That same discipline is what I bring to development: build, test, fix, repeat. What works, becomes a system.",
+      p3: "Both live where precision meets creativity.",
+      p4: [
+        "Polish is home",
+        "Spanish is life in Madrid",
+        "English is where the code lives",
+      ],
       portraitAlt: "Marcin in chef's whites, a black-and-white portrait resolving into ASCII.",
       subtitle: "From the kitchen to the code.",
       hero_sub: [
