@@ -32,7 +32,12 @@ const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
  * theirs alone: `shrink-0`, `self-start`, `disabled:*`.
  */
 export const CTA =
-  "inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3 rounded-full border border-border text-sm font-semibold text-muted transition-colors duration-200 hover:text-text hover:border-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
+  "relative isolate overflow-hidden inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3 rounded-full border border-border text-sm font-semibold text-muted transition-colors duration-300 hover:text-bg hover:border-text focus-visible:text-bg focus-visible:border-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg " +
+  /* The ink wipe: a full-size layer behind the label, scaled flat against the
+     left edge and released on hover. `isolate` + `-z-10` keeps it under the
+     text without the callers having to wrap their label in a span, and
+     `overflow-hidden` is what clips it back to the pill. */
+  "before:absolute before:inset-0 before:-z-10 before:bg-text before:origin-left before:scale-x-0 before:transition-transform before:duration-300 before:ease-out hover:before:scale-x-100 focus-visible:before:scale-x-100";
 
 /**
  * The ink-filled "MC" badge. One look, two places: the back-to-top control
