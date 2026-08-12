@@ -40,7 +40,7 @@ export const CTA =
   "before:absolute before:inset-0 before:-z-10 before:bg-text before:origin-left before:scale-x-0 before:transition-transform before:duration-300 before:ease-out hover:before:scale-x-100 focus-visible:before:scale-x-100";
 
 /**
- * The ink-filled "MC" badge. One look, two places: the back-to-top control
+ * The ringed "MC" badge. One look, two places: the back-to-top control
  * pinned bottom-left and the footer's mark. The caller owns position and
  * behaviour; only the disc itself lives here.
  *
@@ -49,7 +49,7 @@ export const CTA =
  * differently made them look like two brands.
  */
 export const BADGE =
-  "grid place-items-center w-10 h-10 rounded-full bg-text text-bg text-xs font-semibold tracking-wide focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
+  "grid place-items-center w-10 h-10 rounded-full bg-bg text-text border border-text text-xs font-semibold tracking-wide focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
 
 /* Every wordmark runs the full width of the page, so its size is measured
    rather than derived: type it at a known size, see how wide it came out, and

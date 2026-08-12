@@ -10,11 +10,10 @@ export default function Icon() {
         style={{
           width: 32,
           height: 32,
-          // White fill on a browser tab that is itself usually white, so the
-          // disc needs the ring to have an edge at all — without it the mark
-          // reads as two floating letters.
+          // Deliberately unringed: on the usual white tab strip the disc has no
+          // visible edge and the mark reads as two floating letters. The fill
+          // is still opaque, so it holds up on a dark tab strip too.
           background: "#ffffff",
-          border: "2px solid #000000",
           borderRadius: "50%",
           display: "flex",
           alignItems: "center",

@@ -98,8 +98,10 @@ export default function Navigation() {
         in `next dev`; that bubble does not exist in a production build, so the
         overlap is local only.
 
-        Solid ink fill, so no border and no backdrop-blur — both only did
-        anything under the old translucent bg. No hover state. */}
+        Opaque page-bg fill with an ink ring, so no backdrop-blur — that only
+        did anything under the old translucent bg. The fill matters here more
+        than in the footer: this one floats over whatever is scrolling past,
+        including the full-bleed wordmarks. No hover state. */}
     <button
       onClick={scrollToTop}
       aria-label="Back to top"
