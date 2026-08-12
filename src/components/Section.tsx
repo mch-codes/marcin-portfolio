@@ -102,21 +102,26 @@ export function SectionHeader({
     <>
       {/* The gutters are what size the wordmark: it fits its parent, so insetting
           the parent is the whole knob. Same px-6/md:px-16 the body copy uses,
-          so the word now lines up with the columns under it. */}
-      <div className="overflow-hidden px-6 md:px-16" ref={ref}>
-        <m.h2
-          ref={wordRef}
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease }}
-          /* Inline, not a `font-sans` utility: the unlayered `h1, h2, h3` rule
-             in globals.css sets Fraunces at a specificity Tailwind's layered
-             utilities cannot beat. Same override the hero h1 carries. */
-          style={{ fontFamily: "var(--font-inter), Inter, system-ui, sans-serif" }}
-          className="w-fit text-[19vw] font-bold text-text tracking-tighter leading-none lowercase whitespace-nowrap -mb-[0.15em]"
-        >
-          {word}
-        </m.h2>
+          so the word lines up with the columns under it.
+          The padding has to live on an outer div, not on the measuring box —
+          clientWidth counts padding, so padding there would leave the fit
+          targeting the full width while drawing into a narrower box. */}
+      <div className="px-6 md:px-16">
+        <div className="overflow-hidden" ref={ref}>
+          <m.h2
+            ref={wordRef}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease }}
+            /* Inline, not a `font-sans` utility: the unlayered `h1, h2, h3` rule
+               in globals.css sets Fraunces at a specificity Tailwind's layered
+               utilities cannot beat. Same override the hero h1 carries. */
+            style={{ fontFamily: "var(--font-inter), Inter, system-ui, sans-serif" }}
+            className="w-fit text-[19vw] font-bold text-text tracking-tighter leading-none lowercase whitespace-nowrap -mb-[0.15em]"
+          >
+            {word}
+          </m.h2>
+        </div>
       </div>
 
       {children && (
