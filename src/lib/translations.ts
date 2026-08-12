@@ -14,6 +14,7 @@ export const translations = {
       p2b: "Es la misma disciplina que hay en un taller: respeto por el material, precisión en la medida, y una pieza que sale igual de bien la número veinte que la primera.",
       p3: "Oidoo.app nació de un problema real que viví en cocina. Lo construí yo mismo. Lo uso a diario — en producción, probado contra servicio real, no una demo.",
       p4: "Hablo polaco, español e inglés — a diario.",
+      portraitAlt: "Marcin con chaquetilla de cocina, retrato en blanco y negro que se convierte en ASCII.",
       subtitle: "De las cocinas al código.",
       // One sentence per entry — the hero renders each on its own line.
       hero_sub: [
@@ -214,6 +215,7 @@ export const translations = {
       p2b: "It's the same discipline a workshop runs on: respect for the material, precision in the measure, and a piece that comes out as well the twentieth time as the first.",
       p3: "Oidoo.app came from a real problem I lived in the kitchen. I built it myself. I use it daily — in production, tested against real service, not a demo.",
       p4: "I speak Polish, Spanish, and English — daily.",
+      portraitAlt: "Marcin in chef's whites, a black-and-white portrait resolving into ASCII.",
       subtitle: "From the kitchen to the code.",
       hero_sub: [
         "Same discipline, different craft.",

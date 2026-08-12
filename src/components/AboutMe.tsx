@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { SectionHeader, Reveal } from "@/components/Section";
+import Portrait from "@/components/Portrait";
 
 export default function AboutMe() {
   const { t } = useLanguage();
@@ -31,12 +32,18 @@ export default function AboutMe() {
             <strong className="font-bold">{openers}</strong> {rest}
           </p>
 
-          {/* Supporting tier: one step of contrast in size and one in colour,
-              no bold. It starts at p2 — the whole of p1 is the lead now. */}
-          <div className="mt-8 md:mt-10 max-w-2xl space-y-6 text-base md:text-lg font-normal text-muted leading-relaxed">
-            {[t.about.p2, t.about.p2b, t.about.p3, t.about.p4].map((para) => (
-              <p key={para}>{para}</p>
-            ))}
+          {/* The lead runs full width above; the body copy and the portrait
+              share the row under it. The portrait is second in the DOM so a
+              screen reader gets the prose first, and it stacks below on
+              mobile for the same reason. */}
+          <div className="mt-8 md:mt-10 flex flex-col md:flex-row md:items-start gap-10 md:gap-16">
+            <div className="max-w-2xl space-y-6 text-base md:text-lg font-normal text-muted leading-relaxed">
+              {[t.about.p2, t.about.p2b, t.about.p3, t.about.p4].map((para) => (
+                <p key={para}>{para}</p>
+              ))}
+            </div>
+
+            <Portrait alt={t.about.portraitAlt} />
           </div>
         </Reveal>
       </div>
