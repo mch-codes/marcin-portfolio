@@ -210,7 +210,7 @@ export const translations = {
     about: {
       title: "About me",
       p1: "Several years as a section chef in Madrid kitchens. You learn fast: nothing works by accident. Every dish depends on attention, systems, consistency. Service starts whether you're ready or not — so you build, you fail, you correct.",
-      p2: "I brought that discipline into development. I don't wait until I know everything. I build, break things, fix them. What works, becomes a system.",
+      p2: "I brought that discipline into development. I don't wait to know everything. I build, break, fix — repeat. What works, becomes a system.",
       p2b: "It's the same discipline a workshop runs on: respect for the material, precision in the measure, and a piece that comes out as well the twentieth time as the first.",
       p3: "Oidoo.app came from a real problem I lived in the kitchen. I built it myself. I use it daily — in production, tested against real service, not a demo.",
       p4: "I speak Polish, Spanish, and English — daily.",
