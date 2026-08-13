@@ -166,14 +166,17 @@ function ProjectList({ projects }: { projects: ProjectCard[] }) {
               {/* next/image, not <img>: Vercel then serves a resized AVIF/WebP
                   instead of the full-size PNG. Card caps at max-w-3xl, so
                   `sizes` can be honest about it. */}
-              <div className="w-full">
+              {/* overflow-hidden so the hover scale crops instead of pushing
+                  the caption around. The whole card is one hit area (the demo
+                  link's after:inset-0), so the zoom reads as its affordance. */}
+              <div className="w-full overflow-hidden">
                 <Image
                   src={p.screenshot}
                   alt={p.title}
                   width={1280}
                   height={800}
                   sizes="(max-width: 768px) 100vw, 48rem"
-                  className="w-full aspect-[16/10] object-cover object-top"
+                  className="w-full aspect-[16/10] object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02] group-focus-within:scale-[1.02] motion-reduce:group-hover:scale-100 motion-reduce:group-focus-within:scale-100"
                 />
               </div>
 

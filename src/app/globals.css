@@ -7,7 +7,6 @@
 @theme {
   --color-bg: #ffffff;
   --color-card: #f4f4f5;
-  --color-card-hover: #e4e4e7;
   --color-border: #d4d4d8;
   --color-border-light: #a1a1aa;
   /* Two text levels, no third. text-text for headings and labels, text-muted
