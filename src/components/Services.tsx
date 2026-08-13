@@ -2,18 +2,10 @@
 
 import { m } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
-import { SectionHeader, Reveal, CTA, Footnote } from "@/components/Section";
+import { SectionHeader, Reveal, CTA, Footnote, HAIRLINE_WIPE } from "@/components/Section";
 import { CONTACT_EMAIL } from "@/lib/constants";
 
 const withPeriod = (s: string) => (/[.!?]$/.test(s) ? s : `${s}.`);
-
-/** Darkens an existing `border-t` left-to-right when the enclosing `group` is
- * hovered. Sits at -top-px because an absolute child anchors to the padding
- * box, one pixel below the border it has to cover. */
-const HAIRLINE_WIPE =
-  "relative before:absolute before:-top-px before:left-0 before:h-px before:w-full before:bg-text " +
-  "before:origin-left before:scale-x-0 before:transition-transform before:duration-500 before:ease-out " +
-  "group-hover:before:scale-x-100 motion-reduce:before:transition-none";
 
 type ServiceCard = { title: string; desc: string; price: string; features: string[] };
 type LineItem = { label: string; price: string };

@@ -40,6 +40,20 @@ export const CTA =
   "before:absolute before:inset-0 before:-z-10 before:bg-text before:origin-left before:scale-x-0 before:transition-transform before:duration-300 before:ease-out hover:before:scale-x-100 focus-visible:before:scale-x-100";
 
 /**
+ * Darkens an existing `border-t` left-to-right when the enclosing `group` is
+ * hovered — the same wipe as the CTA fill and the nav underline, applied to a
+ * rule instead of a shape. Used by the Services and Process cards.
+ *
+ * The border is the resting state and stays put; this only paints over it, so
+ * nothing moves on load. `-top-px` because an absolutely positioned child
+ * anchors to the padding box, one pixel below the border it has to cover.
+ */
+export const HAIRLINE_WIPE =
+  "relative before:absolute before:-top-px before:left-0 before:h-px before:w-full before:bg-text " +
+  "before:origin-left before:scale-x-0 before:transition-transform before:duration-500 before:ease-out " +
+  "group-hover:before:scale-x-100 motion-reduce:before:transition-none";
+
+/**
  * The ringed "MC" badge. One look, two places: the back-to-top control
  * pinned bottom-left and the footer's mark. The caller owns position and
  * behaviour; only the disc itself lives here.
