@@ -74,6 +74,9 @@ export const translations = {
       ],
       cta_text: "Cuéntame qué necesitas. Respondo en 24h, sin compromiso.",
       cta_button: "Hablemos",
+      /* Dropped into the contact form's message box when a card is clicked.
+         {service} is the card's own title. */
+      pick_message: "Hola, me interesa el servicio de {service}.",
     },
     projects: {
       headline: "Proyectos",
@@ -282,6 +285,7 @@ export const translations = {
       ],
       cta_text: "Tell me what you need. I reply within 24h, no commitment.",
       cta_button: "Let's talk",
+      pick_message: "Hi, I'm interested in the {service} service.",
     },
     projects: {
       headline: "Projects",

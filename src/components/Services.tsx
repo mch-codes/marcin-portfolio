@@ -3,6 +3,7 @@
 import { m } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import { SectionHeader, Reveal, CTA, Footnote, HAIRLINE_WIPE } from "@/components/Section";
+import { scrollToSection } from "@/lib/scroll";
 import { CONTACT_EMAIL } from "@/lib/constants";
 
 const withPeriod = (s: string) => (/[.!?]$/.test(s) ? s : `${s}.`);
@@ -10,15 +11,43 @@ const withPeriod = (s: string) => (/[.!?]$/.test(s) ? s : `${s}.`);
 type ServiceCard = { title: string; desc: string; price: string; features: string[] };
 type LineItem = { label: string; price: string };
 
+/**
+ * Puts the picked tier in the contact form's message box, then takes the
+ * visitor there. A direct DOM write rather than lifted state or a context:
+ * the textarea is uncontrolled and Contact is a sibling three components
+ * away, so wiring a provider through the page to carry one string costs more
+ * than it buys. Missing box means the form is showing its success panel —
+ * nothing to fill, and the scroll still happens.
+ */
+function pickService(title: string, template: string) {
+  const box = document.querySelector<HTMLTextAreaElement>('textarea[name="message"]');
+  if (box) box.value = template.replace("{service}", title);
+  scrollToSection("contact");
+}
+
 function ServiceCardItem({ card, delay }: { card: ServiceCard; delay: number }) {
+  const { t } = useLanguage();
+
   return (
+    // A real `#contact` link, not a button: it is a jump to another part of
+    // this page, it works with JS off, and unlike <button> its content model
+    // allows the feature <ul> inside. The click is intercepted only to fill
+    // the form and to hand the scroll to Lenis.
+    //
     // Three Reveals rather than one on the whole card: title, then body, then
     // price. All three hang off the card's own delay, so the per-card stagger
     // from the grid still holds.
     // h-full + mt-auto on the price: grid rows stretch, so the price line
     // sits on the same baseline across all three cards even though the
     // feature lists differ in length.
-    <div className="group flex flex-col items-start text-left w-full max-w-xs h-full">
+    <a
+      href="#contact"
+      onClick={(e) => {
+        e.preventDefault();
+        pickService(card.title, t.services.pick_message);
+      }}
+      className="group flex flex-col items-start text-left w-full max-w-xs h-full rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-bg"
+    >
       <Reveal delay={delay}>
         <h3 className="text-2xl font-bold text-text tracking-tight leading-tight">
           {withPeriod(card.title)}
@@ -49,11 +78,19 @@ function ServiceCardItem({ card, delay }: { card: ServiceCard; delay: number }) 
       <Reveal delay={delay + 0.5} className="mt-auto flex flex-col items-start w-full">
         {/* delay-100 so the two hairlines wipe top-then-bottom rather than
             firing as one block. */}
-        <p className={`mt-5 pt-4 w-full border-t border-border font-mono text-sm font-semibold text-text ${HAIRLINE_WIPE} before:delay-100`}>
+        <p className={`mt-5 pt-4 w-full flex items-baseline justify-between gap-4 border-t border-border font-mono text-sm font-semibold text-text ${HAIRLINE_WIPE} before:delay-100`}>
           {card.price}
+          {/* The card's only affordance — without it a whole clickable card
+              looks like plain type. Muted at rest so it reads as a mark
+              rather than a second price, and it steps to full text colour
+              with the hairline above it. Same justify-between row as
+              LineItemRow below. */}
+          <span aria-hidden className="text-border-light transition-colors duration-300 group-hover:text-text">
+            &rarr;
+          </span>
         </p>
       </Reveal>
-    </div>
+    </a>
   );
 }
 
