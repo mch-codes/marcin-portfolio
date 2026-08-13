@@ -16,6 +16,18 @@
      and case, not from a lighter grey. */
   --color-text: #1e1e1e;
   --color-muted: #6b7280;
+  /* For the project captions, which run `mix-blend-difference` over the
+     sticky wordmark. Difference gives `|backdrop - source|`, so a source has
+     to sit near white to swing: white reads as black on the page and as
+     white on the letterforms. A mid-grey does not invert at all — muted's
+     #6b7280 comes out #766f61 over the black, the same grey it already was,
+     which is why these are not the muted token pre-inverted.
+     So the caption's two levels can't be the site's two greys here. They're
+     white and a near-white, which land as black and near-black on the page
+     — hierarchy inside the block falls to size, weight and case, the way
+     the note above already asks for. */
+  --color-text-diff: #ffffff;
+  --color-muted-diff: #d8d8d8;
   /* Emerald-700 rather than the emerald-500 the dark theme used: the lighter
      green only clears 2.1:1 on white, so every `text-accent` label would fail
      contrast. Buttons flip it to a white-on-accent fill, which needs the

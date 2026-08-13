@@ -117,10 +117,11 @@ export default function Projects() {
         height, which sticky ignores when it measures — so the two together
         centre it.
 
-        No background fill and no z-index on purpose: the cards below carry
-        `z-10` and paint over the letterforms, which is the whole effect. Give
-        this block an opaque bg and the cards slide under it like a shelf
-        instead.
+        No background fill and no z-index on purpose: the cards are the later
+        sibling, so they paint over the letterforms, which is the whole
+        effect. Give this block an opaque bg and the cards slide under it
+        like a shelf instead — and an opaque bg would also be the backdrop
+        the captions blend against, which is the wordmark's other job here.
       */}
       <div className="sticky top-1/2 -translate-y-1/2">
         <SectionHeader word={t.projects.headline} />
@@ -129,8 +130,13 @@ export default function Projects() {
       {/* One card per row, and a screen's worth of air between them, so only
           one is ever over the wordmark at a time. They alternate gutters
           rather than sitting centred, so each covers a different part of the
-          word on its way past. */}
-      <div className="relative z-10 px-6 md:px-16">
+          word on its way past.
+          No z-index, deliberately: z-10 here made this an isolating stacking
+          context, which cut the captions' mix-blend-difference off from the
+          wordmark it needs to blend against. Both this and the sticky
+          wordmark are positioned at z-auto, so paint order falls back to DOM
+          order — and the cards are second. */}
+      <div className="relative px-6 md:px-16">
         <ProjectList projects={featured} />
 
         {/* Native <details>: the whole point is that these are secondary, and
@@ -181,16 +187,27 @@ function ProjectList({ projects }: { projects: ProjectCard[] }) {
               </div>
 
               {/* Deliberately unfilled: the wordmark reads through the caption
-                  as the card passes over it. ponytail: costs legibility where
-                  the two cross — put bg-bg back if that bothers you. */}
+                  as the card passes over it. */}
               <div className={`w-full pt-8 pb-2 flex flex-col items-center ${side.items}`}>
-                <p className="text-xs font-mono tracking-widest text-muted uppercase">
-                  {p.tag}
-                  {p.status ? ` · ${p.status}` : ""}
-                </p>
-                <h3 className="mt-4 text-2xl md:text-3xl font-bold text-text tracking-tight leading-tight">{p.title}</h3>
-                <p className="mt-4 text-base text-muted leading-relaxed max-w-md">{p.desc}</p>
-                <p className="mt-5 text-sm text-muted">{p.stack.join(" · ")}</p>
+                {/* The type inverts itself against whatever it is over.
+                    `difference` gives |backdrop - source|, so the near-white
+                    -diff tokens come out black on the page and white on the
+                    wordmark — no measuring, no scroll listener, and it
+                    tracks the letterforms hole by hole. See globals.css for
+                    why these can't just be text/muted pre-inverted.
+                    Blending only reaches out to the nearest isolating
+                    ancestor, which is why the wrapper below dropped its
+                    z-10. The link row stays outside this block: it hovers to
+                    accent green, and difference would invert that too. */}
+                <div className={`flex flex-col mix-blend-difference ${side.items}`}>
+                  <p className="text-xs font-mono tracking-widest text-muted-diff uppercase">
+                    {p.tag}
+                    {p.status ? ` · ${p.status}` : ""}
+                  </p>
+                  <h3 className="mt-4 text-2xl md:text-3xl font-bold text-text-diff tracking-tight leading-tight">{p.title}</h3>
+                  <p className="mt-4 text-base text-muted-diff leading-relaxed max-w-md">{p.desc}</p>
+                  <p className="mt-5 text-sm text-muted-diff">{p.stack.join(" · ")}</p>
+                </div>
 
                 <div className="mt-5 flex items-center gap-6">
                 <a
