@@ -52,7 +52,7 @@ const jsonLd = {
 // already drifted apart once.
 const TITLE = "Marcin Chrzuszcz — Webs para artesanos | Madrid";
 const DESCRIPTION =
-  "Webs para ceramistas, joyeros, marroquineros y talleres textiles de Madrid. Catálogo de piezas, contacto por Instagram y WhatsApp, o tienda online con Stripe. Desde 400€.";
+  "Webs para ceramistas, joyeros, marroquineros y talleres textiles de Madrid. Catálogo de piezas, contacto por Instagram y WhatsApp, o tienda online con Stripe. Desde 700€.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

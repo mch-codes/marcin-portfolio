@@ -38,7 +38,7 @@ export const translations = {
       title: "Servicios",
       card1_title: "Landing page",
       card1_desc: "Una página que dice qué haces y consigue que te escriban.",
-      card1_price: "Desde 400€",
+      card1_price: "Desde 700€",
       card1_features: [
         "Todo en un scroll: portada, servicios y contacto",
         "Contacto por Instagram y WhatsApp, donde ya está tu clientela",
@@ -47,7 +47,7 @@ export const translations = {
       ],
       card2_title: "Portfolio",
       card2_desc: "Tu catálogo completo online, organizado y fácil de ver.",
-      card2_price: "Desde 550€",
+      card2_price: "Desde 900€",
       card2_features: [
         "Galería completa con categorías y colecciones",
         "Gestor de contenido simple: subes piezas sin tocar código",
@@ -55,7 +55,7 @@ export const translations = {
       ],
       card3_title: "Tienda online",
       card3_desc: "Para quien de verdad necesita vender online.",
-      card3_price: "Desde 950€",
+      card3_price: "Desde 1.800€",
       card3_features: [
         "Carrito y cobro real con Stripe",
         "Control de stock y pedidos",
@@ -63,14 +63,14 @@ export const translations = {
       ],
       addons_heading: "Extras",
       addons: [
-        { label: "SEO básico", price: "120€" },
-        { label: "Redacción ES/EN", price: "200€" },
+        { label: "SEO básico", price: "150€" },
+        { label: "Redacción ES/EN", price: "250€" },
         { label: "Dominio + correo profesional", price: "60€" },
       ],
       maintenance_heading: "Mantenimiento",
       maintenance: [
-        { label: "Landing page / Portfolio", price: "35€/mes" },
-        { label: "Tienda online", price: "75€/mes" },
+        { label: "Landing page / Portfolio", price: "45€/mes" },
+        { label: "Tienda online", price: "90€/mes" },
       ],
       cta_text: "Cuéntame qué necesitas. Respondo en 24h, sin compromiso.",
       cta_button: "Hablemos",
@@ -246,7 +246,7 @@ export const translations = {
       title: "Services",
       card1_title: "Landing page",
       card1_desc: "One page that says what you do and gets people in touch.",
-      card1_price: "From €400",
+      card1_price: "From €700",
       card1_features: [
         "Hero, services, and contact in one scroll",
         "Instagram and WhatsApp contact, where people already are",
@@ -255,7 +255,7 @@ export const translations = {
       ],
       card2_title: "Portfolio",
       card2_desc: "Your full catalogue online, organised and easy to browse.",
-      card2_price: "From €550",
+      card2_price: "From €900",
       card2_features: [
         "Full gallery with categories and collections",
         "Simple content editor: add pieces without touching code",
@@ -263,7 +263,7 @@ export const translations = {
       ],
       card3_title: "Online store",
       card3_desc: "For makers who genuinely need to sell online.",
-      card3_price: "From €950",
+      card3_price: "From €1,800",
       card3_features: [
         "Real cart and checkout with Stripe",
         "Stock and order management",
@@ -271,14 +271,14 @@ export const translations = {
       ],
       addons_heading: "Add-ons",
       addons: [
-        { label: "Basic SEO setup", price: "€120" },
-        { label: "Copywriting ES/EN", price: "€200" },
+        { label: "Basic SEO setup", price: "€150" },
+        { label: "Copywriting ES/EN", price: "€250" },
         { label: "Domain + professional email", price: "€60" },
       ],
       maintenance_heading: "Maintenance",
       maintenance: [
-        { label: "Landing page / Portfolio", price: "€35/mo" },
-        { label: "Online store", price: "€75/mo" },
+        { label: "Landing page / Portfolio", price: "€45/mo" },
+        { label: "Online store", price: "€90/mo" },
       ],
       cta_text: "Tell me what you need. I reply within 24h, no commitment.",
       cta_button: "Let's talk",
