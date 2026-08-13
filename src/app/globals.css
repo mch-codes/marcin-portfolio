@@ -45,6 +45,49 @@
   --font-mono: var(--font-mono);
 }
 
+/* WebKit opts out of the blend above.
+   A `position: sticky` element that is actually stuck gets its own compositing
+   layer in WebKit, and such a layer is excluded from the backdrop that
+   `mix-blend-mode` composites against — so the project captions never invert in
+   Safari. That alone would only be a missing effect, except the source colours
+   have to sit near white for `difference` to swing at all: with no blend they
+   paint literally, and the project titles are #ffffff on a white page, i.e.
+   invisible. Legibility, not polish.
+   Confirmed in Safari 26 over WebDriver: forcing the wordmark to
+   `position: static` restores the blend; sticky kills it with or without the
+   translate, and neither `isolation: isolate` on the section nor dropping the
+   transform helps.
+   `-webkit-named-image` is implemented by WebKit and nothing else, which is
+   exactly the set of engines carrying the bug — iOS Chrome and Firefox
+   included, since they are WebKit too. Both halves are needed: killing the
+   blend alone leaves white-on-white, and re-tokening alone leaves `difference`
+   turning #1e1e1e into pale grey.
+   The day WebKit composites sticky layers into the backdrop, delete this. */
+@supports (background: -webkit-named-image(i)) {
+  :root {
+    /* Both caption levels collapse to the one ink. muted's #6b7280 only clears
+       3.3:1 against the greyed wordmark below — under the 4.5:1 floor the
+       tokens at the top of this file hold to — and there is no grey that is
+       both light enough to sit under body copy and dark enough to read as a
+       wordmark. So hierarchy inside the block falls to size, weight and case,
+       which is what the note on --color-muted already asks for. */
+    --color-text-diff: var(--color-text);
+    --color-muted-diff: var(--color-text);
+  }
+
+  .mix-blend-difference {
+    mix-blend-mode: normal;
+  }
+
+  /* With no inversion the captions would be near-black on the near-black
+     wordmark wherever they cross it, so the wordmark steps back to a
+     watermark: #1e1e1e on #d4d4d8 is 11.2:1. The only h2 in the section is
+     the wordmark itself — the project titles are h3. */
+  #projects h2 {
+    color: var(--color-border);
+  }
+}
+
 * {
   box-sizing: border-box;
 }
