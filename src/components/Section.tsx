@@ -122,7 +122,11 @@ export function SectionHeader({
           clientWidth counts padding, so padding there would leave the fit
           targeting the full width while drawing into a narrower box. */}
       <div className="px-10 md:px-48">
-        <div className="overflow-hidden" ref={ref}>
+        {/* No overflow-hidden here. `leading-none` makes the line box 1em while
+            Inter spans ~1.21em ascender-to-descender, so a clip cut the accent
+            off "mí" and the descender off "proceso". The reveal below is a
+            fade plus 20px — it never needed a mask to read. */}
+        <div ref={ref}>
           <m.h2
             ref={wordRef}
             initial={{ opacity: 0, y: 20 }}
