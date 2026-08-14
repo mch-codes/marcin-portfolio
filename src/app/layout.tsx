@@ -50,9 +50,9 @@ const jsonLd = {
 
 // Stated once — it was three copies of the same two strings, and they had
 // already drifted apart once.
-const TITLE = "Marcin Chrzuszcz — Webs para artesanos | Madrid";
+const TITLE = "Marcin Chrzuszcz — Webs para oficios y negocios de Madrid";
 const DESCRIPTION =
-  "Webs para ceramistas, joyeros, marroquineros y talleres textiles de Madrid. Catálogo de piezas, contacto por Instagram y WhatsApp, o tienda online con Stripe. Desde 700€.";
+  "Webs a medida para talleres, tiendas y autónomos de Madrid: artesanía, hostelería, servicios. De las cocinas al código — sin plantillas. Desde 700€.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
