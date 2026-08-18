@@ -28,9 +28,6 @@ Personal developer portfolio. Built with Next.js 16, TypeScript, and Tailwind CS
 | --- | --- | --- | --- |
 | **Oidoo** | SaaS for professional kitchens — recipes, checklists and allergens | [oidoo.app](https://www.oidoo.app) | private |
 | **Hebras** | Client site for a handmade crochet brand in Madrid; the piece catalogue leads and contact runs through Instagram | [demo](https://hebras-lemon.vercel.app) | [repo](https://github.com/mch-codes/hebras) |
-| **Fontanería Urgente Lavapiés** | Emergency-plumber landing, built for fast contact | [demo](https://fontaneria-urgente-lavapies.vercel.app) | [repo](https://github.com/mch-codes/fontaneria-urgente-lavapies) |
-| **Clínica Fisio Vitalia** | Physiotherapy clinic landing | [demo](https://fisio-vitalia-landing.vercel.app) | [repo](https://github.com/mch-codes/fisio-vitalia-landing) |
-| **Taberna El Fogón** | Bilingual landing for a Castilian tavern, mobile-first | [demo](https://taberna-el-fogon-landing.vercel.app) | [repo](https://github.com/mch-codes/taberna-el-fogon-landing) |
 
 ## Local development
 

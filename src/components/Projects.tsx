@@ -47,7 +47,7 @@ export default function Projects() {
   // Hebras leads — it is the niche this site sells to, so the case study a
   // maker recognises comes first. Oidoo follows as credibility rather than as
   // the headline: it says the code holds up, not that you should buy it.
-  const featured: ProjectCard[] = [
+  const projects: ProjectCard[] = [
     {
       tag: t.projects.client_tag,
       status: t.projects.oidoo_status,
@@ -68,41 +68,6 @@ export default function Projects() {
       demoUrl: "https://www.oidoo.app",
       demoLabel: t.projects.oidoo_cta,
       screenshot: "/oidoo-screenshot.webp",
-    },
-  ];
-
-  // Other sectors. Kept, but folded away — they dilute the niche if they sit
-  // in the same run as the two above.
-  const others: ProjectCard[] = [
-    {
-      tag: t.projects.freelance_tag,
-      title: t.projects.fontaneria_name,
-      desc: t.projects.fontaneria_desc,
-      stack: freelanceStack,
-      demoUrl: "https://fontaneria-urgente-lavapies.vercel.app",
-      demoLabel: t.projects.freelance_demo,
-      githubUrl: "https://github.com/mch-codes/fontaneria-urgente-lavapies",
-      screenshot: "/fontaneria-screenshot.webp",
-    },
-    {
-      tag: t.projects.freelance_tag,
-      title: t.projects.fisio_name,
-      desc: t.projects.fisio_desc,
-      stack: freelanceStack,
-      demoUrl: "https://fisio-vitalia-landing.vercel.app",
-      demoLabel: t.projects.freelance_demo,
-      githubUrl: "https://github.com/mch-codes/fisio-vitalia-landing",
-      screenshot: "/fisio-screenshot.webp",
-    },
-    {
-      tag: t.projects.freelance_tag,
-      title: t.projects.taberna_name,
-      desc: t.projects.taberna_desc,
-      stack: freelanceStack,
-      demoUrl: "https://taberna-el-fogon-landing.vercel.app",
-      demoLabel: t.projects.freelance_demo,
-      githubUrl: "https://github.com/mch-codes/taberna-el-fogon-landing",
-      screenshot: "/taberna-screenshot.webp",
     },
   ];
 
@@ -137,18 +102,7 @@ export default function Projects() {
           wordmark are positioned at z-auto, so paint order falls back to DOM
           order — and the cards are second. */}
       <div className="relative px-6 md:px-16">
-        <ProjectList projects={featured} />
-
-        {/* Native <details>: the whole point is that these are secondary, and
-            a disclosure element says so with no state, no JS and no
-            accessibility work of our own. The cards inside are the same
-            component — folding them away is the deprioritisation. */}
-        <details className="mt-28 md:mt-40">
-          <summary className="cursor-pointer marker:text-muted text-xs font-mono tracking-widest text-muted uppercase hover:text-text transition-colors">
-            {t.projects.others}
-          </summary>
-          <ProjectList projects={others} />
-        </details>
+        <ProjectList projects={projects} />
       </div>
     </section>
   );
