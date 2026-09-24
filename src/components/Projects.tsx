@@ -45,7 +45,7 @@ export default function Projects() {
   const { t } = useLanguage();
 
   // Hebras leads — it is the niche this site sells to, so the case study a
-  // maker recognises comes first. Oidoo follows as credibility rather than as
+  // maker recognises comes first, client work before product. Oidoo closes as credibility rather than as
   // the headline: it says the code holds up, not that you should buy it.
   const projects: ProjectCard[] = [
     {
@@ -58,6 +58,16 @@ export default function Projects() {
       demoLabel: t.projects.client_cta,
       githubUrl: "https://github.com/mch-codes/hebras",
       screenshot: "/hebras-screenshot.webp",
+    },
+    {
+      tag: t.projects.client_tag,
+      status: t.projects.oidoo_status,
+      title: t.projects.almenos_name,
+      desc: t.projects.almenos_desc,
+      stack: freelanceStack,
+      demoUrl: "https://almenos1minuto.vercel.app",
+      demoLabel: t.projects.client_cta,
+      screenshot: "/almenos1minuto-screenshot.webp",
     },
     {
       tag: t.projects.oidoo_tag,

@@ -93,6 +93,8 @@ export const translations = {
       client_cta: "Ver web",
       hebras_name: "Hebras",
       hebras_desc: "Marca de ganchillo artesanal en Madrid. El catálogo de piezas manda: foto grande, precio claro y nada que distraiga. El contacto va directo a Instagram y WhatsApp, donde ya estaba su clientela — sin carrito, porque vende hablando, como siempre.",
+      almenos_name: "almenos1minuto",
+      almenos_desc: "Catálogo de relojes vintage con firma de divulgación relojera. Cada pieza con año, estado y precio a la vista; al lado, sus artículos en prensa especializada y enlaces a Instagram, YouTube y Vinted — una sola web que junta la tienda y la voz.",
     },
     process: {
       subtitle: "Sin humo. Sin over-engineering. Producto que funciona.",
@@ -293,6 +295,8 @@ export const translations = {
       client_cta: "Visit site",
       hebras_name: "Hebras",
       hebras_desc: "A handmade crochet brand in Madrid. The catalogue of pieces leads: big photo, clear price, nothing in the way. Contact goes straight to Instagram and WhatsApp, where her customers already were — no cart, because she sells by talking, the way she always has.",
+      almenos_name: "almenos1minuto",
+      almenos_desc: "A vintage watch catalogue for a horology writer. Every piece shows its year, condition and price up front; alongside sit the pieces written for the specialist press and links to Instagram, YouTube and Vinted — one site that brings the shop and the voice together.",
     },
     process: {
       subtitle: "No fluff. No over-engineering. Product that works.",
