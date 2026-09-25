@@ -74,7 +74,8 @@ export async function sendContactMessage(formData: FormData) {
   const safeMessage = escapeHtml(message);
 
   try {
-    await resend.emails.send({
+    // ponytail: Resend's SDK returns { error } instead of throwing, so rethrow into the catch below.
+    const { error } = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL ?? "Portfolio <onboarding@resend.dev>",
       to: CONTACT_EMAIL,
       replyTo: email,
@@ -88,6 +89,7 @@ export async function sendContactMessage(formData: FormData) {
         </div>
       `,
     });
+    if (error) throw new Error(error.message);
     return { success: true };
   } catch (error) {
     /* Name only. The full error carries the request Resend rejected — which
