@@ -1,6 +1,11 @@
 // Refresh a project screenshot for the Projects section.
 //
 //   npm run shot -- https://hebras-lemon.vercel.app hebras
+//   npm run shot -- https://hebras-lemon.vercel.app/#coleccion hebras-coleccion
+//   npm run shot -- https://hebras-lemon.vercel.app hebras-mobile 390x844
+//
+// A #hash scrolls that section to the top before the capture; a width under
+// 600 switches Chrome to mobile emulation, for the gallery's phone shot.
 //
 // Writes public/<name>-screenshot.webp at 1280x800, captured at 2x and
 // downsampled so text stays crisp. Drives headless Chrome over CDP rather
@@ -84,7 +89,7 @@ try {
     width: W,
     height: H,
     deviceScaleFactor: 2,
-    mobile: false,
+    mobile: W < 600,
   });
   await send("Page.navigate", { url });
   // ponytail: a fixed wait, not a network-idle listener. These are five
@@ -101,6 +106,13 @@ try {
     returnByValue: true,
   });
   console.log(result.value);
+  // After the banner, so a banner that shifts layout can't throw it off.
+  // Instant, because smooth-scroll libraries would still be mid-glide.
+  if (new URL(url).hash) {
+    await send("Runtime.evaluate", {
+      expression: `document.querySelector(${JSON.stringify(new URL(url).hash)})?.scrollIntoView({ behavior: "instant" })`,
+    });
+  }
   await sleep(1500);
 
   const { data } = await send("Page.captureScreenshot", { format: "png" });

@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { SectionHeader, Reveal } from "@/components/Section";
+import { lockScroll } from "@/lib/scroll";
 
 const oidooStack = ["Next.js", "TypeScript", "Supabase", "Vercel"];
 const freelanceStack = ["Next.js", "TypeScript", "Tailwind"];
@@ -29,6 +31,12 @@ function GitHubIcon() {
   );
 }
 
+// Captured by `npm run shot` (see scripts/screenshot.mjs): desktop shots at
+// 1280x800, the phone shot at 390x844.
+const desktop = (name: string) => ({ src: `/${name}-screenshot.webp`, width: 1280, height: 800 });
+const phone = (name: string) => ({ src: `/${name}-screenshot.webp`, width: 390, height: 844 });
+type Shot = ReturnType<typeof desktop>;
+
 type ProjectCard = {
   tag: string;
   status?: string;
@@ -39,6 +47,9 @@ type ProjectCard = {
   demoLabel: string;
   githubUrl?: string;
   screenshot: string;
+  forWho: string;
+  built: string;
+  gallery: Shot[];
 };
 
 export default function Projects() {
@@ -58,6 +69,9 @@ export default function Projects() {
       demoLabel: t.projects.client_cta,
       githubUrl: "https://github.com/mch-codes/hebras",
       screenshot: "/hebras-screenshot.webp",
+      forWho: t.projects.hebras_for,
+      built: t.projects.hebras_built,
+      gallery: [desktop("hebras"), desktop("hebras-coleccion"), desktop("hebras-contacto"), phone("hebras-mobile")],
     },
     {
       tag: t.projects.client_tag,
@@ -68,6 +82,15 @@ export default function Projects() {
       demoUrl: "https://almenos1minuto.vercel.app",
       demoLabel: t.projects.client_cta,
       screenshot: "/almenos1minuto-screenshot.webp",
+      forWho: t.projects.almenos_for,
+      built: t.projects.almenos_built,
+      gallery: [
+        desktop("almenos1minuto"),
+        desktop("almenos1minuto-coleccion"),
+        desktop("almenos1minuto-pieza"),
+        desktop("almenos1minuto-prensa"),
+        phone("almenos1minuto-mobile"),
+      ],
     },
     {
       tag: t.projects.oidoo_tag,
@@ -78,8 +101,13 @@ export default function Projects() {
       demoUrl: "https://www.oidoo.app",
       demoLabel: t.projects.oidoo_cta,
       screenshot: "/oidoo-screenshot.webp",
+      forWho: t.projects.oidoo_for,
+      built: t.projects.oidoo_built,
+      gallery: [desktop("oidoo"), desktop("oidoo-funcionalidades"), desktop("oidoo-precios"), phone("oidoo-mobile")],
     },
   ];
+
+  const [open, setOpen] = useState<ProjectCard | null>(null);
 
   // No `overflow-hidden` on this section, unlike its neighbours: an
   // overflow-clipped ancestor kills position:sticky on the header below.
@@ -112,13 +140,23 @@ export default function Projects() {
           wordmark are positioned at z-auto, so paint order falls back to DOM
           order — and the cards are second. */}
       <div className="relative px-6 md:px-16">
-        <ProjectList projects={projects} />
+        <ProjectList projects={projects} onOpen={setOpen} openLabel={t.projects.open_cta} />
       </div>
+
+      {open && <ProjectModal project={open} onClose={() => setOpen(null)} />}
     </section>
   );
 }
 
-function ProjectList({ projects }: { projects: ProjectCard[] }) {
+function ProjectList({
+  projects,
+  onOpen,
+  openLabel,
+}: {
+  projects: ProjectCard[];
+  onOpen: (p: ProjectCard) => void;
+  openLabel: string;
+}) {
   return (
     <div className="mt-16 md:mt-24 flex flex-col gap-28 md:gap-40">
       {projects.map((p, i) => {
@@ -174,17 +212,18 @@ function ProjectList({ projects }: { projects: ProjectCard[] }) {
                 </div>
 
                 <div className="mt-5 flex items-center gap-6">
-                <a
-                  href={p.demoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors duration-200 group-hover:text-accent group-focus-within:text-accent after:absolute after:inset-0"
+                {/* The whole card opens the gallery; the live site is one
+                    click further, inside the modal. */}
+                <button
+                  type="button"
+                  onClick={() => onOpen(p)}
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors duration-200 group-hover:text-accent group-focus-within:text-accent after:absolute after:inset-0 cursor-pointer"
                 >
-                  {p.demoLabel}
+                  {openLabel}
                   <span className="transition-transform duration-200 group-hover:translate-x-1">
                     <ArrowUpRight />
                   </span>
-                </a>
+                </button>
                 {p.githubUrl && (
                   <a
                     href={p.githubUrl}
@@ -202,5 +241,96 @@ function ProjectList({ projects }: { projects: ProjectCard[] }) {
             );
           })}
     </div>
+  );
+}
+
+function ProjectModal({ project: p, onClose }: { project: ProjectCard; onClose: () => void }) {
+  const { t } = useLanguage();
+  const ref = useRef<HTMLDialogElement>(null);
+
+  // Native <dialog>: showModal() brings the backdrop, Esc, focus trapping and
+  // the inert page for free. Lenis gets stopped so the page behind stays put.
+  useEffect(() => {
+    ref.current?.showModal();
+    lockScroll(true);
+    return () => lockScroll(false);
+  }, []);
+
+  return (
+    <dialog
+      ref={ref}
+      onClose={onClose}
+      // A click on the dialog element itself (not its content) is the backdrop.
+      onClick={(e) => e.target === e.currentTarget && ref.current?.close()}
+      aria-label={p.title}
+      className="m-0 md:m-auto w-full max-w-none h-full max-h-none md:max-w-5xl md:h-auto md:max-h-[90vh] bg-bg text-text backdrop:bg-black/70 overscroll-contain"
+    >
+      <div data-lenis-prevent className="h-full md:max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 z-10 flex items-center justify-between gap-4 px-6 md:px-10 py-4 bg-bg border-b border-border">
+          <div>
+            <p className="text-xs font-mono tracking-widest text-muted uppercase">
+              {p.tag}
+              {p.status ? ` · ${p.status}` : ""}
+            </p>
+            <h3 className="mt-1 text-xl md:text-2xl font-bold tracking-tight">{p.title}</h3>
+          </div>
+          <button
+            type="button"
+            onClick={() => ref.current?.close()}
+            className="shrink-0 whitespace-nowrap min-h-[44px] px-3 text-sm font-medium text-muted hover:text-text transition-colors cursor-pointer"
+          >
+            {t.projects.close} ✕
+          </button>
+        </div>
+
+        {/* Swipe on touch, shift-wheel or trackpad on desktop. Every shot is
+            the same height, so the phone one sits in the row as a phone. */}
+        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-6 md:px-10 py-6 scroll-px-6 md:scroll-px-10">
+          {p.gallery.map((shot, i) => (
+            <Image
+              key={shot.src}
+              src={shot.src}
+              alt={`${p.title} — ${i + 1}/${p.gallery.length}`}
+              width={shot.width}
+              height={shot.height}
+              sizes="(max-width: 768px) 90vw, 40rem"
+              className="snap-start shrink-0 h-56 sm:h-72 md:h-80 w-auto border border-border"
+            />
+          ))}
+        </div>
+
+        <dl className="px-6 md:px-10 pb-8 grid gap-5 md:grid-cols-[10rem_1fr] md:gap-x-8 text-base leading-relaxed">
+          <dt className="text-xs font-mono tracking-widest text-muted uppercase md:pt-1">{t.projects.for_label}</dt>
+          <dd className="-mt-3 md:mt-0">{p.forWho}</dd>
+          <dt className="text-xs font-mono tracking-widest text-muted uppercase md:pt-1">{t.projects.built_label}</dt>
+          <dd className="-mt-3 md:mt-0">{p.built}</dd>
+          <dt className="text-xs font-mono tracking-widest text-muted uppercase md:pt-1">{t.projects.stack_label}</dt>
+          <dd className="-mt-3 md:mt-0">{p.stack.join(" · ")}</dd>
+        </dl>
+
+        <div className="px-6 md:px-10 pb-10 flex items-center gap-6">
+          <a
+            href={p.demoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
+          >
+            {p.demoLabel}
+            <ArrowUpRight />
+          </a>
+          {p.githubUrl && (
+            <a
+              href={p.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted hover:text-text transition-colors"
+              aria-label={`${p.title} — GitHub`}
+            >
+              <GitHubIcon />
+            </a>
+          )}
+        </div>
+      </div>
+    </dialog>
   );
 }

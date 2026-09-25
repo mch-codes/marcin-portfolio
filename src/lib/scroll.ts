@@ -29,3 +29,9 @@ export function scrollToTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 }
+
+/** Freezes the page under a modal; the modal's own scroller opts out with data-lenis-prevent. */
+export function lockScroll(locked: boolean) {
+  if (locked) _lenis?.stop();
+  else _lenis?.start();
+}
