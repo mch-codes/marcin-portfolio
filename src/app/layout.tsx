@@ -52,7 +52,7 @@ const jsonLd = {
 // already drifted apart once.
 const TITLE = "Marcin Chrzuszcz — Webs para oficios y negocios de Madrid";
 const DESCRIPTION =
-  "Webs a medida para talleres, tiendas y autónomos de Madrid: artesanía, hostelería, servicios. De las cocinas al código — sin plantillas. Desde 700€.";
+  "Webs y CMS a medida para talleres, tiendas y autónomos de Madrid: artesanía, hostelería, servicios. De las cocinas al código — sin plantillas. Desde 700€.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
