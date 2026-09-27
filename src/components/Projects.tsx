@@ -55,24 +55,9 @@ type ProjectCard = {
 export default function Projects() {
   const { t } = useLanguage();
 
-  // Hebras leads — it is the niche this site sells to, so the case study a
-  // maker recognises comes first, client work before product. Oidoo closes as credibility rather than as
+  // almenos1minuto leads, then Hebras — client work before product. Oidoo closes as credibility rather than as
   // the headline: it says the code holds up, not that you should buy it.
   const projects: ProjectCard[] = [
-    {
-      tag: t.projects.client_tag,
-      status: t.projects.oidoo_status,
-      title: t.projects.hebras_name,
-      desc: t.projects.hebras_desc,
-      stack: freelanceStack,
-      demoUrl: "https://hebras-lemon.vercel.app",
-      demoLabel: t.projects.client_cta,
-      githubUrl: "https://github.com/mch-codes/hebras",
-      screenshot: "/hebras-screenshot.webp",
-      forWho: t.projects.hebras_for,
-      built: t.projects.hebras_built,
-      gallery: [desktop("hebras"), desktop("hebras-coleccion"), desktop("hebras-contacto"), phone("hebras-mobile")],
-    },
     {
       tag: t.projects.client_tag,
       status: t.projects.oidoo_status,
@@ -91,6 +76,20 @@ export default function Projects() {
         desktop("almenos1minuto-prensa"),
         phone("almenos1minuto-mobile"),
       ],
+    },
+    {
+      tag: t.projects.client_tag,
+      status: t.projects.oidoo_status,
+      title: t.projects.hebras_name,
+      desc: t.projects.hebras_desc,
+      stack: freelanceStack,
+      demoUrl: "https://hebras-lemon.vercel.app",
+      demoLabel: t.projects.client_cta,
+      githubUrl: "https://github.com/mch-codes/hebras",
+      screenshot: "/hebras-screenshot.webp",
+      forWho: t.projects.hebras_for,
+      built: t.projects.hebras_built,
+      gallery: [desktop("hebras"), desktop("hebras-coleccion"), desktop("hebras-contacto"), phone("hebras-mobile")],
     },
     {
       tag: t.projects.oidoo_tag,
