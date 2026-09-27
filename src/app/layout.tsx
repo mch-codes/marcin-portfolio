@@ -36,16 +36,22 @@ const dmMono = DM_Mono({
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://marcin-portfolio-mocha.vercel.app";
 
+// ProfilePage wrapper: a bare Person isn't a rich-result type, so Google's
+// Rich Results Test reported nothing.
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Marcin Chrzuszcz",
-  jobTitle: "Web Developer",
-  url: SITE_URL,
-  sameAs: [
-    "https://github.com/mch-codes",
-    "https://www.linkedin.com/in/marcin-chrzuszcz/",
-  ],
+  "@type": "ProfilePage",
+  mainEntity: {
+    "@type": "Person",
+    name: "Marcin Chrzuszcz",
+    jobTitle: "Web Developer",
+    url: SITE_URL,
+    image: `${SITE_URL}/portrait.jpg`,
+    sameAs: [
+      "https://github.com/mch-codes",
+      "https://www.linkedin.com/in/marcin-chrzuszcz/",
+    ],
+  },
 };
 
 // Stated once — it was three copies of the same two strings, and they had
