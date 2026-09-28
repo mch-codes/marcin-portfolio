@@ -16,13 +16,14 @@ export default function Home() {
     <main>
       <Navigation />
 
+      {/* What I do, proof, price, process, who I am, contact — clients buy
+          the outcome first and the person second. */}
       <About />
-      <AboutMe />
-
-      <Services />
       <Projects />
       <MidCta />
+      <Services />
       <Process />
+      <AboutMe />
       <Contact />
       <Footer />
     </main>
