@@ -211,8 +211,18 @@ function ProjectList({
                 </div>
 
                 <div className="mt-5 flex items-center gap-6">
-                {/* The whole card opens the gallery; the live site is one
-                    click further, inside the modal. */}
+                {/* The whole card opens the gallery; the live site gets its
+                    own link, lifted above the card-wide hit area. GitHub
+                    stays in the modal only — clients don't open repos. */}
+                <a
+                  href={p.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative z-10 inline-flex items-center gap-1.5 text-sm font-medium text-text hover:text-accent transition-colors"
+                >
+                  {p.demoLabel}
+                  <ArrowUpRight />
+                </a>
                 <button
                   type="button"
                   onClick={() => onOpen(p)}
@@ -223,17 +233,6 @@ function ProjectList({
                     <ArrowUpRight />
                   </span>
                 </button>
-                {p.githubUrl && (
-                  <a
-                    href={p.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="relative z-10 text-muted hover:text-text transition-colors"
-                    aria-label={`${p.title} — GitHub`}
-                  >
-                    <GitHubIcon />
-                  </a>
-                  )}
                 </div>
               </div>
             </Reveal>
