@@ -191,10 +191,10 @@ export default function About() {
               unlayered `h1, h2, h3` rule in globals.css sets Fraunces at a
               specificity Tailwind's layered utilities cannot beat. */}
           <h1
-            className="text-xl md:text-2xl font-medium text-text md:whitespace-nowrap"
+            className="text-xl md:text-2xl font-medium text-text text-balance"
             style={{ fontFamily: "var(--font-inter), Inter, system-ui, sans-serif" }}
           >
-            {t.about.subtitle}
+            {t.about.headline}
           </h1>
           {/* One <p>, one line per sentence: spans rather than separate
               paragraphs so it stays a single block to a screen reader. */}

@@ -21,11 +21,13 @@ export const translations = {
       ],
       close: "Dos oficios. Un mismo instinto para encontrar dónde la precisión se cruza con la creatividad.",
       portraitAlt: "Marcin con chaquetilla de cocina, retrato en blanco y negro que se convierte en ASCII.",
-      subtitle: "De las cocinas al código.",
+      // What's on sale, for a visitor who has never heard of me. The kitchen
+      // line is the story, so it sits underneath rather than leading.
+      headline: "Webs a medida para talleres, tiendas y autónomos de Madrid.",
       // One sentence per entry — the hero renders each on its own line.
       hero_sub: [
-        "Misma disciplina, otro oficio.",
-        "Precisión, sistemas, cada detalle cuenta.",
+        "De las cocinas al código. Misma disciplina, otro oficio.",
+        "Sin plantillas. Desde 700€.",
       ],
       languages: "Idiomas: Polaco (nativo) · Español (B2) · Inglés (B2)",
       cta_primary: "Cuéntame tu proyecto",
@@ -238,10 +240,10 @@ export const translations = {
       ],
       close: "Two crafts. One instinct for where precision meets creativity.",
       portraitAlt: "Marcin in chef's whites, a black-and-white portrait resolving into ASCII.",
-      subtitle: "From the kitchen to the code.",
+      headline: "Custom websites for workshops, shops and freelancers in Madrid.",
       hero_sub: [
-        "Same discipline, different craft.",
-        "Precision, systems, every detail counts.",
+        "From the kitchen to the code. Same discipline, different craft.",
+        "No templates. From €700.",
       ],
       languages: "Languages: Polish (native) · Spanish (B2) · English (B2)",
       cta_primary: "Tell me about your project",
