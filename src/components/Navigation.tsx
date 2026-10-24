@@ -104,7 +104,7 @@ export default function Navigation() {
         including the full-bleed wordmarks. No hover state. */}
     <button
       onClick={scrollToTop}
-      aria-label="Back to top"
+      aria-label="MC, back to top"
       inert={!showBadge}
       aria-hidden={!showBadge}
       className={`${BADGE} fixed bottom-2 left-2 z-50 transition-opacity duration-300 ${
@@ -164,8 +164,9 @@ export default function Navigation() {
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className={`md:hidden text-muted hover:text-text transition-colors p-1 ${FOCUS_RING}`}
+            className={`md:hidden text-muted hover:text-text transition-colors p-3 -m-2 ${FOCUS_RING}`}
             aria-label="Toggle menu"
+            aria-expanded={menuOpen}
           >
             <div className="w-5 flex flex-col gap-1.5">
               <span className={`block h-px bg-current transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />

@@ -4,7 +4,6 @@ import { m } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import { SectionHeader, Reveal, CTA, Footnote, HAIRLINE_WIPE } from "@/components/Section";
 import { scrollToSection } from "@/lib/scroll";
-import { CONTACT_EMAIL } from "@/lib/constants";
 
 const withPeriod = (s: string) => (/[.!?]$/.test(s) ? s : `${s}.`);
 
@@ -167,10 +166,15 @@ export default function Services() {
           // lands on the first card's, not on the page gutter.
           className="mt-16 md:mt-20 mx-auto max-w-5xl flex justify-start"
         >
+          {/* Same jump to the form as every other CTA — a mailto: did nothing
+              on a phone without a mail app set up. */}
           <a
-            href={`mailto:${CONTACT_EMAIL}`}
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection("contact");
+            }}
             className={CTA}
-            
           >
             {t.services.cta_button}
           </a>

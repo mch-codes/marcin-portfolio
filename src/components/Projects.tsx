@@ -218,7 +218,7 @@ function ProjectList({
                   href={p.demoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative z-10 inline-flex items-center gap-1.5 text-sm font-medium text-text hover:text-accent transition-colors"
+                  className="relative z-10 inline-flex items-center gap-1.5 py-2.5 text-sm font-medium text-text hover:text-accent transition-colors"
                 >
                   {p.demoLabel}
                   <ArrowUpRight />
@@ -226,7 +226,7 @@ function ProjectList({
                 <button
                   type="button"
                   onClick={() => onOpen(p)}
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors duration-200 group-hover:text-accent group-focus-within:text-accent after:absolute after:inset-0 cursor-pointer"
+                  className="inline-flex items-center gap-1.5 py-2.5 text-sm font-medium text-muted transition-colors duration-200 group-hover:text-accent group-focus-within:text-accent after:absolute after:inset-0 cursor-pointer"
                 >
                   {openLabel}
                   <span className="transition-transform duration-200 group-hover:translate-x-1">

@@ -63,7 +63,7 @@ export const HAIRLINE_WIPE =
  * differently made them look like two brands.
  */
 export const BADGE =
-  "grid place-items-center w-10 h-10 rounded-full bg-bg text-text border border-text text-xs font-semibold tracking-wide focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
+  "grid place-items-center shrink-0 w-10 h-10 rounded-full bg-bg text-text border border-text text-xs font-semibold tracking-wide focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
 
 /* Every wordmark runs the full width of its container, so its size is measured
    rather than derived: type it at a known size, see how wide it came out, and

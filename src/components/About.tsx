@@ -45,7 +45,9 @@ const SURNAME_TOP = "pt-20";
 /* One shared variant, per-element delay through `custom`. A staggerChildren
    container can't do it: the surname is positioned against the section and
    lives outside the content column, so it isn't a child of anything the
-   column could stagger. Order is Marcin → Chrzuszcz → CTA → the centre copy. */
+   column could stagger. Order is Marcin → Chrzuszcz → the centre copy. The CTA
+   is not in it: it is the mobile LCP element, and fading it in at 0.9s pushed
+   LCP to 3.3s. */
 const itemVariants = {
   hidden: { opacity: 0, y: 32 },
   visible: (delay: number = 0) => ({
@@ -155,13 +157,7 @@ export default function About() {
             {/* mt-auto, not a spacer: the column now stretches the full section
                 height, so the CTA falls to the bottom edge on its own and stays
                 there whatever the name block above it measures. */}
-            <m.div
-              variants={itemVariants}
-              custom={0.9}
-              initial="hidden"
-              animate={controls}
-              className="mt-auto flex flex-col sm:flex-row gap-3"
-            >
+            <div className="mt-auto flex flex-col sm:flex-row gap-3">
                 <button
                   type="button"
                   onClick={() => scrollToSection("contact")}
@@ -172,7 +168,7 @@ export default function About() {
                     <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </button>
-            </m.div>
+            </div>
         </div>
 
         {/* Dead centre of the section, out of the flow entirely — the name is

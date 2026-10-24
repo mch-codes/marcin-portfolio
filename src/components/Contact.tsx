@@ -31,11 +31,12 @@ function InputField({
 
   return (
     <div>
-      <label className="block text-xs font-semibold tracking-wide text-muted mb-2 uppercase">
+      <label htmlFor={name} className="block text-xs font-semibold tracking-wide text-muted mb-2 uppercase">
         {label}
       </label>
       {rows ? (
         <textarea
+          id={name}
           name={name}
           placeholder={placeholder}
           required={required}
@@ -50,6 +51,7 @@ function InputField({
       ) : (
         <input
           type={type}
+          id={name}
           name={name}
           placeholder={placeholder}
           required={required}
@@ -151,7 +153,7 @@ export default function Contact() {
                 className="absolute -left-[9999px] w-px h-px opacity-0"
               />
 
-              <label className="flex items-start justify-center gap-2 text-xs text-muted">
+              <label className="self-center flex items-start gap-2 text-left text-xs text-muted">
                 <input type="checkbox" name="consent" required className="mt-0.5" />
                 <span>
                   {t.contact.consent_pre}
