@@ -168,11 +168,12 @@ function ProjectList({
             return (
             <Reveal
               key={p.title}
-              className={`group relative w-full md:max-w-2xl flex flex-col items-center text-center ${side.self} ${side.items} ${side.text}`}
+              className={`group relative w-full md:max-w-xl flex flex-col items-center text-center ${side.self} ${side.items} ${side.text}`}
             >
               {/* next/image, not <img>: Vercel then serves a resized AVIF/WebP
-                  instead of the full-size PNG. Card caps at max-w-3xl, so
-                  `sizes` can be honest about it. */}
+                  instead of the full-size PNG. Card caps at max-w-xl (~750px
+                  against the 20.8px root) so image, caption and links fit one
+                  900px screen; at max-w-2xl a card ran ~1000px. */}
               {/* overflow-hidden so the hover scale crops instead of pushing
                   the caption around. The whole card is one hit area (the demo
                   link's after:inset-0), so the zoom reads as its affordance. */}
@@ -182,7 +183,7 @@ function ProjectList({
                   alt={p.title}
                   width={1280}
                   height={800}
-                  sizes="(max-width: 768px) 100vw, 48rem"
+                  sizes="(max-width: 768px) 100vw, 36rem"
                   className="w-full aspect-[16/10] object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02] group-focus-within:scale-[1.02] motion-reduce:group-hover:scale-100 motion-reduce:group-focus-within:scale-100"
                 />
               </div>
@@ -198,8 +199,12 @@ function ProjectList({
                     why these can't just be text/muted pre-inverted.
                     Blending only reaches out to the nearest isolating
                     ancestor, which is why the wrapper below dropped its
-                    z-10. The link row stays outside this block: it hovers to
-                    accent green, and difference would invert that too. */}
+                    z-10.
+                    The link row is inside too: left outside, the dark "Ver
+                    web" sat on the black letterforms and vanished as each
+                    card crossed the wordmark. Its hover is an underline, not
+                    a colour step — the two -diff greys land almost the same
+                    on the page, and an underline inverts with the text. */}
                 <div className={`flex flex-col mix-blend-difference ${side.items}`}>
                   <p className="text-xs font-mono tracking-widest text-muted-diff uppercase">
                     {p.tag}
@@ -208,31 +213,31 @@ function ProjectList({
                   <h3 className="mt-4 text-2xl md:text-3xl font-bold text-text-diff tracking-tight leading-tight">{p.title}</h3>
                   <p className="mt-4 text-base text-muted-diff leading-relaxed max-w-md">{p.desc}</p>
                   <p className="mt-5 text-sm text-muted-diff">{p.stack.join(" · ")}</p>
-                </div>
 
-                <div className="mt-5 flex items-center gap-6">
-                {/* The whole card opens the gallery; the live site gets its
-                    own link, lifted above the card-wide hit area. GitHub
-                    stays in the modal only — clients don't open repos. */}
-                <a
-                  href={p.demoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="relative z-10 inline-flex items-center gap-1.5 py-2.5 text-sm font-medium text-text hover:text-accent transition-colors"
-                >
-                  {p.demoLabel}
-                  <ArrowUpRight />
-                </a>
-                <button
-                  type="button"
-                  onClick={() => onOpen(p)}
-                  className="inline-flex items-center gap-1.5 py-2.5 text-sm font-medium text-muted transition-colors duration-200 group-hover:text-accent group-focus-within:text-accent after:absolute after:inset-0 cursor-pointer"
-                >
-                  {openLabel}
-                  <span className="transition-transform duration-200 group-hover:translate-x-1">
+                  <div className="mt-5 flex items-center gap-6">
+                  {/* The whole card opens the gallery; the live site gets its
+                      own link, lifted above the card-wide hit area. GitHub
+                      stays in the modal only — clients don't open repos. */}
+                  <a
+                    href={p.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative z-10 inline-flex items-center gap-1.5 py-2.5 text-sm font-medium text-text-diff underline-offset-4 hover:underline"
+                  >
+                    {p.demoLabel}
                     <ArrowUpRight />
-                  </span>
-                </button>
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => onOpen(p)}
+                    className="inline-flex items-center gap-1.5 py-2.5 text-sm font-medium text-muted-diff underline-offset-4 group-hover:underline group-focus-within:underline after:absolute after:inset-0 cursor-pointer"
+                  >
+                    {openLabel}
+                    <span className="transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none">
+                      <ArrowUpRight />
+                    </span>
+                  </button>
+                  </div>
                 </div>
               </div>
             </Reveal>

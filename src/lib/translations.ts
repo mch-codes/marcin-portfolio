@@ -81,14 +81,16 @@ export const translations = {
       oidoo_tag: "Software propio",
       oidoo_status: "En producción",
       oidoo_name: "Oidoo",
-      oidoo_tagline: "SaaS de gestión de cocina que construí y mantengo yo. Está en producción y se usa a diario: la prueba de que lo que entrego aguanta uso real, no solo una demo bonita.",
+      // Card descriptions stay at two sentences so a card fits one screen;
+      // the full story is in the modal's for/built rows.
+      oidoo_tagline: "SaaS de gestión de cocina que construí y mantengo yo. Está en producción y se usa a diario.",
       oidoo_desc:
         "SaaS de gestión para cocinas profesionales. Checklists de estación, recetas centralizadas y partes de servicio — todo digital, sin papel.",
       oidoo_cta: "Ver proyecto",
       client_tag: "Cliente",
       client_cta: "Ver web",
       hebras_name: "Hebras",
-      hebras_desc: "Marca de ganchillo artesanal en Madrid. El catálogo de piezas manda: foto grande, precio claro y nada que distraiga. El contacto va directo a Instagram y WhatsApp, donde ya estaba su clientela — sin carrito, porque vende hablando, como siempre.",
+      hebras_desc: "Marca de ganchillo artesanal en Madrid. El catálogo de piezas manda: foto grande, precio claro y nada que distraiga.",
       almenos_name: "almenos1minuto",
       // The modal behind each card: who it was for, what I actually built.
       open_cta: "Ver capturas",
@@ -102,7 +104,7 @@ export const translations = {
       almenos_built: "Catálogo ordenable con una ficha por reloj (año, estado, movimiento, precio), sección de prensa con sus artículos y enlaces a Instagram, YouTube y Vinted. Y un CMS a medida para subir relojes y artículos sin tocar código.",
       oidoo_for: "Cocinas profesionales: jefes de cocina y equipos que hoy trabajan en papel.",
       oidoo_built: "Producto propio de principio a fin: recetas con escandallo y food cost, los 14 alérgenos UE, checklists por estación, importación de recetas con IA y acceso para todo el equipo.",
-      almenos_desc: "Catálogo de relojes vintage con firma de divulgación relojera. Cada pieza con año, estado y precio a la vista; al lado, sus artículos en prensa especializada y enlaces a Instagram, YouTube y Vinted — una sola web que junta la tienda y la voz. Con CMS a medida para que el cliente la gestione sin depender de mí.",
+      almenos_desc: "Catálogo de relojes vintage con firma de divulgación relojera. Una sola web que junta la tienda y la voz, con CMS a medida.",
     },
     process: {
       subtitle: "Sin humo. Sin over-engineering. Producto que funciona.",
@@ -288,14 +290,14 @@ export const translations = {
       oidoo_tag: "Own software",
       oidoo_status: "Live",
       oidoo_name: "Oidoo",
-      oidoo_tagline: "A kitchen-management SaaS I built and maintain myself. It's in production and used daily — proof that what I ship holds up under real use, not just in a pretty demo.",
+      oidoo_tagline: "A kitchen-management SaaS I built and maintain myself. It's in production and used daily.",
       oidoo_desc:
         "SaaS for professional kitchen management. Station checklists, centralized recipes, and service logs — all digital, no paper.",
       oidoo_cta: "View project",
       client_tag: "Client",
       client_cta: "Visit site",
       hebras_name: "Hebras",
-      hebras_desc: "A handmade crochet brand in Madrid. The catalogue of pieces leads: big photo, clear price, nothing in the way. Contact goes straight to Instagram and WhatsApp, where her customers already were — no cart, because she sells by talking, the way she always has.",
+      hebras_desc: "A handmade crochet brand in Madrid. The catalogue of pieces leads: big photo, clear price, nothing in the way.",
       almenos_name: "almenos1minuto",
       open_cta: "See screenshots",
       close: "Close",
@@ -308,7 +310,7 @@ export const translations = {
       almenos_built: "A sortable catalogue with a page per watch (year, condition, movement, price), a press section for the published articles, and links to Instagram, YouTube and Vinted. Plus a custom CMS so new watches and articles go live without touching code.",
       oidoo_for: "Professional kitchens: head chefs and teams still running on paper.",
       oidoo_built: "My own product end to end: recipes with costing and food cost, the 14 EU allergens, station checklists, AI recipe import, and access for the whole team.",
-      almenos_desc: "A vintage watch catalogue for a horology writer. Every piece shows its year, condition and price up front; alongside sit the pieces written for the specialist press and links to Instagram, YouTube and Vinted — one site that brings the shop and the voice together. With a custom CMS so the client runs it without me.",
+      almenos_desc: "A vintage watch catalogue for a horology writer. One site that brings the shop and the voice together, with a custom CMS.",
     },
     process: {
       subtitle: "No fluff. No over-engineering. Product that works.",
