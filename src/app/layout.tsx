@@ -55,9 +55,12 @@ const jsonLd = {
 
 // Stated once — it was three copies of the same two strings, and they had
 // already drifted apart once.
-const TITLE = "Marcin Chrzuszcz — Webs para oficios y negocios de Madrid";
+// Mirrors the hero (headline, subline, eyebrow) so a search result or a
+// shared link says what the page says. The price stays here as a reason to
+// click; the hero leaves it to Services.
+const TITLE = "Marcin Chrzuszcz — Webs a medida para negocios de Madrid";
 const DESCRIPTION =
-  "Webs y CMS a medida para talleres, tiendas y autónomos de Madrid: artesanía, hostelería, servicios. De las cocinas al código — sin plantillas. Desde 700€.";
+  "Webs a medida para negocios de Madrid, sin plantillas y hechas a mano. De las cocinas al código. Desde 700€.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
