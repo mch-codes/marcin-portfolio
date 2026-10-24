@@ -186,6 +186,11 @@ export default function About() {
               sale, and it was the last thing on screen at ~2.45s. Now it
               turns in alongside the surname and lands at ~1.7s. */}
           <CubeReveal delay={0.6}>
+          {/* Eyebrow in the same mono/uppercase/tracked voice as the Projects
+              tags and the Services line-item headings. */}
+          <p className="mb-4 font-mono text-xs uppercase tracking-widest text-muted text-balance">
+            {t.about.hero_eyebrow}
+          </p>
           {/* This one does need the inline family. It is an h1, and the
               unlayered `h1, h2, h3` rule in globals.css sets Fraunces at a
               specificity Tailwind's layered utilities cannot beat. */}
@@ -195,13 +200,7 @@ export default function About() {
           >
             {t.about.headline}
           </h1>
-          {/* One <p>, one line per sentence: spans rather than separate
-              paragraphs so it stays a single block to a screen reader. */}
-          <p className="mt-4 text-sm text-muted">
-            {t.about.hero_sub.map((line) => (
-              <span key={line} className="block">{line}</span>
-            ))}
-          </p>
+          <p className="mt-4 text-sm text-muted text-balance">{t.about.hero_sub}</p>
           </CubeReveal>
         </div>
       </m.div>

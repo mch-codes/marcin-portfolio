@@ -13,16 +13,11 @@ export const translations = {
       p2: "Encontré un segundo oficio que pide lo mismo y lo aprendí igual que aprendí a cocinar: con las manos, iterando. Lo que empezó como algo paralelo ya funciona en una cocina real, planificando producción de verdad.",
       close: "Dos oficios. Un mismo instinto para encontrar dónde la precisión se cruza con la creatividad.",
       portraitAlt: "Marcin con chaquetilla de cocina, retrato en blanco y negro que se convierte en ASCII.",
-      // What's on sale, for a visitor who has never heard of me. The kitchen
-      // line is the story, so it sits underneath rather than leading.
-      headline: "Webs a medida para talleres, tiendas y autónomos de Madrid.",
-      // One sentence per entry — the hero renders each on its own line.
-      // Offer first, story second: price and "no templates" answer what's in
-      // it for the visitor; the kitchen line is why they should believe it.
-      hero_sub: [
-        "Sin plantillas. Desde 700€.",
-        "De las cocinas al código. Misma disciplina, otro oficio.",
-      ],
+      // Hero: eyebrow (the story, as a label), headline (what's on sale),
+      // one short subline. Prices live in Services, not here.
+      hero_eyebrow: "De las cocinas al código",
+      headline: "Webs a medida para negocios de Madrid.",
+      hero_sub: "Sin plantillas, hechas a mano.",
       languages: "Idiomas: Polaco (nativo) · Español (B2) · Inglés (B2)",
       cta_primary: "Cuéntame tu proyecto",
     },
@@ -236,11 +231,9 @@ export const translations = {
       p2: "I found a second craft that asks for the same thing and learned it the way I learned to cook: hands-on, iterating. What started as a side pursuit is now running in an actual kitchen, planning real production.",
       close: "Two crafts. One instinct for where precision meets creativity.",
       portraitAlt: "Marcin in chef's whites, a black-and-white portrait resolving into ASCII.",
-      headline: "Custom websites for workshops, shops and freelancers in Madrid.",
-      hero_sub: [
-        "No templates. From €700.",
-        "From the kitchen to the code. Same discipline, different craft.",
-      ],
+      hero_eyebrow: "From kitchens to code",
+      headline: "Custom websites for Madrid businesses.",
+      hero_sub: "Built by hand, no templates.",
       languages: "Languages: Polish (native) · Spanish (B2) · English (B2)",
       cta_primary: "Tell me about your project",
     },
