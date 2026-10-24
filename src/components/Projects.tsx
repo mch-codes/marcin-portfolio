@@ -103,7 +103,7 @@ export default function Projects() {
       screenshot: "/oidoo-screenshot.webp",
       forWho: t.projects.oidoo_for,
       built: t.projects.oidoo_built,
-      gallery: [desktop("oidoo"), desktop("oidoo-funcionalidades"), desktop("oidoo-beta"), phone("oidoo-mobile")],
+      gallery: [desktop("oidoo"), desktop("oidoo-funcionalidades"), desktop("oidoo-precio"), phone("oidoo-mobile")],
     },
   ];
 
