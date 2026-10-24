@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter, DM_Mono } from "next/font/google";
-import { cookies } from "next/headers";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -87,12 +86,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const cookieStore = await cookies();
-  const lang = cookieStore.get("lang")?.value === "en" ? "en" : "es";
-
+// No cookies() here: reading one made every request render on the server and
+// the HTML uncacheable. "es" is what the server renders anyway; LanguageProvider
+// corrects <html lang> on the client for a visitor who picked English.
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang={lang} className={`${fraunces.variable} ${inter.variable} ${dmMono.variable}`}>
+    <html lang="es" className={`${fraunces.variable} ${inter.variable} ${dmMono.variable}`}>
       <head>
         <script
           type="application/ld+json"

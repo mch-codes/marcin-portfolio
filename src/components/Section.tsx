@@ -30,14 +30,18 @@ const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
  * mid-page, contact submit, 404) imports this rather than restating it, so
  * there is a single place to change the shape. Callers append only what is
  * theirs alone: `shrink-0`, `self-start`, `disabled:*`.
+ *
+ * Solid ink at rest: the old grey hairline was the faintest thing on the page,
+ * on the one element every section exists to lead to. The wipe now brings in
+ * the accent, which is the only place it appears — colour means action.
  */
 export const CTA =
-  "relative isolate overflow-hidden inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3 rounded-full border border-border text-sm font-semibold text-muted transition-colors duration-300 hover:text-bg hover:border-text focus-visible:text-bg focus-visible:border-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg " +
-  /* The ink wipe: a full-size layer behind the label, scaled flat against the
-     left edge and released on hover. `isolate` + `-z-10` keeps it under the
-     text without the callers having to wrap their label in a span, and
+  "relative isolate overflow-hidden inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3 rounded-full border border-text bg-text text-sm font-semibold text-bg transition-colors duration-300 hover:border-accent focus-visible:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg " +
+  /* The accent wipe: a full-size layer behind the label, scaled flat against
+     the left edge and released on hover. `isolate` + `-z-10` keeps it under
+     the text without the callers having to wrap their label in a span, and
      `overflow-hidden` is what clips it back to the pill. */
-  "before:absolute before:inset-0 before:-z-10 before:bg-text before:origin-left before:scale-x-0 before:transition-transform before:duration-300 before:ease-out hover:before:scale-x-100 focus-visible:before:scale-x-100";
+  "before:absolute before:inset-0 before:-z-10 before:bg-accent before:origin-left before:scale-x-0 before:transition-transform before:duration-300 before:ease-out hover:before:scale-x-100 focus-visible:before:scale-x-100";
 
 /**
  * Darkens an existing `border-t` left-to-right when the enclosing `group` is

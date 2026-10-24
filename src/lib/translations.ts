@@ -17,9 +17,11 @@ export const translations = {
       // line is the story, so it sits underneath rather than leading.
       headline: "Webs a medida para talleres, tiendas y autónomos de Madrid.",
       // One sentence per entry — the hero renders each on its own line.
+      // Offer first, story second: price and "no templates" answer what's in
+      // it for the visitor; the kitchen line is why they should believe it.
       hero_sub: [
-        "De las cocinas al código. Misma disciplina, otro oficio.",
         "Sin plantillas. Desde 700€.",
+        "De las cocinas al código. Misma disciplina, otro oficio.",
       ],
       languages: "Idiomas: Polaco (nativo) · Español (B2) · Inglés (B2)",
       cta_primary: "Cuéntame tu proyecto",
@@ -122,7 +124,7 @@ export const translations = {
       name_placeholder: "Tu nombre",
       email_placeholder: "tu@email.com",
       message_placeholder: "Cuéntame sobre tu proyecto...",
-      send: "Enviar mensaje",
+      send: "Pedir presupuesto",
       sending: "Enviando...",
       success: "Mensaje enviado, te respondo pronto.",
       error: "Algo salió mal, intenta de nuevo.",
@@ -177,7 +179,7 @@ export const translations = {
     },
     privacyPage: {
       title: "Política de privacidad",
-      updated: "Última actualización: julio de 2026",
+      updated: "Última actualización: octubre de 2026",
       back: "← Volver al inicio",
       sections: [
         {
@@ -202,7 +204,7 @@ export const translations = {
         },
         {
           heading: "6. Cookies",
-          body: "Este sitio utiliza una cookie técnica (\"lang\") para recordar el idioma elegido por el usuario, con una duración de un año. No se utilizan cookies de publicidad ni de seguimiento de terceros. Vercel Analytics no utiliza cookies.",
+          body: "Este sitio no utiliza cookies. El idioma elegido por el usuario se guarda únicamente en el almacenamiento local de su navegador (localStorage), no se envía al servidor y puede borrarse desde la configuración del navegador. Vercel Analytics no utiliza cookies.",
         },
         {
           heading: "7. Derechos del usuario",
@@ -227,8 +229,8 @@ export const translations = {
       portraitAlt: "Marcin in chef's whites, a black-and-white portrait resolving into ASCII.",
       headline: "Custom websites for workshops, shops and freelancers in Madrid.",
       hero_sub: [
-        "From the kitchen to the code. Same discipline, different craft.",
         "No templates. From €700.",
+        "From the kitchen to the code. Same discipline, different craft.",
       ],
       languages: "Languages: Polish (native) · Spanish (B2) · English (B2)",
       cta_primary: "Tell me about your project",
@@ -328,7 +330,7 @@ export const translations = {
       name_placeholder: "Your name",
       email_placeholder: "your@email.com",
       message_placeholder: "Tell me about your project...",
-      send: "Send message",
+      send: "Get a quote",
       sending: "Sending...",
       success: "Message sent, I'll get back to you soon.",
       error: "Something went wrong, please try again.",
@@ -378,7 +380,7 @@ export const translations = {
     },
     privacyPage: {
       title: "Privacy policy",
-      updated: "Last updated: July 2026",
+      updated: "Last updated: October 2026",
       back: "← Back to home",
       sections: [
         {
@@ -403,7 +405,7 @@ export const translations = {
         },
         {
           heading: "6. Cookies",
-          body: "This site uses one technical cookie (\"lang\") to remember the user's chosen language, valid for one year. No advertising or third-party tracking cookies are used. Vercel Analytics does not use cookies.",
+          body: "This site does not use cookies. The language you choose is stored only in your browser's local storage (localStorage); it is never sent to the server and can be cleared from your browser settings. Vercel Analytics does not use cookies.",
         },
         {
           heading: "7. Your rights",
