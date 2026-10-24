@@ -204,7 +204,9 @@ function ProjectList({
                     web" sat on the black letterforms and vanished as each
                     card crossed the wordmark. Its hover is an underline, not
                     a colour step — the two -diff greys land almost the same
-                    on the page, and an underline inverts with the text. */}
+                    on the page, and an underline inverts with the text. For
+                    the same reason the live-site link leads by size and
+                    weight (base/semibold vs sm/normal), not by colour. */}
                 <div className={`flex flex-col mix-blend-difference ${side.items}`}>
                   <p className="text-xs font-mono tracking-widest text-muted-diff uppercase">
                     {p.tag}
@@ -222,7 +224,7 @@ function ProjectList({
                     href={p.demoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative z-10 inline-flex items-center gap-1.5 py-2.5 text-sm font-medium text-text-diff underline-offset-4 hover:underline"
+                    className="relative z-10 inline-flex items-center gap-1.5 py-2.5 text-base font-semibold text-text-diff underline-offset-4 hover:underline"
                   >
                     {p.demoLabel}
                     <ArrowUpRight />
@@ -230,7 +232,7 @@ function ProjectList({
                   <button
                     type="button"
                     onClick={() => onOpen(p)}
-                    className="inline-flex items-center gap-1.5 py-2.5 text-sm font-medium text-muted-diff underline-offset-4 group-hover:underline group-focus-within:underline after:absolute after:inset-0 cursor-pointer"
+                    className="inline-flex items-center gap-1.5 py-2.5 text-sm font-normal text-muted-diff underline-offset-4 group-hover:underline group-focus-within:underline after:absolute after:inset-0 cursor-pointer"
                   >
                     {openLabel}
                     <span className="transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none">
