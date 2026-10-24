@@ -7,8 +7,8 @@ import { scrollToSection } from "@/lib/scroll";
 
 const withPeriod = (s: string) => (/[.!?]$/.test(s) ? s : `${s}.`);
 
-type ServiceCard = { title: string; desc: string; price: string; features: string[] };
-type LineItem = { label: string; price: string };
+type ServiceCard = { title: string; desc: string; price: string; delivery: string; features: string[] };
+type LineItem = { label: string; price: string; desc?: string };
 
 /**
  * Puts the picked tier in the contact form's message box, then takes the
@@ -88,6 +88,9 @@ function ServiceCardItem({ card, delay }: { card: ServiceCard; delay: number }) 
             &rarr;
           </span>
         </p>
+        <p className="mt-2 font-mono text-xs text-muted">
+          {t.services.delivery_label} {card.delivery}
+        </p>
       </Reveal>
     </a>
   );
@@ -101,8 +104,13 @@ function LineItemRow({ item }: { item: LineItem }) {
   return (
     // Both spans are already text-text, so the hover lands on the rule
     // instead of the type: the row's hairline darkens a step.
+    // The optional description sits under the label in muted, so the
+    // label/price baseline pairing stays the row's first line.
     <li className="flex items-baseline justify-between gap-4 py-3 text-sm border-b border-border first:border-t transition-colors duration-200 hover:border-border-light">
-      <span className="text-text">{item.label}</span>
+      <span className="text-text">
+        {item.label}
+        {item.desc && <span className="block mt-1 text-xs text-muted leading-relaxed">{item.desc}</span>}
+      </span>
       <span className="font-mono text-text shrink-0">{item.price}</span>
     </li>
   );
@@ -124,10 +132,13 @@ function LineItemGroup({ heading, items, delay }: { heading: string; items: Line
 export default function Services() {
   const { t } = useLanguage();
 
+  // Technical SEO ships with every tier, so it's appended here once rather
+  // than copied into three feature lists per language.
+  const s = t.services;
   const cards: ServiceCard[] = [
-    { title: t.services.card1_title, desc: t.services.card1_desc, price: t.services.card1_price, features: t.services.card1_features },
-    { title: t.services.card2_title, desc: t.services.card2_desc, price: t.services.card2_price, features: t.services.card2_features },
-    { title: t.services.card3_title, desc: t.services.card3_desc, price: t.services.card3_price, features: t.services.card3_features },
+    { title: s.card1_title, desc: s.card1_desc, price: s.card1_price, delivery: s.card1_delivery, features: [...s.card1_features, s.seo_feature] },
+    { title: s.card2_title, desc: s.card2_desc, price: s.card2_price, delivery: s.card2_delivery, features: [...s.card2_features, s.seo_feature] },
+    { title: s.card3_title, desc: s.card3_desc, price: s.card3_price, delivery: s.card3_delivery, features: [...s.card3_features, s.seo_feature] },
   ];
 
   return (
@@ -156,6 +167,12 @@ export default function Services() {
           <LineItemGroup heading={t.services.addons_heading} items={t.services.addons} delay={0.1} />
           <LineItemGroup heading={t.services.maintenance_heading} items={t.services.maintenance} delay={0.2} />
         </div>
+
+        {/* Terms for everything above: same mono/muted voice as the line-item
+            headings, on the same rail. */}
+        <Reveal delay={0.25} className="mt-8 mx-auto max-w-5xl">
+          <p className="font-mono text-xs text-muted leading-relaxed">{t.services.terms}</p>
+        </Reveal>
 
         <m.div
           initial={{ opacity: 0, y: 20 }}

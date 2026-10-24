@@ -35,6 +35,7 @@ export const translations = {
       card1_title: "Landing page",
       card1_desc: "Una página que dice qué haces y consigue que te escriban.",
       card1_price: "Desde 700€",
+      card1_delivery: "1–2 semanas",
       card1_features: [
         "Todo en un scroll: portada, servicios y contacto",
         "Contacto por Instagram y WhatsApp, donde ya está tu clientela",
@@ -43,7 +44,8 @@ export const translations = {
       ],
       card2_title: "Portfolio",
       card2_desc: "Tu catálogo completo online, organizado y fácil de ver.",
-      card2_price: "Desde 900€",
+      card2_price: "Desde 1.200€",
+      card2_delivery: "2–3 semanas",
       card2_features: [
         "Galería completa con categorías y colecciones",
         "Gestor de contenido simple: subes piezas sin tocar código",
@@ -52,7 +54,8 @@ export const translations = {
       ],
       card3_title: "Tienda online",
       card3_desc: "Para quien de verdad necesita vender online.",
-      card3_price: "Desde 1.800€",
+      card3_price: "Desde 2.500€",
+      card3_delivery: "4–6 semanas",
       card3_features: [
         "Carrito y cobro real con Stripe",
         "Control de stock y pedidos, sincronizado automáticamente",
@@ -61,15 +64,19 @@ export const translations = {
       ],
       addons_heading: "Extras",
       addons: [
-        { label: "SEO básico", price: "150€" },
+        { label: "SEO local", price: "150€", desc: "Google Business Profile, datos estructurados locales y Search Console" },
         { label: "Redacción ES/EN", price: "250€" },
-        { label: "Dominio + correo profesional", price: "60€" },
+        { label: "Configuración de dominio + correo (licencias aparte)", price: "60€" },
       ],
       maintenance_heading: "Mantenimiento",
       maintenance: [
-        { label: "Landing page / Portfolio", price: "45€/mes" },
-        { label: "Tienda online", price: "90€/mes" },
+        { label: "Landing page / Portfolio", price: "45€/mes", desc: "Hosting, HTTPS, copias de seguridad, actualizaciones y hasta 2 cambios de contenido al mes" },
+        { label: "Tienda online", price: "90€/mes", desc: "Todo lo anterior + base de datos, monitorización de pagos y soporte prioritario" },
       ],
+      // Appended to every card's feature list in Services.tsx.
+      seo_feature: "SEO técnico incluido (metadatos, sitemap, Open Graph)",
+      delivery_label: "Entrega típica:",
+      terms: "Precios sin IVA. Pago: 50% al inicio, 50% a la entrega. Incluye 2 rondas de revisiones.",
       cta_text: "Cuéntame qué necesitas. Respondo en 24h, sin compromiso.",
       cta_button: "Hablemos",
       /* Dropped into the contact form's message box when a card is clicked.
@@ -246,6 +253,7 @@ export const translations = {
       card1_title: "Landing page",
       card1_desc: "One page that says what you do and gets people in touch.",
       card1_price: "From €700",
+      card1_delivery: "1–2 weeks",
       card1_features: [
         "Hero, services, and contact in one scroll",
         "Instagram and WhatsApp contact, where people already are",
@@ -254,7 +262,8 @@ export const translations = {
       ],
       card2_title: "Portfolio",
       card2_desc: "Your full catalogue online, organised and easy to browse.",
-      card2_price: "From €900",
+      card2_price: "From €1,200",
+      card2_delivery: "2–3 weeks",
       card2_features: [
         "Full gallery with categories and collections",
         "Simple content editor: add pieces without touching code",
@@ -263,7 +272,8 @@ export const translations = {
       ],
       card3_title: "Online store",
       card3_desc: "For makers who genuinely need to sell online.",
-      card3_price: "From €1,800",
+      card3_price: "From €2,500",
+      card3_delivery: "4–6 weeks",
       card3_features: [
         "Real cart and checkout with Stripe",
         "Stock and order management, synced automatically",
@@ -272,15 +282,18 @@ export const translations = {
       ],
       addons_heading: "Add-ons",
       addons: [
-        { label: "Basic SEO setup", price: "€150" },
+        { label: "Local SEO", price: "€150", desc: "Google Business Profile, local structured data and Search Console" },
         { label: "Copywriting ES/EN", price: "€250" },
-        { label: "Domain + professional email", price: "€60" },
+        { label: "Domain + email setup (licences not included)", price: "€60" },
       ],
       maintenance_heading: "Maintenance",
       maintenance: [
-        { label: "Landing page / Portfolio", price: "€45/mo" },
-        { label: "Online store", price: "€90/mo" },
+        { label: "Landing page / Portfolio", price: "€45/mo", desc: "Hosting, HTTPS, backups, updates and up to 2 content changes per month" },
+        { label: "Online store", price: "€90/mo", desc: "All of the above + database, payment monitoring and priority support" },
       ],
+      seo_feature: "Technical SEO included (metadata, sitemap, Open Graph)",
+      delivery_label: "Typical delivery:",
+      terms: "Prices exclude VAT. Payment: 50% upfront, 50% on delivery. Includes 2 revision rounds.",
       cta_text: "Tell me what you need. I reply within 24h, no commitment.",
       cta_button: "Let's talk",
       pick_message: "Hi, I'm interested in the {service} service.",
