@@ -157,7 +157,7 @@ export default function Contact() {
                 <input type="checkbox" name="consent" required className="mt-0.5" />
                 <span>
                   {t.contact.consent_pre}
-                  <Link href="/politica-privacidad" className="underline underline-offset-2 hover:text-text">
+                  <Link href="/politica-privacidad" className="underline underline-offset-2 hover:text-text transition-colors duration-200">
                     {t.contact.consent_link}
                   </Link>
                   {t.contact.consent_post}

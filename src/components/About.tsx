@@ -182,7 +182,10 @@ export default function About() {
             framer writes `transform` inline, which would eat the -translate-y.
             The cube is the reveal now, so this block no longer fades in. */}
         <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto max-w-xl pl-6 pr-20 md:pr-6 text-center">
-          <CubeReveal delay={1.35}>
+          {/* 0.6, not the old 1.35: this is the line that says what's on
+              sale, and it was the last thing on screen at ~2.45s. Now it
+              turns in alongside the surname and lands at ~1.7s. */}
+          <CubeReveal delay={0.6}>
           {/* This one does need the inline family. It is an h1, and the
               unlayered `h1, h2, h3` rule in globals.css sets Fraunces at a
               specificity Tailwind's layered utilities cannot beat. */}

@@ -18,7 +18,9 @@ export function scrollToSection(id: string) {
   if (_lenis) {
     _lenis.scrollTo(heading as HTMLElement, { offset: -96, duration: CLICK_DURATION });
   } else {
-    (heading as HTMLElement).scrollIntoView({ behavior: "smooth", block: "start" });
+    // No Lenis means reduced motion (see SmoothScroll): jump, and keep the
+    // same offset so the heading doesn't land under the fixed header.
+    window.scrollTo({ top: heading.getBoundingClientRect().top + window.scrollY - 96 });
   }
 }
 
@@ -26,7 +28,7 @@ export function scrollToTop() {
   if (_lenis) {
     _lenis.scrollTo(0, { duration: CLICK_DURATION });
   } else {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0 });
   }
 }
 

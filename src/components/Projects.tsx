@@ -311,7 +311,7 @@ function ProjectModal({ project: p, onClose }: { project: ProjectCard; onClose: 
             href={p.demoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-text transition-colors duration-200"
           >
             {p.demoLabel}
             <ArrowUpRight />
