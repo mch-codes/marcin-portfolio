@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { m, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import { SectionHeader, Reveal } from "@/components/Section";
 import { lockScroll } from "@/lib/scroll";
@@ -108,38 +109,12 @@ export default function Projects() {
 
   const [open, setOpen] = useState<ProjectCard | null>(null);
 
-  // No `overflow-hidden` on this section, unlike its neighbours: an
-  // overflow-clipped ancestor kills position:sticky on the header below.
   return (
-    <section id="projects" className="pt-20 md:pt-24 pb-32 md:pb-48 relative">
-      {/*
-        The wordmark pins to the middle of the viewport and stays there for the
-        length of the section while the cards ride up over it. `top-1/2` is
-        where sticky catches; the translate then lifts it by half its own
-        height, which sticky ignores when it measures — so the two together
-        centre it.
+    <section id="projects" className="pt-20 md:pt-24 pb-20 md:pb-24 relative">
+      <SectionHeader word={t.projects.headline} />
 
-        No background fill and no z-index on purpose: the cards are the later
-        sibling, so they paint over the letterforms, which is the whole
-        effect. Give this block an opaque bg and the cards slide under it
-        like a shelf instead — and an opaque bg would also be the backdrop
-        the captions blend against, which is the wordmark's other job here.
-      */}
-      <div className="sticky top-1/2 -translate-y-1/2">
-        <SectionHeader word={t.projects.headline} />
-      </div>
-
-      {/* One card per row, and a screen's worth of air between them, so only
-          one is ever over the wordmark at a time. They alternate gutters
-          rather than sitting centred, so each covers a different part of the
-          word on its way past.
-          No z-index, deliberately: z-10 here made this an isolating stacking
-          context, which cut the captions' mix-blend-difference off from the
-          wordmark it needs to blend against. Both this and the sticky
-          wordmark are positioned at z-auto, so paint order falls back to DOM
-          order — and the cards are second. */}
-      <div className="relative px-6 md:px-16">
-        <ProjectList projects={projects} onOpen={setOpen} openLabel={t.projects.open_cta} />
+      <div className="px-6 md:px-16">
+        <ProjectIndex projects={projects} onOpen={setOpen} />
       </div>
 
       {open && <ProjectModal project={open} onClose={() => setOpen(null)} />}
@@ -147,105 +122,145 @@ export default function Projects() {
   );
 }
 
-function ProjectList({
-  projects,
-  onOpen,
-  openLabel,
-}: {
-  projects: ProjectCard[];
-  onOpen: (p: ProjectCard) => void;
-  openLabel: string;
-}) {
+/**
+ * The work as a typographic index: one hairline row per project, the name
+ * set large, and on desktop the screenshot rides the cursor while a row is
+ * hovered. Same hairline-and-mono vocabulary as the Services line items.
+ *
+ * The preview only appears for a real mouse (pointerType check), so touch
+ * never gets a stuck image; phones get the screenshot inline in the row
+ * instead. Hover follows the site rule: the list dims to muted and the row
+ * under the cursor stays at full text.
+ */
+function ProjectIndex({ projects, onOpen }: { projects: ProjectCard[]; onOpen: (p: ProjectCard) => void }) {
+  const reducedMotion = useReducedMotion();
+  const [active, setActive] = useState<number | null>(null);
+
+  // Raw pointer position, plus a sprung copy so the image trails the cursor
+  // instead of being glued to it. Reduced motion uses the raw values.
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const spring = { stiffness: 300, damping: 30, mass: 0.6 };
+  const sx = useSpring(x, spring);
+  const sy = useSpring(y, spring);
+
   return (
-    <div className="mt-16 md:mt-24 flex flex-col gap-28 md:gap-40">
-      {projects.map((p, i) => {
-            // Odd cards hang on the right gutter. Below md there's no room to
-            // offset anything, so both settle back to centred.
-            const side = i % 2 === 0
-              ? { self: "md:self-start", items: "md:items-start", text: "md:text-left" }
-              : { self: "md:self-end", items: "md:items-end", text: "md:text-right" };
-
-            return (
+    <>
+      <ul
+        className="group/list mt-24 md:mt-32 border-t border-border"
+        onPointerMove={(e) => {
+          if (e.pointerType !== "mouse") return;
+          x.set(e.clientX);
+          y.set(e.clientY);
+        }}
+        onPointerLeave={() => setActive(null)}
+      >
+        {projects.map((p, i) => (
+          <li
+            key={p.title}
+            onPointerEnter={(e) => e.pointerType === "mouse" && setActive(i)}
+            className="group border-b border-border text-text transition-colors duration-300 group-hover/list:text-muted hover:text-text!"
+          >
+            {/* Reveal is inside the li (a ul may only hold li). Its transform
+                makes it the containing block for the button's after:inset-0,
+                which is why the row padding lives here — so the hit area is
+                the whole row. */}
+            {/* Three layouts. Phone: one column. md: name and description
+                left, link right. xl: number, name, description, link — below
+                1280px the fixed side columns leave the name too little room.
+                (Media queries read rem at the browser's 16px, not the 20.8px
+                root, so md/xl are the usual 768/1280.)
+                Fixed side columns so description and link line up row to row;
+                minmax(0,1fr) so a long name can't widen its row past the page. */}
             <Reveal
-              key={p.title}
-              className={`group relative w-full md:max-w-xl flex flex-col items-center text-center ${side.self} ${side.items} ${side.text}`}
+              delay={i * 0.1}
+              className="relative grid md:grid-cols-[minmax(0,1fr)_auto] xl:grid-cols-[3rem_minmax(0,1fr)_18rem_8rem] items-baseline md:gap-x-10 py-8 xl:py-10"
             >
-              {/* next/image, not <img>: Vercel then serves a resized AVIF/WebP
-                  instead of the full-size PNG. Card caps at max-w-xl (~750px
-                  against the 20.8px root) so image, caption and links fit one
-                  900px screen; at max-w-2xl a card ran ~1000px. */}
-              {/* overflow-hidden so the hover scale crops instead of pushing
-                  the caption around. The whole card is one hit area (the demo
-                  link's after:inset-0), so the zoom reads as its affordance. */}
-              <div className="w-full overflow-hidden">
-                <Image
-                  src={p.screenshot}
-                  alt={p.title}
-                  width={1280}
-                  height={800}
-                  sizes="(max-width: 768px) 100vw, 36rem"
-                  className="w-full aspect-[16/10] object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02] group-focus-within:scale-[1.02] motion-reduce:group-hover:scale-100 motion-reduce:group-focus-within:scale-100"
-                />
-              </div>
+              <span className="hidden xl:block font-mono text-xs text-muted">{String(i + 1).padStart(2, "0")}</span>
 
-              {/* Deliberately unfilled: the wordmark reads through the caption
-                  as the card passes over it. */}
-              <div className={`w-full pt-8 pb-2 flex flex-col items-center ${side.items}`}>
-                {/* The type inverts itself against whatever it is over.
-                    `difference` gives |backdrop - source|, so the near-white
-                    -diff tokens come out black on the page and white on the
-                    wordmark — no measuring, no scroll listener, and it
-                    tracks the letterforms hole by hole. See globals.css for
-                    why these can't just be text/muted pre-inverted.
-                    Blending only reaches out to the nearest isolating
-                    ancestor, which is why the wrapper below dropped its
-                    z-10.
-                    The link row is inside too: left outside, the dark "Ver
-                    web" sat on the black letterforms and vanished as each
-                    card crossed the wordmark. Its hover is an underline, not
-                    a colour step — the two -diff greys land almost the same
-                    on the page, and an underline inverts with the text. For
-                    the same reason the live-site link leads by size and
-                    weight (base/semibold vs sm/normal), not by colour. */}
-                <div className={`flex flex-col mix-blend-difference ${side.items}`}>
-                  <p className="text-xs font-mono tracking-widest text-muted-diff uppercase">
-                    {p.tag}
-                    {p.status ? ` · ${p.status}` : ""}
-                  </p>
-                  <h3 className="mt-4 text-2xl md:text-3xl font-bold text-text-diff tracking-tight leading-tight">{p.title}</h3>
-                  <p className="mt-4 text-base text-muted-diff leading-relaxed max-w-md">{p.desc}</p>
-                  <p className="mt-5 text-sm text-muted-diff">{p.stack.join(" · ")}</p>
-
-                  <div className="mt-5 flex items-center gap-6">
-                  {/* The whole card opens the gallery; the live site gets its
-                      own link, lifted above the card-wide hit area. GitHub
-                      stays in the modal only — clients don't open repos. */}
-                  <a
-                    href={p.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="relative z-10 inline-flex items-center gap-1.5 py-2.5 text-base font-semibold text-text-diff underline-offset-4 hover:underline"
-                  >
-                    {p.demoLabel}
-                    <ArrowUpRight />
-                  </a>
+              <div>
+                <p className="font-mono text-xs uppercase tracking-widest text-muted">
+                  <span className="xl:hidden">{String(i + 1).padStart(2, "0")} · </span>
+                  {p.tag}
+                </p>
+                {/* The button carries the row's hit area (after:inset-0), so the
+                    heading stays a real h3 — a button can't hold one.
+                    Sized in vw between two caps per layout: "almenos1minuto"
+                    is 14 characters and has to fit a 390px phone, the md
+                    column at 768px and the xl column at 1280px. */}
+                <h3 className="mt-2 text-[clamp(1.75rem,8.5vw,3.75rem)] md:text-[clamp(2.5rem,6vw,3.75rem)] xl:text-[clamp(2.5rem,4vw,3.75rem)] font-bold tracking-tighter leading-none">
+                  {/* The slide lives on the inner span, not the button: a
+                      transform would make the button the containing block
+                      for its own ::after and shrink the hit area to the name. */}
                   <button
                     type="button"
                     onClick={() => onOpen(p)}
-                    className="inline-flex items-center gap-1.5 py-2.5 text-sm font-normal text-muted-diff underline-offset-4 group-hover:underline group-focus-within:underline after:absolute after:inset-0 cursor-pointer"
+                    className="text-left after:absolute after:inset-0 cursor-pointer focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-accent"
                   >
-                    {openLabel}
-                    <span className="transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none">
-                      <ArrowUpRight />
+                    <span className="inline-block transition-transform duration-500 ease-out group-hover:translate-x-3 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0">
+                      {p.title}
                     </span>
                   </button>
-                  </div>
-                </div>
+                </h3>
               </div>
+
+              <p className="mt-4 xl:mt-0 md:col-start-1 md:row-start-2 xl:col-start-auto xl:row-start-auto text-sm text-muted leading-relaxed max-w-md">{p.desc}</p>
+
+              {/* Lifted above the row's hit area so it goes to the live site
+                  rather than opening the gallery. Leads by size and weight. */}
+              <a
+                href={p.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative z-10 justify-self-start md:justify-self-end md:col-start-2 md:row-start-1 xl:col-start-auto xl:row-start-auto inline-flex items-center gap-1.5 mt-3 md:mt-0 py-2.5 text-base font-semibold whitespace-nowrap underline-offset-4 hover:underline"
+              >
+                {p.demoLabel}
+                <ArrowUpRight />
+              </a>
+
+              {/* Below md (phones, small tablets — touch) there's no hover to
+                  drive the preview, so the screenshot sits in the row. */}
+              <Image
+                src={p.screenshot}
+                alt=""
+                width={1280}
+                height={800}
+                sizes="(max-width: 767px) 100vw, 1px"
+                className="md:hidden mt-6 w-full aspect-[16/10] object-cover object-top"
+              />
             </Reveal>
-            );
-          })}
-    </div>
+          </li>
+        ))}
+      </ul>
+
+      {/* The floating preview. Fixed to the viewport and fed clientX/Y, so
+          scrolling never desyncs it; pointer-events-none so it can't steal
+          the hover from the row beneath. All three shots are mounted and
+          cross-fade, which keeps the swap instant once they've loaded. */}
+      <m.div
+        aria-hidden
+        style={{ x: reducedMotion ? x : sx, y: reducedMotion ? y : sy }}
+        className="hidden md:block pointer-events-none fixed top-0 left-0 z-40"
+      >
+        <m.div
+          initial={false}
+          animate={{ opacity: active === null ? 0 : 1, scale: active === null ? 0.9 : 1 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="relative -translate-x-1/2 -translate-y-1/2 w-[22rem] aspect-[16/10] overflow-hidden"
+        >
+          {projects.map((p, i) => (
+            <Image
+              key={p.screenshot}
+              src={p.screenshot}
+              alt=""
+              fill
+              sizes="22rem"
+              className={`object-cover object-top transition-opacity duration-300 ${active === i ? "opacity-100" : "opacity-0"}`}
+            />
+          ))}
+        </m.div>
+      </m.div>
+    </>
   );
 }
 
