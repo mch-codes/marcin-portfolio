@@ -43,19 +43,21 @@
   }
 }
 
-/* The hero name's size. It used to be the largest type on the site, with the
-   section wordmarks capped at a fraction of it; the wordmarks now run the full
-   page width instead and are bigger — see useFitToWidth in Section.tsx.
+/* The hero name's size: "Marcin", top-left. Capped by both axes. Width:
+   "Marcin" runs ~3.3em in Inter, so 22vw keeps it to ~73% of the viewport.
+   Height: the line has to clear the centred copy, which starts a little above
+   the middle (20vh is ~180px under the 90px top on a 900px screen; 10vh on a
+   phone is ~84px).
 
-   The breakpoint is 48rem to match Tailwind's `md`, which resolves against the
-   20.8px root below, not against 16px. */
+   Media queries read rem at the browser's 16px, not the 20.8px root, so 48rem
+   is Tailwind's md at 768px. */
 :root {
-  --name-size: 7vh;
+  --name-size: min(10vh, 22vw);
 }
 
 @media (min-width: 48rem) {
   :root {
-    --name-size: 17vh;
+    --name-size: min(20vh, 22vw);
   }
 }
 

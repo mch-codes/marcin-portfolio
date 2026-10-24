@@ -1,88 +1,51 @@
 "use client";
 
-import { m, useScroll, useTransform, useAnimationControls, useReducedMotion } from "framer-motion";
-import { useRef, useLayoutEffect, type ReactNode } from "react";
+import { animate, m, useMotionValue, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { useLayoutEffect, useRef, useState, type ReactNode, type Ref } from "react";
+import { flushSync } from "react-dom";
 import { useLanguage } from "@/context/LanguageContext";
 import { scrollToSection } from "@/lib/scroll";
 import { useIsMobile, CTA } from "@/components/Section";
 
-/* Both halves of the name share one size token so they can't drift apart —
-   the whole point is that the horizontal given name and the vertical surname
-   read as one word broken across a corner. In vh, not vw: the surname's run
-   has to fit the viewport height, and the given name has to match it.
-   Their vertical offsets are separate — see GIVEN_TOP / SURNAME_TOP below.
+/* "Marcin", top-left. The size lives in globals.css as
+   --name-size, capped by both width and height — see the note there. In the
+   opening stack it is set smaller so the three pieces read as one group. */
+const NAME_TYPE = "font-black text-text tracking-tighter leading-none";
+const NAME_SIZE = "text-(length:--name-size)";
+const NAME_SIZE_STACKED = "text-[length:calc(var(--name-size)*0.55)]";
 
-   The desktop value is derived, not picked. "Chrzuszcz" runs 4.94em in Inter
-   (it was 4.03em in Fraunces — swapping the family lengthened it by 22% and
-   overflowed the section, which `overflow-hidden` silently clipped). Budget is
-   the section height less SURNAME_TOP: 900 - 104 leaves ~796px, so 17vh
-   (~153px) lands the tail around 860px with room to spare. Re-measure this if
-   the family, the surname, or SURNAME_TOP ever changes.
-
-   The value itself lives in globals.css as --name-size, because the section
-   wordmarks cap themselves against it — this is the largest type on the site
-   and the cap is what keeps it that way. */
-const NAME_SIZE = "text-(length:--name-size) font-black text-text tracking-tighter leading-none";
-
-/* The two halves are deliberately off each other's baseline now. Each has its
-   own ceiling, and both are tighter than they look:
-
-   GIVEN_TOP is an exact pixel rather than a scale step: the scale straddles the
+/* GIVEN_TOP is an exact pixel rather than a scale step: the scale straddles the
    target (pt-16 is 83px, pt-20 is 104px against the 20.8px root) with nothing
    in between. 83px is the floor either way — that is the height of the fixed
-   header, and below it the caps of "Marcin" run up under the nav bar.
-
-   SURNAME_TOP sits at 104px (pt-20 against the 20.8px root). Its own ceiling
-   is around pt-28: at 20vh the run is ~725px inside a 900px section, so only
-   ~175px of slack exists before the tail clips at the fold. */
-/* Same language as the MC monogram in the nav: a hairline ring, no fill, no
-   colour of its own. min-h-[44px] is the tap target, rounded-full turns the
-   pill into the pressed-out version of that circle. */
-
+   header, and below it the name's caps run up under the nav bar. */
 const GIVEN_TOP = "pt-[90px]";
-const SURNAME_TOP = "pt-20";
 
-/* One shared variant, per-element delay through `custom`. A staggerChildren
-   container can't do it: the surname is positioned against the section and
-   lives outside the content column, so it isn't a child of anything the
-   column could stagger. Order is Marcin → Chrzuszcz → the centre copy. The CTA
-   is not in it: it is the mobile LCP element, and fading it in at 0.9s pushed
-   LCP to 3.3s. */
-const itemVariants = {
-  hidden: { opacity: 0, y: 32 },
-  visible: (delay: number = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
-  }),
-};
+/* The intro, as one gesture. The page is server-rendered as a centred stack —
+   name, copy, CTA — so it paints immediately and the headline is the first
+   (and largest-contentful) thing on screen. After HOLD, the layout switches to
+   the corners and each piece is animated from where it was to where it now
+   is (FLIP: measure first, switch, measure last, invert, play), all on one
+   shared curve. The nav drops in as they land (Navigation.tsx, delay 1.4s).
+   An earlier version hid everything until JS had measured it, which pushed
+   mobile LCP to ~4s. */
+const HOLD = 0.6;
+const TRAVEL = 1.0;
+// In-out rather than the site's usual ease-out: a move from one place to
+// another reads as travel when it accelerates away and settles in.
+const TRAVEL_EASE = [0.65, 0, 0.35, 1] as const;
 
-/* The name lands letter by letter. Same variant as everything else, just an
-   extra delay per index — the wrappers below stop carrying `variants` so the
-   letters aren't moved twice, but they keep initial/animate so the state still
-   propagates down. inline-block because transforms don't apply to inline
-   boxes; it works inside the vertical writing mode too. */
-function Letters({ text, delay }: { text: string; delay: number }) {
-  return text.split("").map((char, i) => (
-    <m.span key={i} variants={itemVariants} custom={delay + i * 0.05} className="inline-block">
-      {char}
-    </m.span>
-  ));
+type Piece = { x: MotionValue<number>; y: MotionValue<number>; scale: MotionValue<number> };
+
+function usePiece(): Piece {
+  return { x: useMotionValue(0), y: useMotionValue(0), scale: useMotionValue(1) };
 }
 
-/* The whole copy block rides one face of an invisible cube. The cube is never
-   drawn — only the face carrying the text — so it starts edge-on at -90°, no
-   height to the eye and nothing to hide, then turns to face front.
-   transformOrigin pushes the hinge behind the text by about half the block, so
-   it turns like a solid rather than flipping in place like a card. */
-function CubeReveal({ delay, children }: { delay: number; children: ReactNode }) {
+/** A wrapper the intro can move. Transform only; the layout is the phase's.
+    The element ref stays a separate prop: React's compiler treats any object
+    holding a ref as a ref, and won't let it be read during render. */
+function PieceBox({ piece, boxRef, className, children }: { piece: Piece; boxRef: Ref<HTMLDivElement>; className?: string; children: ReactNode }) {
   return (
-    <m.div
-      style={{ transformOrigin: "50% 50% -3.5em", backfaceVisibility: "hidden" }}
-      initial={{ rotateX: -90, transformPerspective: 900 }}
-      animate={{ rotateX: 0 }}
-      transition={{ duration: 1.1, delay, ease: [0.22, 1, 0.36, 1] }}
-    >
+    <m.div ref={boxRef} style={{ x: piece.x, y: piece.y, scale: piece.scale }} className={className}>
       {children}
     </m.div>
   );
@@ -90,24 +53,64 @@ function CubeReveal({ delay, children }: { delay: number; children: ReactNode })
 
 export default function About() {
   const { t } = useLanguage();
-  const controls = useAnimationControls();
-  const animationPlayed = useRef(false);
+  const [phase, setPhase] = useState<"stack" | "corners">("stack");
+  const stacked = phase === "stack";
 
-  useLayoutEffect(() => {
-    if (!animationPlayed.current) {
-      animationPlayed.current = true;
-      controls.start("visible");
-    }
-  }, [controls]);
+  const name = usePiece();
+  const copy = usePiece();
+  const cta = usePiece();
+  const nameRef = useRef<HTMLDivElement>(null);
+  const copyRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
 
   const isMobile = useIsMobile();
   const reducedMotion = useReducedMotion();
   const still = isMobile || reducedMotion;
 
-  // Keyed to the section's own travel, not the viewport: the hero is taller than
-  // one screen, so a vh-based fade blanked the last paragraphs before they could
-  // be read. 0 = section top at viewport top, 1 = section bottom at viewport top,
-  // so the fade can only start once everything has scrolled up into view.
+  /* Under reduced motion, or when the page opens already scrolled (a reload
+     mid-page, hero not in view to watch), go straight to the corners. */
+  useLayoutEffect(() => {
+    const skip = reducedMotion || window.scrollY > 0;
+    const pieces = [name, copy, cta];
+    const refs = [nameRef, copyRef, ctaRef];
+    let controls: { stop: () => void }[] = [];
+
+    // Both paths go through the timer: a state change made synchronously in
+    // the effect body would cascade a second render before first paint.
+    const timer = window.setTimeout(() => {
+      if (skip) {
+        setPhase("corners");
+        return;
+      }
+      const first = refs.map((r) => r.current?.getBoundingClientRect());
+      flushSync(() => setPhase("corners"));
+      const last = refs.map((r) => r.current?.getBoundingClientRect());
+      const travel = { duration: TRAVEL, ease: TRAVEL_EASE };
+
+      controls = pieces.flatMap((p, i) => {
+        const f = first[i];
+        const l = last[i];
+        if (!f || !l) return [];
+        // Scale about the centre (origin-center on each box), so the offset
+        // is just the difference between the two centres.
+        p.x.set(f.left + f.width / 2 - (l.left + l.width / 2));
+        p.y.set(f.top + f.height / 2 - (l.top + l.height / 2));
+        p.scale.set(f.width / l.width);
+        return [animate(p.x, 0, travel), animate(p.y, 0, travel), animate(p.scale, 1, travel)];
+      });
+    }, skip ? 0 : HOLD * 1000);
+
+    return () => {
+      window.clearTimeout(timer);
+      controls.forEach((c) => c.stop());
+    };
+    // Runs once on mount; the pieces' motion values are stable.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reducedMotion]);
+
+  // Keyed to the section's own travel, not the viewport: 0 = section top at
+  // viewport top, 1 = section bottom at viewport top, so the fade can only
+  // start once everything has scrolled up into view.
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -118,91 +121,60 @@ export default function About() {
 
   return (
     <section ref={sectionRef} id="hero" className="relative min-h-screen flex flex-col overflow-hidden">
-      {/* Positioned against the section rather than nested in the column below
-          — that one carries a transform and would become the containing block.
-          It repeats the column's own `px-6` instead, so the surname's right
-          edge lands on the same gutter the given name's left edge does. Sized in vh rather than vw because what it has to fit is
-          the viewport height — 9 glyphs at roughly 0.55em advance each, so
-          ~5em of run. */}
-      <m.div
-        aria-hidden
-        initial="hidden"
-        animate={controls}
-        className={`pointer-events-none select-none absolute inset-x-0 top-0 bottom-0 px-6 md:px-16 flex justify-end items-start ${SURNAME_TOP}`}
-      >
-        {/* writing-mode has to sit on the text, not on the flex box above it:
-            it swaps the flex axes, so `items-start` on the same element
-            aligns horizontally and the run drifts off the top. */}
-        <span className={`${NAME_SIZE} [writing-mode:vertical-rl]`}>
-          <Letters text="Chrzuszcz" delay={0.45} />
-        </span>
-      </m.div>
-
+      {/* Two layouts on one column. Stack: everything centred in the flow.
+          Corners: name top-left, copy pulled out to dead centre, CTA pushed to
+          the bottom-right by mt-auto. DOM order is name, copy, CTA in both, so
+          a screen reader hears the name, then what's on offer, then the ask. */}
       <m.div
         style={{ y, opacity }}
-        className={`relative z-10 flex-1 flex px-6 md:px-16 ${GIVEN_TOP} pb-10 w-full`}
+        className={`relative z-10 flex-1 flex flex-col px-6 md:px-16 ${GIVEN_TOP} pb-10 w-full ${stacked ? "items-center justify-center gap-6" : ""}`}
       >
-        <div className="w-full max-w-2xl flex flex-col gap-12 pr-20 md:pr-0">
-          {/* Text content, single column since the portrait came out. */}
-            <m.div initial="hidden" animate={controls}>
-              {/* The surname is rendered separately, hung off the right gutter —
-                  aria-label keeps the two halves one name for a screen reader,
-                  and the vertical half is hidden from the tree to match.
-                  No font-family override: both halves inherit the body sans. */}
-              <p aria-label="Marcin Chrzuszcz" className={NAME_SIZE}>
-                <Letters text="Marcin" delay={0} />
-              </p>
-            </m.div>
-
-            {/* mt-auto, not a spacer: the column now stretches the full section
-                height, so the CTA falls to the bottom edge on its own and stays
-                there whatever the name block above it measures. */}
-            <div className="mt-auto flex flex-col sm:flex-row gap-3">
-                <button
-                  type="button"
-                  onClick={() => scrollToSection("contact")}
-                  className={CTA}
-                >
-                  {t.about.cta_primary}
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                    <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-            </div>
-        </div>
-
-        {/* Dead centre of the section, out of the flow entirely — the name is
-            top-left and the CTA bottom-left, so this is a third anchor rather
-            than part of either. Positioned against the wrapper above (it is
-            `relative`) and not the max-w-2xl column, which is left-hung and
-            would centre this on the column's midpoint instead of the page's.
-            Last in the sequence — the name and the CTA land first, then
-            the copy that explains them. */}
-        {/* The centring stays on this div and the turn happens inside it:
-            framer writes `transform` inline, which would eat the -translate-y.
-            The cube is the reveal now, so this block no longer fades in. */}
-        <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto max-w-xl pl-6 pr-20 md:pr-6 text-center">
-          {/* 0.6, not the old 1.35: this is the line that says what's on
-              sale, and it was the last thing on screen at ~2.45s. Now it
-              turns in alongside the surname and lands at ~1.7s. */}
-          <CubeReveal delay={0.6}>
-          {/* Eyebrow in the same mono/uppercase/tracked voice as the Projects
-              tags and the Services line-item headings. */}
-          <p className="mb-4 font-mono text-xs uppercase tracking-widest text-muted text-balance">
-            {t.about.hero_eyebrow}
+        <PieceBox piece={name} boxRef={nameRef} className={`origin-center ${stacked ? "self-center" : "self-start"}`}>
+          <p className={`${NAME_TYPE} ${stacked ? NAME_SIZE_STACKED : NAME_SIZE}`}>
+            Marcin
           </p>
-          {/* This one does need the inline family. It is an h1, and the
-              unlayered `h1, h2, h3` rule in globals.css sets Fraunces at a
-              specificity Tailwind's layered utilities cannot beat. */}
-          <h1
-            className="text-xl md:text-2xl font-medium text-text text-balance"
-            style={{ fontFamily: "var(--font-inter), Inter, system-ui, sans-serif" }}
-          >
-            {t.about.headline}
-          </h1>
-          <p className="mt-4 text-sm text-muted text-balance">{t.about.hero_sub}</p>
-          </CubeReveal>
+        </PieceBox>
+
+        {/* In the corners it is centred against the section, out of the flow,
+            and needs its own px-6 (inset-x-0 ignores the column's padding). In
+            the stack the column's padding already applies, so the copy is the
+            same width in both and the move doesn't rescale or rewrap it.
+            The centring is Tailwind's translate property and the intro writes
+            transform, so the two never overwrite each other. */}
+        <div
+          className={
+            stacked
+              ? "w-full max-w-xl text-center"
+              : "absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto max-w-xl px-6 text-center"
+          }
+        >
+          <PieceBox piece={copy} boxRef={copyRef} className="origin-center">
+            {/* Eyebrow in the same mono/uppercase/tracked voice as the Projects
+                tags and the Services line-item headings. */}
+            <p className="mb-4 font-mono text-xs uppercase tracking-widest text-muted text-balance">
+              {t.about.hero_eyebrow}
+            </p>
+            {/* This one does need the inline family. It is an h1, and the
+                unlayered `h1, h2, h3` rule in globals.css sets Fraunces at a
+                specificity Tailwind's layered utilities cannot beat. */}
+            <h1
+              className="text-xl md:text-2xl font-medium text-text text-balance"
+              style={{ fontFamily: "var(--font-inter), Inter, system-ui, sans-serif" }}
+            >
+              {t.about.headline}
+            </h1>
+            <p className="mt-4 text-sm text-muted text-balance">{t.about.hero_sub}</p>
+          </PieceBox>
         </div>
+
+        <PieceBox piece={cta} boxRef={ctaRef} className={`origin-center ${stacked ? "self-center" : "mt-auto self-end"}`}>
+          <button type="button" onClick={() => scrollToSection("contact")} className={CTA}>
+            {t.about.cta_primary}
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </PieceBox>
       </m.div>
     </section>
   );
