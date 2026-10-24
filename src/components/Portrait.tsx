@@ -1,48 +1,74 @@
 "use client";
 
-import { useMotionValueEvent, useReducedMotion, useScroll } from "framer-motion";
+import { useInView, useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
- * The chef photo resolving into ASCII, scrubbed to the scroll position: the
- * scan line sits where the reader has scrolled to, so it converts on the way
- * down and reverts on the way up. No crossfade — above the line is final,
- * below it is the untouched photo — so it reads as one pass of a decoder
- * rather than a dissolve. Nothing is on a timer; the reader drives it.
+ * The chef photo turning into code, played as a short sequence when the
+ * portrait comes into view — not scrubbed to scroll, so it reads as a
+ * transition happening rather than one the reader has to drive:
  *
- * Reduced motion gets the resolved ASCII and no scrubbing.
+ *   pixelate  photo breaks into blocks that grow to the code grid
+ *   flip      each block, in random order, becomes a flickering glyph
+ *   decode    the flicker settles into real source, top to bottom
+ *
+ * It resets once the portrait leaves the screen, so coming back replays it.
+ * Reduced motion gets the finished code portrait and no sequence.
+ *
+ * The glyphs are not a density ramp: they are a real source file, read left
+ * to right, row after row, at a size where it still reads as code. The photo
+ * only decides how strongly each character is inked.
  */
 
-/* Dark to light. The photo is already black and white, so luminance alone
-   picks the glyph — no channel weighting beyond the usual Rec. 601 mix.
-   The long ramp: ~70 steps rather than 10, so the wall and the whites of the
-   jacket get gradation instead of banding into flat plates of one character. */
-const RAMP = "@%#*+=-:. ";
+/* The text the portrait is printed in. Thematic, and it has to look like a
+   file: brackets, arrows, keywords. It wraps on the grid, not on its own
+   newlines, so it is one long line repeated until every cell has a glyph. */
+const SOURCE =
+  'const kitchen = { mise: "en place", covers: 120, pass: "hot" }; ' +
+  "function plate(order) { return order.map((dish) => cook(dish, { heat: 220 })); } " +
+  "export default function Marcin() { const craft = useCraft({ precision: true }); " +
+  'return <Production craft={craft} from="kitchen" to="code" />; } ' +
+  "// same discipline, different craft ";
 
-/* ponytail: fixed size, grid built once. Making it fluid means rebuilding the
-   grid on every resize — worth it only if this ever needs to fill a column.
-   HEIGHT is portrait.jpg's aspect at WIDTH; both are stated so the column
-   reserves its space before the image loads. */
-const WIDTH = 320;
-const HEIGHT = 456;
-const CELL = 5;
-const COLS = Math.floor(WIDTH / CELL);
+/* What the flip stage flickers through before the real code lands. */
+const NOISE = "{}[]()<>/=;:+*#%&$@!?_-";
 
-/* The front isn't a rule, it's a blocky edge: columns convert in slabs of
-   BLOCK, each slab running ahead of or behind its neighbours by its own fixed
-   amount, so the boundary steps in squares rather than rolling in a wave —
-   the photo comes apart in tiles. One offset per slab from a fract-sine hash;
-   ponytail: deterministic, no table, no noise library. AMP is the half-range;
-   the scan travels that much past both ends so the edge still clears the frame
-   completely at either extreme. */
-const BLOCK = 1;
-const AMP = 26;
-const edgeOffset = (col: number) => {
-  const h = Math.sin(Math.floor(col / BLOCK) * 127.1) * 43758.5453;
-  return (h - Math.floor(h) - 0.5) * 2 * AMP;
+/* ponytail: fixed internal resolution, grid built once; CSS scales the canvas
+   to its column, so a narrow phone shrinks it instead of rebuilding the grid.
+   HEIGHT is portrait.jpg's aspect (340x484) at WIDTH. */
+const WIDTH = 360;
+const HEIGHT = 512;
+/* A cell is one monospace character: ~0.6em wide, a line tall. 8px type on a
+   5x8 grid sets the code solid, line after line, like an editor — and gives
+   72x64 cells, enough for the figure to survive. */
+const FONT = 8;
+const CELL_W = 5;
+const CELL_H = 8;
+const COLS = Math.floor(WIDTH / CELL_W);
+const ROWS = Math.floor(HEIGHT / CELL_H);
+
+/* Stage boundaries, in seconds. DECODE_SWEEP is how long the settle front
+   takes to travel from the top row to the bottom; each cell also gets up to
+   JITTER of its own so the front is ragged rather than a ruler line. */
+const PIXELATE_END = 0.9;
+const FLIP_END = 1.6;
+const DECODE_SWEEP = 1.1;
+const JITTER = 0.5;
+const TOTAL = FLIP_END + DECODE_SWEEP + JITTER;
+
+/* Deterministic per-cell randomness — ponytail: fract-sine hash, no table. */
+const rand = (n: number) => {
+  const h = Math.sin(n * 127.1 + 311.7) * 43758.5453;
+  return h - Math.floor(h);
 };
+const ease = (x: number) => 1 - (1 - x) ** 3;
 
-type Cell = { col: number; row: number; char: string; lum: number };
+/**
+ * lum: the cell's grey (0-255), for the block it shows while pixelated.
+ * alpha: how strongly its glyph is inked, 0 (left blank) to 1.
+ * flipAt / settleAt: when, in seconds, it turns into noise and into code.
+ */
+type Cell = { char: string; lum: number; alpha: number; flipAt: number; settleAt: number };
 
 export default function Portrait({ alt }: { alt: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -52,56 +78,54 @@ export default function Portrait({ alt }: { alt: string }) {
 
   const hostRef = useRef(null);
   const reducedMotion = useReducedMotion();
-  /* Both ends are pinned to the top edge of the frame, so the window is a
-     plain span of scroll rather than something that stretches with the
-     portrait's height: the photo holds untouched while it climbs from the
-     bottom of the screen to 55%, converts over the next third of a screen,
-     and is fully resolved by 20% — still whole, still in view. It has to
-     read as a photograph before it is worth watching it stop being one.
-     Reverses on the way back up. */
-  const { scrollYProgress } = useScroll({
-    target: hostRef,
-    offset: ["start 0.55", "start 0.2"],
-  });
+  // Half the portrait on screen before it starts, so the opening frames —
+  // the photo itself — are actually seen.
+  const inView = useInView(hostRef, { amount: 0.5 });
 
   useEffect(() => {
     const img = new Image();
     img.onload = () => {
       imgRef.current = img;
-      const rows = Math.floor(HEIGHT / CELL);
-      const cols = Math.floor(WIDTH / CELL);
 
-      // Sampled once off-screen: one getImageData for the whole portrait, then
-      // the scrub only ever reads this grid.
+      /* Sampled by downscaling to one pixel per cell: the browser averages
+         each cell's area, which is also exactly what the last pixelate frame
+         shows, so the blocks and the first glyphs agree on their grey. */
       const off = document.createElement("canvas");
-      off.width = WIDTH;
-      off.height = HEIGHT;
+      off.width = COLS;
+      off.height = ROWS;
       const octx = off.getContext("2d");
       if (!octx) return;
-      octx.drawImage(img, 0, 0, WIDTH, HEIGHT);
-      const { data } = octx.getImageData(0, 0, WIDTH, HEIGHT);
-
-      const grid: Cell[] = [];
-      for (let row = 0; row < rows; row++) {
-        for (let col = 0; col < cols; col++) {
-          // Centre of the cell, not its corner — a corner sample lands on the
-          // edge between two cells and the ramp flickers along contours.
-          const px = Math.min(col * CELL + (CELL >> 1), WIDTH - 1);
-          const py = Math.min(row * CELL + (CELL >> 1), HEIGHT - 1);
-          const i = (py * WIDTH + px) * 4;
-          const lum = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
-          const char = RAMP[Math.min(RAMP.length - 1, Math.floor((lum / 255) * RAMP.length))];
-          grid.push({ col, row, char, lum });
-        }
+      octx.drawImage(img, 0, 0, COLS, ROWS);
+      const { data } = octx.getImageData(0, 0, COLS, ROWS);
+      const lums: number[] = [];
+      for (let i = 0; i < data.length; i += 4) {
+        lums.push(0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2]);
       }
-      gridRef.current = grid;
+
+      /* Stretch to the photo's own range, then ink by darkness on a steep
+         curve: the mid-grey wall drops to a faint ~10% so hair, the jacket's
+         V and the apron carry the likeness. Under 6% is left blank. */
+      const min = Math.min(...lums);
+      const span = Math.max(1, Math.max(...lums) - min);
+      gridRef.current = lums.map((l, n) => {
+        const dark = 1 - (l - min) / span;
+        const a = Math.min(1, dark ** 3 * 1.5);
+        const row = Math.floor(n / COLS);
+        return {
+          char: SOURCE[n % SOURCE.length],
+          lum: l,
+          alpha: a < 0.06 ? 0 : a,
+          flipAt: PIXELATE_END + rand(n) * (FLIP_END - PIXELATE_END),
+          settleAt: FLIP_END + (row / ROWS) * DECODE_SWEEP + rand(n + 7) * JITTER,
+        };
+      });
       setReady(true);
     };
     img.src = "/portrait.jpg";
   }, []);
 
-  /** progress 0 = untouched photo, 1 = fully resolved ASCII. */
-  const draw = useCallback((progress: number) => {
+  /** One frame of the sequence at time t (seconds since it started). */
+  const draw = useCallback((t: number) => {
     const canvas = canvasRef.current;
     const img = imgRef.current;
     if (!canvas || !img) return;
@@ -109,100 +133,101 @@ export default function Portrait({ alt }: { alt: string }) {
     if (!ctx) return;
 
     // Capped at 2: a 3x screen triples the fill cost for a difference nobody
-    // sees at 5px glyphs.
+    // sees at 8px glyphs.
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     if (canvas.width !== WIDTH * dpr) {
       canvas.width = WIDTH * dpr;
       canvas.height = HEIGHT * dpr;
-      canvas.style.width = `${WIDTH}px`;
-      canvas.style.height = `${HEIGHT}px`;
     }
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     // Read off the same tokens the rest of the page uses, so the canvas can't
     // drift from the palette when a token changes.
     const css = getComputedStyle(document.documentElement);
-    const token = (name: string) => css.getPropertyValue(name).trim();
-    const bg = token("--color-bg");
-    const ink = token("--color-text");
-    const muted = token("--color-muted");
-    /* The mid tone is the ink at 60%, written as #RRGGBBAA rather than a
-       globalAlpha flip per glyph. The tokens are six-digit hex; anything else
-       falls back to the flat ink so a token change can't paint nothing. */
-    const mid = /^#[0-9a-f]{6}$/i.test(ink) ? `${ink}99` : ink;
+    const bg = css.getPropertyValue("--color-bg").trim();
+    const ink = css.getPropertyValue("--color-text").trim();
 
-    ctx.clearRect(0, 0, WIDTH, HEIGHT);
-    ctx.fillStyle = bg;
-    ctx.fillRect(0, 0, WIDTH, HEIGHT);
-    // Canvas font strings don't resolve CSS variables, and the mono family is
-    // a next/font-generated name — so read what the element actually computed
-    // to rather than naming a family here.
-    ctx.font = `${CELL}px ${getComputedStyle(canvas).fontFamily}`;
-    ctx.textBaseline = "top";
-
-    // Three tones, not a per-pixel gradient: the darks carry the face, the
-    // mids sit back, the lights recede. All ink and grey — the source is a
-    // black-and-white photograph and colour only made it look tinted.
-    // Where each column has converted down to. Snapped to whole cells, so the
-    // ground, the glyphs and the photo all cut on the same step and no sliver
-    // of one shows through the other.
-    const p = Math.min(Math.max(progress, 0), 1);
-    const scanY = p * (HEIGHT + 2 * AMP) - AMP;
-    const edges = Array.from({ length: COLS }, (_, col) =>
-      Math.min(HEIGHT, Math.max(0, Math.round((scanY + edgeOffset(col)) / CELL) * CELL)),
-    );
-
-    const drawAscii = () => {
-      for (const g of gridRef.current) {
-        if (g.row * CELL >= edges[g.col]) continue;
-        ctx.fillStyle = g.lum < 70 ? ink : g.lum < 140 ? mid : muted;
-        ctx.fillText(g.char, g.col * CELL, g.row * CELL);
+    // Stage 1: the photo, drawn small and blown back up with smoothing off,
+    // so it breaks into blocks that grow until they match the code grid.
+    if (t < PIXELATE_END) {
+      const k = ease(t / PIXELATE_END);
+      if (k < 0.02) {
+        ctx.drawImage(img, 0, 0, WIDTH, HEIGHT);
+        return;
       }
-    };
-
-    if (p >= 1) {
-      // Every column has already clamped to HEIGHT — the scan overshoots by AMP.
-      drawAscii();
+      const w = Math.max(COLS, Math.round(WIDTH / (1 + k * (CELL_W - 1))));
+      const h = Math.max(ROWS, Math.round(HEIGHT / (1 + k * (CELL_H - 1))));
+      const off = document.createElement("canvas");
+      off.width = w;
+      off.height = h;
+      off.getContext("2d")?.drawImage(img, 0, 0, w, h);
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(off, 0, 0, w, h, 0, 0, WIDTH, HEIGHT);
+      ctx.imageSmoothingEnabled = true;
       return;
     }
 
-    // Below the edge: the photo, untouched.
-    ctx.save();
-    ctx.beginPath();
-    edges.forEach((e, col) => e < HEIGHT && ctx.rect(col * CELL, e, CELL, HEIGHT - e));
-    ctx.clip();
-    ctx.drawImage(img, 0, 0, WIDTH, HEIGHT);
-    ctx.restore();
+    // Stages 2 and 3, cell by cell on a clean ground: a grey block until the
+    // cell flips, flickering noise until it settles, then its line of code.
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, WIDTH, HEIGHT);
+    // Canvas font strings don't resolve CSS variables, and the mono family is
+    // a next/font-generated name — so read what the element computed to.
+    ctx.font = `${FONT}px ${getComputedStyle(canvas).fontFamily}`;
+    ctx.textBaseline = "top";
+    // Noise changes ~20 times a second, not every frame, so it reads as
+    // characters cycling rather than static.
+    const tick = Math.floor(t * 20);
 
-    if (p <= 0) return;
-
-    // Above it: opaque ASCII on a clean ground, so the two never blend.
-    edges.forEach((e, col) => {
-      ctx.fillStyle = bg;
-      ctx.fillRect(col * CELL, 0, CELL, e);
+    gridRef.current.forEach((g, n) => {
+      const x = (n % COLS) * CELL_W;
+      const y = Math.floor(n / COLS) * CELL_H;
+      if (t < g.flipAt) {
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = `rgb(${g.lum},${g.lum},${g.lum})`;
+        ctx.fillRect(x, y, CELL_W, CELL_H);
+        return;
+      }
+      if (g.alpha === 0) return;
+      ctx.globalAlpha = g.alpha;
+      ctx.fillStyle = ink;
+      const char = t < g.settleAt ? NOISE[Math.floor(rand(n * 31 + tick) * NOISE.length)] : g.char;
+      ctx.fillText(char, x, y);
     });
-    drawAscii();
-    // No rule at the boundary: the change in texture marks it on its own.
+    ctx.globalAlpha = 1;
   }, []);
 
-  // First paint: the scroll event only fires on the next move, so draw
-  // whatever position the reader already happens to be at.
+  /* Plays while in view, resets to the photo once it's gone, so the next
+     visit replays it from the start. */
   useEffect(() => {
     if (!ready) return;
-    draw(reducedMotion ? 1 : scrollYProgress.get());
-  }, [ready, reducedMotion, draw, scrollYProgress]);
-
-  useMotionValueEvent(scrollYProgress, "change", (v) => {
-    if (ready && !reducedMotion) draw(v);
-  });
+    if (reducedMotion) {
+      draw(TOTAL);
+      return;
+    }
+    if (!inView) {
+      draw(0);
+      return;
+    }
+    let raf = 0;
+    const start = performance.now();
+    const frame = (now: number) => {
+      const t = (now - start) / 1000;
+      draw(Math.min(t, TOTAL));
+      if (t < TOTAL) raf = requestAnimationFrame(frame);
+    };
+    raf = requestAnimationFrame(frame);
+    return () => cancelAnimationFrame(raf);
+  }, [ready, inView, reducedMotion, draw]);
 
   return (
     <div
       ref={hostRef}
-      /* Sized up front, so the column doesn't jump when the image lands. */
-      className="shrink-0 border border-border leading-none w-[320px] h-[456px]"
+      /* Aspect-locked, so the column reserves its space before the image
+         lands; the canvas fills it and scales with the column. */
+      className="w-full aspect-[360/512] border border-border leading-none"
     >
-      <canvas ref={canvasRef} className="font-mono" role="img" aria-label={alt} />
+      <canvas ref={canvasRef} className="block w-full h-full font-mono" role="img" aria-label={alt} />
     </div>
   );
 }
