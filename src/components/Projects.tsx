@@ -166,7 +166,7 @@ function ProjectIndex({ projects, onOpen }: { projects: ProjectCard[]; onOpen: (
                 which is why the row padding lives here — so the hit area is
                 the whole row. */}
             {/* Three layouts. Phone: one column. md: name and description
-                left, link right. xl: number, name, description, link — below
+                left, link right. xl: name, description, link — below
                 1280px the fixed side columns leave the name too little room.
                 (Media queries read rem at the browser's 16px, not the 20.8px
                 root, so md/xl are the usual 768/1280.)
@@ -174,13 +174,10 @@ function ProjectIndex({ projects, onOpen }: { projects: ProjectCard[]; onOpen: (
                 minmax(0,1fr) so a long name can't widen its row past the page. */}
             <Reveal
               delay={i * 0.1}
-              className="relative grid md:grid-cols-[minmax(0,1fr)_auto] xl:grid-cols-[3rem_minmax(0,1fr)_18rem_8rem] items-baseline md:gap-x-10 py-8 xl:py-10"
+              className="relative grid md:grid-cols-[minmax(0,1fr)_auto] xl:grid-cols-[minmax(0,1fr)_18rem_8rem] items-baseline md:gap-x-10 py-8 xl:py-10"
             >
-              <span className="hidden xl:block font-mono text-xs text-muted">{String(i + 1).padStart(2, "0")}</span>
-
               <div>
                 <p className="font-mono text-xs uppercase tracking-widest text-muted">
-                  <span className="xl:hidden">{String(i + 1).padStart(2, "0")} · </span>
                   {p.tag}
                 </p>
                 {/* The button carries the row's hit area (after:inset-0), so the
